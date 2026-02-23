@@ -1,0 +1,58 @@
+# Issue Converter configuration
+# Copy to /etc/issue-converter/config.toml (or another path) and edit.
+
+[paths]
+# SFTP drop directory watched by watchdog
+watch_dir = "/home/converter/incoming"
+
+# Internal working directories (must be on same filesystem for atomic renames within each root)
+processing_dir = "/home/converter/processing"
+staging_dir    = "/home/converter/staging"
+archive_dir    = "/home/converter/archive"
+failed_dir     = "/home/converter/failed"
+log_dir        = "/home/converter/logs"
+
+# Apache-served publish root (maps to URL prefix /data/)
+publish_root   = "/mnt/volume_nyc3_01_500gb/www/pinetec/review-aapg/data"
+
+[xslt]
+# Path to the issue-level XSLT stylesheet
+stylesheet_path = "/opt/issue-converter/xslt/issue.xsl"
+
+# Optional: directory containing any XSLT includes/imports (if you use relative paths)
+# include_dir = "/opt/issue-converter/xslt"
+
+[validation]
+# Validation mode: "xsd" (recommended) or "dtd" (legacy).
+mode = "xsd"
+
+# SCJATS XSD entry point.
+xsd_path = "/opt/issue-converter/xsd/SilverchairSpecifications1_46_mathml2/SCJATS-journalpublishing.xsd"
+
+# Legacy DTD mode (only needed if mode="dtd")
+# dtd_root = "/opt/issue-converter/dtd"
+
+[processing]
+# File is considered fully uploaded when its size is unchanged for this long (seconds)
+stability_seconds = 90
+
+# Poll interval for rescanning the directory (seconds). This is a safety net in case FS events are missed.
+rescan_seconds = 15
+
+# Retention for ZIPs/logs/staging artifacts (days)
+retention_days = 365
+
+[index]
+# Location of the top-level index (relative to publish_root)
+index_filename = "index.html"
+
+# Optional journal-title -> journal-id overrides (exact match on normalized title)
+[journal_id_overrides]
+# "Journal of Widgets" = "jwidgets"
+
+[email]
+provider = "ses"
+from_address = "sender@example.com"
+to_addresses = ["user1@example.com", "user2@example.com"]
+aws_region = "us-east-1"
+# Credentials should be provided via IAM role or AWS env vars; do not hardcode keys here.

@@ -1,0 +1,45 @@
+services:
+
+  issue-converter:
+    build: .
+    container_name: issue-converter
+    restart: unless-stopped
+    environment:
+      # If you want SES to work in dev, pass AWS creds via env or use AWS_PROFILE mounted config.
+      # AWS_ACCESS_KEY_ID: "..."
+      # AWS_SECRET_ACCESS_KEY: "..."
+      # AWS_SESSION_TOKEN: "..."
+      AWS_REGION: "us-east-1"
+    volumes:
+      # Config
+      - ./config.dev.toml:/config/config.toml:ro
+
+      # Working dirs
+#       - ./devdata/incoming:/home/converter/incoming
+#       - ./devdata/processing:/home/converter/processing
+#       - ./devdata/staging:/home/converter/staging
+#       - ./devdata/archive:/home/converter/archive
+#       - ./devdata/failed:/home/converter/failed
+#       - ./devdata/logs:/home/converter/logs
+      - ./devdata:/home/converter
+      
+      # Publish root (Apache-served in prod)
+      - ./devdata/publish:/publish
+
+      # Your transform assets
+      - ./xslt:/xslt:ro
+      - ./xsd:/xsd:ro
+      - ./dtd:/dtd:ro
+
+    depends_on:
+      - apache
+
+  apache:
+    image: httpd:2.4
+    container_name: issue-apache
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      # Serve the same publish directory
+      - ./devdata/publish:/usr/local/apache2/htdocs:ro

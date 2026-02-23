@@ -1,0 +1,2560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This XML file is provided alongside the Silverchair XSD files as a representative, but not authoritative, sample and should be considered supplemental only.-->
+
+<book xml:lang="en" book-type="edited-volume" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ali="http://www.niso.org/schemas/ali/1.0/"	
+	xsi:schemaLocation="http://specifications.silverchair.com/xsd/1/46/SCBITS-book.xsd xsd/SCBITS-book.xsd"
+	xmlns="http://specifications.silverchair.com/xsd/1/46/SCBITS-book.xsd">
+	<!-- For inclusion of a series title, edition set, or collection title, use the collection-meta tag prior to book-meta. -->
+	<collection-meta collection-type="edition-set">
+		<collection-id collection-id-type="editionSet">9790000000204</collection-id>
+		<!-- Client provides; typically ISBN of 1st edition. -->
+	</collection-meta>
+	<collection-meta collection-type="series">
+		<title-group>
+			<title>Book Series</title>
+		</title-group>
+	</collection-meta>
+	<collection-meta collection-type="collection">
+		<title-group>
+			<title>COLLECTION NAME</title>
+		</title-group>
+	</collection-meta>
+	<book-meta>
+		<book-id book-id-type="publisher-id">bookID</book-id>
+		<book-id book-id-type="doi">0000.00/book1</book-id>
+		<!-- Book-level categories. -->
+		<subj-group subj-group-type="category">
+			<subject>Therapies</subject>
+			<subj-group subj-group-type="category">
+				<subject>Cancer Therapies</subject>
+			</subj-group>
+		</subj-group>
+		<!-- bic/bisac product codes. -->
+		<subj-group subj-group-type="bic">
+			<subject>JPVK</subject>
+		</subj-group>
+		<!-- Taxonomic collections. -->
+		<subj-group subj-group-type="category-taxonomy-collection">
+			<subject>T-123</subject>
+		</subj-group>
+		<!-- Product mapping. -->
+		<subj-group subj-group-type="category-product-mapping">
+			<subject>Product name</subject>
+		</subj-group>
+		<book-title-group>
+			<book-title>Silverchair Book of Demonstrable Diseases</book-title>
+			<subtitle>Only the most demonstrable illnesses!</subtitle>
+			<alt-title alt-title-type="short-name">bdd1</alt-title>
+			<!-- If display name is not included, the book title will be used for display. -->
+			<alt-title alt-title-type="display">Silverchair Book of Demonstrable
+				Diseases</alt-title>
+			<alt-title alt-title-type="citation">BDD</alt-title>
+		</book-title-group>
+		<contrib-group>
+			<contrib contrib-type="author" corresp="yes">
+				<contrib-id contrib-id-type="orcid" authenticated="true"
+					>http://orcid.org/0000-0002-1825-0097</contrib-id>
+				<name>
+					<surname initials="J">Johnson</surname>
+					<given-names initials="KA">Kirsten A.</given-names>
+					<prefix>Ms.</prefix>
+					<suffix>Jr.</suffix>
+				</name>
+				<degrees>PhD</degrees>
+				<address>
+					<addr-line>1 Jefferson Lane</addr-line>
+					<addr-line>Charlottesville, VA 22903</addr-line>
+				</address>
+				<author-comment content-type="disclosure">
+					<p>The author was funded by…</p>
+				</author-comment>
+				<author-comment content-type="occupation">
+					<p>Professor</p>
+				</author-comment>
+				<author-comment content-type="url">
+					<p><ext-link ext-link-type="uri" xlink:href="http://www.fakewebsite.com">Author
+							Web Page</ext-link></p>
+				</author-comment>
+				<!-- Cross reference to the author's affiliation. -->
+				<xref ref-type="aff" rid="aff1"/>
+				<!-- Cross reference to the author's corresp note. -->
+				<xref ref-type="corresp" rid="cor1"/>
+				<email>email@example.com</email>
+			</contrib>
+			<contrib contrib-type="author">
+				<name>
+					<surname>Smith</surname>
+					<given-names>Lindsey</given-names>
+				</name>
+				<degrees>PhD</degrees>
+				<role>Contributing Author</role>
+				<xref ref-type="aff" rid="aff1"/>
+			</contrib>
+			<!-- Anonymous contributor. -->
+			<contrib contrib-type="author">
+				<anonymous/>
+			</contrib>
+			<contrib contrib-type="author">
+				<!-- Example of collab. -->
+				<collab>The Happy Priory of the Bountiful Mountains, American Association of
+					American Societies</collab>
+			</contrib>
+			<contrib contrib-type="author">
+				<collab> The Federation of the Rules of Pan <!-- Provide contributor info for collaborative groups within the node. -->
+					<contrib-group>
+						<contrib contrib-type="author">
+							<!-- contrib-type optional. -->
+							<name>
+								<surname>Smith</surname>
+								<given-names>Scott</given-names>
+								<prefix>Dr.</prefix>
+								<suffix>III</suffix>
+							</name>
+							<degrees>JD</degrees>
+						</contrib>
+						<contrib contrib-type="author">
+							<name>
+								<surname>Johnson</surname>
+								<given-names>Josh</given-names>
+								<prefix>Dr.</prefix>
+							</name>
+							<aff>
+								<label>2</label>University of Virginia, <city>Charlottesville</city>, <state>VA</state>, <country country="us">US</country>
+								<postal-code>22904</postal-code>, e-mail: <email>josh@domain.edu</email>
+							</aff>
+						</contrib>
+					</contrib-group>
+				</collab>
+			</contrib>
+			<!-- Example of an author with affiliation included within the node. -->
+			<contrib contrib-type="author">
+				<name>
+					<surname>Smith</surname>
+					<given-names>Matt</given-names>
+				</name>
+				<aff><label>2</label>University of Virginia, Charlottesville, VA 22904, e-mail:
+						<email>contact@domain.edu</email></aff>
+				<aff><label>4</label>University of Washington, Seattle, WA 98105</aff>
+			</contrib>
+			<!-- Example of a contrib linked to a COI statement. -->
+			<contrib contrib-type="author">
+				<name>
+					<surname>Williams</surname>
+					<given-names>Jerome</given-names>
+				</name>
+				<xref ref-type="author-notes" rid="con1"/>
+			</contrib>
+		</contrib-group>
+		<!--Examples of contribs with string-name, lang, and name-style-->
+		<contrib-group>
+			<contrib contrib-type="author">
+				<name-alternatives>
+					<name name-style="western">
+						<surname>Zhang</surname>
+						<given-names>Y. P.</given-names>
+					</name>
+					<string-name name-style="eastern" xml:lang="zh">张轶泼</string-name>
+				</name-alternatives>
+			</contrib>
+			<contrib contrib-type="author">
+				<name-alternatives>
+					<name name-style="western">
+						<surname>Isobe</surname>
+						<given-names>M.</given-names>
+					</name>
+					<string-name name-style="eastern" xml:lang="zh">磯部光孝</string-name>
+				</name-alternatives>
+			</contrib>
+			<contrib contrib-type="author">
+				<name-alternatives>
+					<name name-style="western">
+						<surname>Liu</surname>
+						<given-names>Yi</given-names>
+					</name>
+					<string-name name-style="eastern" xml:lang="zh">刘仪</string-name>
+				</name-alternatives>
+			</contrib>
+			<!--Examples of contribs with string-name, lang, name-style AND alternative name elements-->
+			<contrib contrib-type="author">
+				<name-alternatives>
+					<name>
+						<surname>Garijo Ayestaran</surname>
+						<given-names>M</given-names>
+					</name>
+					<name>
+						<surname>G. Ayestaran</surname>
+						<given-names>M</given-names>
+					</name>
+					<string-name xml:lang="es">M Garijo Ayestaran</string-name>
+				</name-alternatives>
+			</contrib>
+		</contrib-group>
+		<!--Examples of Editor, Translator, and Chair contributors-->
+		<contrib-group>
+			<contrib contrib-type="editor">
+				<name>
+					<surname>Oriented</surname>
+					<given-names>Detail</given-names>
+				</name>
+			</contrib>
+			<contrib contrib-type="translator">
+				<name>
+					<surname>Duck</surname>
+					<given-names>Donald</given-names>
+				</name>
+			</contrib>
+			<contrib contrib-type="chair">
+				<name>
+					<surname>Stark</surname>
+					<given-names>Bran</given-names>
+				</name>
+			</contrib>
+		</contrib-group>
+		<!--Example of contrib with ROR ID.-->
+		<contrib-group>
+			<contrib>
+				<name>
+					<surname>Mouse</surname>
+					<given-names>Minnie</given-names>
+				</name>
+				<aff id="aff66w">						
+					<institution-wrap>
+						<institution-id institution-id-type="ror">https://ror.org/03vek6s52</institution-id>
+						<institution>Harvard University</institution>
+					</institution-wrap>
+					Cambridge, MA 02138, <country country="us">United States</country>						
+				</aff>
+			</contrib>
+		</contrib-group>
+		<!--Example of aff with institution tagging.-->
+		<aff id="aff1"><label>1</label><institution-wrap>
+			<institution content-type="edu">Univerisity of Virginia</institution>
+			<institution content-type="dept">Department of History</institution>
+		</institution-wrap> Charlottesville, VA.</aff>
+		<!-- Affiliations that are not linked from a contrib element will be ignored. -->
+		<aff id="aff3"><label>3</label>Metadata Systems Incorporated, Charlottesville, VA
+			22902.</aff>
+		<author-notes>
+			<!-- Footnotes provided in a section other than <back> will display where they appear in the XML. -->
+			<fn id="BDD1-fn1">
+				<p>Research performed in Albemarle County, Virginia.</p>
+			</fn>
+			<fn fn-type="coi-statement" id="con1">
+				<label>*</label>
+				<p>Competing Interests: The authors have declared that no competing interests
+					exist.</p>
+			</fn>
+			<p>None of these authors were bribed.</p>
+			<corresp id="cor1">Email these fine folks at <email>email@example.com</email></corresp>
+		</author-notes>
+		<pub-date publication-format="electronic" date-type="pub" iso-8601-date="2013-09-08">
+			<year>2013</year>
+			<month>September</month>
+			<day>8</day>
+		</pub-date>
+		<pub-date publication-format="print" date-type="pub" iso-8601-date="2013-11-08">
+			<year>2013</year>
+			<month>November</month>
+			<day>8</day>
+		</pub-date>
+		<book-volume-number>133</book-volume-number>
+		<issn publication-format="electronic">1234-1231</issn>
+		<issn publication-format="print">1234-1234</issn>
+		<isbn publication-format="print" content-type="ISBN10">0-770-43740-0</isbn>
+		<isbn publication-format="print" content-type="ISBN13">978-07-7043-740-4</isbn>
+		<isbn publication-format="electronic">978-0123456786</isbn>
+		<isbn publication-format="hardback" content-type="ISBN10">0-770-43740-0</isbn>
+		<isbn publication-format="paperback" content-type="ISBN13">978-07-7043-740-4</isbn>
+		<isbn publication-format="epub" content-type="ISBN13">978-0123456786</isbn>
+		<isbn publication-format="pdf" content-type="ISBN13">849-3-82-762985-1</isbn>
+		<isbn publication-format="audio" content-type="ISBN13">674-3-92-456183-0</isbn>
+		<publisher>
+			<publisher-name>SilverPub Publishing Publisher</publisher-name>
+			<publisher-loc>Charlottesville, VA</publisher-loc>
+		</publisher>
+		<edition designator="1">1<sup>st</sup> edition</edition>
+		<!-- Book-level files. -->
+		<supplementary-material id="BDD1-sup1" content-type="data-supplement"
+			xlink:href="data_supplement.pdf">
+			<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_sup1</object-id>
+			<label>Supplementary Material</label>
+			<caption>
+				<p>Detailed diagram of the topic under discussion.</p>
+			</caption>
+		</supplementary-material>
+		<supplementary-material id="BDD1-sup2" content-type="disclosure" xlink:href="disclosure.pdf">
+			<label>Disclosures</label>
+			<caption>
+				<p>Disclosures for this book.</p>
+			</caption>
+		</supplementary-material>
+		<supplementary-material id="BDD1-cover" content-type="cover" xlink:href="cover.png"/>
+		<supplementary-material id="BDD1-logo" content-type="affiliate-logo"
+			xlink:href="afflogo.png"/>
+		<supplementary-material id="BDD1-preview-pdf" content-type="preview-pdf"
+			xlink:href="preview.pdf"/>
+		<pub-history>
+			<date date-type="received">
+				<day>05</day>
+				<month>01</month>
+				<year>1998</year>
+			</date>
+			<date date-type="rev-recd">
+				<day>24</day>
+				<month>05</month>
+				<year>1998</year>
+			</date>
+			<date date-type="accepted">
+				<day>06</day>
+				<month>06</month>
+				<year>1998</year>
+			</date>
+			<date date-type="reviewed">
+				<day>08</day>
+				<month>06</month>
+				<year>1998</year>
+			</date>
+		</pub-history>
+		<permissions id="per1">
+			<copyright-statement>Copyright &#x00A9; 2012 by Silverchair. Reproduction for the
+				purposes of education is permitted: all other uses must receive written permission
+				from Silverchair.</copyright-statement>
+			<copyright-year>2013</copyright-year>
+			<copyright-holder>Silverchair</copyright-holder>
+			<ali:free_to_read xmlns:ali="http://www.niso.org/schemas/ali/1.0/"
+				start_date="1995-01-03" end_date="1995-12-03"/>
+			<license license-type="open-access">
+				<ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/"
+					>http://www.silverchair.org/terms/</ali:license_ref>
+				<ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/"
+					start_date="2016-10-03"
+					>https://creativecommons.org/licenses/by-nc-sa/4.0/</ali:license_ref>
+				<license-p>This article is available under a Creative Commons License (Attribution
+					4.0 International, as described at <ext-link
+						xlink:href="https://creativecommons.org/licenses/by/4.0/"
+						ext-link-type="uri"
+					>https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p>
+			</license>
+		</permissions>
+		<!-- Reference the book PDF. -->
+		<self-uri xlink:href="book_pdf.pdf" xml:lang="en"/>
+		<self-uri xlink:href="book_french_pdf.pdf" xml:lang="fr"/>
+		<self-uri xlink:href="book_chinese_pdf.pdf" xml:lang="zh"/>
+		<!-- Reference the book epub file. -->
+		<self-uri content-type="epub" xlink:href="book_epub.epub"/>
+		<!-- Reference the book mobi file. -->
+		<self-uri content-type="mobi" xlink:href="book_mobi.mobi"/>
+		<!-- Reference the country-specific book PDF. -->
+		<self-uri content-type="pdf-country-specific" specific-use="fr" xlink:href="bookpdf_fr.pdf"/>
+		<self-uri content-type="pdf-country-specific" specific-use="es" xlink:href="bookpdf_es.pdf"/>
+		<!-- Related objects. -->
+
+		<related-object id="rel34w" document-type="book" document-id-type="isbn13"
+			document-id="1234567890128"/>
+		<related-object document-type="book" document-id-type="isbn13"
+			document-id="1-234-56790-3125" object-type="chapter" object-id-type="publisher-id"
+			object-id="legacySectionID-value"/>
+		<related-object document-type="multimedia" document-id-type="doi"
+			document-id="11.1000/11111111"/>
+		<related-object document-type="url" source-id="http://someblogurl.com" source-id-type="url"
+			source-type="blog-article">Text analyser</related-object>
+		<abstract>
+			<sec>
+				<title>Lorem ipsum dolor sit amet</title>
+				<p>Nullam semper pretium porta. Nunc dignissim bibendum enim. Cras dui odio,
+					ultricies ac viverra non, tempus et diam. Cum sociis natoque penatibus et magnis
+					dis parturient montes, nascetur ridiculus mus.</p>
+			</sec>
+			<sec>
+				<title>Methods:</title>
+				<p>Phasellus ut orci eget tortor laoreet euismod. Blah
+					integer sollicitudin erat vel nisi suscipit volutpat. In congue, lectus eget
+					luctus eleifend, orci purus accumsan quam, vel volutpat magna nunc non elit.
+					Suspendisse pretium dolor id elit sollicitudin adipiscing.</p>
+			</sec>
+		</abstract>
+		<abstract abstract-type="teaser">
+			<p>I am interesting! This text could be shown in a featured article box on the front
+				page.</p>
+		</abstract>
+		<!-- Book-level kwd-group. -->
+		<kwd-group kwd-group-type="author">
+			<kwd>Doppler shift tolerance</kwd>
+			<kwd>Sustainable Doppler shifts</kwd>
+			<kwd>Doppler tolerance performances</kwd>
+		</kwd-group>
+		<!-- Funding tagging.-->
+		<funding-group>
+			<award-group id="award1">
+				<funding-source id="fundingsource1">
+					<institution-wrap>
+						<institution>ABBEY AWARDS</institution>
+						<institution-id>10.13039/501100000314</institution-id>
+					</institution-wrap>
+				</funding-source>
+				<award-id>AA-WC26-07GH43098</award-id>
+				<principal-award-recipient id="recipient1">...</principal-award-recipient>
+				<principal-investigator id="investigator1">...</principal-investigator>
+			</award-group>
+			<funding-statement id="statement1"><bold>Funding:</bold> The author received
+				no specific funding for this article.</funding-statement>
+		</funding-group>
+		<counts>
+			<page-count count="6"/>
+		</counts>
+		<custom-meta-group>
+			<custom-meta>
+				<meta-name>publication-status</meta-name>
+				<meta-value>in-progress</meta-value>
+			</custom-meta>
+		</custom-meta-group>
+	</book-meta>
+	<front-matter>
+		<!-- Dedication. -->
+		<dedication id="BDD1-ded">
+			<book-part-meta>
+				<book-part-id book-part-id-type="doi">0000.00/book1.ded</book-part-id>
+				<!-- Book-part-level categories. -->
+				<subj-group subj-group-type="category">
+					<subject>Cures</subject>
+					<subj-group subj-group-type="category">
+						<subject>Cancer Cures</subject>
+					</subj-group>
+				</subj-group>
+				<title-group>
+					<label>i.</label>
+					<title>Dedications</title>
+					<subtitle>There are Many</subtitle>
+				</title-group>
+				<contrib-group>
+					<contrib contrib-type="author" corresp="yes">
+						<name>
+							<surname>Johnson</surname>
+							<given-names>Kirsten</given-names>
+							<prefix>Ms.</prefix>
+							<suffix>Jr.</suffix>
+						</name>
+						<degrees>PhD</degrees>
+						<address>
+							<addr-line>1 Jefferson Lane</addr-line>
+							<addr-line>Charlottesville, VA 22903</addr-line>
+							<institution>College of Colleges</institution>
+						</address>
+						<author-comment content-type="disclosure">
+							<p>The author was funded by…</p>
+						</author-comment>
+						<!-- Cross reference to the author's affiliation. -->
+						<xref ref-type="aff" rid="aff1"/>
+						<xref ref-type="corresp" rid="cor2"/>
+						<email>email@example.com</email>
+					</contrib>
+					<contrib contrib-type="author">
+						<collab> The Federation of the Rules of Pan, American Association of
+							American Societies <contrib-group>
+								<contrib contrib-type="author">
+									<!-- contrib-type optional. -->
+									<name>
+										<surname>Smith</surname>
+										<given-names>Scott</given-names>
+										<prefix>Dr.</prefix>
+										<suffix>III</suffix>
+									</name>
+									<degrees>JD</degrees>
+								</contrib>
+								<contrib contrib-type="author">
+									<name>
+										<surname>Johnson</surname>
+										<given-names>Josh</given-names>
+										<prefix>Dr.</prefix>
+									</name>
+									<aff>
+										<label>2</label>University of Virginia, Charlottesville, VA
+										22904, e-mail: <email>contact@domain.edu</email>
+									</aff>
+								</contrib>
+							</contrib-group>
+						</collab>
+					</contrib>
+				</contrib-group>
+				<author-notes>
+					<!-- Footnotes provided in a section other than <back> will display where they appear in the XML. -->
+					<fn id="BDD1-fn2">
+						<p>Research performed in Albemarle County, Virginia.</p>
+					</fn>
+					<p>None of these authors were bribed.</p>
+					<corresp id="cor2">Email these fine folks at
+						<email>email@example.com</email></corresp>
+				</author-notes>
+				<supplementary-material id="BDD1-sup100" content-type="data-supplement"
+					xlink:href="data_supplement100.pdf">
+					<object-id pub-id-type="doi">10.9999/SSC_2012092100_v107i3_043_sup1</object-id>
+					<label>Supplementary Material</label>
+					<caption>
+						<p>Detailed diagram of the topic under discussion.</p>
+					</caption>
+				</supplementary-material>
+				<pub-history>
+					<date date-type="received">
+						<day>05</day>
+						<month>01</month>
+						<year>1998</year>
+					</date>
+					<date date-type="rev-recd">
+						<day>24</day>
+						<month>05</month>
+						<year>1998</year>
+					</date>
+					<date date-type="accepted">
+						<day>06</day>
+						<month>06</month>
+						<year>1998</year>
+					</date>
+				</pub-history>
+				<permissions id="per2">
+					<copyright-statement>Copyright &#x00A9; 2012 by Silverchair. Reproduction for
+						the purposes of education is permitted: all other uses must receive written
+						permission from Silverchair.</copyright-statement>
+					<copyright-year>2013</copyright-year>
+					<copyright-holder>Silverchair</copyright-holder>
+					<license license-type="free">
+						<license-p>This is an open-access article distributed under the terms of the
+							Creative Commons Attribution License, which permits unrestricted use,
+							distribution, and reproduction in any medium, provided the original work
+							is properly cited.</license-p>
+					</license>
+				</permissions>
+				<!-- Reference the book-part PDF. -->
+				<self-uri xlink:href="dedication_pdf.pdf" xml:lang="en"/>
+				<self-uri xlink:href="dedication_french_pdf.pdf" xml:lang="fr"/>
+				<self-uri xlink:href="dedication_chinese_pdf.pdf" xml:lang="zh"/>
+				<!-- Reference the book-part epub file. -->
+				<self-uri content-type="epub" xlink:href="dedication_epub.epub"/>
+				<!-- Reference the book-part mobi file. -->
+				<self-uri content-type="mobi" xlink:href="dedication_mobi.mobi"/>
+				<!-- Reference the country-specific book-part PDF. -->
+				<self-uri content-type="pdf-country-specific" specific-use="fr" xlink:href="dedicationpdf_fr.pdf"/>
+				<self-uri content-type="pdf-country-specific" specific-use="es" xlink:href="dedicationpdf_es.pdf"/>
+				<!-- Related objects. -->
+				<related-object document-type="book" document-id-type="doi"
+					document-id="11.1000/11111111" object-type="fig" object-id-type="publisher-id"
+					object-id="legacySectionID-value"/>				
+				<related-object document-type="url"
+					source-id="http://www.youtube.com/watch?v=e1Hk9yNS5ZE" source-id-type="url"
+					source-type="video">Jonathan Bate - English Literature: A Very Short
+					Introduction</related-object>
+			</book-part-meta>
+			<named-book-part-body>
+				<!-- Basic paragraph. -->
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper pretium
+					porta. Nunc dignissim bibendum enim. Cras dui odio, ultricies ac viverra non,
+					tempus et diam. Cum sociis natoque penatibus et magnis dis parturient montes,
+					nascetur ridiculus mus. Phasellus ut orci eget tortor laoreet euismod. Integer
+					sollicitudin erat vel nisi suscipit volutpat. In congue, lectus eget luctus
+					eleifend, orci purus accumsan quam, vel volutpat magna nunc non elit.
+					Suspendisse pretium dolor id elit sollicitudin adipiscing. Quisque a nulla
+					placerat massa consequat rutrum sed ut mi. Maecenas molestie venenatis massa nec
+					pulvinar.</p>
+				<!-- Cross-reference to funder.-->
+				<p>This book was funded by <xref ref-type="award" rid="award1">ABBEY AWARDS</xref>.</p>
+				<!-- Sections. -->
+				<sec>
+					<title>Clinical Impact Ratings</title>
+					<!-- Graphic inside paragraph. -->
+					<!-- The xlink:href needs to reference the filename of the image, including the extension. -->
+					<p>GIM/FP/GP: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="rating_6.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+					<p>Endocrinology: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="rating_7.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+				</sec>
+			</named-book-part-body>
+			<back>
+				<!-- References list. -->
+				<ref-list>
+					<title>References</title>
+					<ref id="BDD1-bib-i1">
+						<label>1.</label>
+						<element-citation publication-type="journal" publication-format="print">
+							<target id="milestone-518996" target-type="page">33</target>
+							<person-group person-group-type="author">
+								<name>
+									<surname>Author</surname>
+									<given-names>A.N.</given-names>
+								</name>
+								<name>
+									<surname>Writer</surname>
+									<given-names>A</given-names>
+								</name>
+								<string-name><surname>Payne</surname>, <target id="milestone-55"
+										>55</target>the Honorable</string-name>
+							</person-group>
+							<article-title>Title of Reference Article</article-title>
+							<source>J Dem Diseases</source>
+							<year>2008</year>
+							<volume>27</volume>
+							<fpage>19</fpage>
+							<lpage>23</lpage>
+							<pub-id pub-id-type="doi">10.1000/123456789</pub-id>
+							<pub-id pub-id-type="pmid">123456</pub-id>
+							<pub-id pub-id-type="wos">000253677800003</pub-id>
+						</element-citation>
+					</ref>
+					<ref id="BDD1-bib-i2">
+						<label>2.</label>
+						<mixed-citation publication-type="journal">
+							<target id="milestone-56" target-type="page">44</target><person-group
+								person-group-type="author"><string-name><surname>Author</surname>
+									<given-names>A</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>B</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>C</given-names></string-name></person-group>.
+								<article-title>Another Research Article</article-title>. <source>J
+								Dem Diseases.</source>
+							<year>2002</year>;<volume>63</volume>(<issue>4</issue>), page
+								<fpage>3</fpage>. <pub-id pub-id-type="doi"
+								>10.1000/s10439-009-9661-x</pub-id>. <pub-id pub-id-type="pmid"
+								>654321</pub-id>. </mixed-citation>
+					</ref>
+					<ref id="BDD1-bib-i3">
+						<label>3.</label>
+						<mixed-citation publication-type="journal" id="acprof-bibItem-149"> Author
+							1, Author 2 (1954). <italic>Phys. Rev</italic>.<bold>95</bold>, 1612,
+							Abstract <xref rid="BDD1-bib-i2">ibid</xref> p.654. </mixed-citation>
+					</ref>
+					<ref id="BDD1-bib-i4">
+						<label>4.</label>
+						<element-citation publication-type="journal" publication-format="print">
+							<person-group person-group-type="author">
+								<name>
+									<surname>Author</surname>
+									<given-names>A.N.</given-names>
+								</name>
+								<name>
+									<surname>Writer</surname>
+									<given-names>A</given-names>
+								</name>
+								<string-name><surname>Payne</surname>, the Honorable</string-name>
+							</person-group>
+							<xref rid="BDD1-bib-i1">ibid</xref>
+							<pub-id pub-id-type="doi">10.1000/123456789</pub-id>
+							<pub-id pub-id-type="pmid">123456</pub-id>
+							<pub-id pub-id-type="arxiv">arXiv:aaa-bb/0123456</pub-id>
+							<pub-id pub-id-type="wos">000253677800006</pub-id>
+						</element-citation>
+					</ref>
+					<ref id="BDD1-bib-i5">
+						<label>5.</label>
+						<mixed-citation publication-type="data">
+							<person-group person-group-type="curator"><string-name
+									name-style="western"><surname>Lan</surname>
+									<given-names>T-M</given-names></string-name>, <string-name
+									name-style="western"><surname>Lin</surname>
+									<given-names>H-X</given-names></string-name>, <string-name
+									name-style="western"><surname>Zhu</surname>
+									<given-names>W-J</given-names></string-name></person-group>.
+								<data-title>Supporting data for "Deep whole-genome sequencing of 90
+								Han Chinese genomes."</data-title>
+							<source>GigaScience Database</source>
+							<year>2017</year>. <pub-id pub-id-type="doi"
+								assigning-authority="datacite">10.5524/100302</pub-id>. <version
+								designator="16.2">16th version, second release</version>.
+						</mixed-citation>
+					</ref>
+					<ref id="BDD1-bib-i6">
+						<label>6.</label>
+						<mixed-citation publication-type="book"><person-group person-group-type="author"
+							><string-name><surname>Author</surname>,
+								<given-names>A</given-names></string-name>,
+							<string-name><surname>Author</surname>,
+								<given-names>B</given-names></string-name>
+						</person-group>, &#x201C;<chapter-title>A book chapter title</chapter-title>&#x201D;, in 
+							<source>A book.</source> (<publisher-name>Publisher</publisher-name>, <publisher-loc>A City</publisher-loc>,
+							<year>2023</year>), pp. <fpage>151</fpage>–<lpage>161</lpage>. 
+						</mixed-citation>
+					</ref>
+				</ref-list>
+				<!-- Notes. -->
+				<notes>
+					<p>This is some note.</p>
+				</notes>
+			</back>
+		</dedication>
+
+		<!-- Front Matter Part. -->
+		<front-matter-part id="BDD1-ex" book-part-type="Executive Summary" indexed="no">
+			<book-part-meta>
+				<book-part-id book-part-id-type="doi">0000.00/book1.ex</book-part-id>
+				<title-group>
+					<label>ii.</label>
+					<title>Executive Summary</title>
+				</title-group>
+				<contrib-group>
+					<contrib contrib-type="author">
+						<name>
+							<surname>Johnson</surname>
+							<given-names>Kirsten</given-names>
+							<prefix>Ms.</prefix>
+							<suffix>Jr.</suffix>
+						</name>
+						<degrees>PhD</degrees>
+						<address>
+							<addr-line>1 Jefferson Lane</addr-line>
+							<addr-line>Charlottesville, VA 22903</addr-line>
+						</address>
+						<author-comment content-type="disclosure">
+							<p>The author was funded by…</p>
+						</author-comment>
+						<!-- Cross reference to the author's affiliation. -->
+						<xref ref-type="aff" rid="aff1"/>
+					</contrib>
+					<contrib contrib-type="author">
+						<collab> The Federation of the Rules of Pan, American Association of
+							American Societies <contrib-group>
+								<contrib contrib-type="author">
+									<!-- contrib-type optional. -->
+									<name>
+										<surname>Smith</surname>
+										<given-names>Scott</given-names>
+										<prefix>Dr.</prefix>
+										<suffix>III</suffix>
+									</name>
+									<degrees>JD</degrees>
+								</contrib>
+								<contrib contrib-type="author">
+									<name>
+										<surname>Johnson</surname>
+										<given-names>Josh</given-names>
+										<prefix>Dr.</prefix>
+									</name>
+									<aff>
+										<label>2</label>University of Virginia, Charlottesville, VA
+										22904, e-mail: <email>contact@domain.edu</email>
+									</aff>
+								</contrib>
+							</contrib-group>
+						</collab>
+					</contrib>
+				</contrib-group>
+				<author-notes>
+					<!-- Footnotes provided in a section other than <back> will display where they appear in the XML. -->
+					<fn id="BDD1-fn3">
+						<p>Research performed in Albemarle County, Virginia.</p>
+					</fn>
+					<p>None of these authors were bribed.</p>					
+				</author-notes>
+				<!-- Reference the book-part PDF. -->
+				<self-uri xlink:href="execsummary_pdf.pdf" xml:lang="en"/>
+				<self-uri xlink:href="execsummary_french_pdf.pdf" xml:lang="fr"/>
+				<self-uri xlink:href="execsummary_chinese_pdf.pdf" xml:lang="zh"/>
+			</book-part-meta>
+			<named-book-part-body>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper pretium
+					porta. Nunc dignissim bibendum enim. Cras dui odio, ultricies ac viverra non,
+					tempus et diam. Cum sociis natoque penatibus et magnis dis parturient montes,
+					nascetur ridiculus mus. Phasellus ut orci eget tortor laoreet euismod. Integer
+					sollicitudin erat vel nisi suscipit volutpat. In congue, lectus eget luctus
+					eleifend, orci purus accumsan quam, vel volutpat magna nunc non elit.
+					Suspendisse pretium dolor id elit sollicitudin adipiscing. Quisque a nulla
+					placerat massa consequat rutrum sed ut mi. Maecenas molestie venenatis massa nec
+					pulvinar.</p>
+				<sec>
+					<title>Clinical Impact Ratings</title>
+					<subtitle>An Analysis</subtitle>
+					<!-- The xlink:href needs to reference the filename of the image, including the extension. -->
+					<p>GIM/FP/GP: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="rating_6.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+					<p>Endocrinology: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="rating_7.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+					<disp-quote>
+						<p>This is a very interesting and relevant quote</p>
+						<sec>
+							<title>This is a heading in that interesting quote</title>
+							<subtitle>An Analysis</subtitle>
+							<p>Here is more of the quote</p>
+						</sec>
+						<sec>
+							<title>This is a heading in a MORE interesting quote</title>
+							<p>Here is more of the more interesting quote</p>
+						</sec>
+					</disp-quote>
+				</sec>
+			</named-book-part-body>
+			<back>
+				<ref-list>
+					<title>References</title>
+					<ref id="BDD1-bib-ii1">
+						<label>1.</label>
+						<element-citation publication-type="journal" publication-format="print">
+							<person-group person-group-type="author">
+								<name>
+									<surname>Author</surname>
+									<given-names>A.N.</given-names>
+								</name>
+								<name>
+									<surname>Writer</surname>
+									<given-names>A</given-names>
+								</name>
+								<string-name><surname>Payne</surname>, the Honorable</string-name>
+							</person-group>
+							<article-title>Title of Reference Article</article-title>
+							<source>J Dem Diseases</source>
+							<year>2008</year>
+							<volume>27</volume>
+							<fpage>19</fpage>
+							<lpage>23</lpage>
+							<pub-id pub-id-type="doi">10.1000/123456789</pub-id>
+							<pub-id pub-id-type="pmid">123456</pub-id>
+						</element-citation>
+					</ref>
+					<ref id="BDD1-bib-ii2">
+						<label>2.</label>
+						<mixed-citation publication-type="journal">
+							<person-group person-group-type="author"
+										><string-name><surname>Author</surname>
+									<given-names>A</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>B</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>C</given-names></string-name></person-group>.
+								<article-title>Another Research Article</article-title>. <source>J
+								Dem Diseases.</source>
+							<year>2002</year>;<volume>63</volume>(<issue>4</issue>), page
+								<fpage>3</fpage>. <pub-id pub-id-type="doi"
+								>10.1000/s10439-009-9661-x</pub-id>. <pub-id pub-id-type="pmid"
+								>654321</pub-id>. </mixed-citation>
+					</ref>
+				</ref-list>
+				<notes>
+					<p>This is some note.</p>
+				</notes>
+			</back>
+		</front-matter-part>
+		<!-- Foreword. -->
+		<foreword id="BDD1-for">
+			<book-part-meta>
+				<book-part-id book-part-id-type="doi">0000.00/book1.for</book-part-id>
+				<title-group>
+					<label>iii.</label>
+					<title>Foreword</title>
+				</title-group>
+				<contrib-group>
+
+					<contrib contrib-type="author">
+						<name>
+							<surname>Johnson</surname>
+							<given-names>Kirsten</given-names>
+							<prefix>Ms.</prefix>
+							<suffix>Jr.</suffix>
+						</name>
+						<degrees>PhD</degrees>
+						<address>
+							<addr-line>1 Jefferson Lane</addr-line>
+							<addr-line>Charlottesville, VA 22903</addr-line>
+						</address>
+						<author-comment content-type="disclosure">
+							<p>The author was funded by…</p>
+						</author-comment>
+						<!-- Cross reference to the author's affiliation. -->
+						<xref ref-type="aff" rid="aff1"/>
+					</contrib>
+					<contrib contrib-type="author">
+						<collab> The Federation of the Rules of Pan, American Association of
+							American Societies <contrib-group>
+								<contrib contrib-type="author">
+									<!-- contrib-type optional. -->
+									<name>
+										<surname>Smith</surname>
+										<given-names>Scott</given-names>
+										<prefix>Dr.</prefix>
+										<suffix>III</suffix>
+									</name>
+									<degrees>JD</degrees>
+								</contrib>
+								<contrib contrib-type="author">
+									<name>
+										<surname>Johnson</surname>
+										<given-names>Josh</given-names>
+										<prefix>Dr.</prefix>
+									</name>
+									<aff>
+										<label>2</label>University of Virginia, Charlottesville, VA
+										22904, e-mail: <email>contact@domain.edu</email>
+									</aff>
+								</contrib>
+							</contrib-group>
+						</collab>
+					</contrib>
+				</contrib-group>
+				<author-notes>
+					<!-- Footnotes provided in a section other than <back> will display where they appear in the XML. -->
+					<fn id="BDD1-fn4">
+						<p>Research performed in Albemarle County, Virginia.</p>
+					</fn>
+					<p>None of these authors were bribed.</p>
+					<corresp>Email these fine folks at <email>email@example.com</email></corresp>
+				</author-notes>
+				<!-- Reference the book-part PDF. -->
+				<self-uri xlink:href="foreword_pdf.pdf" xml:lang="en"/>
+				<self-uri xlink:href="foreword_french_pdf.pdf" xml:lang="fr"/>
+				<self-uri xlink:href="foreword_chinese_pdf.pdf" xml:lang="zh"/>
+			</book-part-meta>
+			<named-book-part-body>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper pretium
+					porta. Nunc dignissim bibendum enim. Cras dui odio, ultricies ac viverra non,
+					tempus et diam. Cum sociis natoque penatibus et magnis dis parturient montes,
+					nascetur ridiculus mus. Phasellus ut orci eget tortor laoreet euismod. Integer
+					sollicitudin erat vel nisi suscipit volutpat. In congue, lectus eget luctus
+					eleifend, orci purus accumsan quam, vel volutpat magna nunc non elit.
+					Suspendisse pretium dolor id elit sollicitudin adipiscing. Quisque a nulla
+					placerat massa consequat rutrum sed ut mi. Maecenas molestie venenatis massa nec
+					pulvinar.</p>
+				<sec>
+					<title>Clinical Impact Ratings</title>
+					<!-- The xlink:href needs to reference the filename of the image, including the extension. -->
+					<p>GIM/FP/GP: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="rating_6.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+					<p>Endocrinology: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="rating_7.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+				</sec>
+			</named-book-part-body>
+			<back>
+				<ref-list>
+					<title>References</title>
+					<ref id="BDD1-bib-iii1">
+						<label>1.</label>
+						<element-citation publication-type="journal" publication-format="print">
+							<person-group person-group-type="author">
+								<name>
+									<surname>Author</surname>
+									<given-names>A.N.</given-names>
+								</name>
+								<name>
+									<surname>Writer</surname>
+									<given-names>A</given-names>
+								</name>
+								<string-name><surname>Payne</surname>, the Honorable</string-name>
+							</person-group>
+							<article-title>Title of Reference Article</article-title>
+							<source>J Dem Diseases</source>
+							<year>2008</year>
+							<volume>27</volume>
+							<fpage>19</fpage>
+							<lpage>23</lpage>
+							<pub-id pub-id-type="doi">10.1000/123456789</pub-id>
+							<pub-id pub-id-type="pmid">123456</pub-id>
+						</element-citation>
+					</ref>
+					<ref id="BDD1-bib-iii2">
+						<label>2.</label>
+						<mixed-citation publication-type="journal">
+							<person-group person-group-type="author"
+										><string-name><surname>Author</surname>
+									<given-names>A</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>B</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>C</given-names></string-name></person-group>.
+								<article-title>Another Research Article</article-title>. <source>J
+								Dem Diseases.</source>
+							<year>2002</year>;<volume>63</volume>(<issue>4</issue>), page
+								<fpage>3</fpage>. <pub-id pub-id-type="doi"
+								>10.1000/s10439-009-9661-x</pub-id>. <pub-id pub-id-type="pmid"
+								>654321</pub-id>. </mixed-citation>
+					</ref>
+				</ref-list>
+				<notes>
+					<p>This is some note.</p>
+				</notes>
+			</back>
+		</foreword>
+
+		<!-- Preface. -->
+		<preface id="BDD1-pref">
+			<book-part-meta>
+				<book-part-id book-part-id-type="doi">0000.00/book1.pref</book-part-id>
+				<title-group>
+					<label>iv.</label>
+					<title>Preface</title>
+				</title-group>
+				<contrib-group>
+					<contrib contrib-type="author">
+						<name>
+							<surname>Johnson</surname>
+							<given-names>Kirsten</given-names>
+							<prefix>Ms.</prefix>
+							<suffix>Jr.</suffix>
+						</name>
+						<degrees>PhD</degrees>
+						<address>
+							<addr-line>1 Jefferson Lane</addr-line>
+							<addr-line>Charlottesville, VA 22903</addr-line>
+						</address>
+						<author-comment content-type="disclosure">
+							<p>The author was funded by…</p>
+						</author-comment>
+						<!-- Cross reference to the author's affiliation. -->
+						<xref ref-type="aff" rid="aff1"/>
+					</contrib>
+					<contrib contrib-type="author">
+						<collab> The Federation of the Rules of Pan, American Association of
+							American Societies <contrib-group>
+								<contrib contrib-type="author">
+									<!-- contrib-type optional. -->
+									<name>
+										<surname>Smith</surname>
+										<given-names>Scott</given-names>
+										<prefix>Dr.</prefix>
+										<suffix>III</suffix>
+									</name>
+									<degrees>JD</degrees>
+								</contrib>
+								<contrib contrib-type="author">
+									<name>
+										<surname>Johnson</surname>
+										<given-names>Josh</given-names>
+										<prefix>Dr.</prefix>
+									</name>
+									<aff>
+										<label>2</label>University of Virginia, Charlottesville, VA
+										22904, e-mail: <email>contact@domain.edu</email>
+									</aff>
+								</contrib>
+							</contrib-group>
+						</collab>
+					</contrib>
+				</contrib-group>
+				<author-notes>
+					<!-- Footnotes provided in a section other than <back> will display where they appear in the XML. -->
+					<fn id="BDD1-fn5">
+						<p>Research performed in Albemarle County, Virginia.</p>
+					</fn>
+					<p>None of these authors were bribed.</p>
+					<corresp>Email these fine folks at <email>email@example.com</email></corresp>
+				</author-notes>
+				<!-- Reference the book-part PDF. -->
+				<self-uri xlink:href="preface_pdf.pdf" xml:lang="en"/>
+				<self-uri xlink:href="preface_french_pdf.pdf" xml:lang="fr"/>
+				<self-uri xlink:href="preface_chinese_pdf.pdf" xml:lang="zh"/>
+			</book-part-meta>
+			<named-book-part-body>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper pretium
+					porta. Nunc dignissim bibendum enim. Cras dui odio, ultricies ac viverra non,
+					tempus et diam. Cum sociis natoque penatibus et magnis dis parturient montes,
+					nascetur ridiculus mus. Phasellus ut orci eget tortor laoreet euismod. Integer
+					sollicitudin erat vel nisi suscipit volutpat. In congue, lectus eget luctus
+					eleifend, orci purus accumsan quam, vel volutpat magna nunc non elit.
+					Suspendisse pretium dolor id elit sollicitudin adipiscing. Quisque a nulla
+					placerat massa consequat rutrum sed ut mi. Maecenas molestie venenatis massa nec
+					pulvinar.</p>
+				<sec>
+					<title>Clinical Impact Ratings</title>
+					<!-- The xlink:href needs to reference the filename of the image, including the extension. -->
+					<p>GIM/FP/GP: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="rating_6.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+					<p>Endocrinology: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="rating_7.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+				</sec>
+			</named-book-part-body>
+			<back>
+				<ref-list>
+					<title>References</title>
+					<ref id="BDD1-bib-iv1">
+						<label>1.</label>
+						<element-citation publication-type="journal" publication-format="print">
+							<person-group person-group-type="author">
+								<name>
+									<surname>Author</surname>
+									<given-names>A.N.</given-names>
+								</name>
+								<name>
+									<surname>Writer</surname>
+									<given-names>A</given-names>
+								</name>
+								<string-name><surname>Payne</surname>, the Honorable</string-name>
+							</person-group>
+							<article-title>Title of Reference Article</article-title>
+							<source>J Dem Diseases</source>
+							<year>2008</year>
+							<volume>27</volume>
+							<fpage>19</fpage>
+							<lpage>23</lpage>
+							<pub-id pub-id-type="doi">10.1000/123456789</pub-id>
+							<pub-id pub-id-type="pmid">123456</pub-id>
+						</element-citation>
+					</ref>
+					<ref id="BDD1-bib-iv2">
+						<label>2.</label>
+						<mixed-citation publication-type="journal">
+							<person-group person-group-type="author"
+										><string-name><surname>Author</surname>
+									<given-names>A</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>B</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>C</given-names></string-name></person-group>.
+								<article-title>Another Research Article</article-title>. <source>J
+								Dem Diseases.</source>
+							<year>2002</year>;<volume>63</volume>(<issue>4</issue>), page
+								<fpage>3</fpage>. <pub-id pub-id-type="doi"
+								>10.1000/s10439-009-9661-x</pub-id>. <pub-id pub-id-type="pmid"
+								>654321</pub-id>. </mixed-citation>
+					</ref>
+				</ref-list>
+				<notes>
+					<p>This is some note.</p>
+				</notes>
+			</back>
+		</preface>
+	</front-matter>
+	<book-body>
+		<book-part id="BDD1-part1" book-part-type="part">
+			<book-part-meta>
+				<book-part-id book-part-id-type="doi">0000.00/book1.part1</book-part-id>
+				<title-group>
+					<label>Part 1</label>
+					<title>The First Part</title>
+				</title-group>
+				<contrib-group>
+					<contrib contrib-type="author">
+						<name>
+							<surname>Jones</surname>
+							<given-names>Jon</given-names>
+							<prefix>Mr.</prefix>
+							<suffix>Jr.</suffix>
+						</name>
+						<degrees>MD</degrees>
+						<address>
+							<addr-line>2 County Ct</addr-line>
+							<addr-line>Charlottesville, VA 22903</addr-line>
+						</address>
+						<author-comment content-type="deceased">
+							<p>The author is deceased.</p>
+						</author-comment>
+						<!-- Cross reference to the author's affiliation. -->
+						<xref ref-type="aff" rid="aff5"/>
+					</contrib>
+					<contrib contrib-type="author">
+						<collab>The Core Group of Geological Researchers <contrib-group>
+								<contrib contrib-type="author">
+									<!-- contrib-type optional. -->
+									<name>
+										<surname>Smith</surname>
+										<given-names>Matthew</given-names>
+										<suffix>IV</suffix>
+									</name>
+									<degrees>MS</degrees>
+								</contrib>
+								<contrib contrib-type="author">
+									<name>
+										<surname>Johnson</surname>
+										<given-names>Max</given-names>
+										<prefix>Professor</prefix>
+									</name>
+									<aff>
+										<label>2</label>University of Virginia, Charlottesville, VA
+										22904, e-mail: <email>contact@domain.edu</email>
+									</aff>
+								</contrib>
+							</contrib-group>
+						</collab>
+					</contrib>
+				</contrib-group>
+				<aff id="aff5"><label>5</label>Merewether Information Systems, Newcastle, NSW.</aff>
+				<author-notes>
+					<!-- Footnotes provided in a section other than <back> will display where they appear in the XML. -->
+					<fn id="BDD1-fn6">
+						<p>Research performed inside an event horizon.</p>
+					</fn>
+					<p>None of these authors were bribed.</p>
+					<corresp>Email people at <email>email@example.com</email></corresp>
+				</author-notes>
+				<permissions id="per4">
+					<ali:free_to_read xmlns:ali="http://www.niso.org/schemas/ali/1.0/"
+						start_date="1995-01-03" end_date="1995-12-03"/>
+					<license license-type="open-access">
+						<ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/"
+							>http://www.silverchair.org/terms/</ali:license_ref>
+						<ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/"
+							start_date="2016-10-03"
+							>https://creativecommons.org/licenses/by-nc-sa/4.0/</ali:license_ref>
+						<license-p>This article is available under a Creative Commons License
+							(Attribution 4.0 International, as described at <ext-link
+								xlink:href="https://creativecommons.org/licenses/by/4.0/"
+								ext-link-type="uri"
+								>https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p>
+					</license>
+				</permissions>
+				<!-- Reference the book-part PDF. -->
+				<self-uri xlink:href="part1_pdf.pdf" xml:lang="en"/>
+				<self-uri xlink:href="part1_french_pdf.pdf" xml:lang="fr"/>
+				<self-uri xlink:href="part1_chinese_pdf.pdf" xml:lang="zh"/>
+				<kwd-group kwd-group-type="author">
+					<kwd>DNA analysis</kwd>
+					<kwd>gene expression</kwd>
+					<kwd>parallel cloning</kwd>
+					<kwd>fluid microarray</kwd>
+				</kwd-group>
+			</book-part-meta>
+			<front-matter>
+				<preface id="BDD1-P1-pref">
+					<book-part-meta>
+						<book-part-id book-part-id-type="doi">0000.00/book1.p1.pref</book-part-id>
+						<title-group>
+							<title><target id="target567" target-type="page"
+								>6</target>Preface</title>
+						</title-group>
+						<contrib-group>
+							<contrib contrib-type="author">
+								<name>
+									<surname>Johnson</surname>
+									<given-names>Kirsten</given-names>
+									<prefix>Ms.</prefix>
+									<suffix>Jr.</suffix>
+								</name>
+								<degrees>PhD</degrees>
+								<address>
+									<addr-line>1 Jefferson Lane</addr-line>
+									<addr-line>Charlottesville, VA 22903</addr-line>
+								</address>
+								<author-comment content-type="disclosure">
+									<p>The author was funded by…</p>
+								</author-comment>
+								<xref ref-type="aff" rid="aff1"/>
+							</contrib>
+							<contrib contrib-type="author">
+								<collab> The Federation of the Rules of Pan, American Association of
+									American Societies <contrib-group>
+										<contrib contrib-type="author">
+											<!-- contrib-type optional. -->
+											<name>
+												<surname>Smith</surname>
+												<given-names>Scott</given-names>
+												<prefix>Dr.</prefix>
+												<suffix>III</suffix>
+											</name>
+											<degrees>JD</degrees>
+										</contrib>
+										<contrib contrib-type="author">
+											<name>
+												<surname>Johnson</surname>
+												<given-names>Josh</given-names>
+												<prefix>Dr.</prefix>
+											</name>
+											<aff>
+												<label>2</label>University of Virginia,
+												Charlottesville, VA 22904, e-mail:
+												<email>contact@domain.edu</email>
+											</aff>
+										</contrib>
+									</contrib-group>
+								</collab>
+							</contrib>
+						</contrib-group>
+						<author-notes>
+							<!-- Footnotes provided in a section other than <back> will display where they appear in the XML. -->
+							<fn id="BDD1-fn7">
+								<p>Research performed in Albemarle County, Virginia.</p>
+							</fn>
+							<p>None of these authors were bribed.</p>
+							<corresp>Email these fine folks at
+								<email>email@example.com</email></corresp>
+						</author-notes>
+						<!-- Reference the book-part PDF. -->
+						<self-uri xlink:href="part1_preface_pdf.pdf" xml:lang="en"/>
+						<self-uri xlink:href="part1_preface_french_pdf.pdf" xml:lang="fr"/>
+						<self-uri xlink:href="part1_preface_chinese_pdf.pdf" xml:lang="zh"/>
+					</book-part-meta>
+					<named-book-part-body>
+						<!-- Links between book-parts. -->
+						<p>This is a link to <xref ref-type="fig" rid="b1p1-figure1"><target
+									id="target91011" target-type="page">7</target>Figure 1</xref>.
+							If the target object takes the object-id element and can be assigned a
+							DOI, you can link to it <ext-link ext-link-type="doi"
+								xlink:href="10.9999/SSC_20120928_v107i3_043_figure1">using a single
+								ext-link</ext-link>. Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit. Nunc dignissim bibendum enim. Cras dui odio, ultricies
+							ac viverra non, tempus et diam. Cum sociis natoque penatibus et magnis
+							dis parturient montes, nascetur ridiculus mus. Phasellus ut orci eget
+							tortor laoreet euismod. Integer sollicitudin erat vel nisi suscipit
+							volutpat. In congue, lectus eget luctus eleifend, orci purus accumsan
+							quam, vel volutpat magna nunc non elit. Suspendisse pretium dolor id
+							elit sollicitudin adipiscing. Quisque a nulla placerat massa consequat
+							rutrum sed ut mi. Maecenas molestie venenatis massa nec pulvinar.</p>
+						<sec>
+							<title>Clinical Impact Ratings</title>
+							<!-- The xlink:href needs to reference the filename of the image, including the extension. -->
+							<p>GIM/FP/GP: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+								xlink:href="rating_6.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+							<p>Endocrinology: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+								xlink:href="rating_7.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+						</sec>
+					</named-book-part-body>
+					<back>
+						<ref-list>
+							<title>References</title>
+							<ref id="BDD1-bib-P1-pref-1">
+								<label>1.</label>
+								<element-citation publication-type="journal"
+									publication-format="print">
+									<person-group person-group-type="author">
+										<name>
+											<surname>Author</surname>
+											<given-names>A.N.</given-names>
+										</name>
+										<name>
+											<surname>Writer</surname>
+											<given-names>A</given-names>
+										</name>
+										<string-name><surname>Payne</surname>, the
+											Honorable</string-name>
+									</person-group>
+									<article-title>Title of Reference Article</article-title>
+									<source>J Dem Diseases</source>
+									<year>2008</year>
+									<volume>27</volume>
+									<fpage>19</fpage>
+									<lpage>23</lpage>
+									<pub-id pub-id-type="doi">10.1000/123456789</pub-id>
+									<pub-id pub-id-type="pmid">123456</pub-id>
+								</element-citation>
+							</ref>
+							<ref id="BDD1-bib-P1-pref-2">
+								<label>2.</label>
+								<mixed-citation publication-type="journal">
+									<person-group person-group-type="author"
+												><string-name><surname>Author</surname>
+											<given-names>A</given-names></string-name>,
+												<string-name><surname>Author</surname>
+											<given-names>B</given-names></string-name>,
+												<string-name><surname>Author</surname>
+											<given-names>C</given-names></string-name></person-group>.
+										<article-title>Another Research Article</article-title>.
+										<source>J Dem Diseases.</source>
+									<year>2002</year>;<volume>63</volume>(<issue>4</issue>), page
+										<fpage>3</fpage>. <pub-id pub-id-type="doi"
+										>10.1000/s10439-009-9661-x</pub-id>. <pub-id
+										pub-id-type="pmid">654321</pub-id>. </mixed-citation>
+							</ref>
+						</ref-list>
+						<notes>
+							<p>This is some note.</p>
+						</notes>
+					</back>
+				</preface>
+			</front-matter>
+			<body>
+				<!-- Basic paragraph. -->
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper pretium
+					porta. Nunc dignissim bibendum enim. Cras dui odio, ultricies ac viverra non,
+					tempus et diam. Cum sociis natoque penatibus et magnis dis parturient montes,
+					nascetur ridiculus mus. Phasellus ut orci eget tortor laoreet euismod. Integer
+					sollicitudin erat vel nisi suscipit volutpat. In congue, lectus eget luctus
+					eleifend, orci purus accumsan quam, vel volutpat magna nunc non elit.
+					Suspendisse pretium dolor id elit sollicitudin adipiscing. Quisque a nulla
+					placerat massa consequat rutrum sed ut mi. Maecenas molestie venenatis massa nec
+					pulvinar.</p>
+				<!-- Paragraph with external database link. -->
+				<p><ext-link ext-link-type="substance" xlink:href="50054742">I am a link to a
+						database.</ext-link></p>
+				<!-- Section. -->
+				<sec>
+					<title>Clinical Impact Ratings</title>
+					<!-- Graphic inside paragraph. -->
+					<!-- The xlink:href needs to reference the filename of the image, including the extension. -->
+					<p>GIM/FP/GP: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="rating_6.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+					<p>Endocrinology: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="rating_7.png"><alt-text>Description of clinical impact image</alt-text></graphic></p>
+				</sec>
+				<book-part id="BDD1-ch1" book-part-type="chapter">
+					<book-part-meta>
+						<book-part-id book-part-id-type="doi">0000.00/book1.chap1</book-part-id>
+						<title-group>
+							<label>Chapter 1</label>
+							<title>The First Chapter</title>
+						</title-group>
+						<contrib-group>
+							<contrib contrib-type="author">
+								<name>
+									<surname>Jones</surname>
+									<given-names>Jon</given-names>
+									<prefix>Mr.</prefix>
+									<suffix>Jr.</suffix>
+								</name>
+								<degrees>MD</degrees>
+								<address>
+									<addr-line>2 County Ct</addr-line>
+									<addr-line>Charlottesville, VA 22903</addr-line>
+								</address>
+								<author-comment content-type="deceased">
+									<p>The author is deceased.</p>
+								</author-comment>
+								<!-- Cross reference to the author's affiliation. -->
+								<xref ref-type="aff" rid="aff6"/>
+							</contrib>
+							<contrib contrib-type="author">
+								<collab>The Core Group of Geological Researchers <contrib-group>
+										<contrib contrib-type="author">
+											<!-- contrib-type optional. -->
+											<name>
+												<surname>Smith</surname>
+												<given-names>Matthew</given-names>
+												<suffix>IV</suffix>
+											</name>
+											<degrees>MS</degrees>
+										</contrib>
+										<contrib contrib-type="author">
+											<name>
+												<surname>Johnson</surname>
+												<given-names>Max</given-names>
+												<prefix>Professor</prefix>
+											</name>
+											<aff>
+												<label>2</label>University of Virginia,
+												Charlottesville, VA 22904, e-mail:
+												<email>contact@domain.edu</email>
+											</aff>
+										</contrib>
+									</contrib-group>
+								</collab>
+							</contrib>
+						</contrib-group>
+						<aff id="aff6"><label>6</label>The Organization.</aff>
+						<author-notes>
+							<!-- Footnotes provided in a section other than <back> will display where they appear in the XML. -->
+							<fn id="BDD1-fn8">
+								<p>Research performed inside an event horizon.</p>
+							</fn>
+							<p>None of these authors were bribed.</p>
+							<corresp>Email people at <email>email@example.com</email></corresp>
+						</author-notes>
+						<!--Chapter publication date.-->
+						<pub-date publication-format="electronic" date-type="pub" iso-8601-date="2013-07-13">
+							<day>13</day>
+							<month>07</month>
+							<year>2013</year>
+						</pub-date>
+						<!-- Reference the book-part PDF. -->
+						<self-uri xlink:href="chap1_pdf.pdf" xml:lang="en"/>
+						<self-uri xlink:href="chap1_french_pdf.pdf" xml:lang="fr"/>
+						<self-uri xlink:href="chap1_chinese_pdf.pdf" xml:lang="zh"/>
+						<!-- Related objects. -->
+						<related-object document-type="book" document-id-type="isbn10"
+							document-id="123456789X" object-type="table"
+							object-id-type="publisher-id" object-id="legacySectionID-value"/>
+						<related-object document-type="url" source-id="http://www.websitename.com/pagename" source-id-type="url" source-type="quiz">Link text</related-object>						
+					</book-part-meta>
+					<body>
+						<p id="BDD1-ch1-para">This is the chapter body.</p>
+						<p>This is an abbrev: <abbrev id="abbrevExpansion-1003">
+								<inline-graphic id="graphic-106" xlink:href="graphic-710.gif">
+									<alt-text>Description of inline graphic</alt-text>
+								</inline-graphic>
+								<italic>also</italic>
+								<bold>there</bold> is more <sup>text</sup> over
+								<sub>here</sub></abbrev></p>
+						<p>Please also see <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="part"
+							object-id-type="publisher-id" object-id="BDD1-part1">Part 1: The First Part</related-object>, if you skipped over it.</p>
+						<!-- Paragraph with foreign phrase. -->
+						<p>. . . remarkable for his <named-content content-type="foreign-phrase" xml:lang="fr">joie de vivre</named-content> and lively expression. . . .</p>
+						<!-- Sections. -->
+						<sec id="BDD1-ch1-sec1">
+							<title>Introduction</title>
+							<!-- Graphic outside paragraph. -->
+							<graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+								xlink:href="someimage.jpg"><alt-text>Description of image</alt-text></graphic>
+							<p>Recent advances in scalable theory and empathic configurations do not
+								necessarily obviate the need for flip-flop gates. Existing lossless
+								and encrypted solutions use RPCs to prevent psychoacoustic
+								configurations. To put this in perspective, consider the fact that
+								well-known cryptographers generally use A* search to achieve this
+								goal. on the other hand, DHCP alone cannot fulfill the need for
+								symbiotic algorithms.</p>
+							<p>We question the need for stable models. It should be noted that our
+								algorithm stores semaphores. The basic tenet of this solution is the
+								emulation of 128 bit architectures. Further, for example, many
+								frameworks control the investigation of Web services. The basic
+								tenet of this approach is the exploration of congestion control.</p>
+							<!-- inline-graphic in related-object. -->
+							<p><bold>Companion illustrations (marked in text with</bold>
+								<related-object document-type="book" document-id-type="isbn13"
+									document-id="9780000000002"><inline-graphic
+										id="bdd-9780000000002-graphic-3"
+										xlink:href="bdd_9780000000002_graphic_003.gif"
+									><alt-text>Description of inline graphic</alt-text></inline-graphic></related-object>) <bold>are available online.</bold></p>							
+						</sec>
+						<sec>
+							<title>Background</title>
+							<p>But I must explain to you how all this mistaken idea of denouncing
+								pleasure and praising pain was born and I will give you a complete
+								account of the system, and expound the actual teachings of the great
+								explorer of the truth, the master-builder of human happiness. No one
+								rejects, dislikes, or avoids pleasure itself, because it is
+								pleasure, but because those who do not know how to pursue pleasure
+								rationally encounter consequences that are extremely painful. Nor
+								again is there anyone who loves or pursues or desires to obtain pain
+								of itself, because it is pain, but because occasionally
+								circumstances occur in which toil and pain can procure him some
+								great pleasure.</p>
+							<!-- Bulleted list. -->
+							<list list-type="bullet">
+								<label>My bulleted list</label>
+								<title>My list title</title>
+								<list-item>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+								</list-item>
+								<list-item>
+									<p>Nullam semper pretium porta.</p>
+								</list-item>
+								<list-item>
+									<title>Title</title>
+									<p>Nunc dignissim bibendum enim.</p>
+								</list-item>
+								<list-item id="li4">
+									<label>8</label>
+									<p><related-object document-type="book"
+										document-id-type="isbn13" document-id="978-07-7043-740-4"
+											object-id-type="publisher-id" object-type="fig"
+											object-id="math_fig1">Three chemical molecules with
+											formula <inline-formula id="inlineMaths-1">
+												<math xmlns="http://www.w3.org/1998/Math/MathML"
+												display="inline" id="math-1">
+												<msub>
+												<mtext>C</mtext>
+												<mn>5</mn>
+												</msub>
+												<msub>
+												<mtext>H</mtext>
+												<mrow>
+												<mn>12</mn>
+												</mrow>
+												</msub>
+												</math>
+											</inline-formula>
+										</related-object>
+									</p>
+								</list-item>
+								<list-item>
+									<p><xref rid="BDD1-sec1" ref-type="sec">Common meaning of <inline-formula>
+												<math xmlns="http://www.w3.org/1998/Math/MathML"
+												display="inline" id="math-2">
+												<msub>
+												<mrow>
+												<mi mathvariant="double-struck">Z</mi>
+												</mrow>
+												<mn>2</mn>
+												</msub>
+												</math></inline-formula> invariant</xref> 58 </p>
+								</list-item>
+							</list>
+							<p>Here we verify that although journaling file systems and IPv6 can
+								collude to achieve this goal, Byzantine fault tolerance and
+								e-business are always incompatible. For example, many methodologies
+								allow Byzantine fault tolerance. PahiHum runs in Ω( logn ) time.
+								This at first glance seems counterintuitive but is derived from
+								known results.</p>
+							<fig id="math_fig1">
+								<object-id pub-id-type="doi">10.9999/SSC_math_fig1</object-id>
+								<label>Math Fig</label>
+								<caption>
+									<title>Lorem Math ipsum.</title>
+									<p>Nullam semper pretium porta. Nunc dignissim bibendum
+										enim.</p>
+								</caption>
+								<graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+									xlink:href="mathfig1.png">
+									<alt-text>Description of math image</alt-text>
+									<long-desc>Description of math image that requires more detail because of the complexity of the image.</long-desc>
+								</graphic>
+							</fig>
+						</sec>
+						<sec sec-type="methods">
+							<title>Methods</title>
+							<!-- Nested sections will create subheadings. -->
+							<sec>
+								<title>Data sources</title>
+								<subtitle>An Analysis</subtitle>
+								<p>Nevertheless, the improvement of A* search might not be the
+									panacea that system administrators expected. Thus, we validate
+									that thin clients and A* search can synchronize to realize this
+									ambition.</p>
+								<p>I like data sources.</p>
+							</sec>
+							<!-- Bibliographic references. -->
+							<sec>
+								<title>Field trials</title>
+								<p>Lorem ipsum dolor<xref ref-type="bibr" rid="BDD1-bib-P1-1">1</xref> sit
+									amet, consectetur adipiscing elit. Nullam semper pretium porta.
+									Nunc dignissim bibendum enim. Cras dui odio, ultricies ac
+									viverra non, tempus et diam. Quisque a nulla placerat massa
+									consequat rutrum sed ut mi. Maecenas molestie venenatis massa
+									nec pulvinar.<xref ref-type="bibr" rid="BDD1-bib-P1-2">2</xref> Lorem
+									ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper
+									pretium porta.</p>
+								<!-- Inline link to supplementary material. -->
+								<p>Here is a reference to <xref ref-type="supplementary-material"
+										rid="BDD1-sup1">supplementary material</xref>. Recent
+									advances in scalable theory and empathic configurations do not
+									necessarily obviate the need for flip-flop gates. Existing
+									lossless and encrypted solutions use RPCs to prevent
+									psychoacoustic configurations.</p>
+								<!-- Inline-graphic displayed in xref-->
+								<p>(<xref rid="note-27" ref-type="table-fn">
+										<inline-graphic id="note-27-graphic-132"
+											xlink:href="note-27-graphic-132.gif"><alt-text>Description of inline graphic</alt-text></inline-graphic>
+									</xref> No new claims for dependent children have accepted since
+									April 2003)</p>
+								<!-- Reference to a figure. -->
+								<p>This paragraph talks about the information in this <xref
+										ref-type="fig" rid="b1p1-figure1">Figure 1</xref>.</p>
+								<!-- Definition of the figure itself. -->
+								<fig id="b1p1-figure1">
+									<object-id pub-id-type="doi"
+										>10.9999/SSC_20120928_v107i3_043_figure1</object-id>
+									<object-id pub-id-type="publisher-id">123456789</object-id>
+									<label>Figure 1</label>
+									<caption>
+										<title>Lorem ipsum dolor.</title>
+										<p>Nullam semper pretium porta. Nunc dignissim bibendum
+											enim.</p>
+									</caption>
+									<graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+										xlink:href="figure1filename.png">
+										<alt-text>Description of figure 1</alt-text>
+										<long-desc xlink:href="https://example.com/long-desc/figure1"/>
+									</graphic>
+								</fig>
+								<!-- Figure group. -->
+								<fig-group id="BDD1-figure2">
+									<label>Figure 2</label>
+									<caption>
+										<p>A group of figures.</p>
+									</caption>
+									<fig id="BDD1-figure2a">
+										<object-id pub-id-type="doi"
+											>10.9999/SSC_20120928_v107i3_043_figure2a</object-id>
+										<label>Figure 2A</label>
+										<caption>
+											<title>Lorem ipsum dolor.</title>
+											<p>Nullam semper pretium porta. Nunc dignissim bibendum
+												enim.</p>
+										</caption>
+										<graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+											xlink:href="figure2Afilename.png"><alt-text>Description of figure 2A</alt-text></graphic>
+									</fig>
+									<fig id="BDD1-figure2b">
+										<object-id pub-id-type="doi"
+											>10.9999/SSC_20120928_v107i3_043_figure2b</object-id>
+										<label>Figure 2B</label>
+										<caption>
+											<title>Lorem ipsum dolor.</title>
+											<p>Nullam semper pretium porta. Nunc dignissim bibendum
+												enim.</p>
+										</caption>
+										<graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+											xlink:href="figure2Bfilename.png"><alt-text>Description of figure 2B</alt-text></graphic>
+										<permissions>
+											<license license-type="NoElectronicRight">
+												<license-p/>
+											</license>
+										</permissions>
+									</fig>
+								</fig-group>
+								<!-- Inline-graphics. -->
+								<p>End-users mostly improve compilers <inline-graphic
+										xmlns:xlink="http://www.w3.org/1999/xlink"
+										xlink:href="sparkline.png"><alt-text>Description of inline graphic</alt-text></inline-graphic> in the place of link-level
+									acknowledgements. Without a doubt, indeed, replication and
+										flip-flop<xref ref-type="fn" rid="BDD1-fn2">2</xref> gates
+									have a long history of cooperating in this manner. We emphasize
+									that PahiHum turns the wireless information sledgehammer into a
+									scalpel.</p>
+								<!-- Example of an inline-graphic within URI. -->
+								<p>Video clips are indicated throughout the book with the symbol
+										<uri xmlns:xlink="http://www.w3.org/1999/xlink"
+										xlink:href="http://www.symbol.com/symbol8">
+										<inline-graphic id="graphic-3" xlink:href="graphic-003.jpg"
+											><alt-text>Description of inline graphic</alt-text></inline-graphic>
+									</uri>.</p>
+								<!-- Block formula within a paragraph. -->
+								<p>One plus one equals two: <disp-formula id="BDD1-FD1"
+											><label>(1)</label>1 + 1 = 2</disp-formula>
+								</p>
+								<p>Here is another formula:</p>
+								<!-- Block formula outside a paragraph. -->
+								<disp-formula id="BDD1-FD2">
+									<label>(2)</label>
+									<mml:math id="BDD1-M2">
+										<mml:mrow>
+											<mml:msub>
+												<mml:mrow>
+												<mml:mi mathvariant="italic">PI</mml:mi>
+												</mml:mrow>
+												<mml:mrow>
+												<mml:mi>&#x00394;</mml:mi>
+												<mml:mi>P</mml:mi>
+												</mml:mrow>
+											</mml:msub>
+											<mml:mo>=</mml:mo>
+											<mml:mfrac>
+												<mml:mrow>
+												<mml:mi>&#x00394;</mml:mi>
+												<mml:msub>
+												<mml:mrow>
+												<mml:mi>P</mml:mi>
+												</mml:mrow>
+												<mml:mrow>
+												<mml:mo>max</mml:mo>
+												</mml:mrow>
+												</mml:msub>
+												<mml:mo>-</mml:mo>
+												<mml:mi>&#x00394;</mml:mi>
+												<mml:msub>
+												<mml:mrow>
+												<mml:mi>P</mml:mi>
+												</mml:mrow>
+												<mml:mrow>
+												<mml:mo>min</mml:mo>
+												</mml:mrow>
+												</mml:msub>
+												</mml:mrow>
+												<mml:mrow>
+												<mml:mi>&#x00394;</mml:mi>
+												<mml:msub>
+												<mml:mrow>
+												<mml:mi>P</mml:mi>
+												</mml:mrow>
+												<mml:mrow>
+												<mml:mi mathvariant="normal">avg</mml:mi>
+												</mml:mrow>
+												</mml:msub>
+												</mml:mrow>
+											</mml:mfrac>
+										</mml:mrow>
+									</mml:math>
+								</disp-formula>
+								<!-- Inline formulas. -->
+								<p>Inline formulas like <inline-formula><mml:math id="BDD1-M9"
+											overflow="scroll">
+											<mml:mrow>
+												<mml:mrow>
+												<mml:mo>(</mml:mo>
+												<mml:msub>
+												<mml:mrow>
+												<mml:mi mathvariant="normal">?</mml:mi>
+												</mml:mrow>
+												<mml:mrow>
+												<mml:mi mathvariant="normal">A</mml:mi>
+												</mml:mrow>
+												</mml:msub>
+												<mml:mo>+</mml:mo>
+												<mml:msub>
+												<mml:mrow>
+												<mml:mi mathvariant="normal">?</mml:mi>
+												</mml:mrow>
+												<mml:mrow>
+												<mml:mi mathvariant="normal">B</mml:mi>
+												</mml:mrow>
+												</mml:msub>
+												<mml:mo>)</mml:mo>
+												</mml:mrow>
+											</mml:mrow>
+										</mml:math></inline-formula> can also be used.</p>
+								<!-- LaTeX math. -->
+								<p>Here is an example of a LaTeX math formula:</p>
+								<p>... Selected as described for Acc-29 <disp-formula>
+										<tex-math id="M1"><![CDATA[\documentclass[12pt]{minimal}
+\usepackage{wasysym}
+\usepackage[substack]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage[mathscr]{eucal}
+\usepackage{mathrsfs}
+\DeclareFontFamily{T1}{linotext}{}
+\DeclareFontShape{T1}{linotext}{m}{n} { &#x003C;-&#x003E; linotext }{}
+\DeclareSymbolFont{linotext}{T1}{linotext}{m}{n}
+\DeclareSymbolFontAlphabet{\mathLINOTEXT}{linotext}
+\begin{document}
+\[
+{\mathrm{Acc/Acc:\hspace{.5em}}}\frac{{\mathit{ade2-202}}}{{\mathit{ADE2}}}\hspace{.5em}\frac{{\mathit{ura3-59}}}{{\mathit{ura3-59}}}\hspace{.5em}\frac{{\mathit{ADE1}}}{{\mathit{adel-201}}}\hspace{.5em}\frac{{\mathit{ter1-Acc}}}{{\mathit{ter1-Acc}}}\hspace{.5em}\frac{{\mathit{MATa}}}{{\mathit{MAT{\alpha}}}}
+\]
+\end{document}]]>
+										</tex-math>
+									</disp-formula> TER1/ter1-Acc: Acc-29 crossed with ...</p>
+								<!-- TeX math. -->
+								<p>Here is an example of a TeX math formula:</p>
+								<disp-formula><tex-math>$$U_{H}^{c}={1 \over 2}\% \left( A\alpha
+										_{H}\right) ^{2}$$</tex-math></disp-formula>
+								<!-- Table. -->
+								<table-wrap id="BDD1-table1">
+									<object-id pub-id-type="doi"
+										>10.9999/SSC_20120928_v107i3_043_table1</object-id>
+									<label>Table 1</label>
+									<caption>
+										<p>Lorem Ipsum Dolor Sit Amet</p>
+									</caption>
+									<table>
+										<thead>
+											<tr>
+												<th align="center">No. of Patients</th>
+												<th align="center">Dosage in mg</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>65</td>
+												<td>50</td>
+											</tr>
+											<tr>
+												<td>164</td>
+												<td>10</td>
+											</tr>
+											<tr>
+												<td>58</td>
+												<td>25</td>
+											</tr>
+										</tbody>
+									</table>
+									<table-wrap-foot>
+										<fn-group>
+											<fn id="note-27">
+												<p>This is a footnote that goes with the
+												xref/inline-graphic sample.</p>
+											</fn>
+										</fn-group>
+									</table-wrap-foot>
+								</table-wrap>
+								<!-- In-narrative Brightcove video. Do not place a video within a paragraph. -->
+								<fig id="video1" fig-type="video">
+									<object-id pub-id-type="doi"
+										>10.9999/SSC_20120928_v107i3_043_video1</object-id>
+									<label>Video 1</label>
+									<caption>
+										<title>Fluoroscopy</title>
+										<p>Video of fluoroscopy.</p>
+									</caption>
+									<media content-type="brightcove"
+										xlink:href="http://bcove.me/hky4pn1o">
+										<object-id pub-id-type="videoid">123456789</object-id>
+										<object-id pub-id-type="referenceid">myVideo1</object-id>
+										<xref ref-type="custom" custom-type="transcript" rid="transcript1"/>
+									</media>
+								</fig>
+								<!-- In-narrative Sketchfab. Do not place a model within a paragraph. -->
+								<fig id="model1" fig-type="model">
+									<object-id pub-id-type="doi"
+										>10.9999/SSC_20120928_v107i3_043_model1</object-id>
+									<label>Model 1</label>
+									<caption>
+										<title>Model Title</title>
+										<p>Description of the model.</p>
+									</caption>
+									<media content-type="sketchfab">
+										<object-id pub-id-type="modelid"
+											>12cf3cc4d56e78f9bf0000ad123df456</object-id>
+									</media>
+								</fig>
+								<!-- In-narrative Glencoe video. Do not place a video within a paragraph.-->
+								<fig id="video2" fig-type="video">
+									<object-id pub-id-type="doi"
+										>10.9999/SSC_20120928_v107i3_043_video2</object-id>
+									<label>Video 2</label>
+									<caption>
+										<title>Fluoroscopy II</title>
+										<p>Second video of fluoroscopy.</p>
+									</caption>
+									<alternatives>
+										<media content-type="glencoe"
+											xlink:href="https://movie.scpress.org/media/by_doi/10.0000/201904144.v1/source">
+											<xref ref-type="custom" custom-type="transcript" rid="transcript2"/>
+										</media>
+										<media content-type="media-archive"
+											xlink:href="SSC_20120928_v107i3_043_video2.mp4"/>
+									</alternatives>
+								</fig>
+								<!-- In-narrative JWPlayer video. Do not place a video within a paragraph.-->
+								<fig id="video3" fig-type="video">
+									<object-id pub-id-type="doi"
+										>10.9999/SSC_20120928_v107i3_043_video3</object-id>
+									<label>Video 3</label>
+									<caption>
+										<title>Fluoroscopy III</title>
+										<p>Third video of fluoroscopy.</p>
+									</caption>
+									<media content-type="jwplayer"
+										xlink:href="https://content.jwplatform.com/players/GYOa3BzN-Sym6DpzW.js"
+									>
+										<xref ref-type="custom" custom-type="transcript" rid="transcript3"/>
+									</media>
+								</fig>
+								<!-- In-narrative YouTube video. Do not place a video within a paragraph.-->
+								<fig id="video6" fig-type="video">
+									<label>Video 6.</label>
+									<caption>
+										<p>Caption about video 6…</p>
+									</caption>
+									<media content-type="youtube"
+										xlink:href="https://youtu.be/[idOfVideo]">
+										<xref ref-type="custom" custom-type="transcript" rid="transcript4"/>
+									</media>
+								</fig>
+								<!-- In-narrative SoundCloud audio. Do not place audio within a paragraph.-->
+								<fig id="audio6" fig-type="audio">
+									<label>Audio 6.</label>
+									<caption>
+										<p>Caption about audio 6…</p>
+									</caption>
+									<media content-type="soundcloud"
+										xlink:href="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/000000006"
+									>
+										<xref ref-type="custom" custom-type="transcript" rid="transcript5"/>
+									</media>
+								</fig>
+								<!-- In-narrative Cadmore video. Do not place a video within a paragraph.-->
+								<fig id="video7" fig-type="video">
+									<object-id pub-id-type="doi">10.9999/SSC_22_ch10fgA22</object-id>
+									<label>Video 7.</label>
+									<caption><p>Caption about video 7…</p></caption>
+									<media content-type="cadmore">
+										<object-id pub-id-type="videoid">123456789-5cc5-4b22-82f0-168f1606f00</object-id>
+										<xref ref-type="custom" custom-type="transcript" rid="transcript6"/>
+									</media>	
+								</fig>
+								<!-- In-narrative Vimeo video. Do not place a video within a paragraph.-->
+								<fig id="video8" fig-type="video">
+									<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_video8</object-id>								
+									<label>Video 8.</label>
+									<caption><p>Caption about Video 8.</p></caption>
+									<media content-type="vimeo" xlink:href="https://player.vimeo.com/video/[idOfVideo]">									
+										<xref ref-type="custom" custom-type="transcript" rid="transcript7"/>
+									</media>	
+								</fig>								
+							</sec>
+						</sec>
+						<sec>
+							<title>Conclusions</title>
+							<p>Our heuristic will be able to successfully enable many systems at
+								once. Continuing with this rationale, our architecture for
+								visualizing the World Wide Web is compellingly bad. We see no reason
+								not to use Niopo for providing Byzantine fault tolerance.</p>
+							<!-- Boxed text. -->
+							<boxed-text id="BDD1-bt1">
+								<object-id pub-id-type="doi"
+									>10.9999/SSC_20120928_v107i3_043_bt1</object-id>
+								<p>We first illuminate the second half of our experiments. Of
+									course, all sensitive data was anonymized during our software
+									deployment [13]. The many discontinuities in the graphs point to
+									weakened average latency introduced with our hardware upgrades.
+									Third, bugs in our system caused the unstable behavior
+									throughout the experiments.</p>
+							</boxed-text>
+							<p>We ran our application on commodity operating systems, such as Ultrix
+								and EthOS. We implemented our 802.11b server in Prolog, augmented
+								with randomly partitioned, wired extensions. All software was hand
+								assembled using GCC 1.9 built on the American toolkit for lazily
+								exploring reinforcement learning. Second, this concludes our
+								discussion of software modifications.</p>
+							<!-- Sidebar example. -->
+							<boxed-text id="BDD1-bt2" content-type="sidebar-small">
+								<object-id pub-id-type="doi"
+									>10.9999/SSC_20120928_v107i3_043_bt2</object-id>
+								<!-- Label with target and inline-graphic examples. -->
+								<label><target target-type="page" id="target1"
+										>125</target><inline-graphic id="inline-graphic1"
+											xlink:href="inline-graphic1.gif"><alt-text>Description of inline graphic</alt-text></inline-graphic>Clinical tip</label>
+								<p>We first illuminate the second half of our experiments. Of
+									course, all sensitive data was anonymized during our software
+									deployment [13]. The many discontinuities in the graphs point to
+									weakened average latency introduced with our hardware upgrades.
+									Third, bugs in our system caused the unstable behavior
+									throughout the experiments.</p>
+							</boxed-text>
+						</sec>
+						<sec>
+							<title>Poems</title>
+							<!-- Poems. -->
+							<verse-group>
+								<title>A Poem</title>
+								<verse-line>Poem that was here,</verse-line>
+								<verse-line>Not here anymore.</verse-line>
+							</verse-group>
+						</sec>
+						<sec>
+							<title>People talking</title>
+							<!-- Speech. -->
+							<speech>
+								<speaker>Sam</speaker>
+								<p>Why do you always use binoculars?</p>
+							</speech>
+							<speech>
+								<speaker>Suzy</speaker>
+								<p>It helps me see things closer. Even if they're not very far away.
+									I pretend it's my magic power.</p>
+							</speech>
+							<speech>
+								<speaker>Sam</speaker>
+								<p>That sounds like poetry. Poems don't always have to rhyme, you
+									know. They're just supposed to be creative.</p>
+							</speech>
+						</sec>
+						<!-- Q&A with collapsible Answer. -->
+						<sec>
+							<title>Question</title>
+							<p>How much wood could a woodchuck chuck if a woodchuck could chuck
+								wood?</p>
+						</sec>
+						<sec specific-use="answer">
+							<title>Answer</title>
+							<subtitle>An Analysis</subtitle>
+							<p>A woodchuck would chuck as much wood as a woodchuck could chuck if a
+								woodchuck could chuck wood.</p>
+						</sec>
+					</body>
+					<back>
+						<ack>
+							<title>Acknowledgements</title>
+							<p>The author acknowledges that this sample is getting lengthy.</p>
+						</ack>
+						<!-- References list. -->
+						<ref-list>
+							<title>References</title>
+							<ref id="BDD1-bib-chap1-1">
+								<label>1.</label>
+								<element-citation publication-type="journal"
+									publication-format="print">
+									<person-group person-group-type="author">
+										<name>
+											<surname>Author</surname>
+											<given-names>A.N.</given-names>
+										</name>
+										<name>
+											<surname>Writer</surname>
+											<given-names>A</given-names>
+										</name>
+										<string-name><surname>Payne</surname>, the
+											Honorable</string-name>
+									</person-group>
+									<article-title>Title of Reference Article</article-title>
+									<source>J Dem Diseases</source>
+									<year>2008</year>
+									<volume>27</volume>
+									<fpage>19</fpage>
+									<lpage>23</lpage>
+									<pub-id pub-id-type="doi">10.1000/123456789</pub-id>
+									<pub-id pub-id-type="pmid">123456</pub-id>
+								</element-citation>
+							</ref>
+							<ref id="BDD1-bib-chap1-2">
+								<label>2.</label>
+								<mixed-citation publication-type="journal">
+									<person-group person-group-type="author"
+												><string-name><surname>Author</surname>
+											<given-names>A</given-names></string-name>,
+												<string-name><surname>Author</surname>
+											<given-names>B</given-names></string-name>,
+												<string-name><surname>Author</surname>
+											<given-names>C</given-names></string-name></person-group>.
+										<article-title>Another Research Article</article-title>.
+										<source>J Dem Diseases.</source>
+									<year>2002</year>;<volume>63</volume>(<issue>4</issue>), page
+										<fpage>3</fpage>. <pub-id pub-id-type="doi"
+										>10.1000/s10439-009-9661-x</pub-id>. <pub-id
+										pub-id-type="pmid">654321</pub-id>. </mixed-citation>
+							</ref>
+							<ref id="BDD1-bib-chap1-3">
+								<label>3.</label>
+								<mixed-citation publication-type="confproc"><person-group person-group-type="author"
+									><string-name><surname>Author</surname>,
+										<given-names>A</given-names></string-name>,
+									<string-name><surname>Author</surname>,
+										<given-names>B</given-names></string-name>,
+									<string-name><surname>Author</surname>,
+										<given-names>C</given-names></string-name>,
+									<string-name><surname>Author</surname>,
+										<given-names>D</given-names></string-name>,
+									<string-name><surname>Author</surname>,
+										<given-names>E</given-names></string-name>, and
+									<string-name><surname>Author</surname>,
+										<given-names>F</given-names></string-name></person-group>,
+									<year>2016</year>, &#x201C;<article-title>A proceeding article.</article-title>,&#x201D; <conf-name>Name of the conference</conf-name>, <conf-loc>Some City,
+										State</conf-loc>, <conf-date>May 19&#x2013;21</conf-date>. <pub-id
+											pub-id-type="doi" specific-use="metadata"
+											>10.1000/AAA.2016.0000000</pub-id></mixed-citation>
+							</ref>
+						</ref-list>
+						<!-- Notes. -->
+						<notes>
+							<p>This is some note.</p>
+						</notes>
+						<!-- Audio and video transcripts. -->
+						<sec sec-type="transcript" id="transcript1">
+							<title>Fluoroscopy</title>
+							<p>Thank you for joining me</p>						
+						</sec>
+						<sec sec-type="transcript" id="transcript2">
+							<title>Fluoroscopy II</title>
+							<p>Thank you for joining me</p>						
+						</sec>
+						<sec sec-type="transcript" id="transcript3">
+							<title>Fluoroscopy III</title>
+							<p>Thank you for joining me</p>						
+						</sec>
+						<sec sec-type="transcript" id="transcript4">
+							<title>Video 6</title>
+							<p>Thank you for joining me</p>						
+						</sec>
+						<sec sec-type="transcript" id="transcript5">
+							<title>Audio 6</title>
+							<p>Thank you for joining me</p>						
+						</sec>
+						<sec sec-type="transcript" id="transcript6">
+							<title>Video 7</title>
+							<p>Thank you for joining me</p>						
+						</sec>
+						<sec sec-type="transcript" id="transcript7">
+							<title>Video 8</title>
+							<p>Thank you for joining me</p>						
+						</sec>
+					</back>
+				</book-part>
+				<book-part id="BDD1-ch2" book-part-type="chapter">
+					<book-part-meta>
+						<book-part-id book-part-id-type="doi">0000.00/book1.chap2</book-part-id>
+						<title-group>
+							<label>Chapter 2</label>
+							<title>The Second Chapter</title>
+						</title-group>
+					</book-part-meta>
+					<body>
+						<p>This is another chapter.</p>
+						<!--These are examples of related-object linking across chapters within the same book.-->
+						<p>Look at this section in Chapter 1: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="sec"
+							object-id-type="publisher-id" object-id="BDD1-ch1-sec1">Introduction</related-object>.</p>
+						<p>Did you know that there is a <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="table"
+							object-id-type="publisher-id" object-id="BDD1-table1">Table</related-object> in Chapter 1?</p>
+						<p>Chapter 1 also has a <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="video"
+							object-id-type="publisher-id" object-id="video1">video</related-object> that you should check out.</p>
+						<p>Chapter 1 has <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="audio"
+							object-id-type="publisher-id" object-id="audio6">audio</related-object> that sounds cool.</p>						
+						<p>The link is targeting a page in another chapter: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="target"
+							object-id-type="publisher-id" object-id="target1">Chapter 1, p. 125</related-object>.</p>							
+						<p>The back of the book has some notes: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="end-note"
+							object-id-type="publisher-id" object-id="bid.394">Endnotes</related-object>.</p>
+						<p>You can find supplementary data in the Dedication: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="supplementary-data"
+							object-id-type="publisher-id" object-id="BDD1-sup100">Supplement</related-object>.</p>						
+						<p>Please see the Appendix in the back of the book: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="app"
+							object-id-type="publisher-id" object-id="app1">Appendix 1</related-object></p>
+						<p>The author notes in Chapter 1 indicate the research: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="author-notes"
+							object-id-type="publisher-id" object-id="BDD1-fn8">Research Statement</related-object>.</p>
+						<p>Here is some boxed tex in Chapter 1: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="boxed-text"
+							object-id-type="publisher-id" object-id="BDD1-bt1">boxed text</related-object>.</p>
+						<p>The dedication has an author that will receive correspondence: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="corresp"
+							object-id-type="publisher-id" object-id="cor2">Author email</related-object>.</p>
+						<p>Please see the equation in Chapter 1: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="disp-formula"
+							object-id-type="publisher-id" object-id="BDD1-FD2">Equation 2</related-object>.</p>
+						<p>The back of this book has a footnote: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="fn"
+							object-id-type="publisher-id" object-id="BDD1-fn9">footnote</related-object>.</p>
+						<p>The back of this book has a reference list: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="ref-list"
+							object-id-type="publisher-id" object-id="references1">References</related-object>.</p>
+						<p>Here is a link to a paragraph in Chapter 1: <related-object
+							document-type="book" document-id-type="isbn13"
+							document-id="978-07-7043-740-4" object-type="other"
+							object-id-type="publisher-id" object-id="BDD1-ch1-para">paragraph</related-object>.</p>						
+					</body>
+				</book-part>
+			</body>
+			<back>
+				<ack>
+					<title>Acknowledgements</title>
+					<p>We would like to thank the Academy.</p>
+				</ack>
+				<bio id="BDD1-b2">
+					<title>Author biography</title>
+					<graphic position="anchor" xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="YourFace.png">
+						<alt-text>Professional photo of the person described in this bio.</alt-text>
+						<object-id pub-id-type="doi"
+							>10.9999/SSC_20120928_v107i3_043_face</object-id>
+					</graphic>
+					<p><bold>This person</bold> received their PhD in mathematics from the
+						University of California Irvine. They have been a senior scientist at the
+						Science Company for the past 500 years. They have worked on a wide range of
+						problems associated with the thermonuclear dynamics of cats, calculating the
+						escape velocity of rainbows, and analyzing fisherman's luck.</p>
+				</bio>
+				<!-- References list. -->
+				<ref-list>
+					<title>References</title>
+					<ref id="BDD1-bib-P1-1">
+						<label>1.</label>
+						<element-citation publication-type="journal" publication-format="print">
+							<person-group person-group-type="author">
+								<name>
+									<surname>Author</surname>
+									<given-names>A.N.</given-names>
+								</name>
+								<name>
+									<surname>Writer</surname>
+									<given-names>A</given-names>
+								</name>
+								<string-name><surname>Payne</surname>, the Honorable</string-name>
+							</person-group>
+							<article-title>Title of Reference Article</article-title>
+							<source>J Dem Diseases</source>
+							<year>2008</year>
+							<volume>27</volume>
+							<fpage>19</fpage>
+							<lpage>23</lpage>
+							<pub-id pub-id-type="doi">10.1000/123456789</pub-id>
+							<pub-id pub-id-type="pmid">123456</pub-id>
+						</element-citation>
+					</ref>
+					<ref id="BDD1-bib-P1-2">
+						<label>2.</label>
+						<mixed-citation publication-type="journal">
+							<person-group person-group-type="author"
+										><string-name><surname>Author</surname>
+									<given-names>A</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>B</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>C</given-names></string-name></person-group>.
+								<article-title>Another Research Article</article-title>. <source>J
+								Dem Diseases.</source>
+							<year>2002</year>;<volume>63</volume>(<issue>4</issue>), page
+								<fpage>3</fpage>. <pub-id pub-id-type="doi"
+								>10.1000/s10439-009-9661-x</pub-id>. <pub-id pub-id-type="pmid"
+								>654321</pub-id>. </mixed-citation>
+					</ref>
+				</ref-list>
+				<!-- Notes. -->
+				<notes>
+					<p>This is some note.</p>
+				</notes>
+				<glossary id="BDD1-glossary1">
+					<title>Glossary of Terms</title>
+					<def-list>
+						<def-item>
+							<term>Void</term>
+							<def>
+								<p>—Nonexistence or absence.</p>
+							</def>
+						</def-item>
+					</def-list>			
+					<fn-group>
+						<fn id="BDD1-glossary1-fn1">
+							<label><sup>2</sup></label>
+							<p><mixed-citation publication-type="book" id="BDD1-glossary1-fn1-ref1"
+										><person-group person-group-type="author"
+											><string-name>Smith, J.</string-name></person-group>
+									(1977). <source><italic>BookTitle</italic></source>. Denver:
+									Rocky Mountain Press, p. 12.</mixed-citation></p>
+						</fn>
+					</fn-group>
+				</glossary>
+			</back>
+		</book-part>
+		<book-part id="BDD1-part2" book-part-type="part">
+			<book-part-meta>
+				<book-part-id book-part-id-type="doi">0000.00/book1.part2</book-part-id>
+				<title-group>
+					<label>Part 2</label>
+					<title>The Second Part</title>
+				</title-group>
+				<permissions id="per3">
+					<license license-type="cc-by-nc-sa">
+						<license-p/>
+					</license>
+				</permissions>
+			</book-part-meta>
+			<front-matter>
+				<preface id="BDD1-P2-pref">
+					<book-part-meta>
+						<book-part-id book-part-id-type="doi">0000.00/book1.p2.pref</book-part-id>
+						<title-group>
+							<title>Preface</title>
+						</title-group>
+					</book-part-meta>
+					<named-book-part-body>
+						<p>This is the preface to Part 2.</p>
+					</named-book-part-body>
+				</preface>
+			</front-matter>
+			<body>
+				<book-part id="BDD1-ch3" book-part-type="chapter" indexed="no">
+					<book-part-meta>
+						<book-part-id book-part-id-type="doi">0000.00/book1.chap3</book-part-id>
+						<title-group>
+							<label>Chapter 3</label>
+							<title>The Third Chapter</title>
+						</title-group>
+						<!-- Capture version history. -->
+						<pub-history>
+							<event event-type="published">
+								<event-desc specific-use="version-number">0</event-desc>
+								<pub-date iso-8601-date="2013-07-13">
+									<day>13</day>
+									<month>07</month>
+									<year>2013</year>
+								</pub-date>
+							</event>
+							<event event-type="version">
+								<event-desc specific-use="version-number">1</event-desc>
+								<pub-date iso-8601-date="2013-08-12">
+									<day>12</day>
+									<month>08</month>
+									<year>2013</year>
+								</pub-date>
+								<notes>
+									<p>Added A to paragraph title</p>
+								</notes>
+							</event>
+						</pub-history>
+					</book-part-meta>
+					<body>
+						<p>This is another chapter.</p>
+						<sec id="BDD1-sec1">
+							<!-- Sample of an inline graphic in a title, like an icon. -->
+							<title>
+								<inline-graphic id="BDD1-sec1-img1" xlink:href="icon.gif"
+									><alt-text>Description of inline graphic</alt-text></inline-graphic>Appendix</title>
+							<p>Look at how our title has an icon in this section.</p>
+							<!-- Chapter-to-chapter link in running text -->
+							<p>For more information see <related-object document-type="book"
+									document-id-type="isbn13" document-id="978-07-7043-740-4"
+									object-type="chapter" object-id-type="publisher-id"
+									object-id="BDD1-ch1">Chapter 1</related-object>.</p>
+						</sec>
+						<sec id="BDD1-appx1">
+							<title>Appendix</title>
+							<!-- Link to an external website. -->
+							<p>Look at this website: <ext-link ext-link-type="uri"
+									xlink:href="http://www.silverchair.com"
+									>silverchair.com</ext-link>.</p>
+						</sec>
+						
+						<sec id="BDD1-sec2">							
+							<sec-meta>								
+								<contrib-group>									
+									<contrib contrib-type="author">										
+										<name>											
+											<surname>Morse</surname>											
+											<given-names>Jean R.</given-names>											
+										</name>						
+									</contrib>								
+								</contrib-group>								
+							</sec-meta>
+						<p>This was specifically authored by Jean R Morse.</p>
+						</sec>
+					</body>
+				</book-part>
+			</body>
+		</book-part>
+	</book-body>
+	<book-back>
+		<!-- Acknowledgements. -->
+		<ack>
+			<title>Acknowledgements</title>
+			<p>We would like to thank the Academy.</p>
+		</ack>
+		<!-- Footnote. -->
+		<fn-group>
+			<fn id="BDD1-fn9"><p>This is a footnote for the book.</p></fn>
+		</fn-group>
+		<!-- Reference list. -->
+		<ref-list id="references1">
+			<title>References</title>
+			<ref id="references1ref1">
+				<label>1.</label>
+				<element-citation publication-type="journal" publication-format="print">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Author</surname>
+							<given-names>A.N.</given-names>
+						</name>
+						<name>
+							<surname>Writer</surname>
+							<given-names>A</given-names>
+						</name>
+						<string-name><surname>Payne</surname>, the Honorable</string-name>
+					</person-group>
+					<article-title>Title of Reference Article</article-title>
+					<source>J Dem Diseases</source>
+					<year>2008</year>
+					<volume>27</volume>
+					<fpage>19</fpage>
+					<lpage>23</lpage>
+					<pub-id pub-id-type="doi">10.1000/123456789</pub-id>
+					<pub-id pub-id-type="pmid">123456</pub-id>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<!-- Deprecated and invalid, please use book-app-group or book-app instead: Example of an app-group with app with title and subtitle. -->
+		<app-group id="appgroup-1">
+			<app id="app1">
+				<label>Appendix 1</label>
+				<title>Example patient leaflet for a psychoeducational group</title>
+				<subtitle>Managing depression course</subtitle>
+				<sec id="app1_sec1_1">
+					<title>Title</title>
+					<p>An appendectomy is the surgical removal of the appendix.</p>
+				</sec>
+			</app>
+		</app-group>
+		<!-- Biographical information a the book level. -->
+		<bio id="BDD1-b1">
+			<title>Author biography</title>
+			<graphic position="anchor" xmlns:xlink="http://www.w3.org/1999/xlink"
+				xlink:href="YourFace.png">
+				<alt-text>Professional photo of the person described in this bio.</alt-text>
+				<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_face2</object-id>
+			</graphic>
+			<p><bold>This person</bold> received their PhD in mathematics from the University of
+				California Irvine. They have been a senior scientist at the Science Company for the
+				past 500 years. They have worked on a wide range of problems associated with the
+				thermonuclear dynamics of cats, calculating the escape velocity of rainbows, and
+				analyzing fisherman's luck.</p>
+		</bio>
+		<!-- Book-parts in book-back. -->
+		<book-part book-part-type="end-notes" id="bid.394" indexed="no">
+			<book-part-meta>
+				<book-part-id book-part-id-type="doi">0000.00/book1.endnotes1</book-part-id>
+				<title-group>
+					<title>Endnotes</title>
+				</title-group>
+				<self-uri xlink:href="back_bookpart_pdf.pdf" xml:lang="en"/>
+				<self-uri xlink:href="back_bookpart_french_pdf.pdf" xml:lang="fr"/>
+				<self-uri xlink:href="back_bookpart_chinese_pdf.pdf" xml:lang="zh"/>
+			</book-part-meta>
+			<body>
+				<p>These are the very interesting endnotes for the book.</p>
+			</body>
+			<back>
+				<ref-list>
+					<title>References</title>
+					<ref id="end_ref_1">
+						<label>1</label>
+						<mixed-citation publication-type="journal"><person-group
+								person-group-type="author"
+										><string-name><surname>Author</surname><given-names>A</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>B</given-names></string-name>,
+										<string-name><surname>Author</surname>
+									<given-names>C</given-names></string-name></person-group>.
+								<article-title>Another Research Article</article-title>. <source>J
+								Dem Diseases.</source>
+							<year>2002</year>;<volume>63</volume>(<issue>4</issue>), page
+								<fpage>3</fpage>. <pub-id pub-id-type="doi"
+								>10.1000/s10439-009-9661-x</pub-id>. <pub-id pub-id-type="pmid"
+								>654321</pub-id>.</mixed-citation>
+					</ref>
+				</ref-list>
+			</back>
+		</book-part>
+		<!-- Appendices at the book level. -->
+		<book-app-group id="bid.300">
+			<book-part-meta>
+				<title-group>
+					<title>TAXON Appendices</title>
+				</title-group>
+			</book-part-meta>
+			<book-app id="bid.301">
+				<book-part-meta>
+					<title-group>
+						<title>Appendix 1. TAXON nametypes.</title>
+					</title-group>
+				</book-part-meta>
+				<body>
+					<sec id="bid.302">
+						<title>Scientific Name</title>
+						<p>Every node in the database is required to have ...</p>
+					</sec>
+				</body>
+			</book-app>
+			<book-app id="bid.317">
+				<book-part-meta>
+					<title-group>
+						<title>Appendix 2. Functional classes of TAXON scientific names.</title>
+					</title-group>
+				</book-part-meta>
+				<body/>
+			</book-app>
+			<book-app id="bid.331">
+				<book-part-meta>
+					<title-group>
+						<title>Appendix 3. Other TAXON data types.</title>
+					</title-group>
+				</book-part-meta>
+				<body/>
+			</book-app>
+		</book-app-group>
+		<!-- Index at the book level. -->
+		<index-group>
+			<index>
+				<index-title-group>
+					<title>Author Index</title>
+				</index-title-group>
+				<index-div>
+					<index-title-group>
+						<title>K</title>
+					</index-title-group>
+					<index-entry>
+						<term>Kay, Michael</term>
+						<nav-pointer-group>
+							<nav-pointer><related-object document-type="book"
+									document-id-type="isbn13" document-id="1234567890128"
+									object-type="other" object-id-type="publisher-id" object-id="K1"
+									>1</related-object></nav-pointer>
+							<nav-pointer><related-object document-type="book"
+									document-id-type="isbn13" document-id="1234567890128"
+									object-type="sec" object-id-type="publisher-id" object-id="K2"
+									>2</related-object></nav-pointer>
+						</nav-pointer-group>
+						<see-entry>Armed forces</see-entry>
+					</index-entry>
+					<index-entry>
+						<term>Kepper, Johannes</term>
+						<nav-pointer><related-object document-type="book" document-id-type="isbn13"
+								document-id="1234567890128" object-type="target"
+								object-id-type="publisher-id" object-id="K3"
+							>3</related-object></nav-pointer>
+						<see-also-entry>Speech and press</see-also-entry>
+					</index-entry>
+				</index-div>
+			</index>
+		</index-group>
+	</book-back>
+</book>

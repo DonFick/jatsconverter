@@ -1,0 +1,88 @@
+# =========================
+# Runtime / Processing Data
+# =========================
+
+# Local Docker dev runtime directories
+devdata/
+incoming/
+processing/
+staging/
+archive/
+failed/
+logs/
+publish/
+
+# Production-like directories accidentally created locally
+home/
+data/
+
+# =========================
+# Configuration (secrets)
+# =========================
+
+# Local config files
+config.toml
+config.dev.toml
+
+# AWS credentials
+.aws/
+*.pem
+*.key
+
+# =========================
+# Python
+# =========================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Packaging artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# =========================
+# macOS
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =========================
+# Docker
+# =========================
+
+*.log
+docker-compose.override.yml
+
+# =========================
+# Editors / IDEs
+# =========================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# DTD (optional)
+# =========================
+
+# If DTDs are third-party and large, ignore them.
+# Remove this if you intentionally vendor them.
+dtd/

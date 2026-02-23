@@ -1,0 +1,969 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:mml="http://www.w3.org/1998/Math/MathML"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:ali="http://www.niso.org/schemas/ali/1.0/" elementFormDefault="qualified"
+	targetNamespace="http://specifications.silverchair.com/xsd/1/46/SCJATS-journalpublishing.xsd"
+	xmlns="http://specifications.silverchair.com/xsd/1/46/SCJATS-journalpublishing.xsd">
+	<xs:import namespace="http://www.w3.org/1998/Math/MathML"
+		schemaLocation="ncbi-mathml2/mathml2.xsd"/>
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:import namespace="http://www.niso.org/schemas/ali/1.0/" schemaLocation="ali.xsd"/>
+	<!-- 
+		*************************************************************************************************************
+		Redefine the types that are in common.xsd. Extensions and restrictions would go here, if any. 
+		*************************************************************************************************************
+	-->
+	<xs:redefine schemaLocation="SC-common.xsd">
+		<xs:complexType name="sc-abbrev-type" mixed="true">
+			<xs:complexContent>
+				<xs:restriction base="sc-abbrev-type">
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="def" type="j-def-type"/>
+					</xs:sequence>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-app-type" mixed="true">
+			<xs:complexContent>
+				<xs:extension base="sc-app-type">
+					<xs:sequence>
+						<xs:sequence>
+							<xs:element name="sec-meta" type="sc-sec-meta-type" minOccurs="0"/>
+							<xs:choice>
+								<xs:sequence>
+									<xs:element name="label" type="sc-label-type"/>
+									<xs:element name="title" type="sc-title-type" minOccurs="0"/>									
+								</xs:sequence>
+								<xs:element name="title" type="sc-title-type"/>
+							</xs:choice>
+							<xs:choice minOccurs="0" maxOccurs="unbounded">
+								<xs:element name="array" type="sc-array-type"/>
+								<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+								<xs:element name="fig" type="sc-fig-type"/>
+								<xs:element name="fig-group" type="sc-fig-group-type"/>
+								<xs:element name="graphic" type="sc-graphic-type"/>
+								<xs:element name="media" type="sc-media-type"/>
+								<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+								<xs:element name="table-wrap-group" type="sc-table-wrap-group-type"/>
+								<xs:element name="disp-formula" type="sc-disp-formula-type"/>
+								<xs:element name="p" type="sc-p-type"/>
+								<xs:element name="def-list" type="sc-def-list-type"/>
+								<xs:element name="list" type="sc-list-type"/>
+								<xs:element name="disp-quote" type="sc-disp-quote-type"/>
+								<xs:element name="speech" type="sc-speech-type"/>
+								<xs:element name="statement" type="sc-statement-type"/>
+								<xs:element name="verse-group" type="sc-verse-group-type"/>
+							</xs:choice>
+							<xs:element name="sec" type="sc-sec-type" minOccurs="0"
+								maxOccurs="unbounded"/>
+							<xs:choice minOccurs="0" maxOccurs="unbounded">
+								<xs:element name="fn-group" type="sc-fn-group-type"/>
+								<xs:element name="ref-list" type="sc-ref-list-type"/>
+							</xs:choice>
+						</xs:sequence>
+					</xs:sequence>
+					<xs:attribute name="id" type="xs:ID"/>
+					<xs:attribute ref="xml:lang"/>
+					<xs:attribute name="aid" type="xs:integer"/>
+					<xs:attribute name="content-type"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-attrib-type" mixed="true">
+			<xs:complexContent>
+				<xs:restriction base="sc-attrib-type">
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="email" type="j-email-type"/>
+						<xs:element name="ext-link" type="sc-ext-link-type"/>
+						<xs:element name="uri" type="j-uri-type"/>
+						<xs:element name="inline-supplementary-material"
+							type="sc-inline-supplementary-material-type"/>
+						<xs:element name="related-article" type="sc-related-article-type-body"/>
+						<xs:element name="related-object" type="sc-related-object-type-body"/>
+						<xs:element name="bold" type="sc-bold-type"/>
+						<xs:element name="italic" type="sc-italic-type"/>
+						<xs:element name="monospace" type="sc-monospace-type"/>
+						<xs:element name="overline" type="sc-overline-type"/>
+						<xs:element name="roman" type="sc-roman-type"/>
+						<xs:element name="sans-serif" type="sc-sans-serif-type"/>
+						<xs:element name="sc" type="sc-sc-type"/>
+						<xs:element name="strike" type="sc-strike-type"/>
+						<xs:element name="underline" type="sc-underline-type"/>
+						<xs:element name="alternatives" type="sc-alternatives-type"/>
+						<xs:element name="inline-graphic" type="j-inline-graphic-type"/>
+						<xs:element name="private-char" type="j-private-char-type"/>
+						<xs:element name="chem-struct" type="sc-chem-struct-type"/>
+						<xs:element name="inline-formula" type="sc-inline-formula-type"/>
+						<xs:element name="tex-math" type="j-tex-math-type"/>
+						<xs:element ref="mml:math"/>
+						<xs:element name="abbrev" type="sc-abbrev-type"/>
+						<xs:element name="milestone-end" type="j-milestone-end-type"/>
+						<xs:element name="milestone-start" type="j-milestone-start-type"/>
+						<xs:element name="named-content" type="sc-named-content-type-body"/>
+						<xs:element name="styled-content" type="sc-styled-content-type"/>
+						<xs:element name="fn" type="sc-fn-type"/>
+						<xs:element name="target" type="sc-target-type"/>
+						<xs:element name="xref" type="sc-xref-type"/>
+						<xs:element name="sub" type="sc-sub-type"/>
+						<xs:element name="sup" type="sc-sup-type"/>
+					</xs:choice>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-disp-quote-type">
+			<xs:complexContent>
+				<xs:restriction base="sc-disp-quote-type">
+					<xs:sequence>
+						<xs:element name="label" type="sc-label-type-body" minOccurs="0"/>
+						<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="address" type="sc-address-type"/>
+							<xs:element name="alternatives" type="sc-alternatives-type"/>
+							<xs:element name="array" type="sc-array-type"/>
+							<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+							<xs:element name="chem-struct-wrap" type="sc-chem-struct-wrap-type"/>
+							<xs:element name="fig" type="sc-fig-type"/>
+							<xs:element name="fig-group" type="sc-fig-group-type-body"/>
+							<xs:element name="graphic" type="sc-graphic-type"/>
+							<xs:element name="media" type="sc-media-type"/>
+							<xs:element name="preformat" type="sc-preformat-type"/>
+							<xs:element name="supplementary-material"
+								type="sc-supplementary-material-type"/>
+							<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+							<xs:element name="table-wrap-group" type="sc-table-wrap-group-type-body"/>
+							<xs:element name="disp-formula" type="sc-disp-formula-type"/>
+							<xs:element name="disp-formula-group" type="sc-disp-formula-group-type"/>
+							<xs:element name="def-list" type="sc-def-list-type"/>
+							<xs:element name="list" type="sc-list-type"/>
+							<xs:element name="tex-math" type="j-tex-math-type"/>
+							<xs:element ref="mml:math"/>
+							<xs:element name="p" type="sc-p-type"/>
+							<xs:element name="related-article" type="sc-related-article-type-body"/>
+							<xs:element name="related-object" type="sc-related-object-type-body"/>
+							<xs:element name="disp-quote" type="sc-disp-quote-type"/>
+							<xs:element name="speech" type="sc-speech-type"/>
+							<xs:element name="statement" type="sc-statement-type"/>
+							<xs:element name="verse-group" type="sc-verse-group-type"/>
+						</xs:choice>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="attrib" type="sc-attrib-type"/>
+							<xs:element name="permissions" type="sc-permissions-type"/>
+						</xs:choice>
+					</xs:sequence>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-element-citation-type">
+			<xs:complexContent>
+				<xs:restriction base="sc-element-citation-type">
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="bold" type="sc-bold-type"/>
+						<xs:element name="italic" type="sc-italic-type"/>
+						<xs:element name="monospace" type="sc-monospace-type"/>
+						<xs:element name="overline" type="sc-overline-type"/>
+						<xs:element name="roman" type="sc-roman-type"/>
+						<xs:element name="sans-serif" type="sc-sans-serif-type"/>
+						<xs:element name="sc" type="sc-sc-type"/>
+						<xs:element name="strike" type="sc-strike-type"/>
+						<xs:element name="underline" type="sc-underline-type"/>
+						<xs:element name="alternatives" type="sc-alternatives-type"/>
+						<xs:element name="inline-graphic" type="j-inline-graphic-type"/>
+						<xs:element name="private-char" type="j-private-char-type"/>
+						<xs:element name="chem-struct" type="sc-chem-struct-type"/>
+						<xs:element name="inline-formula" type="sc-inline-formula-type"/>
+						<xs:element name="label" type="sc-label-type-body"/>
+						<xs:element name="abbrev" type="sc-abbrev-type"/>
+						<xs:element name="milestone-end" type="j-milestone-end-type"/>
+						<xs:element name="milestone-start" type="j-milestone-start-type"/>
+						<xs:element name="named-content" type="sc-named-content-type-body"/>
+						<xs:element name="styled-content" type="sc-styled-content-type"/>
+						<xs:element name="annotation" type="j-annotation-type"/>
+						<xs:element name="article-title" type="sc-article-title-type"/>
+						<xs:element name="chapter-title" type="sc-chapter-title-type"/>
+						<xs:element name="collab" type="sc-collab-type-body"/>
+						<xs:element name="collab-alternatives" type="j-collab-alternatives-type"/>
+						<xs:element name="comment" type="sc-comment-type"/>
+						<xs:element name="conf-date" type="sc-conf-date-type"/>
+						<xs:element name="conf-loc" type="sc-conf-loc-type"/>
+						<xs:element name="conf-name" type="sc-conf-name-type"/>
+						<xs:element name="conf-sponsor" type="sc-conf-sponsor-type"/>
+						<xs:element name="data-title" type="sc-data-title-type"/>
+						<xs:element name="date" type="sc-date-type"/>
+						<xs:element name="date-in-citation" type="j-date-in-citation-type"/>
+						<xs:element name="day" type="sc-day-type"/>
+						<xs:element name="edition" type="j-edition-type"/>
+						<xs:element name="email" type="j-email-type"/>
+						<xs:element name="elocation-id" type="j-elocation-id-type"/>
+						<xs:element name="etal" type="j-etal-type"/>
+						<xs:element name="ext-link" type="sc-ext-link-type"/>
+						<xs:element name="fpage" type="sc-fpage-type"/>
+						<xs:element name="gov" type="sc-gov-type"/>
+						<xs:element name="institution" type="sc-institution-type"/>
+						<xs:element name="isbn" type="sc-isbn-type"/>
+						<xs:element name="issn" type="sc-issn-type-body"/>
+						<xs:element name="issn-l" type="j-issn-l-type"/>
+						<xs:element name="issue" type="sc-issue-type"/>
+						<xs:element name="issue-id" type="j-issue-id-type"/>
+						<xs:element name="issue-part" type="j-issue-part-type"/>
+						<xs:element name="issue-title" type="j-issue-title-type"/>
+						<xs:element name="lpage" type="sc-lpage-type"/>
+						<xs:element name="month" type="sc-month-type"/>
+						<xs:element name="name" type="sc-name-type"/>
+						<xs:element name="name-alternatives" type="j-name-alternatives-type"/>
+						<xs:element name="object-id" type="sc-object-id-type"/>
+						<xs:element name="page-range" type="sc-page-range-type"/>
+						<xs:element name="part-title" type="sc-part-title-type"/>
+						<xs:element name="patent" type="j-patent-type"/>
+						<xs:element name="person-group" type="sc-person-group-type"/>
+						<xs:element name="pub-id" type="j-pub-id-type"/>
+						<xs:element name="publisher-loc" type="sc-publisher-loc-type"/>
+						<xs:element name="publisher-name" type="j-publisher-name-type"/>
+						<xs:element name="role" type="sc-role-type"/>
+						<xs:element name="season" type="sc-season-type"/>
+						<xs:element name="series" type="sc-series-type"/>
+						<xs:element name="size" type="j-size-type"/>
+						<xs:element name="source" type="sc-source-type"/>
+						<xs:element name="std" type="sc-std-type"/>
+						<xs:element name="string-name" type="sc-string-name-type"/>
+						<xs:element name="supplement" type="sc-supplement-type"/>
+						<xs:element name="target" type="sc-target-type"/>
+						<xs:element name="trans-source" type="sc-trans-source-type"/>
+						<xs:element name="trans-title" type="sc-trans-title-type"/>
+						<xs:element name="uri" type="j-uri-type"/>
+						<xs:element name="version" type="sc-version-type"/>
+						<xs:element name="volume" type="sc-volume-type"/>
+						<xs:element name="volume-id" type="j-volume-id-type"/>
+						<xs:element name="volume-series" type="j-volume-series-type"/>
+						<xs:element name="xref" type="sc-xref-type"/>
+						<xs:element name="year" type="sc-year-type"/>
+						<xs:element name="sub" type="sc-sub-type"/>
+						<xs:element name="sup" type="sc-sup-type"/>
+					</xs:choice>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>		
+		<xs:complexType name="sc-label-type" mixed="true">
+			<xs:complexContent>
+				<xs:extension base="sc-label-type">
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:group ref="sc.label.class"/>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-label-type-body" mixed="true">
+			<xs:complexContent>
+				<xs:extension base="sc-label-type-body">
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:group ref="sc.label.class"/>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-mixed-citation-type" mixed="true">
+			<xs:complexContent>
+				<xs:restriction base="sc-mixed-citation-type">
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="bold" type="sc-bold-type"/>
+						<xs:element name="italic" type="sc-italic-type"/>
+						<xs:element name="monospace" type="sc-monospace-type"/>
+						<xs:element name="overline" type="sc-overline-type"/>
+						<xs:element name="roman" type="sc-roman-type"/>
+						<xs:element name="sans-serif" type="sc-sans-serif-type"/>
+						<xs:element name="sc" type="sc-sc-type"/>
+						<xs:element name="strike" type="sc-strike-type"/>
+						<xs:element name="underline" type="sc-underline-type"/>
+						<xs:element name="alternatives" type="sc-alternatives-type"/>
+						<xs:element name="inline-graphic" type="j-inline-graphic-type"/>
+						<xs:element name="private-char" type="j-private-char-type"/>
+						<xs:element name="chem-struct" type="sc-chem-struct-type"/>
+						<xs:element name="inline-formula" type="sc-inline-formula-type"/>
+						<xs:element name="label" type="sc-label-type-body"/>
+						<xs:element name="abbrev" type="sc-abbrev-type"/>
+						<xs:element name="milestone-end" type="j-milestone-end-type"/>
+						<xs:element name="milestone-start" type="j-milestone-start-type"/>
+						<xs:element name="named-content" type="sc-named-content-type-body"/>
+						<xs:element name="styled-content" type="sc-styled-content-type"/>
+						<xs:element name="annotation" type="j-annotation-type"/>
+						<xs:element name="article-title" type="sc-article-title-type"/>
+						<xs:element name="chapter-title" type="sc-chapter-title-type"/>
+						<xs:element name="collab" type="sc-collab-type-body"/>
+						<xs:element name="collab-alternatives" type="j-collab-alternatives-type"/>
+						<xs:element name="comment" type="sc-comment-type"/>
+						<xs:element name="conf-date" type="sc-conf-date-type"/>
+						<xs:element name="conf-loc" type="sc-conf-loc-type"/>
+						<xs:element name="conf-name" type="sc-conf-name-type"/>
+						<xs:element name="conf-sponsor" type="sc-conf-sponsor-type"/>
+						<xs:element name="data-title" type="sc-data-title-type"/>
+						<xs:element name="date" type="sc-date-type"/>
+						<xs:element name="date-in-citation" type="j-date-in-citation-type"/>
+						<xs:element name="day" type="sc-day-type"/>
+						<xs:element name="edition" type="j-edition-type"/>
+						<xs:element name="email" type="j-email-type"/>
+						<xs:element name="elocation-id" type="j-elocation-id-type"/>
+						<xs:element name="etal" type="j-etal-type"/>
+						<xs:element name="ext-link" type="sc-ext-link-type"/>
+						<xs:element name="fpage" type="sc-fpage-type"/>
+						<xs:element name="gov" type="sc-gov-type"/>
+						<xs:element name="institution" type="sc-institution-type"/>
+						<xs:element name="isbn" type="sc-isbn-type"/>
+						<xs:element name="issn" type="sc-issn-type-body"/>
+						<xs:element name="issn-l" type="j-issn-l-type"/>
+						<xs:element name="issue" type="sc-issue-type"/>
+						<xs:element name="issue-id" type="j-issue-id-type"/>
+						<xs:element name="issue-part" type="j-issue-part-type"/>
+						<xs:element name="issue-title" type="j-issue-title-type"/>
+						<xs:element name="lpage" type="sc-lpage-type"/>
+						<xs:element name="month" type="sc-month-type"/>
+						<xs:element name="name" type="sc-name-type"/>
+						<xs:element name="name-alternatives" type="j-name-alternatives-type"/>
+						<xs:element name="object-id" type="sc-object-id-type"/>
+						<xs:element name="page-range" type="sc-page-range-type"/>
+						<xs:element name="part-title" type="sc-part-title-type"/>
+						<xs:element name="patent" type="j-patent-type"/>
+						<xs:element name="person-group" type="sc-person-group-type"/>
+						<xs:element name="pub-id" type="j-pub-id-type"/>
+						<xs:element name="publisher-loc" type="sc-publisher-loc-type"/>
+						<xs:element name="publisher-name" type="j-publisher-name-type"/>
+						<xs:element name="role" type="sc-role-type"/>
+						<xs:element name="season" type="sc-season-type"/>
+						<xs:element name="series" type="sc-series-type"/>
+						<xs:element name="size" type="j-size-type"/>
+						<xs:element name="source" type="sc-source-type"/>
+						<xs:element name="std" type="sc-std-type"/>
+						<xs:element name="string-name" type="sc-string-name-type"/>
+						<xs:element name="supplement" type="sc-supplement-type"/>
+						<xs:element name="target" type="sc-target-type"/>
+						<xs:element name="trans-source" type="sc-trans-source-type"/>
+						<xs:element name="trans-title" type="sc-trans-title-type"/>
+						<xs:element name="uri" type="j-uri-type"/>
+						<xs:element name="version" type="sc-version-type"/>
+						<xs:element name="volume" type="sc-volume-type"/>
+						<xs:element name="volume-id" type="j-volume-id-type"/>
+						<xs:element name="volume-series" type="j-volume-series-type"/>
+						<xs:element name="xref" type="sc-xref-type"/>
+						<xs:element name="year" type="sc-year-type"/>
+						<xs:element name="sub" type="sc-sub-type"/>
+						<xs:element name="sup" type="sc-sup-type"/>
+					</xs:choice>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-ref-list-type">
+			<xs:complexContent>
+				<xs:extension base="sc-ref-list-type">
+					<xs:sequence>
+						<xs:element name="label" type="sc-label-type-body" minOccurs="0"/>
+						<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="address" type="sc-address-type"/>
+							<xs:element name="alternatives" type="sc-alternatives-type"/>
+							<xs:element name="array" type="sc-array-type"/>
+							<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+							<xs:element name="chem-struct-wrap" type="sc-chem-struct-wrap-type"/>
+							<xs:element name="fig" type="sc-fig-type"/>
+							<xs:element name="fig-group" type="sc-fig-group-type-body"/>
+							<xs:element name="graphic" type="sc-graphic-type"/>
+							<xs:element name="media" type="sc-media-type"/>
+							<xs:element name="preformat" type="sc-preformat-type"/>
+							<xs:element name="supplementary-material"
+								type="sc-supplementary-material-type"/>
+							<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+							<xs:element name="table-wrap-group" type="sc-table-wrap-group-type-body"/>
+							<xs:element name="disp-formula" type="sc-disp-formula-type"/>
+							<xs:element name="disp-formula-group" type="sc-disp-formula-group-type"/>
+							<xs:element name="def-list" type="sc-def-list-type"/>
+							<xs:element name="list" type="sc-list-type"/>
+							<xs:element name="tex-math" type="j-tex-math-type"/>
+							<xs:element ref="mml:math"/>
+							<xs:element name="p" type="sc-p-type"/>
+							<xs:element name="related-article" type="sc-related-article-type-body"/>
+							<xs:element name="related-object" type="sc-related-object-type-body"/>
+							<xs:element name="disp-quote" type="sc-disp-quote-type"/>
+							<xs:element name="speech" type="sc-speech-type"/>
+							<xs:element name="statement" type="sc-statement-type"/>
+							<xs:element name="verse-group" type="sc-verse-group-type"/>
+						</xs:choice>
+						<xs:element name="ref" type="sc-ref-type" minOccurs="0"
+							maxOccurs="unbounded"/>
+						<xs:element name="ref-list" type="sc-ref-list-type" minOccurs="0"
+							maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-related-object-type-body" mixed="true">
+			<xs:complexContent>
+				<xs:restriction base="sc-related-object-type-body">
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="bold" type="sc-bold-type"/>
+						<xs:element name="italic" type="sc-italic-type"/>
+						<xs:element name="monospace" type="sc-monospace-type"/>
+						<xs:element name="overline" type="sc-overline-type"/>
+						<xs:element name="roman" type="sc-roman-type"/>
+						<xs:element name="sans-serif" type="sc-sans-serif-type"/>
+						<xs:element name="sc" type="sc-sc-type"/>
+						<xs:element name="strike" type="sc-strike-type"/>
+						<xs:element name="underline" type="sc-underline-type"/>
+						<xs:element name="named-content" type="sc-named-content-type-body"/>
+						<xs:element name="styled-content" type="sc-styled-content-type"/>
+						<xs:element name="annotation" type="j-annotation-type"/>
+						<xs:element name="article-title" type="sc-article-title-type"/>
+						<xs:element name="chapter-title" type="sc-chapter-title-type"/>
+						<xs:element name="collab" type="sc-collab-type"/>
+						<xs:element name="collab-alternatives" type="j-collab-alternatives-type"/>
+						<xs:element name="comment" type="sc-comment-type"/>
+						<xs:element name="conf-date" type="sc-conf-date-type"/>
+						<xs:element name="conf-loc" type="sc-conf-loc-type"/>
+						<xs:element name="conf-name" type="sc-conf-name-type"/>
+						<xs:element name="conf-sponsor" type="sc-conf-sponsor-type"/>
+						<xs:element name="date" type="sc-date-type"/>
+						<xs:element name="date-in-citation" type="j-date-in-citation-type"/>
+						<xs:element name="day" type="sc-day-type"/>
+						<xs:element name="edition" type="j-edition-type"/>
+						<xs:element name="email" type="j-email-type"/>
+						<xs:element name="elocation-id" type="j-elocation-id-type"/>
+						<xs:element name="etal" type="j-etal-type"/>
+						<xs:element name="ext-link" type="sc-ext-link-type"/>
+						<xs:element name="fpage" type="sc-fpage-type"/>
+						<xs:element name="gov" type="sc-gov-type"/>
+						<xs:element name="inline-formula" type="sc-inline-formula-type"/>
+						<xs:element name="institution" type="sc-institution-type"/>
+						<xs:element name="isbn" type="sc-isbn-type"/>
+						<xs:element name="issn" type="sc-issn-type-body"/>
+						<xs:element name="issn-l" type="j-issn-l-type"/>
+						<xs:element name="issue" type="sc-issue-type"/>
+						<xs:element name="issue-id" type="j-issue-id-type"/>
+						<xs:element name="issue-part" type="j-issue-part-type"/>
+						<xs:element name="issue-title" type="j-issue-title-type"/>
+						<xs:element name="lpage" type="sc-lpage-type"/>
+						<xs:element name="month" type="sc-month-type"/>
+						<xs:element name="name" type="sc-name-type"/>
+						<xs:element name="name-alternatives" type="j-name-alternatives-type"/>
+						<xs:element name="object-id" type="sc-object-id-type"/>
+						<xs:element name="page-range" type="sc-page-range-type"/>
+						<xs:element name="part-title" type="sc-part-title-type"/>
+						<xs:element name="patent" type="j-patent-type"/>
+						<xs:element name="person-group" type="sc-person-group-type"/>
+						<xs:element name="pub-id" type="j-pub-id-type"/>
+						<xs:element name="publisher-loc" type="sc-publisher-loc-type"/>
+						<xs:element name="publisher-name" type="j-publisher-name-type"/>
+						<xs:element name="role" type="sc-role-type"/>
+						<xs:element name="season" type="sc-season-type"/>
+						<xs:element name="series" type="sc-series-type"/>
+						<xs:element name="size" type="j-size-type"/>
+						<xs:element name="source" type="sc-source-type"/>
+						<xs:element name="std" type="sc-std-type"/>
+						<xs:element name="string-name" type="sc-string-name-type"/>
+						<xs:element name="supplement" type="sc-supplement-type"/>
+						<xs:element name="trans-source" type="sc-trans-source-type"/>
+						<xs:element name="trans-title" type="sc-trans-title-type"/>
+						<xs:element name="uri" type="j-uri-type"/>
+						<xs:element name="volume" type="sc-volume-type"/>
+						<xs:element name="volume-id" type="j-volume-id-type"/>
+						<xs:element name="volume-series" type="j-volume-series-type"/>
+						<xs:element name="year" type="sc-year-type"/>
+						<xs:element name="sub" type="sc-sub-type"/>
+						<xs:element name="sup" type="sc-sup-type"/>
+					</xs:choice>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-role-type" mixed="true">
+			<xs:complexContent>
+				<xs:extension base="sc-role-type">
+					<xs:attribute name="degree-contribution" use="optional" type="xs:string"/>
+					<xs:attribute name="vocab" use="optional" type="xs:string"/>
+					<xs:attribute name="vocab-identifier" use="optional" type="xs:string"/>
+					<xs:attribute name="vocab-term" use="optional" type="xs:string"/>
+					<xs:attribute name="vocab-term-identifier" use="optional" type="xs:string"/>
+					<xs:attribute name="content-type" use="optional" type="xs:string"/>
+					<xs:attribute name="specific-use" use="optional" type="xs:string"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-sec-type">
+			<xs:complexContent>
+				<xs:extension base="sc-sec-type">
+					<xs:sequence>
+						<xs:element name="sec-meta" type="sc-sec-meta-type" minOccurs="0"/>
+						<xs:choice>
+							<xs:sequence>
+								<xs:element name="label" type="sc-label-type"/>
+								<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+							</xs:sequence>
+							<xs:element name="title" type="sc-title-type"/>
+						</xs:choice>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="array" type="sc-array-type"/>
+							<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+							<xs:element name="fig" type="sc-fig-type"/>
+							<xs:element name="fig-group" type="sc-fig-group-type"/>
+							<xs:element name="graphic" type="sc-graphic-type"/>
+							<xs:element name="media" type="sc-media-type"/>
+							<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+							<xs:element name="table-wrap-group" type="sc-table-wrap-group-type"/>
+							<xs:element name="disp-formula" type="sc-disp-formula-type"/>
+							<xs:element name="p" type="sc-p-type"/>
+							<xs:element name="def-list" type="sc-def-list-type"/>
+							<xs:element name="list" type="sc-list-type"/>
+							<xs:element name="disp-quote" type="sc-disp-quote-type"/>
+							<xs:element name="speech" type="sc-speech-type"/>
+							<xs:element name="statement" type="sc-statement-type"/>
+							<xs:element name="verse-group" type="sc-verse-group-type"/> 
+						</xs:choice>
+						<xs:element name="sec" type="sc-sec-type" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="fn-group" type="sc-fn-group-type"/>
+							<xs:element name="ref-list" type="sc-ref-list-type"/>
+						</xs:choice>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-string-name-type" mixed="true">
+			<xs:complexContent>
+				<xs:restriction base="sc-string-name-type">
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="degrees" type="sc-degrees-type"/>
+						<xs:element name="given-names" type="sc-given-names-type"/>
+						<xs:element name="prefix" type="sc-prefix-type"/>
+						<xs:element name="surname" type="sc-surname-type"/>
+						<xs:element name="suffix" type="sc-suffix-type"/>
+					</xs:choice>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-title-type" mixed="true">
+			<xs:complexContent>
+				<xs:restriction base="sc-title-type">
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="email" type="j-email-type"/>
+						<xs:element name="ext-link" type="sc-ext-link-type"/>
+						<xs:element name="uri" type="j-uri-type"/>
+						<xs:element name="bold" type="sc-bold-type"/>
+						<xs:element name="italic" type="sc-italic-type"/>
+						<xs:element name="monospace" type="sc-monospace-type"/>
+						<xs:element name="overline" type="sc-overline-type"/>
+						<xs:element name="roman" type="sc-roman-type"/>
+						<xs:element name="sans-serif" type="sc-sans-serif-type"/>
+						<xs:element name="sc" type="sc-sc-type"/>
+						<xs:element name="strike" type="sc-strike-type"/>
+						<xs:element name="underline" type="sc-underline-type"/>
+						<xs:element name="inline-graphic" type="j-inline-graphic-type"/>
+						<xs:element name="inline-formula" type="sc-inline-formula-type"/>
+						<xs:element name="tex-math" type="j-tex-math-type"/>
+						<xs:element ref="mml:math"/>
+						<xs:element name="named-content" type="sc-named-content-type-body"/>
+						<xs:element name="fn" type="sc-fn-type"/>
+						<xs:element name="xref" type="sc-xref-type"/>
+						<xs:element name="sub" type="sc-sub-type"/>
+						<xs:element name="sup" type="sc-sup-type"/>
+						<xs:element name="break" type="j-break-type"/>
+						<xs:element name="element-citation" type="sc-element-citation-type"/>
+						<xs:element name="mixed-citation" type="sc-mixed-citation-type"/>
+					</xs:choice>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-verse-line-type" mixed="true">
+			<xs:complexContent>
+				<xs:restriction base="sc-verse-line-type">
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="bold" type="sc-bold-type"/>
+						<xs:element name="italic" type="sc-italic-type"/>
+						<xs:element name="monospace" type="sc-monospace-type"/>
+						<xs:element name="overline" type="sc-overline-type"/>
+						<xs:element name="roman" type="sc-roman-type"/>
+						<xs:element name="sans-serif" type="sc-sans-serif-type"/>
+						<xs:element name="sc" type="sc-sc-type"/>
+						<xs:element name="strike" type="sc-strike-type"/>
+						<xs:element name="underline" type="sc-underline-type"/>
+						<xs:element name="alternatives" type="sc-alternatives-type"/>
+						<xs:element name="inline-graphic" type="j-inline-graphic-type"/>
+						<xs:element name="private-char" type="j-private-char-type"/>
+						<xs:element name="chem-struct" type="sc-chem-struct-type"/>
+						<xs:element name="inline-formula" type="sc-inline-formula-type"/>
+						<xs:element name="abbrev" type="sc-abbrev-type"/>
+						<xs:element name="milestone-end" type="j-milestone-end-type"/>
+						<xs:element name="milestone-start" type="j-milestone-start-type"/>
+						<xs:element name="named-content" type="sc-named-content-type-body"/>
+						<xs:element name="styled-content" type="sc-styled-content-type"/>
+						<xs:element name="sub" type="sc-sub-type"/>
+						<xs:element name="sup" type="sc-sup-type"/>
+						<xs:element name="fn" type="sc-fn-type"/>
+						<xs:element name="target" type="sc-target-type"/>
+						<xs:element name="xref" type="sc-xref-type"/>
+					</xs:choice>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-xref-type" mixed="true">
+			<xs:complexContent>
+				<xs:restriction base="sc-xref-type">
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="bold" type="sc-bold-type"/>
+						<xs:element name="italic" type="sc-italic-type"/>
+						<xs:element name="monospace" type="sc-monospace-type"/>
+						<xs:element name="overline" type="sc-overline-type"/>
+						<xs:element name="roman" type="sc-roman-type"/>
+						<xs:element name="sans-serif" type="sc-sans-serif-type"/>
+						<xs:element name="sc" type="sc-sc-type"/>
+						<xs:element name="strike" type="sc-strike-type"/>
+						<xs:element name="underline" type="sc-underline-type"/>
+						<xs:element name="named-content" type="sc-named-content-type-body"/>
+						<xs:element name="styled-content" type="sc-styled-content-type"/>
+						<xs:element name="sub" type="sc-sub-type"/>
+						<xs:element name="sup" type="sc-sup-type"/>
+					</xs:choice>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:redefine>
+
+	<!-- 
+		*************************************************************************************
+		Definition of types and declaration of elements specific to journal articles.
+		*************************************************************************************
+	-->
+	<xs:element name="article" type="sc-article-type"/>
+	<xs:complexType name="j-abbrev-journal-title-type" mixed="true">
+		<xs:attribute name="abbrev-type"/>
+		<xs:attribute name="specific-use"/>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="sc-abstract-type">
+		<xs:sequence>
+			<xs:element name="label" type="sc-label-type-body" minOccurs="0"/>
+			<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+			<xs:element name="p" type="sc-p-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="sec" type="sc-sec-type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="abstract-type" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="abstract"/>
+					<xs:enumeration value="precis"/>
+					<xs:enumeration value="teaser"/>
+					<xs:enumeration value="graphical"/>
+					<xs:enumeration value="audio"/>
+					<xs:enumeration value="video"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="specific-use"/>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="sc-article-type">
+		<xs:sequence>
+			<xs:element name="front" type="sc-front-type"/>
+			<xs:element name="body" type="sc-body-type" minOccurs="0"/>
+			<xs:element name="back" type="sc-back-type" minOccurs="0"/>
+			<xs:element name="sub-article" type="sc-sub-article-type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="article-type" use="required"/>
+		<xs:attribute ref="xml:lang" default="en"/>
+	</xs:complexType>
+	<xs:complexType name="sc-article-categories-type">
+		<xs:sequence>
+			<xs:element name="subj-group" type="sc-subj-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="series-title" type="j-series-title-type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sc-article-id-type" mixed="true">
+		<xs:attribute name="pub-id-type">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="arxiv"/>
+					<xs:enumeration value="doi"/>
+					<xs:enumeration value="publisher-id"/>
+					<xs:enumeration value="other"/>
+					<xs:enumeration value="pmid"/>
+					<xs:enumeration value="aid"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="sc-article-meta-type">
+		<xs:sequence>
+			<xs:element name="article-id" type="sc-article-id-type" maxOccurs="unbounded"/>
+			<xs:element name="article-version" type="sc-article-version-type" minOccurs="0"/>
+			<xs:element name="article-categories" type="sc-article-categories-type" minOccurs="0"/>
+			<xs:element name="title-group" type="sc-title-group-type"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="contrib-group" type="sc-contrib-group-type"/>
+				<xs:element name="aff" type="sc-aff-type"/>
+			</xs:choice>
+			<xs:element name="author-notes" type="sc-author-notes-type" minOccurs="0"/>
+			<xs:element name="pub-date" type="sc-pub-date-type" maxOccurs="unbounded"/>
+			<xs:element name="volume" type="sc-volume-type" minOccurs="0"/>
+			<xs:element name="issue" type="sc-issue-type" minOccurs="0"/>
+			<xs:element name="issue-id" type="j-issue-id-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="issue-title" type="j-issue-title-type" minOccurs="0"/>
+			<xs:element name="issue-sponsor" type="j-issue-sponsor-type" minOccurs="0"/>
+			<xs:choice minOccurs="0">
+				<xs:sequence>
+					<xs:element name="fpage" type="sc-fpage-type"/>
+					<xs:element name="lpage" type="sc-lpage-type" minOccurs="0"/>
+					<xs:element name="page-range" type="sc-page-range-type" minOccurs="0"/>
+				</xs:sequence>
+				<xs:element name="elocation-id" type="sc-elocation-id-type"/>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="product" type="sc-product-type"/>
+				<xs:element name="supplementary-material" type="sc-supplementary-material-type"
+					minOccurs="0">
+				</xs:element>
+			</xs:choice>
+			<xs:element name="history" type="sc-history-type" minOccurs="0"/>
+			<xs:element name="permissions" type="sc-permissions-type" minOccurs="0"/>
+			<xs:element name="self-uri" type="sc-self-uri-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="related-article" type="sc-related-article-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="related-object" type="sc-related-object-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="abstract" type="sc-abstract-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="trans-abstract" type="sc-trans-abstract-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="kwd-group" type="sc-kwd-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="funding-group" type="sc-funding-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="conference" type="sc-conference-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="counts" type="sc-counts-type" minOccurs="0"/>
+			<xs:element name="custom-meta-group" type="sc-custom-meta-group-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sc-article-version-type" mixed="true">
+		<xs:attribute name="article-version-type" use="optional" type="xs:string"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
+		<xs:attribute name="vocab" use="optional" type="xs:string"/>
+		<xs:attribute name="vocab-identifier" use="optional" type="xs:string"/>
+		<xs:attribute name="vocab-term" use="optional" type="xs:string"/>
+		<xs:attribute name="vocab-term-identifier" use="optional" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="sc-body-type">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="array" type="sc-array-type"/>
+				<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+				<xs:element name="fig" type="sc-fig-type"/>
+				<xs:element name="fig-group" type="sc-fig-group-type"/>
+				<xs:element name="graphic" type="sc-graphic-type"/>
+				<xs:element name="media" type="sc-media-type"/>
+				<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+				<xs:element name="table-wrap-group" type="sc-table-wrap-group-type"/>
+				<xs:element name="disp-formula" type="sc-disp-formula-type"/>
+				<xs:element name="p" type="sc-p-type"/>
+				<xs:element name="def-list" type="sc-def-list-type"/>
+				<xs:element name="list" type="sc-list-type"/>
+				<xs:element name="disp-quote" type="sc-disp-quote-type"/>
+				<xs:element name="speech" type="sc-speech-type"/>
+				<xs:element name="statement" type="sc-statement-type"/>
+				<xs:element name="verse-group" type="sc-verse-group-type"/>
+			</xs:choice>
+			<xs:element name="sec" type="sc-sec-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="sig-block" type="sc-sig-block-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>	
+	<xs:complexType name="sc-elocation-id-type" mixed="true"/>
+	<xs:complexType name="sc-front-type">
+		<xs:sequence>
+			<xs:element name="journal-meta" type="sc-journal-meta-type"/>
+			<xs:element name="article-meta" type="sc-article-meta-type"/>
+			<xs:element name="notes" type="sc-notes-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sc-front-stub-type">
+		<xs:sequence>			
+			<xs:element name="article-id" type="sc-article-id-type" maxOccurs="unbounded"/>			
+			<xs:element name="title-group" type="sc-title-group-type"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="contrib-group" type="sc-contrib-group-type"/>
+				<xs:element name="aff" type="sc-aff-type"/>
+			</xs:choice>	
+			<xs:element name="author-notes" type="sc-author-notes-type" minOccurs="0"/>
+			<xs:element name="pub-date" type="sc-pub-date-type" maxOccurs="unbounded"/>			
+			<xs:choice minOccurs="0">
+				<xs:sequence>
+					<xs:element name="fpage" type="sc-fpage-type"/>
+					<xs:element name="lpage" type="sc-lpage-type" minOccurs="0"/>
+					<xs:element name="page-range" type="sc-page-range-type" minOccurs="0"/>
+				</xs:sequence>
+				<xs:element name="elocation-id" type="sc-elocation-id-type"/>
+			</xs:choice>			
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="product" type="sc-product-type"/>
+				<xs:element name="supplementary-material" type="sc-supplementary-material-type"
+					minOccurs="0">
+				</xs:element>
+			</xs:choice>
+			<xs:element name="history" type="sc-history-type" minOccurs="0"/>
+			<xs:element name="permissions" type="sc-permissions-type" minOccurs="0"/>
+			<xs:element name="self-uri" type="sc-self-uri-type" minOccurs="0" maxOccurs="unbounded"/>			
+			<xs:element name="abstract" type="sc-abstract-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="trans-abstract" type="sc-trans-abstract-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="kwd-group" type="sc-kwd-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="funding-group" type="sc-funding-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>			
+			<xs:element name="counts" type="sc-counts-type" minOccurs="0"/>
+			<xs:element name="custom-meta-group" type="sc-custom-meta-group-type" minOccurs="0"/>			
+		</xs:sequence>
+		<xs:attribute name="id" use="optional"/>		
+	</xs:complexType>	
+	<xs:complexType name="sc-history-type">
+		<xs:sequence>
+			<xs:element name="date" type="sc-date-type" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sc-issn-type" mixed="true">
+		<xs:attribute name="pub-type"/>
+	</xs:complexType>
+	<xs:complexType name="sc-journal-meta-type">
+		<xs:sequence>
+			<xs:element name="journal-id" type="j-journal-id-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="journal-title-group" type="j-journal-title-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="contrib-group" type="sc-contrib-group-type"/>
+				<xs:element name="aff" type="sc-aff-type"/>
+				<xs:element name="aff-alternatives" type="j-aff-alternatives-type"/>
+			</xs:choice>
+			<xs:element name="issn" type="sc-issn-type" maxOccurs="unbounded"/>
+			<xs:element name="issn-l" type="j-issn-l-type" minOccurs="0"/>
+			<xs:element name="isbn" type="sc-isbn-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="publisher" type="sc-publisher-type" minOccurs="0"/>
+			<xs:element name="notes" type="j-notes-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="self-uri" type="sc-self-uri-type" minOccurs="0" maxOccurs="unbounded"
+			/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="j-journal-subtitle-type" mixed="true">
+		<xs:attribute name="content-type"/>
+		<xs:attribute name="specific-use"/>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="j-journal-title-type" mixed="true">
+		<xs:attribute name="content-type"/>
+		<xs:attribute name="specific-use"/>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="j-journal-title-group-type">
+		<xs:sequence>
+			<xs:element name="journal-title" type="j-journal-title-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="journal-subtitle" type="j-journal-subtitle-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="trans-title-group" type="sc-trans-title-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="abbrev-journal-title" type="j-abbrev-journal-title-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="content-type"/>
+	</xs:complexType>
+	<xs:complexType name="sc-pub-date-type">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:sequence>
+					<xs:element name="day" type="sc-day-type" minOccurs="0"/>
+					<xs:element name="month" type="sc-month-type" minOccurs="0"/>
+				</xs:sequence>
+				<xs:element name="season" type="sc-season-type"/>
+			</xs:choice>
+			<xs:element name="year" type="sc-year-type"/>
+		</xs:sequence>
+		<xs:attribute name="pub-type" use="optional"/>
+		<xs:attribute name="publication-format" use="optional"/>
+		<xs:attribute name="date-type" use="optional"/>
+		<xs:attribute name="iso-8601-date"/>
+	</xs:complexType>
+	<xs:complexType name="j-series-title-type" mixed="true"/>
+	<xs:complexType name="sc-sub-article-type">
+		<xs:sequence>
+			<xs:element name="front-stub" type="sc-front-stub-type"/>
+			<xs:element name="body" type="sc-body-type" minOccurs="0"/>
+			<xs:element name="back" type="sc-back-type" minOccurs="0"/>			
+		</xs:sequence>
+		<xs:attribute name="article-type" use="required"/>
+		<xs:attribute ref="xml:lang" default="en" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-trans-abstract-type">
+		<xs:sequence>
+			<xs:element name="label" type="sc-label-type-body" minOccurs="0"/>
+			<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+			<xs:element name="p" type="sc-p-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="sec" type="sc-sec-type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="abstract-type"/>
+		<xs:attribute name="specific-use"/>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="sc-trans-subtitle-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="email" type="j-email-type"/>
+			<xs:element name="ext-link" type="sc-ext-link-type"/>
+			<xs:element name="uri" type="j-uri-type"/>
+			<xs:element name="inline-supplementary-material"
+				type="sc-inline-supplementary-material-type"/>
+			<xs:element name="related-article" type="sc-related-article-type-body"/>
+			<xs:element name="related-object" type="sc-related-object-type-body"/>
+			<xs:element name="bold" type="sc-bold-type"/>
+			<xs:element name="italic" type="sc-italic-type"/>
+			<xs:element name="monospace" type="sc-monospace-type"/>
+			<xs:element name="overline" type="sc-overline-type"/>
+			<xs:element name="roman" type="sc-roman-type"/>
+			<xs:element name="sans-serif" type="sc-sans-serif-type"/>
+			<xs:element name="sc" type="sc-sc-type"/>
+			<xs:element name="strike" type="sc-strike-type"/>
+			<xs:element name="underline" type="sc-underline-type"/>
+			<xs:element name="alternatives" type="sc-alternatives-type"/>
+			<xs:element name="inline-graphic" type="j-inline-graphic-type"/>
+			<xs:element name="private-char" type="j-private-char-type"/>
+			<xs:element name="chem-struct" type="sc-chem-struct-type"/>
+			<xs:element name="inline-formula" type="sc-inline-formula-type"/>
+			<xs:element name="tex-math" type="j-tex-math-type"/>
+			<xs:element ref="mml:math"/>
+			<xs:element name="abbrev" type="sc-abbrev-type"/>
+			<xs:element name="milestone-end" type="j-milestone-end-type"/>
+			<xs:element name="milestone-start" type="j-milestone-start-type"/>
+			<xs:element name="named-content" type="sc-named-content-type-body"/>
+			<xs:element name="styled-content" type="sc-styled-content-type"/>
+			<xs:element name="fn" type="sc-fn-type"/>
+			<xs:element name="target" type="sc-target-type"/>
+			<xs:element name="xref" type="sc-xref-type"/>
+			<xs:element name="sub" type="sc-sub-type"/>
+			<xs:element name="sup" type="sc-sup-type"/>
+			<xs:element name="break" type="j-break-type"/>
+		</xs:choice>
+		<xs:attribute name="specific-use"/>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="sc-title-group-type">
+		<xs:sequence>
+			<xs:element name="article-title" type="sc-article-title-type"/>
+			<xs:element name="subtitle" type="sc-subtitle-type" minOccurs="0"/>
+			<xs:element name="alt-title" type="sc-alt-title-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sc-trans-title-group-type">
+		<xs:sequence>
+			<xs:element name="trans-title" type="sc-trans-title-type"/>
+			<xs:element name="trans-subtitle" type="sc-trans-subtitle-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="content-type"/>
+		<xs:attribute name="specific-use"/>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,10 @@
+Apache example (place inside an appropriate VirtualHost)
+
+# Map /data/ URLs to the publish root written by the converter
+Alias /data/ "/mnt/volume_nyc3_01_500gb/www/pinetec/review-aapg/data/"
+
+<Directory "/mnt/volume_nyc3_01_500gb/www/pinetec/review-aapg/data/">
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>

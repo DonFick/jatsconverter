@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:issue="http://specifications.silverchair.com/xsd/1/47/SCJATS-journalissue.xsd"
+	targetNamespace="http://specifications.silverchair.com/xsd/1/47/SCJATS-journalissue.xsd"
+	elementFormDefault="qualified">
+
+
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+	
+	<!-- 
+		*************************************************************************************************************
+		Redefine the types that are in common.xsd. Extensions and restrictions would go here, if any. 
+		*************************************************************************************************************
+	-->
+	<xs:redefine schemaLocation="SC-common.xsd"> </xs:redefine>
+
+	<!-- 
+		*************************************************************************************
+		Definition of types and declaration of elements specific to issue meta.
+		*************************************************************************************
+	-->
+	<xs:element name="issue-meta">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="journal-id" type="issue:j-journal-id-type" minOccurs="0"
+					maxOccurs="unbounded"/>
+				<xs:element name="issue-identifier">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="issn" maxOccurs="2">
+								<xs:complexType mixed="true">
+									<xs:attribute name="pub-type" use="required"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="volume"/>
+							<xs:element name="issue"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="issue-title" type="issue:j-issue-title-type" minOccurs="0"/>
+				<xs:element name="issue-sponsor" type="issue:j-issue-sponsor-type" minOccurs="0"/>
+				<xs:element name="pub-date" minOccurs="0" maxOccurs="2">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:choice minOccurs="0">
+								<xs:sequence>
+									<xs:element name="day" type="issue:sc-day-type" minOccurs="0"/>
+									<xs:element name="month" type="issue:sc-month-type"
+										minOccurs="0"/>
+								</xs:sequence>
+								<xs:element name="season" type="issue:sc-season-type"/>
+							</xs:choice>
+							<xs:element name="year" type="issue:sc-year-type"/>
+						</xs:sequence>
+						<xs:attribute name="pub-type" use="optional"/>
+						<xs:attribute name="publication-format" use="optional"/>
+						<xs:attribute name="date-type" use="optional"/>
+						<xs:attribute name="iso-8601-date"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="issue-type" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="regular"/>
+							<xs:enumeration value="supplemental"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="contrib-group" type="issue:sc-contrib-group-type"/>
+					<xs:element name="aff" type="issue:sc-aff-type"/>
+				</xs:choice>
+				<xs:element name="supplementary-material" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="ext-link" type="issue:sc-ext-link-type"/>
+							<xs:element name="xref" type="issue:sc-xref-type"/>
+						</xs:choice>
+						<xs:attribute name="id" type="xs:ID"/>
+						<xs:attribute ref="xlink:href" use="required"/>
+						<xs:attribute name="content-type" use="required">						
+							<xs:simpleType>
+								<xs:restriction base="xs:token">
+									<xs:enumeration value="alternate-cover"/>
+									<xs:enumeration value="alternate-cover-caption"/>
+									<xs:enumeration value="cover"/>
+									<xs:enumeration value="cover-caption"/>
+									<xs:enumeration value="front"/>
+									<xs:enumeration value="back"/>
+									<xs:enumeration value="ed-board"/>
+									<xs:enumeration value="toc"/>
+									<xs:enumeration value="cover-figure"/>
+									<xs:enumeration value="advertising"/>
+									<xs:enumeration value="administration"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="self-uri" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute ref="xlink:href" use="required"/>						
+						<xs:attribute name="content-type" use="optional"/>
+						<xs:attribute name="specific-use" use="optional"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="conference" type="issue:sc-conference-type" minOccurs="0"
+					maxOccurs="unbounded"/>
+
+				<xs:element name="table-of-contents" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="toc-content">
+								<xs:complexType>
+									<xs:attribute ref="xlink:href" use="required"/>
+									<xs:attribute name="pub-id-type" use="required"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="toc-sec">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="title"/>
+										<xs:choice maxOccurs="unbounded">
+											<xs:element name="toc-content" minOccurs="0"
+												maxOccurs="unbounded">
+												<xs:complexType>
+												<xs:attribute ref="xlink:href" use="required"/>
+												<xs:attribute name="pub-id-type" use="required"/>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="toc-sec" minOccurs="0"
+												maxOccurs="unbounded">
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element name="title"/>
+												<xs:choice maxOccurs="unbounded">
+												<xs:element name="toc-content" minOccurs="0"
+												maxOccurs="unbounded">
+												<xs:complexType>
+												<xs:attribute ref="xlink:href" use="required"/>
+												<xs:attribute name="pub-id-type" use="required"/>
+												</xs:complexType>
+												</xs:element>
+												<xs:element name="toc-sec" minOccurs="0"
+												maxOccurs="unbounded">
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element name="title"/>
+												<xs:element name="toc-content"
+												maxOccurs="unbounded">
+												<xs:complexType>
+												<xs:attribute ref="xlink:href" use="required"/>
+												<xs:attribute name="pub-id-type" use="required"/>
+												</xs:complexType>
+												</xs:element>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												</xs:choice>
+												</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:choice>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="version" use="optional"/>
+			<xs:attribute name="dynamic-toc-type" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="default"/>
+						<xs:enumeration value="topic-driven"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<multimedia xmlns:mml="http://www.w3.org/1998/Math/MathML"
+  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  multimedia-type="podcast" xml:lang="en"
+  xmlns="http://specifications.silverchair.com/xsd/1/47/SCMM-multimedia.xsd"
+  xsi:schemaLocation="http://specifications.silverchair.com/xsd/1/47/SCMM-multimedia.xsd SCMM-multimedia.xsd">  
+  <multimedia-meta>
+    <object-id pub-id-type="publisher-id">SSC_20200723_043.fakeaudio</object-id>
+    <object-id pub-id-type="doi">10.9999/SSC_20200723_043.fakeaudio</object-id>
+    <!-- Categories/collections. -->
+    <subj-group subj-group-type="category-multimedia-collection">
+      <subject>Silverchair Multimedia of Demonstrable Diseases</subject>      
+    </subj-group>
+    <!-- Categories/subjects. -->
+    <subj-group subj-group-type="category">
+      <subject>Therapies</subject>
+      <subj-group subj-group-type="category">
+        <subject>Cancer Therapies</subject>
+      </subj-group>
+    </subj-group>    
+    <!-- Taxonomic collections. -->
+    <subj-group subj-group-type="category-taxonomy-collection">
+      <subject>T-123</subject>
+    </subj-group>
+    <title-group>
+      <label>Audio 43</label>
+      <title>Test Audio</title>
+      <subtitle>This is a subtitle</subtitle>
+    </title-group>
+    <contrib-group>
+      <contrib contrib-type="author">
+        <name>
+          <surname>Hargreaves</surname>
+          <given-names>Kitty</given-names>
+          <prefix>Ms.</prefix>
+          <suffix>Jr.</suffix>
+        </name>
+        <degrees>PhD</degrees>
+        <address>
+          <addr-line>1 Jefferson Lane</addr-line>
+          <addr-line>Charlottesville, VA 22903</addr-line>
+          <email>khargreaves@example.com</email>
+        </address>
+        <author-comment content-type="disclosure">
+          <p>The author was funded by…</p>
+        </author-comment>
+        <!-- Cross reference to the author's affiliation. -->
+        <xref ref-type="aff" rid="aff1"/>
+      </contrib>
+      <contrib contrib-type="author">
+        <name>
+          <surname>Keefe</surname>
+          <given-names>Lindsey</given-names>
+        </name>
+        <degrees>PhD</degrees>
+        <role>Contributing Author</role>
+        <xref ref-type="aff" rid="aff2"/>
+      </contrib>
+      <contrib contrib-type="author">
+        <!-- Example of collab. -->
+        <collab>The Happy Priory of the Bountiful Mountains, American Association of American
+          Societies</collab>
+      </contrib>      
+      <!-- on-behalf-of applies to Hargreaves, Keefe, Smith, and Happy Priory as a group. -->
+      <on-behalf-of>for The Powers That Be</on-behalf-of>
+    </contrib-group>
+    <aff id="aff1"><label>1</label>Silverchair, <city>Charlottesville</city>, <state>VA</state>, <country country="us">US</country>, <postal-code>22902</postal-code>.</aff>
+    <!--Example of aff using institution tagging.-->
+    <aff id="aff2"><label>2</label><institution-wrap>
+      <institution content-type="edu">Univerisity of Virginia</institution>
+      <institution content-type="dept">Department of History</institution>
+    </institution-wrap> Charlottesville, VA.</aff>
+    <author-notes>
+      <label>Author Notes</label>
+      <p>A note about the authors.</p>
+    </author-notes>
+    <pub-date publication-format="electronic" date-type="pub" iso-8601-date="2020-07-23"/>    
+    <!-- Use supplmentary-material for supplementary material imported with the multimedia. -->
+    <supplementary-material id="sup2" content-type="data-supplement"
+      xlink:href="data_supplement.pdf">
+      <object-id pub-id-type="doi">10.9999/SSC_20200723_043_sup2</object-id>
+      <label>Supplementary Material</label>
+      <caption>
+        <p>Detailed diagram of the topic under discussion.</p>
+      </caption>
+    </supplementary-material>
+    <permissions>
+      <copyright-statement>Copyright &#x00A9; 2020 by Silverchair. Reproduction for the purposes of
+        education is permitted: all other uses must receive written permission from
+        Silverchair.</copyright-statement>
+      <copyright-year>2020</copyright-year>
+      <copyright-holder>Silverchair</copyright-holder>
+      <ali:free_to_read xmlns:ali="http://www.niso.org/schemas/ali/1.0/" start_date="2020-07-23"
+        end_date="2020-10-23"/>
+      <license license-type="open-access">
+        <ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/"
+          >http://www.silverchair.org/terms/</ali:license_ref>
+        <ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/" start_date="2020-10-24"
+          >https://creativecommons.org/licenses/by-nc-sa/4.0/</ali:license_ref>
+        <license-p>This article is available under a Creative Commons License (Attribution 4.0
+          International, as described at <ext-link
+            xlink:href="https://creativecommons.org/licenses/by/4.0/" ext-link-type="uri"
+            >https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p>
+      </license>
+    </permissions>    
+    <self-uri content-type="transcript" xlink:href="audiotranscript.pdf"/>    
+    <related-object document-type="article" document-id-type="doi"
+      document-id="10.9999/SSC_20200723_044.fakearticle"/>
+    <related-object document-type="book" document-id-type="isbn13" document-id="123-4-56-789012-8"
+      object-type="chapter" object-id-type="publisher-id" object-id="legacySectionID-value"/>
+    <abstract><p>Abstract for the audio.</p></abstract>      
+    <kwd-group kwd-group-type="author">
+      <kwd>Positron emission tomography</kwd>
+      <kwd>Computed tomography screening</kwd>
+      <kwd>Fluorodeoxyglucose</kwd>
+    </kwd-group>
+    <funding-group specific-use="FundRef">
+      <award-group id="award1">
+        <funding-source id="fundingsource1">
+          <institution-wrap>
+            <institution>National Institutes of Health</institution>
+            <institution-id institution-id-type="DOI"
+              >10.13039/100000002</institution-id>
+          </institution-wrap>						
+        </funding-source>
+        <award-id>GM73165</award-id>
+        <award-id>GM42455</award-id>
+        <principal-award-recipient id="recipient1">
+          <name>
+            <surname>Carberry</surname>
+            <given-names>Josiah Stinkney</given-names>
+          </name>
+          <contrib-id contrib-id-type="orcid" authenticated="true">
+            https://orcid.org/0000-0002-1825-0097</contrib-id>
+        </principal-award-recipient>
+        <principal-investigator id="investigator1">
+          <name>
+            <surname>Carberry</surname>
+            <given-names>Josiah Stinkney</given-names>
+          </name>
+          <contrib-id contrib-id-type="orcid" authenticated="true">
+            https://orcid.org/0000-0002-1825-0097</contrib-id>
+        </principal-investigator>
+      </award-group>
+      <funding-statement>This is a <bold>statement</bold> about the funding.</funding-statement>   
+    </funding-group>
+  </multimedia-meta>
+  <media content-type="soundcloud" xlink:href="https://soundcloud.com/product_series/audio1">
+    <caption>
+      <p>Test Description: A caption that describes the content of the audio file.</p>
+    </caption>
+    <attrib>Made by Content Architecture.</attrib>  
+  </media>  
+  <multimedia-back>
+    <ref-list>
+      <title>References</title>
+      <ref id="bib1">
+        <label>1.</label>
+        <element-citation publication-type="journal" publication-format="print">
+          <target id="milestone-518990" target-type="page">40</target>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Author</surname>
+              <given-names>A.N.</given-names>
+            </name>
+            <name>
+              <surname>Writer</surname>
+              <given-names>A</given-names>
+            </name>
+            <string-name><surname>Payne</surname>, the Honorable</string-name>
+          </person-group>
+          <article-title>Title of Reference Article</article-title>
+          <source>J Dem Diseases</source>
+          <year>2008</year>
+          <volume>27</volume>
+          <fpage>19</fpage>
+          <lpage>23</lpage>
+          <pub-id pub-id-type="doi">10.1007/123456789</pub-id>
+          <pub-id pub-id-type="pmid">123456</pub-id>
+          <pub-id pub-id-type="arxiv">arXiv:aaa-bb/0123456</pub-id>
+          <pub-id pub-id-type="wos">000253677800006</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="bib2">
+        <label>2.</label>
+        <mixed-citation publication-type="journal">
+          <target id="milestone-123" target-type="page">30</target><person-group
+            person-group-type="author"><string-name><surname>Author</surname>
+              <given-names>A</given-names></string-name>,
+            <string-name><surname>Author</surname>
+              <given-names>B</given-names></string-name>,
+            <string-name><surname>Author</surname>
+              <given-names>C</given-names></string-name></person-group>.
+          <article-title>Another Research Article</article-title>. <source>J Dem
+            Diseases.</source>
+          <year>2002</year>;<volume>63</volume>(<issue>4</issue>), page <fpage>3</fpage>.
+          <pub-id pub-id-type="doi">10.1000/s10439-009-9661-x</pub-id>. <pub-id
+            pub-id-type="pmid">654321</pub-id>. </mixed-citation>
+      </ref>
+      <ref id="bib3">
+        <label>3.</label>
+        <mixed-citation publication-type="journal" id="acprof-bibItem-149"> Author 1, Author
+          2 (1954). <italic>Phys. Rev</italic>.<bold>95</bold>, 1612, Abstract <xref
+            rid="bib2">ibid</xref> p.654. </mixed-citation>
+      </ref>
+      <ref id="bib4">
+        <label>4.</label>
+        <element-citation publication-type="journal" publication-format="print">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Author</surname>
+              <given-names>A.N.</given-names>
+            </name>
+            <name>
+              <surname>Writer</surname>
+              <given-names>A</given-names>
+            </name>
+            <string-name><surname>Payne</surname>, the Honorable</string-name>
+          </person-group>
+          <xref rid="bib1">ibid</xref>
+          <pub-id pub-id-type="doi">10.1000/123456789</pub-id>
+          <pub-id pub-id-type="pmid">123456</pub-id>
+          <pub-id pub-id-type="arxiv">arXiv:aaa-bb/0123456</pub-id>
+          <pub-id pub-id-type="wos">000253677800006</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="bib5">
+        <label>5.</label>
+        <mixed-citation publication-type="data">
+          <person-group person-group-type="curator"><string-name name-style="western"><surname>Lan</surname> <given-names>T-M</given-names></string-name>, <string-name name-style="western"><surname>Lin</surname> <given-names>H-X</given-names></string-name>, <string-name name-style="western"><surname>Zhu</surname> <given-names>W-J</given-names></string-name></person-group>. <data-title>Supporting data for "Deep whole-genome sequencing of 90 Han Chinese genomes."</data-title> <source>GigaScience Database</source> <year>2017</year>. <pub-id pub-id-type="doi" assigning-authority="datacite">10.5524/100302</pub-id>. <version designator="16.2">16th version, second release</version>.
+        </mixed-citation>
+      </ref>
+      <ref id="bib6">
+        <label>6.</label>
+        <mixed-citation publication-type="data" specific-use="generated">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Author</surname>
+              <given-names>A.N.</given-names>
+            </name>
+            <name>
+              <surname>Writer</surname>
+              <given-names>A</given-names>
+            </name>
+            <string-name><surname>Payne</surname>, the Honorable</string-name>
+          </person-group>
+          <data-title>Dataset 10</data-title>
+          <source>FigShare</source>
+          <year>2015</year>
+        </mixed-citation>
+        
+      </ref>
+      <ref id="bib7">
+        <label>7.</label>
+        <mixed-citation publication-type="confproc"><person-group person-group-type="author"
+          ><string-name><surname>Author</surname>,
+            <given-names>A</given-names></string-name>,
+          <string-name><surname>Author</surname>,
+            <given-names>B</given-names></string-name>,
+          <string-name><surname>Author</surname>,
+            <given-names>C</given-names></string-name>,
+          <string-name><surname>Author</surname>,
+            <given-names>D</given-names></string-name>,
+          <string-name><surname>Author</surname>,
+            <given-names>E</given-names></string-name>, and
+          <string-name><surname>Author</surname>,
+            <given-names>F</given-names></string-name></person-group>,
+          <year>2016</year>, &#x201C;<article-title>A proceeding article.</article-title>,&#x201D; <conf-name>Name of the conference</conf-name>, <conf-loc>Some City,
+            State</conf-loc>, <conf-date>May 19&#x2013;21</conf-date>. <pub-id
+              pub-id-type="doi" specific-use="metadata"
+              >10.1000/AAA.2016.0000000</pub-id></mixed-citation>
+      </ref>
+      <ref id="bib8">
+        <label>8.</label>
+        <mixed-citation publication-type="book"><person-group person-group-type="author"
+          ><string-name><surname>Author</surname>,
+            <given-names>A</given-names></string-name>,
+          <string-name><surname>Author</surname>,
+            <given-names>B</given-names></string-name>
+        </person-group>, &#x201C;<chapter-title>A book chapter title</chapter-title>&#x201D;, in 
+          <source>A book.</source> (<publisher-name>Publisher</publisher-name>, <publisher-loc>A City</publisher-loc>,
+          <year>2023</year>), pp. <fpage>151</fpage>–<lpage>161</lpage>. 
+        </mixed-citation>
+      </ref>
+    </ref-list>
+  </multimedia-back>
+</multimedia>

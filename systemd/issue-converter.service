@@ -1,0 +1,20 @@
+[Unit]
+Description=Issue Converter daemon (watchdog + serial worker)
+After=network-online.target
+
+[Service]
+Type=simple
+User=converter
+Group=converter
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/issue-converter/venv/bin/python -m issue_converter.daemon --config /etc/issue-converter/config.toml
+Restart=on-failure
+RestartSec=5
+# Hardening (adjust if needed)
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=false
+
+[Install]
+WantedBy=multi-user.target

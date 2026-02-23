@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:mml="http://www.w3.org/1998/Math/MathML"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:ali="http://www.niso.org/schemas/ali/1.0/" elementFormDefault="qualified"
+	targetNamespace="http://specifications.silverchair.com/xsd/1/46/SCMM-multimedia.xsd"
+	xmlns="http://specifications.silverchair.com/xsd/1/46/SCMM-multimedia.xsd">
+	<xs:import namespace="http://www.w3.org/1998/Math/MathML"
+		schemaLocation="ncbi-mathml2/mathml2.xsd"/>
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:import namespace="http://www.niso.org/schemas/ali/1.0/" schemaLocation="ali.xsd"/>
+	<!--
+	    *************************************************************************************************************
+	        Redefine the types that are in common.xsd. Extensions and restrictions would go here, if any.
+	    *************************************************************************************************************
+	-->
+	<xs:redefine schemaLocation="SC-common.xsd">		
+		<xs:complexType name="sc-role-type" mixed="true">
+			<xs:complexContent>
+				<xs:extension base="sc-role-type">
+					<xs:attribute name="degree-contribution" use="optional" type="xs:string"/>
+					<xs:attribute name="vocab" use="optional" type="xs:string"/>
+					<xs:attribute name="vocab-identifier" use="optional" type="xs:string"/>
+					<xs:attribute name="vocab-term" use="optional" type="xs:string"/>
+					<xs:attribute name="vocab-term-identifier" use="optional" type="xs:string"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-ref-list-type">
+			<xs:complexContent>
+				<xs:extension base="sc-ref-list-type">
+					<xs:sequence>
+						<xs:element name="label" type="sc-label-type-body" minOccurs="0"/>
+						<xs:element name="title" type="sc-title-type" minOccurs="0"/>						
+						<xs:element name="ref" type="sc-ref-type" minOccurs="0"
+							maxOccurs="unbounded"/>
+						<xs:element name="ref-list" type="sc-ref-list-type" minOccurs="0"
+							maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-sec-type">
+			<xs:complexContent>
+				<xs:extension base="sc-sec-type">
+					<xs:sequence>
+						<xs:element name="sec-meta" type="sc-sec-meta-type" minOccurs="0"/>
+						<xs:choice>
+							<xs:sequence>
+								<xs:element name="label" type="sc-label-type"/>
+								<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+							</xs:sequence>
+							<xs:element name="title" type="sc-title-type"/>
+						</xs:choice>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="array" type="sc-array-type"/>
+							<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+							<xs:element name="fig" type="sc-fig-type"/>
+							<xs:element name="fig-group" type="sc-fig-group-type"/>
+							<xs:element name="graphic" type="sc-graphic-type"/>
+							<xs:element name="media" type="sc-media-type"/>
+							<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+							<xs:element name="table-wrap-group" type="sc-table-wrap-group-type"/>
+							<xs:element name="disp-formula" type="sc-disp-formula-type"/>
+							<xs:element name="p" type="sc-p-type"/>
+							<xs:element name="def-list" type="sc-def-list-type"/>
+							<xs:element name="list" type="sc-list-type"/>
+							<xs:element name="disp-quote" type="sc-disp-quote-type"/>
+							<xs:element name="speech" type="sc-speech-type"/>
+							<xs:element name="statement" type="sc-statement-type"/>
+							<xs:element name="verse-group" type="sc-verse-group-type"/> 
+						</xs:choice>
+						<xs:element name="sec" type="sc-sec-type" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="fn-group" type="sc-fn-group-type"/>
+							<xs:element name="ref-list" type="sc-ref-list-type"/>
+						</xs:choice>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:redefine>
+
+	<!-- ROOT -->
+
+	<xs:element name="multimedia" type="sc-multimedia-type"/>
+
+	<xs:complexType name="sc-multimedia-type">
+		<xs:sequence>
+			<xs:element name="multimedia-meta" type="sc-multimedia-meta-type"/>
+			<xs:choice>
+				<xs:element name="media-group" type="sc-media-group-type" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="media" type="mm-media-type" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="alternatives" type="mm-alternatives-type"/>
+			</xs:choice>
+			<xs:element name="multimedia-back" type="sc-multimedia-back-type"/>
+		</xs:sequence>
+		<xs:attribute name="multimedia-type" use="required"/>
+		<xs:attribute ref="xml:lang" default="en"/>
+	</xs:complexType>
+	
+
+
+	<!-- MULTIMEDIA-META -->
+
+	<xs:complexType name="sc-multimedia-meta-type">
+		<xs:sequence>
+			<xs:element name="object-id" type="sc-object-id-type" maxOccurs="unbounded"/>
+			<!-- wrap this is in something like article-categories? -->
+			<xs:element name="subj-group" type="sc-subj-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="title-group" type="mm-title-group-type"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="contrib-group" type="sc-contrib-group-type"/>
+				<xs:element name="aff" type="sc-aff-type"/>
+			</xs:choice>
+			<xs:element name="author-notes" type="sc-author-notes-type" minOccurs="0"/>
+			<xs:element name="pub-date" type="mm-pub-date-type" maxOccurs="unbounded"/>
+			<xs:element name="supplementary-material" type="sc-supplementary-material-type"
+				minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="permissions" type="sc-permissions-type" minOccurs="0"/>			
+			<xs:element name="self-uri" type="sc-self-uri-type" minOccurs="0"/>			
+			<xs:element name="related-object" type="sc-related-object-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="abstract" type="mm-abstract-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="kwd-group" type="sc-kwd-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="funding-group" type="sc-funding-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- MULTIMEDIA-GROUP -->
+	
+	<xs:complexType name="sc-media-group-type">
+		<xs:sequence>
+			<xs:element name="caption" type="sc-caption-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="media" type="mm-media-type" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="alternatives" type="mm-alternatives-type" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>					
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- MULTIMEDIA-BACK -->
+	<xs:complexType name="sc-multimedia-back-type">
+		<xs:sequence>
+			<xs:element name="ref-list" type="sc-ref-list-type" maxOccurs="unbounded"/>				
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Use custom definitions here, not the ones from sc-common.xsd -->
+	<xs:complexType name="mm-title-group-type">
+		<xs:sequence>
+			<xs:element name="label" type="sc-label-type" minOccurs="0"/>
+			<xs:element name="title" type="sc-title-type"/>
+			<xs:element name="subtitle" type="sc-subtitle-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="mm-pub-date-type">
+		<xs:attribute name="iso-8601-date"/>
+		<xs:attribute name="publication-format"/>		
+		<xs:attribute name="date-type"/>
+	</xs:complexType>	
+
+	<xs:complexType name="mm-media-type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="alt-text" type="j-alt-text-type"/>
+			<xs:element name="long-desc" type="j-long-desc-type"/>
+			<xs:element name="object-id" type="sc-object-id-type"/>
+			<xs:element name="caption" type="sc-caption-type" minOccurs="0" maxOccurs="unbounded"/>			
+			<xs:element name="attrib" type="sc-attrib-type" minOccurs="0"/>
+			<xs:element name="permissions" type="sc-permissions-type" minOccurs="0"/>
+			<!--<xs:element name="xref" type="sc-xref-type"/>-->
+		</xs:choice>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="position" default="float">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="anchor"/>
+					<xs:enumeration value="background"/>
+					<xs:enumeration value="float"/>
+					<xs:enumeration value="margin"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="orientation" default="portrait">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="portrait"/>
+					<xs:enumeration value="landscape"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="specific-use"/>
+		<xs:attribute ref="xml:lang"/>
+		<xs:attribute name="content-type"/>
+		<xs:attribute name="mimetype"/>
+		<xs:attribute name="mime-subtype"/>
+		<xs:attribute ref="xlink:type"/>
+		<xs:attribute ref="xlink:href"/>
+		<xs:attribute ref="xlink:role"/>
+		<xs:attribute ref="xlink:title"/>
+		<xs:attribute ref="xlink:show"/>
+		<xs:attribute ref="xlink:actuate"/>
+	</xs:complexType>
+	<xs:complexType name="mm-abstract-type">
+		<xs:sequence>
+			<xs:element name="label" type="sc-label-type-body" minOccurs="0"/>
+			<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+			<xs:element name="p" type="sc-p-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="sec" type="sc-sec-type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="abstract-type" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="abstract"/>
+					<xs:enumeration value="precis"/>
+					<xs:enumeration value="teaser"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="specific-use"/>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="mm-alternatives-type">
+		<xs:choice maxOccurs="unbounded">			
+			<xs:element name="media" type="mm-media-type"/>			
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

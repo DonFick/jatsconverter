@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This XML file is provided alongside the Silverchair XSD files as a representative, but not authoritative, sample and should be considered supplemental only.-->
+
+<article article-type="proceedings" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://specifications.silverchair.com/xsd/1/46/SCJATS-journalpublishing.xsd xsd/SCJATS-journalpublishing.xsd"
+	xmlns="http://specifications.silverchair.com/xsd/1/46/SCJATS-journalpublishing.xsd">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="publisher-id">journalID</journal-id>
+			<journal-title-group>
+				<journal-title>Silverchair Proceedings of Demonstrable Diseases</journal-title>
+				<abbrev-journal-title>Proc Dem Diseases</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="epub">1234-1231</issn>
+			<issn pub-type="ppub">0000-9997</issn>
+			<isbn content-type="ISBN10">0123456789</isbn>
+			<isbn content-type="ISBN13">0123456789012</isbn>
+			<isbn content-type="eISBN">123456789X</isbn>
+			<publisher>
+				<publisher-name>SilverPub Publishing Publisher</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">jdd47252</article-id>
+			<article-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043</article-id>
+			<article-id pub-id-type="arxiv">arXiv:1501.00001</article-id>
+			<article-categories>
+				<!-- Categories. -->
+				<subj-group subj-group-type="category">
+					<subject>Therapies</subject>
+					<subj-group subj-group-type="category">
+						<subject>Cancer Therapies</subject>
+					</subj-group>
+				</subj-group>
+				<!-- Feature articles. -->
+				<subj-group subj-group-type="featured">
+					<subject>SJDD Featured</subject>
+				</subj-group>
+                <!-- Taxonomic collections. -->
+		        <subj-group subj-group-type="category-taxonomy-collection">
+					<subject>T-123</subject>
+				</subj-group> 
+				<!-- Series title. -->
+				<series-title>Publisher Series</series-title>
+			</article-categories>
+			<title-group>
+				<article-title>Title summarizing the article, sometimes in a very lengthy
+					fashion</article-title>
+				<subtitle>A subtitle</subtitle>
+				<alt-title alt-title-type="mobile">Short title for tiny smart phone
+					screens</alt-title>
+				<alt-title alt-title-type="featured">Short title for featured article
+					box</alt-title>
+			</title-group>
+			<!-- Volume editors. -->
+			<contrib-group content-type="volume">
+				<contrib contrib-type="editor">
+					<name>
+						<surname>Stephens</surname>
+						<given-names>Riley</given-names>
+					</name>
+					<role>Editor</role>
+					<xref ref-type="aff" rid="aff1"/>
+				</contrib>
+			</contrib-group>
+			<!-- Article contributors. -->
+			<contrib-group>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid"
+						>http://orcid.org/0000-0002-1825-0097</contrib-id>
+					<name>
+						<surname initials="J">Jones</surname>
+						<given-names initials="KA">Kirsten A.</given-names>
+						<prefix>Ms.</prefix>
+						<suffix>Jr.</suffix>
+					</name>
+					<degrees>PhD</degrees>
+					<address>
+						<addr-line>1 Jefferson Lane</addr-line>
+						<addr-line>Charlottesville, VA 22903</addr-line>
+						<email>email@example.com</email>
+					</address>
+					<author-comment content-type="disclosure">
+						<p>The author was funded by…</p>
+					</author-comment>
+					<!-- Cross reference to the author's affiliation. -->
+					<xref ref-type="aff" rid="aff1"/>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Smith</surname>
+						<given-names>Lindsey</given-names>
+					</name>
+					<degrees>PhD</degrees>
+					<role>Contributing Author</role>
+					<xref ref-type="aff" rid="aff1"/>
+				</contrib>
+				<!-- Corresponding author. -->
+				<contrib contrib-type="author" corresp="yes">
+					<name>
+						<surname>Smith</surname>
+						<given-names>Brooke</given-names>
+					</name>
+					<email>email@example.com</email>
+					<xref ref-type="aff" rid="aff1"/>
+					<xref ref-type="corresp" rid="cor1"/>					
+				</contrib>
+				<!-- Anonymous contributor. -->
+				<contrib contrib-type="author">
+					<anonymous/>
+				</contrib>
+				<contrib contrib-type="author">
+					<!-- Example of collab. -->
+					<collab>The Happy Priory of the Bountiful Mountains, American Association of
+						American Societies</collab>
+				</contrib>
+				<contrib contrib-type="author">
+					<collab> The Federation of the Rules of Pan <!-- Provide contributor info for collaborative groups within the node. -->
+						<contrib-group>
+							<contrib contrib-type="author">
+								<!-- contrib-type optional. -->
+								<name>
+									<surname>Johnson</surname>
+									<given-names>Scott</given-names>
+									<prefix>Dr.</prefix>
+									<suffix>III</suffix>
+								</name>
+								<degrees>JD</degrees>
+							</contrib>
+							<contrib contrib-type="author">
+								<name>
+									<surname>Jones</surname>
+									<given-names>Josh</given-names>
+									<prefix>Dr.</prefix>
+								</name>
+								<aff>
+									<label>2</label>University of Virginia, Charlottesville, VA
+									22904, e-mail: <email>contact@domain.edu</email>
+								</aff>
+							</contrib>
+						</contrib-group>
+					</collab>
+				</contrib>
+				<!-- Example of an author with affiliation included within the node. -->
+				<contrib contrib-type="author">
+					<name>
+						<surname>Williams</surname>
+						<given-names>Matt</given-names>
+					</name>
+					<aff><label>2</label>University of Virginia, Charlottesville, VA 22904, e-mail:
+							<email>contact@domain.edu</email>
+					</aff>
+					<aff><label>4</label>University of Washington, Seattle, WA 98105</aff>
+				</contrib>
+			</contrib-group>
+			<!--Examples of contribs with string-name, lang, and name-style-->
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name-alternatives>
+						<name name-style="western"><surname>Zhang</surname>
+							<given-names>Y. P.</given-names></name>
+						<string-name name-style="eastern" xml:lang="zh">张轶泼</string-name>
+					</name-alternatives>
+				</contrib>				
+				<contrib contrib-type="author">
+					<name-alternatives>
+						<name name-style="western"><surname>Isobe</surname>
+							<given-names>M.</given-names></name>
+						<string-name name-style="eastern" xml:lang="zh">磯部光孝</string-name>
+					</name-alternatives>
+				</contrib>				
+				<contrib contrib-type="author">
+					<name-alternatives>
+						<name name-style="western"><surname>Liu</surname>
+							<given-names>Yi</given-names></name>
+						<string-name name-style="eastern" xml:lang="zh">刘仪</string-name>
+					</name-alternatives>
+				</contrib>
+				<!--Examples of contribs with string-name, lang, name-style AND alternative name elements-->				
+				<contrib contrib-type="author">
+					<name-alternatives>
+						<name><surname>Garijo Ayestaran</surname>
+							<given-names>M</given-names></name>
+						<name><surname>G. Ayestaran</surname>
+							<given-names>M</given-names></name>						
+						<string-name xml:lang="es">M Garijo Ayestaran</string-name>
+					</name-alternatives>
+				</contrib>
+			</contrib-group>
+			<!--Examples of Editor, Translator, and Chair contributors-->
+			<contrib-group>
+				<contrib contrib-type="editor">
+					<name>
+						<surname>Oriented</surname>
+						<given-names>Detail</given-names>
+					</name>
+				</contrib>
+				<contrib contrib-type="translator">
+					<name>
+						<surname>Duck</surname>
+						<given-names>Donald</given-names>
+					</name>
+				</contrib>
+				<contrib contrib-type="chair">
+					<name>
+						<surname>Stark</surname>
+						<given-names>Bran</given-names>
+					</name>
+				</contrib>
+			</contrib-group>
+			<!--Example of contrib with ROR ID.-->
+			<contrib-group>
+				<contrib>
+					<name>
+						<surname>Mouse</surname>
+						<given-names>Minnie</given-names>
+					</name>
+					<aff id="aff66w">						
+						<institution-wrap>
+							<institution-id institution-id-type="ror">https://ror.org/03vek6s52</institution-id>
+							<institution>Harvard University</institution>
+						</institution-wrap>
+						Cambridge, MA 02138, <country country="us">United States</country>						
+					</aff>
+				</contrib>
+			</contrib-group>
+			
+			<aff id="aff1"><label>1</label>Silverchair, <city>Charlottesville</city>, <state>VA</state>, <country country="us">US</country>, <postal-code>22902</postal-code>.</aff>
+			<!-- Affiliations that are not linked from a contrib element will be ignored. -->
+			<!--Example of aff using institution tagging.-->
+			<aff id="aff3"><label>3</label><institution-wrap>
+				<institution content-type="edu">Univerisity of Virginia</institution>
+				<institution content-type="dept">Department of History</institution>
+			</institution-wrap> Charlottesville, VA.</aff>
+			<author-notes>
+				<label>Author Notes</label>
+				<!-- Footnotes provided in a section other than <back> will display where they appear in the XML. -->
+				<fn id="fn1">
+					<p>Research performed in Albemarle County, Virginia.</p>
+				</fn>
+				<p>None of these authors were bribed.</p>
+				<corresp id="cor1">Email these fine folks at <email>email@example.com</email></corresp>
+			</author-notes>
+			<pub-date publication-format="print" date-type="pub" iso-8601-date="2012-09-08">
+				<season>Fall</season>
+				<year>2012</year>
+			</pub-date>
+			<pub-date publication-format="electronic" date-type="pub">
+				<day>21</day>
+				<month>9</month>
+				<year>2012</year>
+			</pub-date>
+			<fpage>376</fpage>
+			<lpage>382</lpage>
+			<page-range>376-379, 381-382</page-range>
+			<!-- Data supplements. -->
+			<supplementary-material id="sup1" content-type="data-supplement"
+				xlink:href="data_supplement.pdf">
+				<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_sup1</object-id>
+				<label>Supplementary Material</label>
+				<caption>
+					<p>Detailed diagram of the topic under discussion.</p>
+				</caption>
+			</supplementary-material>
+			<supplementary-material id="sup2" content-type="disclosure" xlink:href="disclosure.pdf">
+				<label>Article Disclosures</label>
+				<caption>
+					<p>Disclosures for this article.</p>
+				</caption>
+			</supplementary-material>
+			<!-- Featured figure. -->
+			<supplementary-material id="figure3" content-type="featured-figure">
+				<label>Some title for the image</label>
+				<caption>
+					<p>A caption for the featured image.</p>
+				</caption>
+				<graphic xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="figure3filename.png"
+					><alt-text>Description of the featured image</alt-text></graphic>
+			</supplementary-material>
+
+			<!-- Publication history. -->
+			<history>
+				<date date-type="received">
+					<day>02</day>
+					<month>05</month>
+					<year>2012</year>
+				</date>
+				<date date-type="accepted">
+					<day>26</day>
+					<month>06</month>
+					<year>2012</year>
+				</date>
+			</history>
+			<permissions>
+				<copyright-statement>Copyright &#x00A9; 2012 by Silverchair. Reproduction for the
+					purposes of education is permitted: all other uses must receive written
+					permission from Silverchair.</copyright-statement>
+				<copyright-year>2012</copyright-year>
+				<copyright-holder>Silverchair</copyright-holder>
+				<license license-type="open-access"
+					xlink:href="http://creativecommons.org/licenses/by/2.0/">
+					<license-p>This is an open-access article distributed under the terms of the
+						Creative Commons Attribution License, which permits unrestricted use,
+						distribution, and reproduction in any medium, provided the original work is
+						properly cited.</license-p>
+				</license>
+			</permissions>
+			<!-- Reference the article PDF. -->
+			<self-uri xlink:href="article_pdf.pdf" xml:lang="en"/>
+			<self-uri xlink:href="article_french_pdf.pdf" xml:lang="fr"/>
+			<self-uri xlink:href="article_chinese_pdf.pdf" xml:lang="zh"/>
+			<!-- Reference the article epub. -->
+			<self-uri content-type="epub" xlink:href="article_epub.epub"/>
+			<!-- Reference the article mobi. -->
+			<self-uri content-type="mobi" xlink:href="article_mobi.mobi"/>
+			<!-- Reference the country-specific article PDF. -->
+			<self-uri content-type="pdf-country-specific" specific-use="fr" xlink:href="articlepdf_fr.pdf"/>
+			<self-uri content-type="pdf-country-specific" specific-use="es" xlink:href="articlepdf_es.pdf"/>
+			<!-- Reference the accepted manuscript article PDF. -->
+			<self-uri content-type="pdf-accepted-manuscript" xlink:href="5.0039364.am.pdf"/>
+			<!-- Related articles. -->
+			<related-article id="rel1" xmlns:xlink="http://www.w3.org/1999/xlink"
+				related-article-type="companion" ext-link-type="doi"
+				xlink:href="10.1000/1.4005113.test"/>
+			<related-article id="rel2" related-article-type="companion"
+				elocation-id="10.1000/1.4005114.test"/>
+			<related-article id="rel3" related-article-type="companion" journal-id-type="issn"
+				journal-id="1234-5679" vol="4" page="203"/>
+			<!-- CrossMark related-article. -->
+			<related-article id="rel4" related-article-type="clarification"
+				elocation-id="10.1000/1.4005114.test"/>
+			<abstract>
+				<sec>
+					<title>Lorem ipsum dolor sit amet</title>
+					<p>Nullam semper pretium porta. Nunc dignissim bibendum enim. Cras dui odio,
+						ultricies ac viverra non, tempus et diam. Cum sociis natoque penatibus et
+						magnis dis parturient montes, nascetur ridiculus mus.</p>
+				</sec>
+				<sec>
+					<title>Methods:</title>
+					<p>Phasellus ut orci eget tortor laoreet euismod. Integer sollicitudin erat vel
+						nisi suscipit volutpat. In congue, lectus eget luctus eleifend, orci purus
+						accumsan quam, vel volutpat magna nunc non elit. Suspendisse pretium dolor
+						id elit sollicitudin adipiscing.</p>
+				</sec>
+			</abstract>
+			<abstract abstract-type="teaser">
+				<p>I am interesting! This text could be shown in a featured article box on the front
+					page.</p>
+			</abstract>
+			<!-- Funding data for FundRef. -->
+			<funding-group specific-use="FundRef">
+				<award-group id="award1">
+					<funding-source id="fundingsource1">
+						<institution-wrap>
+							<institution>National Institutes of Health</institution>
+							<institution-id institution-id-type="DOI"
+								>10.13039/100000002</institution-id>
+						</institution-wrap>						
+					</funding-source>
+					<award-id>GM73165</award-id>
+					<award-id>GM42455</award-id>
+					<principal-award-recipient id="recipient1">
+						<name>
+							<surname>Carberry</surname>
+							<given-names>Josiah Stinkney</given-names>
+						</name>
+						<contrib-id contrib-id-type="orcid" authenticated="true">
+							https://orcid.org/0000-0002-1825-0097</contrib-id>
+					</principal-award-recipient>
+					<principal-investigator id="investigator1">
+						<name>
+							<surname>Carberry</surname>
+							<given-names>Josiah Stinkney</given-names>
+						</name>
+						<contrib-id contrib-id-type="orcid" authenticated="true">
+							https://orcid.org/0000-0002-1825-0097</contrib-id>
+					</principal-investigator>
+				</award-group>
+				<funding-statement>This is a <bold>statement</bold> about the funding.</funding-statement>   
+			</funding-group>
+                        <!-- Funding data for FundRef and deposit to PMC Selective or PMC NIH. -->
+			<funding-group specific-use="FundRef">
+				<award-group award-type="grant" id="award2">
+					<funding-source id="fundingsource2">
+						<institution-wrap>
+							<institution>National Science Foundation</institution>
+							<institution-id institution-id-type="DOI"
+								>10.13039/100000001</institution-id>
+						</institution-wrap>
+					</funding-source>
+					<award-id>CBET-106</award-id>
+				</award-group>
+			</funding-group>			
+			<!-- Conference data. -->
+			<!-- Conference series. -->
+			<conference content-type="conf-level-1">
+				<conf-date/>
+				<conf-name>Smart Structures</conf-name>
+				<conf-acronym>SS</conf-acronym>
+				<conf-num>49</conf-num>
+			</conference>
+			<!-- Conference. -->
+			<conference content-type="conf-level-2">
+				<conf-date>2012-03-06|2012-03-10</conf-date>
+				<conf-name>SPIE Smart Structures and Materials+Nondestructive Evaluation and Health
+					Monitoring</conf-name>
+				<conf-acronym>SS11</conf-acronym>
+				<conf-num>894249</conf-num>
+				<conf-loc>San Diego, California</conf-loc>
+				<conf-sponsor>Society of Conference Sponsors</conf-sponsor>
+				<conf-theme>Smarter Sensors for Smarter Health Monitoring</conf-theme>
+			</conference>
+			<!-- Conference volume. -->
+			<conference content-type="volume">
+				<conf-date>2014-01-01</conf-date>
+				<conf-name>Active and Passive Smart Structures and Integrated Systems
+					2012</conf-name>
+				<conf-num>8341</conf-num>
+				<conf-sponsor>Active and Passive Sponsors</conf-sponsor>
+			</conference>
+			<!-- Conference session. -->
+			<conference content-type="session">
+				<conf-date/>
+				<conf-name>Passive and Active Vibration Isolation Systems II</conf-name>
+			</conference>
+			<counts>
+				<page-count count="6"/>
+			</counts>
+		</article-meta>
+		<!-- Notes. -->
+		<notes>
+			<label>Note 1</label>
+			<p>This is some note.</p>
+		</notes>
+	</front>
+	<body>
+		<!-- Basic paragraph. -->
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper pretium porta.
+			Nunc dignissim bibendum enim. Cras dui odio, ultricies ac viverra non, tempus et diam.
+			Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+			Phasellus ut orci eget tortor laoreet euismod. Integer sollicitudin erat vel nisi
+			suscipit volutpat. In congue, lectus eget luctus eleifend, orci purus accumsan quam, vel
+			volutpat magna nunc non elit. Suspendisse pretium dolor id elit sollicitudin adipiscing.
+			Quisque a nulla placerat massa consequat rutrum sed ut mi. Maecenas molestie venenatis
+			massa nec pulvinar.</p>
+		<!-- Paragraph with external database link. -->
+		<p><ext-link ext-link-type="substance" xlink:href="50054742">I am a link to a database.</ext-link></p>
+		<!-- Paragraph with foreign phrase. -->
+		<p>. . . remarkable for his <named-content content-type="foreign-phrase" xml:lang="fr">joie de vivre</named-content> and lively expression. . . .</p>
+		<!-- Sections. -->
+		<sec>
+			<title>Clinical Impact Ratings</title>
+			<!-- Graphic inside paragraph. -->
+			<!-- The xlink:href needs to reference the filename of the image, including the extension. -->
+			<p>GIM/FP/GP: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+					xlink:href="rating_6.png"><alt-text>Description of the clinical impact image</alt-text></graphic></p>
+			<p>Endocrinology: <graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+				xlink:href="rating_7.png"><alt-text>Description of the clinical impact image</alt-text></graphic></p>
+		</sec>
+		<sec>
+			<label>Section 1</label>
+			<title>Introduction</title>
+			<!-- Graphic outside paragraph. -->			
+			<graphic xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="someimage.jpg"><alt-text>Description of the image</alt-text></graphic>
+			<p>Recent advances in scalable theory and empathic configurations do not necessarily
+				obviate the need for flip-flop gates. Existing lossless and encrypted solutions use
+				RPCs to prevent psychoacoustic configurations. To put this in perspective, consider
+				the fact that well-known cryptographers generally use A* search to achieve this
+				goal. on the other hand, DHCP alone cannot fulfill the need for symbiotic
+				algorithms.</p>
+			<p>We question the need for stable models. It should be noted that our algorithm stores
+				semaphores. The basic tenet of this solution is the emulation of 128 bit
+				architectures. Further, for example, many frameworks control the investigation of
+				Web services. The basic tenet of this approach is the exploration of congestion
+				control.</p>
+		</sec>
+		<sec>
+			<label>Section 2</label>
+			<title>Background</title>
+			<p>But I must explain to you how all this mistaken idea of denouncing pleasure and
+				praising pain was born and I will give you a complete account of the system, and
+				expound the actual teachings of the great explorer of the truth, the master-builder
+				of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it
+				is pleasure, but because those who do not know how to pursue pleasure rationally
+				encounter consequences that are extremely painful. Nor again is there anyone who
+				loves or pursues or desires to obtain pain of itself, because it is pain, but
+				because occasionally circumstances occur in which toil and pain can procure him some
+				great pleasure.</p>
+			<!-- Bulleted list. -->			
+			<list list-type="bullet">
+				<label>My bulleted list</label>
+				<title>My list title</title>
+				<list-item>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				</list-item>
+				<list-item>
+					<p>Nullam semper pretium porta.</p>
+				</list-item>
+				<list-item>
+					<p>Nunc dignissim bibendum enim.</p>
+				</list-item>
+			</list>
+			<p>Here we verify that although journaling file systems and IPv6 can collude to achieve
+				this goal, Byzantine fault tolerance and e-business are always incompatible. For
+				example, many methodologies allow Byzantine fault tolerance. PahiHum runs in Ω( logn
+				) time. This at first glance seems counterintuitive but is derived from known
+				results.</p>
+		</sec>		
+		<!-- The @sec-type attribute will be ignored. -->
+		<sec sec-type="methods">
+			<title>Methods</title>
+			<!-- Nested sections will create subheadings. -->
+			<sec>
+				<title>Data sources</title>
+				<p>Nevertheless, the improvement of A* search might not be the panacea that system
+					administrators expected. Thus, we validate that thin clients and A* search can
+					synchronize to realize this ambition.</p>
+				<p>I like data sources.</p>
+			</sec>
+			<!-- Bibliographic references. -->
+			<sec>
+				<title>Field trials</title>
+				<p>Lorem ipsum dolor<xref ref-type="bibr" rid="bib1">1</xref> sit amet, consectetur
+					adipiscing elit. Nullam semper pretium porta. Nunc dignissim bibendum enim. Cras
+					dui odio, ultricies ac viverra non, tempus et diam. Quisque a nulla placerat
+					massa consequat rutrum sed ut mi. Maecenas molestie venenatis massa nec
+						pulvinar.<xref ref-type="bibr" rid="bib2">2</xref> Lorem ipsum dolor sit amet,
+					consectetur adipiscing elit. Nullam semper pretium porta.</p>
+				<!-- Inline link to supplementary material. -->
+				<p>Here is a reference to <xref ref-type="supplementary-material" rid="sup1"
+						>supplementary material</xref>. Recent advances in scalable theory and
+					empathic configurations do not necessarily obviate the need for flip-flop gates.
+					Existing lossless and encrypted solutions use RPCs to prevent psychoacoustic
+					configurations.</p>
+				<!-- Reference to a figure. -->
+				<p>This paragraph talks about the information in this <xref ref-type="fig"
+						rid="figure1">Figure 1</xref>.</p>
+				<!-- Definition of the figure itself. -->
+				<fig id="figure1">
+					<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_figure1</object-id>
+					<object-id pub-id-type="publisher-id">123456789</object-id>
+					<label>Figure 1</label>
+					<caption>
+						<title>Lorem ipsum dolor.</title>
+						<p>Nullam semper pretium porta. Nunc dignissim bibendum enim.</p>
+					</caption>
+					<graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+						xlink:href="figure1filename.png">
+						<alt-text>Description of figure 1</alt-text>
+						<long-desc>Longer description of figure 1</long-desc>
+					</graphic>
+				</fig>
+				<!-- Figure group. -->
+				<fig-group id="figure2">
+					<label>Figure 2</label>
+					<caption>
+						<p>A group of figures.</p>
+					</caption>
+					<fig id="figure2a">
+						<object-id pub-id-type="doi"
+							>10.9999/SSC_20120928_v107i3_043_figure2a</object-id>
+						<label>Figure 2A</label>
+						<caption>
+							<title>Lorem ipsum dolor.</title>
+							<p>Nullam semper pretium porta. Nunc dignissim bibendum enim.</p>
+						</caption>
+						<graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+							xlink:href="figure1filename.png">
+							<alt-text>Description of figure 2A</alt-text>
+							<long-desc xlink:href="https://example.com/long-desc/figure2a"/>
+						</graphic>
+					</fig>
+					<fig id="figure2b">
+						<object-id pub-id-type="doi"
+							>10.9999/SSC_20120928_v107i3_043_figure2b</object-id>
+						<label>Figure 2B</label>
+						<caption>
+							<title>Lorem ipsum dolor.</title>
+							<p>Nullam semper pretium porta. Nunc dignissim bibendum enim.</p>
+						</caption>
+						<graphic xmlns:xlink="http://www.w3.org/1999/xlink"
+							xlink:href="figure1filename.png"><alt-text>Description of figure 2B</alt-text></graphic>
+					</fig>
+				</fig-group>
+				<!-- Inline-graphics. -->
+				<p>End-users mostly improve compilers <inline-graphic
+						xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="sparkline.png"/> in
+					the place of link-level acknowledgements. Without a doubt, indeed, replication
+					and flip-flop<xref ref-type="fn" rid="fn1">1</xref> gates have a long history of
+					cooperating in this manner. We emphasize that PahiHum turns the wireless
+					information sledgehammer into a scalpel.</p>
+				<!-- Block formula within a paragraph. -->
+				<p>One plus one equals two: <disp-formula id="FD1"><label>(1)</label>1 + 1 =
+						2</disp-formula>
+				</p>
+				<p>Here is another formula:</p>
+				<!-- Block formula outside a paragraph. -->				
+				<disp-formula id="FD2">
+					<label>(2)</label>
+					<mml:math id="M2">
+						<mml:mrow>
+							<mml:msub>
+								<mml:mrow>
+									<mml:mi mathvariant="italic">PI</mml:mi>
+								</mml:mrow>
+								<mml:mrow>
+									<mml:mi>&#x00394;</mml:mi>
+									<mml:mi>P</mml:mi>
+								</mml:mrow>
+							</mml:msub>
+							<mml:mo>=</mml:mo>
+							<mml:mfrac>
+								<mml:mrow>
+									<mml:mi>&#x00394;</mml:mi>
+									<mml:msub>
+										<mml:mrow>
+											<mml:mi>P</mml:mi>
+										</mml:mrow>
+										<mml:mrow>
+											<mml:mo>max</mml:mo>
+										</mml:mrow>
+									</mml:msub>
+									<mml:mo>-</mml:mo>
+									<mml:mi>&#x00394;</mml:mi>
+									<mml:msub>
+										<mml:mrow>
+											<mml:mi>P</mml:mi>
+										</mml:mrow>
+										<mml:mrow>
+											<mml:mo>min</mml:mo>
+										</mml:mrow>
+									</mml:msub>
+								</mml:mrow>
+								<mml:mrow>
+									<mml:mi>&#x00394;</mml:mi>
+									<mml:msub>
+										<mml:mrow>
+											<mml:mi>P</mml:mi>
+										</mml:mrow>
+										<mml:mrow>
+											<mml:mi mathvariant="normal">avg</mml:mi>
+										</mml:mrow>
+									</mml:msub>
+								</mml:mrow>
+							</mml:mfrac>
+						</mml:mrow>
+					</mml:math>
+				</disp-formula>
+				<!-- Inline formulas. -->
+				<p>Inline formulas like <inline-formula><mml:math id="M9" overflow="scroll">
+							<mml:mrow>
+								<mml:mrow>
+									<mml:mo>(</mml:mo>
+									<mml:msub>
+										<mml:mrow>
+											<mml:mi mathvariant="normal">?</mml:mi>
+										</mml:mrow>
+										<mml:mrow>
+											<mml:mi mathvariant="normal">A</mml:mi>
+										</mml:mrow>
+									</mml:msub>
+									<mml:mo>+</mml:mo>
+									<mml:msub>
+										<mml:mrow>
+											<mml:mi mathvariant="normal">?</mml:mi>
+										</mml:mrow>
+										<mml:mrow>
+											<mml:mi mathvariant="normal">B</mml:mi>
+										</mml:mrow>
+									</mml:msub>
+									<mml:mo>)</mml:mo>
+								</mml:mrow>
+							</mml:mrow>
+						</mml:math></inline-formula> can also be used.</p>
+				<!-- LaTeX math. -->
+				<p>Here is an example of a LaTeX math formula:</p>
+				<p>... Selected as described for Acc-29
+					<disp-formula>
+						<tex-math id="M1"><![CDATA[\documentclass[12pt]{minimal}
+\usepackage{wasysym}
+\usepackage[substack]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage[mathscr]{eucal}
+\usepackage{mathrsfs}
+\DeclareFontFamily{T1}{linotext}{}
+\DeclareFontShape{T1}{linotext}{m}{n} { &#x003C;-&#x003E; linotext }{}
+\DeclareSymbolFont{linotext}{T1}{linotext}{m}{n}
+\DeclareSymbolFontAlphabet{\mathLINOTEXT}{linotext}
+\begin{document}
+\[
+{\mathrm{Acc/Acc:\hspace{.5em}}}\frac{{\mathit{ade2-202}}}{{\mathit{ADE2}}}\hspace{.5em}\frac{{\mathit{ura3-59}}}{{\mathit{ura3-59}}}\hspace{.5em}\frac{{\mathit{ADE1}}}{{\mathit{adel-201}}}\hspace{.5em}\frac{{\mathit{ter1-Acc}}}{{\mathit{ter1-Acc}}}\hspace{.5em}\frac{{\mathit{MATa}}}{{\mathit{MAT{\alpha}}}}
+\]
+\end{document}]]>
+						</tex-math>
+					</disp-formula> TER1/ter1-Acc: Acc-29 crossed with ...</p>
+				<!-- TeX math. -->
+				<p>Here is an example of a TeX math formula:</p>
+				<disp-formula><tex-math>$$U_{H}^{c}={1 \over 2}\% \left( A\alpha _{H}\right) ^{2}$$</tex-math></disp-formula>
+				<!-- Table. -->
+				<table-wrap id="table1">
+					<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_table1</object-id>
+					<label>Table 1</label>
+					<caption>
+						<p>Lorem Ipsum Dolor Sit Amet</p>
+					</caption>
+					<table>
+						<thead>
+							<tr>
+								<th align="center">No. of Patients</th>
+								<th align="center">Dosage in mg</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>65</td>
+								<td>50</td>
+							</tr>
+							<tr>
+								<td>164</td>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>58</td>
+								<td>25</td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+				<!-- In-narrative Brightcove video. Do not place a video within a paragraph. -->
+				<fig id="video1" fig-type="video">
+					<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_video1</object-id>
+					<label>Video 1</label>
+					<caption>
+						<title>Fluoroscopy</title>
+						<p>Video of fluoroscopy.</p>
+					</caption>
+					<media content-type="brightcove" xlink:href="http://bcove.me/hky4pn1o">
+						<object-id pub-id-type="videoid">123456789</object-id>
+						<object-id pub-id-type="referenceid">myVideo1</object-id>
+						<xref ref-type="custom" custom-type="transcript" rid="transcript1"/>
+					</media>
+				</fig>
+				<!-- In-narrative Glencoe video. Do not place a video within a paragraph.-->
+				<fig id="video2" fig-type="video">
+					<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_video2</object-id>
+					<label>Video 2</label>
+					<caption>
+						<title>Fluoroscopy II</title>
+						<p>Second video of fluoroscopy.</p>
+					</caption>
+					<alternatives>
+						<media content-type="glencoe" xlink:href="https://movie.scpress.org/media/by_doi/10.0000/201904144.v1/source">
+							<xref ref-type="custom" custom-type="transcript" rid="transcript2"/>
+						</media>
+						<media content-type="media-archive" xlink:href="SSC_20120928_v107i3_043_video2.mp4"/>
+					</alternatives>
+				</fig>
+				<!-- In-narrative JWPlayer video. Do not place a video within a paragraph.-->
+				<fig id="video3" fig-type="video">
+					<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_video3</object-id>
+					<label>Video 3</label>
+					<caption>
+						<title>Fluoroscopy III</title>
+						<p>Third video of fluoroscopy.</p>
+					</caption>
+					<media content-type="jwplayer" xlink:href="https://content.jwplatform.com/players/GYOa3BzN-Sym6DpzW.js">
+						<xref ref-type="custom" custom-type="transcript" rid="transcript3"/>
+					</media>							
+				</fig>	
+				<!-- In-narrative YouTube video. Do not place a video within a paragraph.-->					
+				<fig id="video6" fig-type="video">
+					<label>Video 6.</label>
+					<caption><p>Caption about video 6…</p></caption>
+					<media content-type="youtube" xlink:href="https://youtu.be/[idOfVideo]">
+						<xref ref-type="custom" custom-type="transcript" rid="transcript4"/>
+					</media>
+				</fig>
+				<!-- In-narrative SoundCloud audio. Do not place audio within a paragraph.-->
+				<fig id="audio6" fig-type="audio">
+					<label>Audio 6.</label>
+					<caption><p>Caption about audio 6…</p></caption>
+					<media content-type="soundcloud" xlink:href="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/000000006">
+						<xref ref-type="custom" custom-type="transcript" rid="transcript5"/>
+					</media>                            
+				</fig>
+				<!-- In-narrative Cadmore video. Do not place a video within a paragraph.-->
+				<fig id="video7" fig-type="video">
+					<object-id pub-id-type="doi">10.9999/SSC_22_ch10fgA22</object-id>
+					<label>Video 7.</label>
+					<caption><p>Caption about video 7…</p></caption>
+					<media content-type="cadmore">
+						<object-id pub-id-type="videoid">123456789-5cc5-4b22-82f0-168f1606f00</object-id>
+						<xref ref-type="custom" custom-type="transcript" rid="transcript6"/>
+					</media>	
+				</fig>
+				<!-- In-narrative Vimeo video. Do not place a video within a paragraph.-->
+				<fig id="video8" fig-type="video">
+					<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_video8</object-id>								
+					<label>Video 8.</label>
+					<caption><p>Caption about Video 8.</p></caption>
+					<media content-type="vimeo" xlink:href="https://player.vimeo.com/video/[idOfVideo]">									
+						<xref ref-type="custom" custom-type="transcript" rid="transcript7"/>
+					</media>	
+				</fig>		
+			</sec>
+		</sec>
+		<sec>
+			<title>Conclusions</title>
+			<p>Our heuristic will be able to successfully enable many systems at once. Continuing
+				with this rationale, our architecture for visualizing the World Wide Web is
+				compellingly bad. We see no reason not to use Niopo for providing Byzantine fault
+				tolerance.</p>
+			<!-- Boxed text. -->			
+			<boxed-text id="bt1">
+				<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_bt1</object-id>
+				<p>We first illuminate the second half of our experiments. Of course, all sensitive
+					data was anonymized during our software deployment [13]. The many
+					discontinuities in the graphs point to weakened average latency introduced with
+					our hardware upgrades. Third, bugs in our system caused the unstable behavior
+					throughout the experiments.</p>
+			</boxed-text>
+			<p>We ran our application on commodity operating systems, such as Ultrix and EthOS. We
+				implemented our 802.11b server in Prolog, augmented with randomly partitioned, wired
+				extensions. All software was hand assembled using GCC 1.9 built on the American
+				toolkit for lazily exploring reinforcement learning. Second, this concludes our
+				discussion of software modifications.</p>
+			<!-- Sidebar example. -->
+			<boxed-text id="bt2" content-type="sidebar-small">
+				<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_bt2</object-id>
+				<p>We first illuminate the second half of our experiments. Of course, all sensitive
+					data was anonymized during our software deployment [13]. The many
+					discontinuities in the graphs point to weakened average latency introduced with
+					our hardware upgrades. Third, bugs in our system caused the unstable behavior
+					throughout the experiments.</p>
+			</boxed-text>
+		</sec>
+		<sec>
+			<title>Poems</title>
+			<!-- Poems. -->
+			<verse-group>				
+				<title>Food</title>
+				<verse-line>Work: junk food abounds.</verse-line>
+				<verse-line>Yet, the night I work past chow</verse-line>
+				<verse-line>Not a crumb is found.</verse-line>
+			</verse-group>
+		</sec>
+		<sec>
+			<title>People talking</title>
+			<!-- Speech. -->			
+			<speech>
+				<speaker>C</speaker>
+				<p>Hi!</p>
+			</speech>
+			<speech>
+				<speaker>J</speaker>
+				<p>Excuse me?</p>
+			</speech>
+			<speech>
+				<speaker>C</speaker>
+				<p>I just said hi.</p>
+			</speech>
+			<speech>
+				<speaker>J</speaker>
+				<p>Oh! Hi, hello.</p>
+			</speech>
+		</sec>
+
+		<sec id="appx1">
+			<title>Appendix</title>
+			<!-- Link to an external website. -->
+			<p>The online version of this article is at <ext-link ext-link-type="uri"
+					xlink:href="http://www.silverchair.com">silverchair.com</ext-link>.</p>
+		</sec>
+	</body>
+	<back>
+		<!-- References list. -->
+		<ref-list>
+			<title>References</title>
+			<ref id="bib1">
+				<label>1.</label>
+				<element-citation publication-type="journal" publication-format="print">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Author</surname>
+							<given-names>A.N.</given-names>
+						</name>
+						<name>
+							<surname>Writer</surname>
+							<given-names>A</given-names>
+						</name>
+						<string-name><surname>Payne</surname>, the Honorable</string-name>
+					</person-group>
+					<article-title>Title of Reference Article</article-title>
+					<source>J Dem Diseases</source>
+					<year>2008</year>
+					<volume>27</volume>
+					<fpage>19</fpage>
+					<lpage>23</lpage>
+					<pub-id pub-id-type="doi">10.1000/123456789</pub-id>
+					<pub-id pub-id-type="pmid">123456</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="bib2">
+				<label>2.</label>
+				<mixed-citation publication-type="journal">
+					<person-group person-group-type="author"><string-name><surname>Author</surname>
+							<given-names>A</given-names></string-name>,
+								<string-name><surname>Author</surname>
+							<given-names>B</given-names></string-name>,
+								<string-name><surname>Author</surname>
+							<given-names>C</given-names></string-name></person-group>.
+						<article-title>Another Research Article</article-title>. <source>J Dem
+						Diseases.</source>
+					<year>2002</year>;<volume>63</volume>(<issue>4</issue>), page <fpage>3</fpage>.
+						<pub-id pub-id-type="doi">10.1000/s10439-009-9661-x</pub-id>. <pub-id
+						pub-id-type="pmid">654321</pub-id>. </mixed-citation>
+			</ref>
+			<ref id="bib3">
+			        <label>3.</label>
+				<mixed-citation publication-type="data">
+					<person-group person-group-type="curator"><string-name name-style="western"><surname>Lan</surname> <given-names>T-M</given-names></string-name>, <string-name name-style="western"><surname>Lin</surname> <given-names>H-X</given-names></string-name>, <string-name name-style="western"><surname>Zhu</surname> <given-names>W-J</given-names></string-name></person-group>. <data-title>Supporting data for "Deep whole-genome sequencing of 90 Han Chinese genomes."</data-title> <source>GigaScience Database</source> <year>2017</year>. <pub-id pub-id-type="doi" assigning-authority="datacite">10.5524/100302</pub-id>. <version designator="16.2">16th version, second release</version>.
+				</mixed-citation>
+			</ref>
+			<ref id="bib4">
+				<label>4.</label>
+				<mixed-citation publication-type="confproc"><person-group person-group-type="author"
+					><string-name><surname>Author</surname>,
+						<given-names>A</given-names></string-name>,
+					<string-name><surname>Author</surname>,
+						<given-names>B</given-names></string-name>,
+					<string-name><surname>Author</surname>,
+						<given-names>C</given-names></string-name>,
+					<string-name><surname>Author</surname>,
+						<given-names>D</given-names></string-name>,
+					<string-name><surname>Author</surname>,
+						<given-names>E</given-names></string-name>, and
+					<string-name><surname>Author</surname>,
+						<given-names>F</given-names></string-name></person-group>,
+					<year>2016</year>, &#x201C;<article-title>A proceeding article.</article-title>,&#x201D; <conf-name>Name of the conference</conf-name>, <conf-loc>Some City,
+						State</conf-loc>, <conf-date>May 19&#x2013;21</conf-date>. <pub-id
+							pub-id-type="doi" specific-use="metadata"
+							>10.1000/AAA.2016.0000000</pub-id></mixed-citation>
+			</ref>
+			<ref id="bib5">
+				<label>5.</label>
+				<mixed-citation publication-type="book"><person-group person-group-type="author"
+					><string-name><surname>Author</surname>,
+						<given-names>A</given-names></string-name>,
+					<string-name><surname>Author</surname>,
+						<given-names>B</given-names></string-name>
+				</person-group>, &#x201C;<chapter-title>A book chapter title</chapter-title>&#x201D;, in 
+					<source>A book.</source> (<publisher-name>Publisher</publisher-name>, <publisher-loc>A City</publisher-loc>,
+					<year>2023</year>), pp. <fpage>151</fpage>–<lpage>161</lpage>. 
+				</mixed-citation>
+			</ref>
+		</ref-list>
+		<!-- Biographical information. -->		
+		<bio id="b1">
+			<label>Bio</label>
+			<graphic position="anchor" xmlns:xlink="http://www.w3.org/1999/xlink"
+				xlink:href="YourFace.png">
+				<alt-text>Professional photo of the person described in this bio.</alt-text>
+				<object-id pub-id-type="doi">10.9999/SSC_20120928_v107i3_043_face</object-id>
+			</graphic>
+			<p><bold>This person</bold> received their PhD in mathematics from the University of
+				California Irvine. They have been a senior scientist at the Science Company (SC) for
+				the past 500 years. They have worked on a wide range of problems associated with the
+				thermonuclear dynamics of cats, calculating the escape velocity of rainbows, and
+				analyzing fisherman's luck.</p>
+		</bio>
+		<!-- Notes. -->		
+		<notes>
+			<label>Note 2</label>
+			<p>This is some note.</p>
+		</notes>
+		<!-- Acknowledgements. -->		
+		<ack>
+			<label>Acknowledgement</label>
+			<p>We would like to thank the Academy.</p>
+		</ack>
+		<!-- Audio and video transcripts. -->	
+		<sec sec-type="transcript" id="transcript1">
+			<title>Fluoroscopy</title>
+			<p>Thank you for joining me</p>						
+		</sec>
+		<sec sec-type="transcript" id="transcript2">
+			<title>Fluoroscopy II</title>
+			<p>Thank you for joining me</p>						
+		</sec>
+		<sec sec-type="transcript" id="transcript3">
+			<title>Fluoroscopy III</title>
+			<p>Thank you for joining me</p>						
+		</sec>
+		<sec sec-type="transcript" id="transcript4">
+			<title>Video 6</title>
+			<p>Thank you for joining me</p>						
+		</sec>
+		<sec sec-type="transcript" id="transcript5">
+			<title>Audio 6</title>
+			<p>Thank you for joining me</p>						
+		</sec>
+		<sec sec-type="transcript" id="transcript6">
+			<title>Video 7</title>
+			<p>Thank you for joining me</p>						
+		</sec>
+		<sec sec-type="transcript" id="transcript7">
+			<title>Video 8</title>
+			<p>Thank you for joining me</p>						
+		</sec>
+	</back>
+</article>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.niso.org/schemas/ali/1.0/">
+  <xs:element name="free_to_read">
+    <xs:annotation>
+      <xs:documentation>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <h3>Free to Read (Niso Ali)</h3>
+        </div>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <!--<xs:attribute name="content-type" use="optional" type="xs:string"/>-->
+      <xs:attribute name="end_date" use="optional" type="xs:string"/>
+      <!--<xs:attribute name="id" use="optional" type="xs:ID"/>-->
+      <!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+      <xs:attribute name="start_date" use="optional" type="xs:string"/>
+      <!--<xs:attribute ref="xml:base" use="optional"/>-->
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="license_ref">
+    <xs:annotation>
+      <xs:documentation>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <h3>License Reference (Niso Ali)</h3>
+        </div>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <!--<xs:attribute name="content-type" use="optional" type="xs:string"/>-->
+      <!--<xs:attribute name="id" use="optional" type="xs:ID"/>-->
+      <!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+      <xs:attribute name="start_date" use="optional" type="xs:string"/>
+      <!--<xs:attribute ref="xml:base" use="optional"/>-->
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

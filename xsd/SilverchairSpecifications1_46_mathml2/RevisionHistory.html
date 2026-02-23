@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>SCM Content Specification (SCJATS and SCBITS) Revision History</title>
+	<meta name="revision" content="1.46"/>
+	<meta name="date" content="July 15, 2025"/>
+	<meta name="author" content="Silverchair"/>
+	<meta name="web" content="http://www.silverchair.com"/>
+	<link type="text/css" rel="stylesheet" href="supportfiles/sisspec.css"/>
+<script src="supportfiles/jquery.min.js" type="text/javascript"></script>
+<script src="supportfiles/jquery.tableofcontents.min.js" type="text/javascript"></script>
+<script src="supportfiles/startup.js" type="text/javascript"></script>
+</head>
+<body>
+
+<p><img src="./supportfiles/SC_horizontal_black.png" alt="Silverchair logo" />
+<p id="sisspectitle">
+<script type="text/javascript">
+<!--
+document.write(document.title);
+//-->
+</script>
+</p></p>
+
+<table>
+<caption id="documentrevisionhistory">Document Revision History</caption>
+<colgroup>
+<col/>
+<col style="text-align:center;"/>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Date</th>
+	<th style="text-align:center;">Version</th>
+	<th>Content Type</th>
+	<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>2025&#8211;06&#8211;12</td>
+	<td style="text-align:center;">1.46</td>
+	<td>Articles</td>
+	<td>Clarified requirements for issue dates</td>
+</tr>
+<tr>
+	<td>2025&#8211;05&#8211;06</td>
+	<td style="text-align:center;">1.46</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added support for SVG files</td>
+</tr>
+<tr>
+	<td>2025&#8211;05&#8211;05</td>
+	<td style="text-align:center;">1.46</td>
+	<td>Books</td>
+	<td>Added support for additional values for external linking via related-object</td>
+</tr>
+<tr>
+	<td>2025&#8211;04&#8211;28</td>
+	<td style="text-align:center;">1.46</td>
+	<td>Articles</td>
+	<td>Added support for article-level external linking via related-object</td>
+</tr>
+<tr>
+	<td>2025&#8211;04&#8211;11</td>
+	<td style="text-align:center;">1.46</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for product mapping</td>
+</tr>
+<tr>
+	<td>2025&#8211;03&#8211;13</td>
+	<td style="text-align:center;">1.45</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for collaborative author affiliations</td>
+</tr>
+<tr>
+	<td>2025&#8211;02&#8211;10</td>
+	<td style="text-align:center;">1.45</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added information for providing long-desc on images for accessibility</td>
+</tr>
+<tr>
+	<td>2025&#8211;02&#8211;06</td>
+	<td style="text-align:center;">1.45</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added information and warnings for tagging tables for accessibility</td>
+</tr>
+<tr>
+	<td>2025&#8211;01&#8211;28</td>
+	<td style="text-align:center;">1.45</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added information and warning for tagging lists for accessibility</td>
+</tr>
+<tr>
+	<td>2025&#8211;01&#8211;25</td>
+	<td style="text-align:center;">1.45</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added information and warning for providing special characters for accessibility</td>
+</tr>
+<tr>
+	<td>2025&#8211;01&#8211;23</td>
+	<td style="text-align:center;">1.45</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added support for Vimeo videos</td>
+</tr>
+<tr>
+	<td>2025&#8211;01&#8211;21</td>
+	<td style="text-align:center;">1.45</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for in-text audio and video transcripts for accessibility</td>
+</tr>
+<tr>
+	<td>2025&#8211;01&#8211;15</td>
+	<td style="text-align:center;">1.45</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added information and warning for providing MathML for accessibility</td>
+</tr>
+<tr>
+	<td>2025&#8211;01&#8211;09</td>
+	<td style="text-align:center;">1.45</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added information and warning for providing alt-text on images for accessibility</td>
+</tr>
+<tr>
+	<td>2024&#8211;10&#8211;07</td>
+	<td style="text-align:center;">1.44</td>
+	<td>Articles</td>
+	<td>Updated references to JATS 1.3 to JATS 1.4 throughout the document</td>
+</tr>
+<tr>
+	<td>2024&#8211;10&#8211;07</td>
+	<td style="text-align:center;">1.44</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added recommendation to use teaser abstracts over precis abstracts</td>
+</tr>
+<tr>
+	<td>2024&#8211;09&#8211;26</td>
+	<td style="text-align:center;">1.43</td>
+	<td>Books</td>
+	<td>Added information on how the &#8220;reference&#8221; book type also maps to component_type=&#8220;reference_entry&#8221; for chapter deposits</td>
+</tr>
+<tr>
+	<td>2024&#8211;09&#8211;05</td>
+	<td style="text-align:center;">1.43</td>
+	<td>Books</td>
+	<td>Added support for collection container and collection articles</td>
+</tr>
+<tr>
+	<td>2024&#8211;08&#8211;27</td>
+	<td style="text-align:center;">1.43</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added statement to the list of accepted values for ref-type</td>
+</tr>
+<tr>
+	<td>2024&#8211;08&#8211;22</td>
+	<td style="text-align:center;">1.43</td>
+	<td>Books</td>
+	<td>Added support for related-object linking to ref-list</td>
+</tr>
+<tr>
+	<td>2024&#8211;08&#8211;15</td>
+	<td style="text-align:center;">1.43</td>
+	<td>Articles</td>
+	<td>Added support for MARC records</td>
+</tr>
+<tr>
+	<td>2024&#8211;08&#8211;08</td>
+	<td style="text-align:center;">1.43</td>
+	<td>Books</td>
+	<td>Added support for asynchronous book publication model</td>
+</tr>
+<tr>
+	<td>2024&#8211;07&#8211;26</td>
+	<td style="text-align:center;">1.43</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added information on using content-type on institution</td>
+</tr>
+<tr>
+	<td>2024&#8211;07&#8211;25</td>
+	<td style="text-align:center;">1.43</td>
+	<td>Articles</td>
+	<td>Added support for country location label via subj-group tagging</td>
+</tr>
+<tr>
+	<td>2024&#8211;07&#8211;23</td>
+	<td style="text-align:center;">1.43</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added support for new license types</td>
+</tr>
+<tr>
+	<td>2024&#8211;07&#8211;19</td>
+	<td style="text-align:center;">1.43</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Added support for city, state, and postal-code in affiliations</td>
+</tr>
+<tr>
+	<td>2024&#8211;07&#8211;02</td>
+	<td style="text-align:center;">1.43</td>
+	<td>Articles</td>
+	<td>Added support for articles without volume and issue information</td>
+</tr>
+<tr>
+	<td>2024&#8211;06&#8211;27</td>
+	<td style="text-align:center;">1.42</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added select XML checks for third-party service providers, such as Crossref</td>
+</tr>
+<tr>
+	<td>2024&#8211;06&#8211;07</td>
+	<td style="text-align:center;">1.42</td>
+	<td>Articles, Proceedings, Books, Multimedia</td>
+	<td>Clarified requirements for multiple citations within a single ref element</td>
+</tr>
+<tr>
+	<td>2024&#8211;05&#8211;09</td>
+	<td style="text-align:center;">1.42</td>
+	<td>Articles</td>
+	<td>Added support for peer review badges</td>
+</tr>
+<tr>
+	<td>2024&#8211;04&#8211;30</td>
+	<td style="text-align:center;">1.42</td>
+	<td>Articles</td>
+	<td>Updated MathML 3 support to include issue meta</td>
+</tr>
+<tr>
+	<td>2024&#8211;04&#8211;25</td>
+	<td style="text-align:center;">1.42</td>
+	<td>Books</td>
+	<td>Clarified requirements for part and chapter replacements, including guidance on replacing chapters without reloading the full book</td>
+</tr>
+<tr>
+	<td>2024&#8211;04&#8211;19</td>
+	<td style="text-align:center;">1.42</td>
+	<td>Books</td>
+	<td>Added support for book indexes</td>
+</tr>
+<tr>
+	<td>2024&#8211;04&#8211;11</td>
+	<td style="text-align:center;">1.42</td>
+	<td>Books</td>
+	<td>Clarified role of book type in Crossref deposits</td>
+</tr>
+<tr>
+	<td>2024&#8211;04&#8211;11</td>
+	<td style="text-align:center;">1.42</td>
+	<td>Books</td>
+	<td>Added support for &#8220;reference&#8221; book-type on book</td>
+</tr>
+<tr>
+	<td>2024&#8211;04&#8211;10</td>
+	<td style="text-align:center;">1.42</td>
+	<td>Articles, Proceedings</td>
+	<td>Expanded related-article-type mappings to Crossmark</td>
+</tr>
+<tr>
+	<td>2024&#8211;04&#8211;09</td>
+	<td style="text-align:center;">1.42</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added alt-text to our XML example files</td>
+</tr>
+<tr>
+	<td>2024&#8211;02&#8211;28</td>
+	<td style="text-align:center;">1.41</td>
+	<td>Articles, Proceedings</td>
+	<td>Clarified authored abstract behavior</td>
+</tr>
+<tr>
+	<td>2024&#8211;02&#8211;28</td>
+	<td style="text-align:center;">1.41</td>
+	<td>Proceedings</td>
+	<td>Clarified conference volume tagging instructions</td>
+</tr>
+<tr>
+	<td>2024&#8211;02&#8211;02</td>
+	<td style="text-align:center;">1.41</td>
+	<td>Articles, Proceedings, Books, Standalone multimedia</td>
+	<td>Added support for publication-format and date-type on pub-date; deprecated pub-type on pub-date</td>
+</tr>
+<tr>
+	<td>2024&#8211;01&#8211;22</td>
+	<td style="text-align:center;">1.41</td>
+	<td>Articles, Proceedings, Books, Standalone multimedia</td>
+	<td>Added support for MathML 3</td>
+</tr>
+<tr>
+	<td>2023&#8211;10&#8211;13</td>
+	<td style="text-align:center;">1.40</td>
+	<td>Standalone multimedia</td>
+	<td>Clarified a couple of points in the Standalone Multimedia narrative</td>
+</tr>
+<tr>
+	<td>2023&#8211;08&#8211;15</td>
+	<td style="text-align:center;">1.39</td>
+	<td>Standalone multimedia</td>
+	<td>Added support for a new content type, Standalone Multimedia</td>
+</tr>
+<tr>
+	<td>2023&#8211;07&#8211;17</td>
+	<td style="text-align:center;">1.39</td>
+	<td>Articles, Proceedings</td>
+	<td>Clarified support for accepted manuscript article PDFs</td>
+</tr>
+<tr>
+	<td>2023&#8211;07&#8211;11</td>
+	<td style="text-align:center;">1.39</td>
+	<td>Articles</td>
+	<td>Added support for peer review revision round as defined by the JATS4R &#8220;Peer review materials&#8221; recommendation</td>
+</tr>
+<tr>
+	<td>2023&#8211;05&#8211;22</td>
+	<td style="text-align:center;">1.38</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Clarified support for table display attributes</td>
+</tr>
+<tr>
+	<td>2023&#8211;05&#8211;16</td>
+	<td style="text-align:center;">1.38</td>
+	<td>Articles, Proceedings</td>
+	<td>Corrected related-article-type value for expression of concern articles</td>
+</tr>
+<tr>
+	<td>2023&#8211;05&#8211;05</td>
+	<td style="text-align:center;">1.38</td>
+	<td>Articles, Proceedings</td>
+	<td>Added recommendation for ordering abstracts</td>
+</tr>
+<tr>
+	<td>2023&#8211;04&#8211;21</td>
+	<td style="text-align:center;">1.38</td>
+	<td>Books</td>
+	<td>Clarified Parts section</td>
+</tr>
+<tr>
+	<td>2023&#8211;04&#8211;18</td>
+	<td style="text-align:center;">1.38</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Clarified the References section of the narrative and added book references to the sample xml</td>
+</tr>
+<tr>
+	<td>2023&#8211;03&#8211;24</td>
+	<td style="text-align:center;">1.38</td>
+	<td>Articles, Proceedings</td>
+	<td>Added support for issue-level YUDU magazine view</td>
+</tr>
+<tr>
+	<td>2023&#8211;03&#8211;02</td>
+	<td style="text-align:center;">1.37</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Clarified cross-reference linking to disp-formula-group</td>
+</tr>
+<tr>
+	<td>2023&#8211;03&#8211;02</td>
+	<td style="text-align:center;">1.37</td>
+	<td>Books</td>
+	<td>Added date xml to chapter xml snippet for tagging guidance</td>
+</tr>
+<tr>
+	<td>2023&#8211;02&#8211;28</td>
+	<td style="text-align:center;">1.37</td>
+	<td>Articles, Proceedings</td>
+	<td>Clarified cover date support</td>
+</tr>
+<tr>
+	<td>2023&#8211;02&#8211;10</td>
+	<td style="text-align:center;">1.37</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated cc-by license display functionality</td>
+</tr>
+<tr>
+	<td>2023&#8211;02&#8211;09</td>
+	<td style="text-align:center;">1.37</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Clarified corresponding author support</td>
+</tr>
+<tr>
+	<td>2022&#8211;11&#8211;28</td>
+	<td style="text-align:center;">1.36</td>
+	<td>Articles</td>
+	<td>Clarified that ali:free_to_read is configurable feature</td>
+</tr>
+<tr>
+	<td>2022&#8211;11&#8211;09</td>
+	<td style="text-align:center;">1.36</td>
+	<td>Books</td>
+	<td>Clarified that DOIs must be unique across all books</td>
+</tr>
+<tr>
+	<td>2022&#8211;11&#8211;02</td>
+	<td style="text-align:center;">1.36</td>
+	<td>Articles</td>
+	<td>Clarified featured article support</td>
+</tr>
+<tr>
+	<td>2022&#8211;10&#8211;28</td>
+	<td style="text-align:center;">1.36</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Clarified media archive support for videos and audio</td>
+</tr>
+<tr>
+	<td>2022&#8211;10&#8211;24</td>
+	<td style="text-align:center;">1.36</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for named-content in title to identify foreign language for accessibility</td>
+</tr>
+<tr>
+	<td>2022&#8211;09&#8211;27</td>
+	<td style="text-align:center;">1.35</td>
+	<td>Books</td>
+	<td>Updated narrative to clarify Google Scholar book indexing support</td>
+</tr>
+<tr>
+	<td>2022&#8211;09&#8211;26</td>
+	<td style="text-align:center;">1.35</td>
+	<td>Articles, Proceedings</td>
+	<td>Updated narrative to clarify requirements for depositing to PMC under the Selective deposit agreement or the NIH portfolio agreement</td>
+</tr>
+<tr>
+	<td>2022&#8211;08&#8211;15</td>
+	<td style="text-align:center;">1.35</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for Cadmore audio and video</td>
+</tr>
+<tr>
+	<td>2022&#8211;07&#8211;06</td>
+	<td style="text-align:center;">1.34</td>
+	<td>Articles</td>
+	<td>Updated narrative to clarify &#8220;layperson&#8221; abstract support</td>
+</tr>
+<tr>
+	<td>2022&#8211;06&#8211;13</td>
+	<td style="text-align:center;">1.34</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for configuration to preserve whitespace between elements</td>
+</tr>
+<tr>
+	<td>2022&#8211;06&#8211;09</td>
+	<td style="text-align:center;">1.34</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for using named-content to identify foreign language for accessibility</td>
+</tr>
+<tr>
+	<td>2022&#8211;06&#8211;07</td>
+	<td style="text-align:center;">1.34</td>
+	<td>Articles</td>
+	<td>Added support for country-specific PDFs at the issue level</td>
+</tr>
+<tr>
+	<td>2022&#8211;06&#8211;06</td>
+	<td style="text-align:center;">1.34</td>
+	<td>Articles, Proceedings</td>
+	<td>Added support for accepted manuscript article PDFs</td>
+</tr>
+<tr>
+	<td>2022&#8211;05&#8211;27</td>
+	<td style="text-align:center;">1.34</td>
+	<td>Articles</td>
+	<td>Added support for conference tagging in articles and issues</td>
+</tr>
+<tr>
+	<td>2022&#8211;05&#8211;25</td>
+	<td style="text-align:center;">1.34</td>
+	<td>Books</td>
+	<td>Added support for additional ISBN and ISSN types</td>
+</tr>
+<tr>
+	<td>2022&#8211;05&#8211;20</td>
+	<td style="text-align:center;">1.34</td>
+	<td>Books</td>
+	<td>Added support for funding at the book and chapter level</td>
+</tr>
+<tr>
+	<td>2022&#8211;04&#8211;21</td>
+	<td style="text-align:center;">1.33</td>
+	<td>Books</td>
+	<td>Added print sales support</td>
+</tr>
+<tr>
+	<td>2022&#8211;04&#8211;05</td>
+	<td style="text-align:center;">1.33</td>
+	<td>Books</td>
+	<td>Updated narrative to clarify chapter publication date front-end support</td>
+</tr>
+<tr>
+	<td>2022&#8211;03&#8211;24</td>
+	<td style="text-align:center;">1.33</td>
+	<td>Articles</td>
+	<td>Added list of other currently accepted and/or frequently used related-article-type values</td>
+</tr>
+<tr>
+	<td>2022&#8211;03&#8211;12</td>
+	<td style="text-align:center;">1.33</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for institution-wrap in aff to import contributor ROR IDs</td>
+</tr>
+<tr>
+	<td>2022&#8211;03&#8211;07</td>
+	<td style="text-align:center;">1.33</td>
+	<td>Articles</td>
+	<td>Updated narrative to clarify that issue editors are only supported in the issue metadata file</td>
+</tr>
+<tr>
+	<td>2022&#8211;02&#8211;01</td>
+	<td style="text-align:center;">1.32</td>
+	<td>Books</td>
+	<td>Updated narrative to clarify chapter versioning support</td>
+</tr>
+<tr>
+	<td>2022&#8211;01&#8211;20</td>
+	<td style="text-align:center;">1.32</td>
+	<td>Books</td>
+	<td>Added support for additional book publication statuses; deprecated previous &#8220;in progress&#8221; books tagging</td>
+</tr>
+<tr>
+	<td>2022&#8211;01&#8211;18</td>
+	<td style="text-align:center;">1.32</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for lowercase &#8220;coi-statement&#8221; fn-type (per JATS 1.2); deprecated mixed-case &#8220;COI-statement&#8221; fn-type</td>
+</tr>
+<tr>
+	<td>2022&#8211;01&#8211;07</td>
+	<td style="text-align:center;">1.32</td>
+	<td>Books</td>
+	<td>Added support for chapter publication dates</td>
+</tr>
+<tr>
+	<td>2021&#8211;12&#8211;15</td>
+	<td style="text-align:center;">1.32</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for country-specific PDFs</td>
+</tr>
+<tr>
+	<td>2021&#8211;12&#8211;08</td>
+	<td style="text-align:center;">1.32</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for MOBI and ePub files</td>
+</tr>
+<tr>
+	<td>2021&#8211;11&#8211;09</td>
+	<td style="text-align:center;">1.31</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated narrative to clarify dynamic TOC behavior using &#8216;@subj-group-type=&#8220;category-toc-heading&#8221;&#8217;</td>
+</tr>
+<tr>
+	<td>2021&#8211;11&#8211;03</td>
+	<td style="text-align:center;">1.31</td>
+	<td>Articles</td>
+	<td>Added information to narrative for image text wrap support</td>
+</tr>
+<tr>
+	<td>2021&#8211;10&#8211;19</td>
+	<td style="text-align:center;">1.31</td>
+	<td>Books</td>
+	<td>Updated narrative to clarify how to tag edition sets</td>
+</tr>
+<tr>
+	<td>2021&#8211;10&#8211;12</td>
+	<td style="text-align:center;">1.31</td>
+	<td>Articles, Proceedings</td>
+	<td>Updated narrative to clarify issue title replacement</td>
+</tr>
+<tr>
+	<td>2021&#8211;10&#8211;08</td>
+	<td style="text-align:center;">1.31</td>
+	<td>Books</td>
+	<td>Updated narrative to clarify book title types</td>
+</tr>
+<tr>
+	<td>2021&#8211;10&#8211;06</td>
+	<td style="text-align:center;">1.31</td>
+	<td>Proceedings</td>
+	<td>Updated narrative to clarify required versus recommended metadata</td>
+</tr>
+<tr>
+	<td>2021&#8211;10&#8211;05</td>
+	<td style="text-align:center;">1.31</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated narrative to clarify multimedia support</td>
+</tr>
+<tr>
+	<td>2021&#8211;10&#8211;05</td>
+	<td style="text-align:center;">1.31</td>
+	<td>Books</td>
+	<td>Revised support for chapter body related-object</td>
+</tr>
+<tr>
+	<td>2021&#8211;09&#8211;28</td>
+	<td style="text-align:center;">1.31</td>
+	<td>Articles</td>
+	<td>Added support for embedded display of Code Ocean capsules</td>
+</tr>
+<tr>
+	<td>2021&#8211;09&#8211;28</td>
+	<td style="text-align:center;">1.31</td>
+	<td>Articles</td>
+	<td>Added support for JATS4R minimal requirements for peer review as sub-article</td>
+</tr>
+<tr>
+	<td>2021&#8211;08&#8211;17</td>
+	<td style="text-align:center;">1.30</td>
+	<td>Books</td>
+	<td>Updated narrative to clarify book license-type inheritance</td>
+</tr>
+<tr>
+	<td>2021&#8211;08&#8211;01</td>
+	<td style="text-align:center;">1.30</td>
+	<td>Books</td>
+	<td>Updated narrative to more strongly recommend book-type for Google Scholar indexing</td>
+</tr>
+<tr>
+	<td>2021&#8211;06&#8211;16</td>
+	<td style="text-align:center;">1.29</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added information about contrib-type display configurations</td>
+</tr>
+<tr>
+	<td>2021&#8211;06&#8211;14</td>
+	<td style="text-align:center;">1.29</td>
+	<td>Books</td>
+	<td>Updated chapter body related-object support</td>
+</tr>
+<tr>
+	<td>2021&#8211;05&#8211;04</td>
+	<td style="text-align:center;">1.29</td>
+	<td>Books</td>
+	<td>Added support for depositing book license references</td>
+</tr>
+<tr>
+	<td>2021&#8211;05&#8211;04</td>
+	<td style="text-align:center;">1.29</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added content-type attribute to subject for pass-through only</td>
+</tr>
+<tr>
+	<td>2021&#8211;04&#8211;30</td>
+	<td style="text-align:center;">1.29</td>
+	<td>Articles, Proceedings</td>
+	<td>Expanded support for funding tagging</td>
+</tr>
+<tr>
+	<td>2021&#8211;04&#8211;29</td>
+	<td style="text-align:center;">1.29</td>
+	<td>Articles</td>
+	<td>Added support for new version type Proof in article versioning (multiple NISO JAV versions of a single article)</td>
+</tr>
+<tr>
+	<td>2021&#8211;03&#8211;16</td>
+	<td style="text-align:center;">1.28</td>
+	<td>Articles, Proceedings</td>
+	<td>Updated section on usage of display attributes to apply to all types of content</td>
+</tr>
+<tr>
+	<td>2021&#8211;03&#8211;16</td>
+	<td style="text-align:center;">1.28</td>
+	<td>Books</td>
+	<td>Fixed bug regarding loss of support for sec/sec-meta in SCBITS</td>
+</tr>
+<tr>
+	<td>2021&#8211;03&#8211;08</td>
+	<td style="text-align:center;">1.28</td>
+	<td>Articles</td>
+	<td>Added support for article versioning (mutliple NISO JAV versions of a single article)</td>
+</tr>
+<tr>
+	<td>2021&#8211;03&#8211;03</td>
+	<td style="text-align:center;">1.28</td>
+	<td>Books</td>
+	<td>Added support for external links to quizzes via related-object tagging</td>
+</tr>
+<tr>
+	<td>2021&#8211;02&#8211;08</td>
+	<td style="text-align:center;">1.28</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated narrative to describe support for conference proceedings reference enhancements</td>
+</tr>
+<tr>
+	<td>2021&#8211;01&#8211;15</td>
+	<td style="text-align:center;">1.27</td>
+	<td>Articles, Proceedings</td>
+	<td>Updated narrative to describe funder display</td>
+</tr>
+<tr>
+	<td>2021&#8211;01&#8211;13</td>
+	<td style="text-align:center;">1.27</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated narrative to clarify sidebar behavior</td>
+</tr>
+<tr>
+	<td>2020&#8211;12&#8211;30</td>
+	<td style="text-align:center;">1.27</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Narrative cleanup</td>
+</tr>
+<tr>
+	<td>2020&#8211;11&#8211;24</td>
+	<td style="text-align:center;">1.27</td>
+	<td>Books</td>
+	<td>Updated book xml example to remove unsupported related-objects links</td>
+</tr>
+<tr>
+	<td>2020&#8211;11&#8211;16</td>
+	<td style="text-align:center;">1.27</td>
+	<td>Articles, Proceedings</td>
+	<td>Updated narrative to remove unsupported related-objects links</td>
+</tr>
+<tr>
+	<td>2020&#8211;11&#8211;12</td>
+	<td style="text-align:center;">1.27</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated narrative to clarify footnote behavior</td>
+</tr>
+<tr>
+	<td>2020&#8211;10&#8211;13</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Proceedings</td>
+	<td>Updated narrative to reflect Proceedings article publication date behavior</td>
+</tr>
+<tr>
+	<td>2020&#8211;10&#8211;12</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated narrative to clarify how Zipline 3 handles whitespace between elements on loading</td>
+</tr>
+<tr>
+	<td>2020&#8211;10&#8211;09</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Books</td>
+	<td>Updated XML examples to better reflect chapter content in books</td>
+</tr>
+<tr>
+	<td>2020&#8211;10&#8211;08</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated narrative to reflect ORCID iD branding</td>
+</tr>
+<tr>
+	<td>2020&#8211;10&#8211;08</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles</td>
+	<td>Updated narrative to clarify requirements for topic-driven TOCs</td>
+</tr>
+<tr>
+	<td>2020&#8211;09&#8211;22</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated narrative to clarify common features of both Specifications</td>
+</tr>
+<tr>
+	<td>2020&#8211;09&#8211;21</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated XML examples with and clarified support for &#8216;tex-math&#8217; and LaTex</td>
+</tr>
+<tr>
+	<td>2020&#8211;09&#8211;16</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated all documents to reflect new Silverchair branding</td>
+</tr>
+<tr>
+	<td>2020&#8211;09&#8211;15</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated XML examples to correct subj-group tagging</td>
+</tr>
+<tr>
+	<td>2020&#8211;09&#8211;09</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles</td>
+	<td>Clarified narrative regarding CRediT roles and requirements</td>
+</tr>
+<tr>
+	<td>2020&#8211;09&#8211;02</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Books</td>
+	<td>Narrative cleanup</td>
+</tr>
+<tr>
+	<td>2020&#8211;09&#8211;02</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for &#8216;@initials&#8217; on &#8216;surname&#8217; and &#8216;given-names&#8217;</td>
+</tr>
+<tr>
+	<td>2020&#8211;09&#8211;01</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles</td>
+	<td>Added support for configuring article date import order by journal type (continuous vs. traditional)</td>
+</tr>
+<tr>
+	<td>2020&#8211;09&#8211;01</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated &#8216;journal-id&#8217; and &#8216;book-id&#8217; in sample XML</td>
+</tr>
+<tr>
+	<td>2020&#8211;09&#8211;01</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for &#8216;version&#8217; in citations</td>
+</tr>
+<tr>
+	<td>2020&#8211;08&#8211;31</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Books</td>
+	<td>Removed non-functional question and answer elements from XSD</td>
+</tr>
+<tr>
+	<td>2020&#8211;08&#8211;31</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added rules for checksum on ISBNs, ISSNs, and ORCID ID values</td>
+</tr>
+<tr>
+	<td>2020&#8211;08&#8211;28</td>
+	<td style="text-align:center;">1.26</td>
+	<td>Articles, Proceedings</td>
+	<td>Narrative cleanup</td>
+</tr>
+<tr>
+	<td>2020&#8211;07&#8211;29</td>
+	<td style="text-align:center;">1.25</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Clarified narrative re: &#8216;list&#8217; in &#8216;p&#8217;</td>
+</tr>
+<tr>
+	<td>2020&#8211;07&#8211;21</td>
+	<td style="text-align:center;">1.25</td>
+	<td>Articles</td>
+	<td>Clarified narrative, &#8216;article-title&#8217; is mandatory</td>
+</tr>
+<tr>
+	<td>2020&#8211;07&#8211;08</td>
+	<td style="text-align:center;">1.25</td>
+	<td>Proceedings</td>
+	<td>Clarified narrative regarding &#8216;isbn&#8217; &#8216;@content-type&#8217; values</td>
+</tr>
+<tr>
+	<td>2020&#8211;07&#8211;08</td>
+	<td style="text-align:center;">1.25</td>
+	<td>Books</td>
+	<td>Deprecated support for &#8216;app-group&#8217; in &#8216;book-back&#8217;</td>
+</tr>
+<tr>
+	<td>2020&#8211;07&#8211;07</td>
+	<td style="text-align:center;">1.25</td>
+	<td>Articles, Books</td>
+	<td>Updated SoundCloud support for embed link</td>
+</tr>
+<tr>
+	<td>2020&#8211;07&#8211;02</td>
+	<td style="text-align:center;">1.25</td>
+	<td>Articles, Books</td>
+	<td>Deprecated support for &#8216;app&#8217; in &#8216;bio&#8217;</td>
+</tr>
+<tr>
+	<td>2020&#8211;06&#8211;25</td>
+	<td style="text-align:center;">1.25</td>
+	<td>Articles</td>
+	<td>Added support for inline presentation of supplemental figures and tables</td>
+</tr>
+<tr>
+	<td>2020&#8211;06&#8211;15</td>
+	<td style="text-align:center;">1.25</td>
+	<td>Articles</td>
+	<td>Added support for &#8216;article-version&#8217; within &#8216;article-meta&#8217;</td>
+</tr>
+<tr>
+	<td>2020&#8211;06&#8211;10</td>
+	<td style="text-align:center;">1.25</td>
+	<td>Books</td>
+	<td>Clarified narrative regarding Access License and Indicators (ali) tagging</td>
+</tr>
+<tr>
+	<td>2020&#8211;05&#8211;20</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Articles</td>
+	<td>Clarified narrative regarding Access License and Indicators (ali) tagging</td>
+</tr>
+<tr>
+	<td>2020&#8211;05&#8211;12</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Articles, Proceedings</td>
+	<td>Clarified narrative regarding use and necessity of DOIs</td>
+</tr>
+<tr>
+	<td>2020&#8211;05&#8211;11</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Articles, Proceedings</td>
+	<td>Clarified narrative regarding license information sent to Crossref</td>
+</tr>
+<tr>
+	<td>2020&#8211;05&#8211;08</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Articles, Proceedings</td>
+	<td>Clarified narrative regarding &#8216;@related-article-type&#8217; and Crossmark</td>
+</tr>
+<tr>
+	<td>2020&#8211;05&#8211;06</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Clarified narrative regarding use of &#8216;@equal-contrib&#8217;</td>
+</tr>
+<tr>
+	<td>2020&#8211;04&#8211;23</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Articles, Proceedings</td>
+	<td>Clarified narrative regarding issue-meta loading</td>
+</tr>
+<tr>
+	<td>2020&#8211;04&#8211;23</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Proceedings</td>
+	<td>Clarified narrative regarding the &#8216;issn&#8217; requirement for Proceedings</td>
+</tr>
+<tr>
+	<td>2020&#8211;04&#8211;17</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Books</td>
+	<td>Clarified narrative and business rules regarding book chapter versioning</td>
+</tr>
+<tr>
+	<td>2020&#8211;04&#8211;03</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for in-line YouTube and SoundCloud media</td>
+</tr>
+<tr>
+	<td>2020&#8211;04&#8211;01</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Articles</td>
+	<td>Added support for data availability statements</td>
+</tr>
+<tr>
+	<td>2020&#8211;03&#8211;27</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Articles</td>
+	<td>Added support for custom-meta for Peer Review status</td>
+</tr>
+<tr>
+	<td>2020&#8211;03&#8211;30</td>
+	<td style="text-align:center;">1.24</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added support for &#8216;string-name&#8217; in &#8216;name-alternatives&#8217; for contributors</td>
+</tr>
+<tr>
+	<td>2020&#8211;03&#8211;05</td>
+	<td style="text-align:center;">1.23</td>
+	<td>Articles, Books</td>
+	<td>Added support for external database links</td>
+</tr>
+<tr>
+	<td>2020&#8211;03&#8211;04</td>
+	<td style="text-align:center;">1.23</td>
+	<td>Articles, Books</td>
+	<td>Updated Glencoe url example</td>
+</tr>
+<tr>
+	<td>2020&#8211;02&#8211;24</td>
+	<td style="text-align:center;">1.23</td>
+	<td>Books</td>
+	<td>Added support for &#8216;inline-graphic&#8217; in &#8216;xref&#8217;</td>
+</tr>
+<tr>
+	<td>2020&#8211;01&#8211;22</td>
+	<td style="text-align:center;">1.23</td>
+	<td>Books</td>
+	<td>Clarified table of contents language</td>
+</tr>
+<tr>
+	<td>2020&#8211;01&#8211;22</td>
+	<td style="text-align:center;">1.23</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Updated language around us-gov and crown-copyright licenses</td>
+</tr>
+<tr>
+	<td>2020&#8211;01&#8211;22</td>
+	<td style="text-align:center;">1.23</td>
+	<td>Articles</td>
+	<td>Added support for multiple CRediT roles</td>
+</tr>
+<tr>
+	<td>2020&#8211;01&#8211;22</td>
+	<td style="text-align:center;">1.23</td>
+	<td>Articles, Books</td>
+	<td>Added support for JWPlayer video tagging</td>
+</tr>
+<tr>
+	<td>2020&#8211;01&#8211;21</td>
+	<td style="text-align:center;">1.23</td>
+	<td>Articles, Books</td>
+	<td>Added support for multiple-language self-uri PDFs</td>
+</tr>
+<tr>
+	<td>2020&#8211;01&#8211;17</td>
+	<td style="text-align:center;">1.23</td>
+	<td>Articles, Books</td>
+	<td>Added support for Glencoe video tagging</td>
+</tr>
+<tr>
+	<td>2020&#8211;01&#8211;16</td>
+	<td style="text-align:center;">1.23</td>
+	<td>Articles</td>
+	<td>Added support for &#8216;series-title&#8217;</td>
+</tr>
+<tr>
+	<td>2019&#8211;12&#8211;17</td>
+	<td style="text-align:center;">1.23</td>
+	<td>Articles, Proceedings, Books</td>
+	<td>Added Sample XML Files section to narratives</td>
+</tr>
+<tr>
+	<td>2019&#8211;12&#8211;06</td>
+	<td style="text-align:center;">1.22</td>
+	<td>Articles</td>
+	<td>Clarified language in narrative regarding &#8216;funding-source&#8217;</td>
+</tr>
+<tr>
+	<td>2019&#8211;12&#8211;04</td>
+	<td style="text-align:center;">1.22</td>
+	<td>Articles, Books</td>
+	<td>Updated narrative for taxonomy tagging</td>
+</tr>
+<tr>
+	<td>2019&#8211;11&#8211;19</td>
+	<td style="text-align:center;">1.22</td>
+	<td>Articles, Books</td>
+	<td>Updated narrative for conflict of interest tagging</td>
+</tr>
+<tr>
+	<td>2019&#8211;10&#8211;21</td>
+	<td style="text-align:center;">1.22</td>
+	<td>Books</td>
+	<td>Clarified language in narrative regarding modeling of chapter-to-chapter links</td>
+</tr>
+<tr>
+	<td>2019&#8211;10&#8211;11</td>
+	<td style="text-align:center;">1.22</td>
+	<td>Books</td>
+	<td>Added support for &#8216;subtitle&#8217; in &#8216;sec&#8217;</td>
+</tr>
+<tr>
+	<td>2019&#8211;10&#8211;10</td>
+	<td style="text-align:center;">1.22</td>
+	<td>Books</td>
+	<td>Added support for &#8216;inline-graphic&#8217; as a child of &#8216;uri&#8217;</td>
+</tr>
+<tr>
+	<td>2019&#8211;09&#8211;30</td>
+	<td style="text-align:center;">1.22</td>
+	<td>Articles</td>
+	<td>Removed mention in narrative of epreprint pub-dates; added cover and collection pub-dates</td>
+</tr>
+<tr>
+	<td>2019&#8211;09&#8211;27</td>
+	<td style="text-align:center;">1.22</td>
+	<td>Books</td>
+	<td>Added support for &#8216;inline-formula&#8217; as a child of &#8216;xref&#8217;</td>
+</tr>
+<tr>
+	<td>2019&#8211;09&#8211;26</td>
+	<td style="text-align:center;">1.22</td>
+	<td>Books</td>
+	<td>Added support for &#8216;fn-group&#8217; in &#8216;glossary&#8217;</td>
+</tr>
+<tr>
+	<td>2019&#8211;09&#8211;24</td>
+	<td style="text-align:center;">1.22</td>
+	<td>Articles, Books</td>
+	<td>Added support for dataset citations</td>
+</tr>
+<tr>
+	<td>2019&#8211;09&#8211;18</td>
+	<td style="text-align:center;">1.22</td>
+	<td>Articles, Books</td>
+	<td>Removed section regarding Silverchair-hosted media</td>
+</tr>
+<tr>
+	<td>2019&#8211;08&#8211;27</td>
+	<td style="text-align:center;">1.21</td>
+	<td>Articles</td>
+	<td>Added support for &#8216;journal-id&#8217; in issue-meta file</td>
+</tr>
+<tr>
+	<td>2019&#8211;08&#8211;21</td>
+	<td style="text-align:center;">1.21</td>
+	<td>Articles, Books</td>
+	<td>Clarified feature language and examples in specification narratives</td>
+</tr>
+<tr>
+	<td>2019&#8211;08&#8211;16</td>
+	<td style="text-align:center;">1.21</td>
+	<td>Articles, Books</td>
+	<td>Clarified language in narrative regarding supported reference types</td>
+</tr>
+<tr>
+	<td>2019&#8211;08&#8211;14</td>
+	<td style="text-align:center;">1.21</td>
+	<td>Articles</td>
+	<td>Corrected typo in narrative (changed &#8216;article metadata&#8217; to &#8216;article-meta&#8217;)</td>
+</tr>
+<tr>
+	<td>2019&#8211;08&#8211;07</td>
+	<td style="text-align:center;">1.21</td>
+	<td>Articles</td>
+	<td>Added support for tagging institutions in &#8216;funding-source&#8217;, deprecated use of &#8216;named-content&#8217;</td>
+</tr>
+<tr>
+	<td>2019&#8211;08&#8211;06</td>
+	<td style="text-align:center;">1.21</td>
+	<td>Books</td>
+	<td>Added support for &#8216;subtitle&#8217; in &#8216;app&#8217;</td>
+</tr>
+<tr>
+	<td>2019&#8211;08&#8211;05</td>
+	<td style="text-align:center;">1.21</td>
+	<td>Articles</td>
+	<td>Added support for Peer Review materials as &#8216;supplementary-material&#8217;</td>
+</tr>
+<tr>
+	<td>2019&#8211;07&#8211;30</td>
+	<td style="text-align:center;">1.21</td>
+	<td>Articles, Books</td>
+	<td>Added support for Access License and Indicators (ali) tagging</td>
+</tr>
+<tr>
+	<td>2019&#8211;07&#8211;24</td>
+	<td style="text-align:center;">1.21</td>
+	<td>Articles</td>
+	<td>Added support for CRediT role tagging for authors</td>
+</tr>
+<tr>
+	<td>2019&#8211;06&#8211;26</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles, Books</td>
+	<td>Updated support for author-notes xrefs</td>
+</tr>
+<tr>
+	<td>2019&#8211;05&#8211;31</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles</td>
+	<td>Updated description of issue-title functionality.</td>
+</tr>
+<tr>
+	<td>2019&#8211;05&#8211;29</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles</td>
+	<td>Added support for Crossmark related-article types</td>
+</tr>
+<tr>
+	<td>2019&#8211;05&#8211;29</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles, Books</td>
+	<td>Added support for inline-formula in related-object</td>
+</tr>
+<tr>
+	<td>2019&#8211;05&#8211;23</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles, Books</td>
+	<td>Added support for equal contributors</td>
+</tr>
+<tr>
+	<td>2019&#8211;05&#8211;21</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles, Books</td>
+	<td>Added support for authenticated contrib-id metadata</td>
+</tr>
+<tr>
+	<td>2019&#8211;05&#8211;20</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles, Books</td>
+	<td>Added support for conflict of interest tagging</td>
+</tr>
+<tr>
+	<td>2019&#8211;05&#8211;15</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Books</td>
+	<td>Added support for open access license types/permissions</td>
+</tr>
+<tr>
+	<td>2019&#8211;05&#8211;03</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles</td>
+	<td>Added support for related-article linking on eISSN</td>
+</tr>
+<tr>
+	<td>2019&#8211;05&#8211;02</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles</td>
+	<td>Added support for lay person abstracts</td>
+</tr>
+<tr>
+	<td>2019&#8211;05&#8211;01</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles</td>
+	<td>Added self-uri element to issue-meta.</td>
+</tr>
+<tr>
+	<td>2019&#8211;04&#8211;26</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles, Books</td>
+	<td>Updated Narratives to include description of XSDs, .zip of Specifications</td>
+</tr>
+<tr>
+	<td>2019&#8211;04&#8211;03</td>
+	<td style="text-align:center;">1.20</td>
+	<td>Articles (Proceedings)</td>
+	<td>Added support for conference sponsor on conference volume</td>
+</tr>
+<tr>
+	<td>2019&#8211;03&#8211;29</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles, Books</td>
+	<td>Bugfix for Label definition validation in Saxon processor</td>
+</tr>
+<tr>
+	<td>2019&#8211;02&#8211;20</td>
+	<td style="text-align:center;">1.19</td>
+	<td>Books</td>
+	<td>Updated narrative to restrict for only one collection-meta[@collection-type=&#8220;edition-set&#8221;].</td>
+</tr>
+<tr>
+	<td>2019&#8211;02&#8211;20</td>
+	<td style="text-align:center;">1.19</td>
+	<td>Books</td>
+	<td>Added support for indexed attribute on &#8216;front-matter-part&#8217; and &#8216;book-part&#8217;.</td>
+</tr>
+<tr>
+	<td>2019&#8211;02&#8211;20</td>
+	<td style="text-align:center;">1.19</td>
+	<td>Books</td>
+	<td>Added support for book-level index.</td>
+</tr>
+<tr>
+	<td>2019&#8211;02&#8211;20</td>
+	<td style="text-align:center;">1.19</td>
+	<td>Books</td>
+	<td>Added support for BIC/BISAC product codes.</td>
+</tr>
+<tr>
+	<td>2019&#8211;02&#8211;20</td>
+	<td style="text-align:center;">1.19</td>
+	<td>Books</td>
+	<td>Added support for &#8216;inline-graphic&#8217; in &#8216;related-object&#8217;.</td>
+</tr>
+<tr>
+	<td>2019&#8211;02&#8211;20</td>
+	<td style="text-align:center;">1.19</td>
+	<td>Books</td>
+	<td>Added examples of related-object tagging options.</td>
+</tr>
+<tr>
+	<td>2019&#8211;02&#8211;20</td>
+	<td style="text-align:center;">1.19</td>
+	<td>Books</td>
+	<td>Added attributes to book and chapter level related-object to support external links.</td>
+</tr>
+<tr>
+	<td>2019&#8211;02&#8211;20</td>
+	<td style="text-align:center;">1.19</td>
+	<td>Articles, Books</td>
+	<td>Expanded support for &#8216;related-object&#8217;.</td>
+</tr>
+<tr>
+	<td>2019&#8211;02&#8211;20</td>
+	<td style="text-align:center;">1.19</td>
+	<td>Articles, Books</td>
+	<td>Added support for new contrib-type values &#8211; &#8220;chair&#8221;, &#8220;translator&#8221;, or client-configured value.</td>
+</tr>
+<tr>
+	<td>2019&#8211;02&#8211;20</td>
+	<td style="text-align:center;">1.19</td>
+	<td>Articles</td>
+	<td>Removed reference to bic/bisac from SCJATS narrative (in the common-meta-categories file)</td>
+</tr>
+<tr>
+	<td>2018&#8211;11&#8211;30</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles</td>
+	<td>Added support for alt-title for &#8220;deck&#8221; (tagline)</td>
+</tr>
+<tr>
+	<td>2018&#8211;11&#8211;28</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles</td>
+	<td>Added support for Open Science Framework badges</td>
+</tr>
+<tr>
+	<td>2018&#8211;11&#8211;08</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles, Proceedings</td>
+	<td>Updated funding information (&#8216;@award-type=&#8220;grant&#8221;&#8217; is NOT required).</td>
+</tr>
+<tr>
+	<td>2018&#8211;10&#8211;26</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles (Proceedings)</td>
+	<td>Added that conference volume is required for proceedings.</td>
+</tr>
+<tr>
+	<td>2018&#8211;10&#8211;22</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles (Proceedings)</td>
+	<td>Corrected narrative&#8217;s description of isbn use in proceedings.</td>
+</tr>
+<tr>
+	<td>2018&#8211;10&#8211;12</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles, Proceedings</td>
+	<td>Corrected and updated funding information (fixed funder-identifier and added that &#8216;@award-type=&#8220;grant&#8221;&#8217; is required).</td>
+</tr>
+<tr>
+	<td>2018&#8211;10&#8211;11</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added support of &#8220;answer&#8221;, &#8220;question&#8221;, &#8220;answer-set&#8221;, and &#8220;question-set&#8221; in &#8216;specific-use&#8217; on &#8216;sec&#8217; and removed section on collapsible content.</td>
+</tr>
+<tr>
+	<td>2018&#8211;10&#8211;11</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles (Proceedings)</td>
+	<td>Updated narrative, based on feedback.</td>
+</tr>
+<tr>
+	<td>2018&#8211;10&#8211;03</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles (Proceedings)</td>
+	<td>Updated proceedings behavior description in narrative.</td>
+</tr>
+<tr>
+	<td>2018&#8211;09&#8211;28</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Remove order restriction on label element</td>
+</tr>
+<tr>
+	<td>2018&#8211;09&#8211;25</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles, Books</td>
+	<td>Updated narrative describing default license values.</td>
+</tr>
+<tr>
+	<td>2018&#8211;08&#8211;29</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles</td>
+	<td>Added issue-sponsor element to issue-meta and article-meta.</td>
+</tr>
+<tr>
+	<td>2018&#8211;07&#8211;19</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles</td>
+	<td>Corrected narrative regarding date functionality - removed dynamically generated article date instructions</td>
+</tr>
+<tr>
+	<td>2018&#8211;06&#8211;29</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added section on usage of display attributes.</td>
+</tr>
+<tr>
+	<td>2018&#8211;06&#8211;29</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added ability to upload content with print-only disp-level on &#8216;sec&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;06&#8211;13</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles, Books</td>
+	<td>Added support for &#8216;content-type=&#8220;occupation&#8221;&#8217; and &#8216;content-type=&#8220;url&#8221;&#8217; in author-comment.</td>
+</tr>
+<tr>
+	<td>2018&#8211;06&#8211;12</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles</td>
+	<td>Added support for graphical, audio, and video abstract types.</td>
+</tr>
+<tr>
+	<td>2018&#8211;06&#8211;11</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles</td>
+	<td>Added support for featured audio and featured video in &#8216;supplementary-material&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;05&#8211;08</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added support for &#8216;sec&#8217; in &#8216;disp-quote&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;05&#8211;04</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added support for Google Scholar preview PDFs for monograph indexing.</td>
+</tr>
+<tr>
+	<td>2018&#8211;05&#8211;02</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles</td>
+	<td>Added support for &#8216;issue-title&#8217; in the issue-meta file.</td>
+</tr>
+<tr>
+	<td>2018&#8211;04&#8211;26</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles</td>
+	<td>Added support for &#8216;license-type=&#8220;publisher-standard&#8221;&#8217; for private license data that should be sent to Crossref.</td>
+</tr>
+<tr>
+	<td>2018&#8211;04&#8211;19</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added support for &#8216;target&#8217; in &#8216;related-object&#8217; and &#8216;string-name&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;04&#8211;16</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added the ability to include text between &#8216;ref&#8217; elements in &#8216;ref-list&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;04&#8211;13</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added support for &#8216;element-citation&#8217; and &#8216;mixed-citation&#8217; in &#8216;attrib&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;04&#8211;11</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Expanded support for child elements in &#8216;abbrev&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;04&#8211;03</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles, Books</td>
+	<td>Added support for Sketchfab models.</td>
+</tr>
+<tr>
+	<td>2018&#8211;03&#8211;28</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles, Books</td>
+	<td>Added support for &#8216;xref&#8217; in &#8216;element-citation&#8217; and &#8216;mixed-citation&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;03&#8211;26</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles, Books</td>
+	<td>Added support for &#8216;title&#8217; in &#8216;list-item&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;03&#8211;23</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles, Books</td>
+	<td>Added support for &#8216;target&#8217; in &#8216;element-citation&#8217; and &#8216;mixed-citation&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;03&#8211;22</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added support for collection-type in &#8216;collection-meta&#8217; to distinguish between series, collection, and edition-set.</td>
+</tr>
+<tr>
+	<td>2018&#8211;03&#8211;19</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added ability to include specific book-part-type values on &#8216;front-matter-part&#8217; and &#8216;book-part&#8217; in &#8216;book-back&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;03&#8211;16</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Articles, Books</td>
+	<td>Added support for Web of Science &#8216;pub-id&#8217; (pub-id-type=&#8220;wos&#8221;) in &#8216;ref&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;03&#8211;13</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added support for specific-use=&#8220;answer&#8221; on &#8216;sec&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;02&#8211;21</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added support for &#8216;target&#8217; in &#8216;title&#8217; and &#8216;xref&#8217;.</td>
+</tr>
+<tr>
+	<td>2018&#8211;02&#8211;15</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added support for book-type on book element for Google Scholar indexing.</td>
+</tr>
+<tr>
+	<td>2018&#8211;02&#8211;14</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added support for book-parts in book-back.</td>
+</tr>
+<tr>
+	<td>2018&#8211;02&#8211;14</td>
+	<td style="text-align:center;">1.18</td>
+	<td>Books</td>
+	<td>Added support for book-level keywords.</td>
+</tr>
+<tr>
+	<td>2018&#8211;02&#8211;12</td>
+	<td style="text-align:center;">1.13</td>
+	<td>Books</td>
+	<td>Added support for publisher-loc.</td>
+</tr>
+<tr>
+	<td>2018&#8211;02&#8211;06</td>
+	<td style="text-align:center;">1.13</td>
+	<td>Journals</td>
+	<td>Added support for CC BY IGO license type.</td>
+</tr>
+<tr>
+	<td>2018&#8211;02&#8211;06</td>
+	<td style="text-align:center;">1.13</td>
+	<td>Books</td>
+	<td>Added support for book-level affiliate logos.</td>
+</tr>
+<tr>
+	<td>2018&#8211;02&#8211;05</td>
+	<td style="text-align:center;">1.13</td>
+	<td>Books</td>
+	<td>Added support for restricted images based on electronic rights.</td>
+</tr>
+<tr>
+	<td>2018&#8211;02&#8211;01</td>
+	<td style="text-align:center;">1.13</td>
+	<td>Books</td>
+	<td>Added support for chapter-level supplementary-material.</td>
+</tr>
+<tr>
+	<td>2018&#8211;01&#8211;31</td>
+	<td style="text-align:center;">1.13</td>
+	<td>Books</td>
+	<td>Added support for book-app-group and book-app.</td>
+</tr>
+<tr>
+	<td>2018&#8211;01&#8211;30</td>
+	<td style="text-align:center;">1.12</td>
+	<td>Books</td>
+	<td>Added support for edition sets.</td>
+</tr>
+<tr>
+	<td>2018&#8211;01&#8211;24</td>
+	<td style="text-align:center;">1.12</td>
+	<td>Books</td>
+	<td>Added support for version history.</td>
+</tr>
+<tr>
+	<td>2018&#8211;01&#8211;04</td>
+	<td style="text-align:center;">1.11</td>
+	<td>Books</td>
+	<td>Added support for publication-format in pub-date.</td>
+</tr>
+<tr>
+	<td>2017&#8211;12&#8211;22</td>
+	<td style="text-align:center;">1.11</td>
+	<td>Books</td>
+	<td>Added section &#8220;In progress books (advance publication)&#8221;</td>
+</tr>
+<tr>
+	<td>2017&#8211;12&#8211;21</td>
+	<td style="text-align:center;">1.11</td>
+	<td>Books</td>
+	<td>Added date-type=&#8220;reviewed&#8221; to pub-history</td>
+</tr>
+<tr>
+	<td>2017&#8211;10&#8211;08</td>
+	<td style="text-align:center;">1.10</td>
+	<td>Books</td>
+	<td>Added section &#8220;Book metadata replacements.&#8221;</td>
+</tr>
+<tr>
+	<td>2017&#8211;07&#8211;06</td>
+	<td style="text-align:center;">1.10</td>
+	<td>Articles</td>
+	<td>Added support for pub-date in the issue-meta file</td>
+</tr>
+<tr>
+	<td>2017&#8211;06&#8211;23</td>
+	<td style="text-align:center;">1.9</td>
+	<td>Articles</td>
+	<td>Added support for dual issue numbering</td>
+</tr>
+<tr>
+	<td>2017&#8211;06&#8211;22</td>
+	<td style="text-align:center;">1.9</td>
+	<td>Books</td>
+	<td>Added support for permissions in book-part-meta</td>
+</tr>
+<tr>
+	<td>2017&#8211;06&#8211;05</td>
+	<td style="text-align:center;">1.8</td>
+	<td>Books</td>
+	<td>Added support for MARC records</td>
+</tr>
+<tr>
+	<td>2017&#8211;06&#8211;05</td>
+	<td style="text-align:center;">1.8</td>
+	<td>Books</td>
+	<td>Added optional id attribute to permissions (primarily for book-meta permissions).</td>
+</tr>
+<tr>
+	<td>2017&#8211;06&#8211;05</td>
+	<td style="text-align:center;">1.8</td>
+	<td>Articles, Books</td>
+	<td>Added support for excluding content from on-site purchase availability</td>
+</tr>
+<tr>
+	<td>2017&#8211;05&#8211;30</td>
+	<td style="text-align:center;">1.8</td>
+	<td>Articles</td>
+	<td>Added ability to include issue editors via the issue-meta file.</td>
+</tr>
+<tr>
+	<td>2017&#8211;05&#8211;22</td>
+	<td style="text-align:center;">1.8</td>
+	<td>Books</td>
+	<td>Added support for chapter keywords</td>
+</tr>
+<tr>
+	<td>2017&#8211;05&#8211;03</td>
+	<td style="text-align:center;">1.7</td>
+	<td>Books</td>
+	<td>Added support for chapter xref within single xml Document</td>
+</tr>
+<tr>
+	<td>2017&#8211;04&#8211;19</td>
+	<td style="text-align:center;">1.6</td>
+	<td>Books</td>
+	<td>Added support for subtitle in book-title-group.</td>
+</tr>
+<tr>
+	<td>2017&#8211;04&#8211;19</td>
+	<td style="text-align:center;">1.6</td>
+	<td>Books</td>
+	<td>Added support for Book Series</td>
+</tr>
+<tr>
+	<td>2017&#8211;04&#8211;19</td>
+	<td style="text-align:center;">1.6</td>
+	<td>Books</td>
+	<td>Added book-volume-number in book-meta</td>
+</tr>
+<tr>
+	<td>2017&#8211;04&#8211;05</td>
+	<td style="text-align:center;">1.6</td>
+	<td>Articles</td>
+	<td>Added option to create categories with type toc-heading during import.</td>
+</tr>
+<tr>
+	<td>2017&#8211;04&#8211;02</td>
+	<td style="text-align:center;">1.6</td>
+	<td>Articles</td>
+	<td>Added ability to designate JAM and PAP articles in the XML.</td>
+</tr>
+<tr>
+	<td>2017&#8211;04&#8211;02</td>
+	<td style="text-align:center;">1.5</td>
+	<td>Books</td>
+	<td>Removed restrictions on pub-history in book-meta and book-part-meta.</td>
+</tr>
+<tr>
+	<td>2017&#8211;04&#8211;02</td>
+	<td style="text-align:center;">1.5</td>
+	<td>Articles, Books</td>
+	<td>Added bio to authors.</td>
+</tr>
+<tr>
+	<td>2017&#8211;03&#8211;26</td>
+	<td style="text-align:center;">1.5</td>
+	<td>Books</td>
+	<td>Added support for book-level assets (e.g. cover images).</td>
+</tr>
+<tr>
+	<td>2017&#8211;03&#8211;26</td>
+	<td style="text-align:center;">1.5</td>
+	<td>Books</td>
+	<td>Added section &#8220;Link to PDF of content&#8221; to specification.</td>
+</tr>
+<tr>
+	<td>2017&#8211;03&#8211;19</td>
+	<td style="text-align:center;">1.4</td>
+	<td>Books</td>
+	<td>Added support for pub-history in book-meta and book-part-meta.</td>
+</tr>
+<tr>
+	<td>2017&#8211;03&#8211;15</td>
+	<td style="text-align:center;">1.4</td>
+	<td>Books</td>
+	<td>Added &#8216;month&#8217; and &#8216;day&#8217; to book-meta/pub-date and updated publication date instructions.</td>
+</tr>
+<tr>
+	<td>2017&#8211;03&#8211;01</td>
+	<td style="text-align:center;">1.4</td>
+	<td>Common</td>
+	<td>Added support for name-alternatives in contrib.</td>
+</tr>
+<tr>
+	<td>2017&#8211;02&#8211;24</td>
+	<td style="text-align:center;">1.4</td>
+	<td>Books</td>
+	<td>Added support for subtitle in title-group.</td>
+</tr>
+<tr>
+	<td>2017&#8211;02&#8211;15</td>
+	<td style="text-align:center;">1.4</td>
+	<td>Books</td>
+	<td>Removed restriction on links in section titles and headings.</td>
+</tr>
+<tr>
+	<td>2017&#8211;02&#8211;14</td>
+	<td style="text-align:center;">1.4</td>
+	<td>Articles</td>
+	<td>Added requirement that toc-content elements in issue-meta must be unique.</td>
+</tr>
+<tr>
+	<td>2017&#8211;02&#8211;07</td>
+	<td style="text-align:center;">1.4</td>
+	<td>Articles</td>
+	<td>Updated XMLSpecJournProc narrative clarifying that cover images must meet required extensions (no PDF)</td>
+</tr>
+<tr>
+	<td>2017&#8211;01&#8211;22</td>
+	<td style="text-align:center;">1.3</td>
+	<td>Common</td>
+	<td>Expanded Address to include new child elements</td>
+</tr>
+<tr>
+	<td>2016&#8211;12&#8211;22</td>
+	<td style="text-align:center;">1.2</td>
+	<td>Articles</td>
+	<td>Added requirement that a package with an issue-meta file must match an existing issue record</td>
+</tr>
+<tr>
+	<td>2016&#8211;10&#8211;25</td>
+	<td style="text-align:center;">1.1</td>
+	<td>Books</td>
+	<td>Added book specification (initial release).</td>
+</tr>
+<tr>
+	<td>2016&#8211;10&#8211;25</td>
+	<td style="text-align:center;">1.1</td>
+	<td>Articles</td>
+	<td>Removed categories at section level.</td>
+</tr>
+<tr>
+	<td>2016&#8211;10&#8211;25</td>
+	<td style="text-align:center;">1.1</td>
+	<td>Articles</td>
+	<td>Removed &#8220;continuous&#8221; and &#8220;theme&#8221; from list of issue types.</td>
+</tr>
+<tr>
+	<td>2016&#8211;09&#8211;21</td>
+	<td style="text-align:center;">1.0</td>
+	<td>Articles</td>
+	<td>Initial release.</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

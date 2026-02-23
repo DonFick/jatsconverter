@@ -1,0 +1,2917 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>SCM Content Specification for Books (SCBITS)</title>
+	<meta name="revision" content="1.47"/>
+	<meta name="date" content="October 14, 2025"/>
+	<meta name="author" content="Silverchair"/>
+	<meta name="web" content="http://www.silverchair.com"/>
+	<link type="text/css" rel="stylesheet" href="supportfiles/sisspec.css"/>
+<script src="supportfiles/jquery.min.js" type="text/javascript"></script>
+<script src="supportfiles/jquery.tableofcontents.min.js" type="text/javascript"></script>
+<script src="supportfiles/startup.js" type="text/javascript"></script>
+</head>
+<body>
+
+<p><img src="./supportfiles/SC_horizontal_black.png" alt="Silverchair logo" />
+<p id="sisspectitle">
+<script type="text/javascript">
+<!--
+document.write(document.title);
+//-->
+</script>
+</p></p>
+
+<ul id="toc"></ul>
+
+<table>
+<caption id="documentrevisionhistory">Document Revision History</caption>
+<colgroup>
+<col/>
+<col/>
+<col style="text-align:center;"/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Date</th>
+	<th>Description</th>
+	<th style="text-align:center;">Version</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td></td>
+	<td>See <a href="./RevisionHistory.html">consolidated revision history page</a></td>
+	<td style="text-align:center;"></td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Silverchair has created SCBITS, a custom XML specification for loading book XML into SCM. SCBITs is based on the Book Interchange Tag Suite (BITS) version 2.0, which is maintained by the NLM and based on NISO&#8217;s Journal Article Tag Suite (JATS). New features from BITS 2.1 and subsequent versions are considered, as needed. XML content for book content must be valid against the SCBITS XML Schema and additional rules stated herein.</p>
+
+<p>Due to the size of the BITS tag set, SCBITS does not accommodate all features available in the BITS tag set. This document describes SCBITS—the SCM implementation of the BITS tag set. Content that is valid against this specification will also be valid against the BITS tag set, but the reverse is not necessarily true.</p>
+
+<p>The documentation provided by the NLM at <a href="https://jats.nlm.nih.gov/extensions/bits/tag-library/2.1/index.html">https://jats.nlm.nih.gov/extensions/bits/tag-library/2.1/index.html</a> is an excellent resource to supplement the information contained in this document. The key to transforming data to conform to the SCBITS specification is using the correct elements to tag consistently. Transforming correctly and consistently will ensure a smooth and accurate load of content to the platform.</p>
+
+<p>Additionally, we are committed to promoting best practices for accessible XML and supporting all available BITS tagging for accessibility, and we recognize that our clients play a crucial role in ensuring their content is accessible. To that end, we have implemented additional tools and resources to help them achieve this goal. Please see the section <a href="#accessibility">Accessibility</a> for our recommendations.</p>
+
+<p>Silverchair staff are available to answer questions about any of the elements discussed herein or to help handle any situations not covered by this document.</p>
+
+<p>Guidelines appearing here address two areas: (1) tagging requirements for processing; and (2) guidelines on how to optimize data for Silverchair&#8217;s system, taking advantage of functionalities and features of SCM.</p>
+
+<p>Packaging requirements for Zipline loading are available in the Zipline User Guide via the client tool portal.</p>
+
+<h2 id="silverchairsxsds">Silverchair&#8217;s XSDs</h2>
+
+<p>Silverchair&#8217;s custom XML specifications are in an XSD format, and are hosted alongside this narrative specification. Our recommendation is that users replace their entire set of specification files upon each release, as the XSDs refer to each other, and are meant to be used as a single unit. The latest release of the XSDs can be found in zip packages on the main specifications site <a href="http://specifications.silverchair.com/">http://specifications.silverchair.com/</a> (one is for MathML 2 and the other is for MathML 3).</p>
+
+<p>Silverchair&#8217;s custom XSDs include <a href="./SCJATS-journalpublishing.xsd">SCJATS-journalpublishing.xsd</a> and <a href="./SCJATS-journalpublishing-mathml3.xsd">SCJATS-journalpublishing-mathml3.xsd</a>, for articles and proceedings; <a href="./SCJATS-journalissue.xsd">SCJATS-journalissue.xsd</a> and <a href="./SCJATS-journalissue-mathml3.xsd">SCJATS-journalissue-mathml3.xsd</a>, for journal issue-meta files; <a href="./SCBITS-book.xsd">SCBITS-book.xsd</a> and <a href="./SCBITS-book-mathml3.xsd">SCBITS-book-mathml3.xsd</a>, for books; <a href="./SCMM-multimedia.xsd">SCMM-multimedia.xsd</a> and <a href="./SCMM-multimedia-mathml3.xsd">SCMM-multimedia-mathml3.xsd</a>, for standalone multimedia; and <a href="./SC-common.xsd">SC-common.xsd</a> and <a href="./SC-common-mathml3.xsd">SC-common-mathml3.xsd</a> files that serve as the base XSD for all formats. </p>
+
+<p>The files designated with &#8220;-mathml3&#8221; are for those using MathML 3 tagging. The same files without this designation support MathML 2. MathML 3 is not backwards compatible, and many users have material in MathML 2. Therefore, MathML 2 will continue to be supported in SCJATS, SCBITS, and SCMM.</p>
+
+<h2 id="samplexmlfiles">Sample XML Files</h2>
+
+<p>The following sample files have been provided in the Silverchair specifications zip package to illustrate commonplace examples of platform features. These XML files are provided alongside the Silverchair XSD files as representative, but not authoritative, samples and should be considered supplemental only. </p>
+
+<ul>
+<li><a href="Book_XML_Example.xml">Book File</a></li>
+<li><a href="Book_Part_Wrapper_XML_Example.xml">Book Part Wrapper File</a></li>
+</ul>
+
+<h1 id="xmlencoding">XML encoding</h1>
+
+<p>XML must be well-formed, conformant XML according to the W3C XML Recommendation, fully tagged, and valid to the SCJATS XML Schema. Content must also meet the requirements in this Silverchair specification.</p>
+
+<p>Silverchair accepts content in both fully tagged (full-text) and so-called metadata-only or PDF-only forms. Metadata-only content merely omits the body of the content from the XML; there is no flag to identify content as full text or metadata-only. Content metadata for both forms must be complete as described here.</p>
+
+<h2 id="xmldeclaration">XML declaration</h2>
+
+<p>Declarations required at the top of each XML file are:</p>
+
+<ul>
+<li>XML version</li>
+<li>Character encoding</li>
+</ul>
+
+<p>Example:</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+</code></pre>
+
+<h2 id="specialcharacters">Special characters</h2>
+
+<p>UTF&#8211;8 character encoding is required to ensure that characters are translated properly upon import into the SCM database. Content XML may also contain numeric character references (e.g. <code>&amp;#345;</code> or <code>&amp;#x159;</code>) or the character entity references that JATS supports for special characters. Predefined entities for the ampersand, less-than, and greater-than should be used where the intent is to display the actual characters ampersand (&amp;), less-than (&lt;), or greater-than (&gt;) respectively; the predefined entities should not be used where those characters are part of markup or encodings.</p>
+
+<p>Some characters do not have a unique encoding. Examples are a capital V with a dot over it, used to indicate ventilation rate in medical texts. To encode a V with a dot, use combining diacritical marks. For example, to encode V dot, use <code>&amp;#x0056;&amp;#x0307;</code> which will produce this: &#x0056;&#x0307;.</p>
+
+<p>Please note that special characters should not be represented with images or custom characters because they are not accessible. Please see the section <a href="#private-char">private-char</a> under the section <a href="#accessibility">Accessibility</a> for more information.</p>
+
+<h1 id="translatingprintbookstotheweb">Translating print books to the web</h1>
+
+<p>The layout and formatting of a print book and its presentation on the web are different things. There are a number of consequences that are not immediately apparent that require XML prepared for the web to be different from XML prepared for print. Some of these differences are things that if incorporated into the authoring process early enough, can save time and effort down the road and result in a highly readable book both in print and online. An excellent example of this is found in <a href="#referencingotherpartsofthetext">Referencing other parts of the text</a>.</p>
+
+<h2 id="referencingotherpartsofthetext">Referencing other parts of the text</h2>
+
+<p>References in the text such as, &#8220;See page 288,&#8221; do not work on the web because page numbers don’t exist on the web. Instead, phrases such as &#8220;See Figure 2&#8211;1&#8221; and &#8220;See Chapter 45, Section 3: The Body’s Response to Insulin&#8221; work well on the web because one can navigate to and find these items.</p>
+
+<p>You cannot specify exact placement of components on the web the way you can in print. Thus, text such as &#8220;See top image&#8221; is better written as &#8220;See Image 54&#8221; for use on the web. Image 54 might not be above the referencing text in the online display.</p>
+
+<p>It is also possible to create hyperlinks in the XML document by using internal identifiers. Ideally, referenced content would have an ID and the referring text would have a link that uses the ID to point to the referenced text.</p>
+
+<h2 id="word-wrap">Word-wrap</h2>
+
+<p>Words that wrap on the printed page and therefore have a hyphen between syllables do not need that treatment on the web because you cannot control the width of the text display area. Various devices such as mobile phones, tablets, laptops, and desktop monitors may have a variety of screen sizes that web display must accommodate. If you are converting a book originally designed for print into web format, the hyphens that exist solely for word-wrapping reasons need to be removed. The same is true of long URLs where a space was inserted at the end of a line. These URLs will not work as links with spaces in them.</p>
+
+<h2 id="tables">Tables</h2>
+
+<p>You can do things with tables in print that are not supported by today’s browsers and markup languages or that are not compatible with the web. For example, tables cannot be turned sideways on the web. Very large tables that are displayed over several print pages need to be reassembled into a single table for web display.</p>
+
+<h2 id="listnumbering">List numbering</h2>
+
+<p>Numbers and bullets do not need to be included in the XML text for lists that are tagged as numbered or bulleted lists. The system will automatically number or bullet lists based on the list tagging. If the numbers are included in the text, the display on the web will show two numbers or bullets in front of each list item, one from the system automation and one from the text.</p>
+
+<h2 id="sectiontitles">Section titles</h2>
+
+<p>Section titles are converted into HTML headings on the site. These headings are styled based on the hierarchy of the sections within the document.</p>
+
+<p>SCM does not support figures or tables as part of a section title. Inline-graphics are supported.</p>
+
+<h1 id="bookfilestructure">Book file structure</h1>
+
+<p>The root element of a book must be the either the <code>&lt;book&gt;</code> element or the <code>&lt;book-part-wrapper&gt;</code> element from the SCBITS format.</p>
+
+<p>Silverchair accepts book XML in one of two ways:</p>
+
+<ol>
+<li>The entire book in one XML file.</li>
+<li>Separate XML files for each part or chapter.</li>
+</ol>
+
+<h2 id="bookassinglexmlfile">Book as single XML file</h2>
+
+<p>When a book is sent as a single XML file, the book file root element is <code>&lt;book&gt;</code>. Parts and chapters are identified throughout the XML with <code>&lt;book-part&gt;</code> elements.</p>
+
+<h2 id="bookasmultiplexmlfiles">Book as multiple XML files</h2>
+
+<p>For book parts sent as separate XML files, the root element is <code>&lt;book-part-wrapper&gt;</code>. Please see the section <a href="#automaticreplacementsforpartsandchapters">Automatic replacements for parts and chapters</a> for more information on how to correctly replace chapters using <code>&lt;book-part-wrapper&gt;</code> files.</p>
+
+<h2 id="booktypeattribute">Book type attribute</h2>
+
+<p>Book types are used for indexing and retrieval by engines like Google Scholar. This attribute is optional, but the use of Google Scholar-recognized values (i.e., &#8220;edited-volume&#8221; or &#8220;monograph&#8221;) is strongly recommended. If no book type is provided, the value will default to &#8220;book&#8221; in our system. Note that Google Scholar considers the value &#8220;book&#8221; to be invalid and will not crawl your site if it is used. Google Scholar also does not currently provide indexing services for the value &#8220;reference&#8221;. In addition to Google Scholar support, book types are also mapped to Crossref values and are supplied with deposits. Please see the tables below for more information.</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th><code>@book-type</code> attribute value</th>
+	<th>Meaning</th>
+	<th>Crossref mapping</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>book</td>
+	<td>Default value with no specific meaning. Google Scholar considers this value invalid and will not crawl your site if it is used. Avoid using this value if possible. Use one of the values below instead.</td>
+	<td>book/@book_type=&#8220;other&#8221; and content_item/@component_type=&#8220;chapter&#8221;</td>
+</tr>
+<tr>
+	<td>edited-volume</td>
+	<td>Composed of papers written by many different authors. Individual chapters will be indexed by Google Scholar.</td>
+	<td>book/@book_type=&#8220;edited_book&#8221; and content_item/@component_type=&#8220;chapter&#8221;</td>
+</tr>
+<tr>
+	<td>monograph</td>
+	<td>Multi-chapter authored book on a single topic. Individual chapters will not be indexed by Google Scholar. Instead, the Monograph Preview PDF (frontmatter, table of contents, introduction chapter, and all references) will be indexed. See <a href="#book-levelassetfiles">Book-level asset files</a> for guidance on calling out the preview PDF in the xml.</td>
+	<td>book/@book_type=&#8220;monograph&#8221; and content_item/@component_type=&#8220;chapter&#8221;</td>
+</tr>
+<tr>
+	<td>reference</td>
+	<td>Easily discoverable, authoritative, and up-to-date content that allows users to explore a wide range of topics, verify information, and delve deeper through source citations and references. They are typically organized either alphabetically or by theme. Google Scholar does not currently index reference book types.</td>
+	<td>book/@book_type=&#8220;reference&#8221; and content_item/@component_type=&#8220;reference_entry&#8221;</td>
+</tr>
+</tbody>
+</table>
+
+<p>Please note that Google Scholar book indexing is an optional extension. Please reach out to your build or support team if you would like your books to be indexed. </p>
+
+<h2 id="collectioncontainers">Collection containers</h2>
+
+<p>In specification release 1.43, SCM introduced the concept of a collection container that is intended to hold collection articles. This is further defined in section <a href="#collectioncontainerandcollectionarticles">Collection container and collection articles</a>. At a high level, the collection container is equivalent to our concept of a book, and the collection article is equivalent to a book&#8217;s chapter. You can assume that collection containers and collection articles have the same support as books and chapters, respectively, unless otherwise noted. Additional differences are described in <a href="#collectioncontainerandcollectionarticles">Collection container and collection articles</a>. </p>
+
+<h2 id="identifiers">Identifiers</h2>
+
+<h3 id="isbn">ISBN</h3>
+
+<p>The ISBN uniquely identifies books in SCM and is required. For example, to match a new chapter to its already-created book in the system, Zipline uses the ISBN values. The final digit in the ISBN is a check digit, which is a rule used to verify that the ISBN is valid. If the ISBN is not valid, it will not be deposited to Crossref.</p>
+
+<p>The ISBN will be displayed on the site exactly as shown in the XML, so be sure to use dashes as appropriate. Note that we recommend retaining the spaces or hyphens that appear in the formatted number because they aid in human readability. Use the <code>&lt;isbn&gt;</code> element with the following attributes to designate the ISBN:</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>ISBN type</th>
+	<th>tag</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>10-digit ISBN</td>
+	<td><code>&lt;isbn publication-format=&quot;print&quot; content-type=&quot;ISBN10&quot;&gt;0-77-043740-0&lt;/isbn&gt;</code></td>
+</tr>
+<tr>
+	<td>13-digit ISBN</td>
+	<td><code>&lt;isbn publication-format=&quot;print&quot; content-type=&quot;ISBN13&quot;&gt;978-0-77-043740-4&lt;/isbn&gt;</code></td>
+</tr>
+<tr>
+	<td>ISBN of digital version</td>
+	<td><code>&lt;isbn publication-format=&quot;electronic&quot;&gt;978-0-31-603221-6&lt;/isbn&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>You must provide at least one of the ISBNs shown in the table above to create the book record (ie, &#8220;print&#8221; or &#8220;electronic&#8221;). In addition to the ISBNs shown above, we also support the following types of ISBNs for pricing and restriction purposes. Please note that although ISBN10 and ISBN13 are supported for each ISBN type, you are not required to provide both: </p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>ISBN type</th>
+	<th>tag</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>Hardback</td>
+	<td><code>&lt;isbn publication-format=&quot;hardback&quot; content-type=&quot;ISBN10&quot;&gt;0-770-43740-0&lt;/isbn&gt;</code><br/><code>&lt;isbn publication-format=&quot;hardback&quot; content-type=&quot;ISBN13&quot;&gt;978-0-77-043740-4&lt;/isbn&gt;</code></td>
+</tr>
+<tr>
+	<td>Paperback</td>
+	<td><code>&lt;isbn publication-format=&quot;paperback&quot; content-type=&quot;ISBN10&quot;&gt;0-770-43740-0&lt;/isbn&gt;</code><br/><code>&lt;isbn publication-format=&quot;paperback&quot; content-type=&quot;ISBN13&quot;&gt;978-0-77-043740-4&lt;/isbn&gt;</code></td>
+</tr>
+<tr>
+	<td>ePub</td>
+	<td><code>&lt;isbn publication-format=&quot;epub&quot; content-type=&quot;ISBN10&quot;&gt;1-234-56789-X&lt;/isbn&gt;</code><br/><code>&lt;isbn publication-format=&quot;epub&quot; content-type=&quot;ISBN13&quot;&gt;012-3-45-678901-2&lt;/isbn&gt;</code></td>
+</tr>
+<tr>
+	<td>PDF</td>
+	<td><code>&lt;isbn publication-format=&quot;pdf&quot; content-type=&quot;ISBN10&quot;&gt;8-947-62423-3&lt;/isbn&gt;</code><br/><code>&lt;isbn publication-format=&quot;pdf&quot; content-type=&quot;ISBN13&quot;&gt;849-3-82-762985-1&lt;/isbn&gt;</code></td>
+</tr>
+<tr>
+	<td>Audio</td>
+	<td><code>&lt;isbn publication-format=&quot;audio&quot; content-type=&quot;ISBN10&quot;&gt;5-478-29623-6&lt;/isbn&gt;</code><br/><code>&lt;isbn publication-format=&quot;audio&quot; content-type=&quot;ISBN13&quot;&gt;674-3-92-456183-0&lt;/isbn&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>For any display or product requirements on your site for these additional ISBNs, please contact your build team.</p>
+
+<h3 id="otherbookids">Other book IDs</h3>
+
+<p>For publisher-unique IDs assigned to the book, use <code>&lt;book-id book-id-type=&quot;publisher-id&quot;&gt;</code>. The book-level publisher ID is optional and does not affect Zipline behavior.</p>
+
+<p>For DOIs assigned to the book, use <code>&lt;book-id book-id-type=&quot;doi&quot;&gt;</code>.</p>
+
+<h3 id="ids-partsandchapters">IDs - Parts and chapters</h3>
+
+<p>Assign publisher-unique IDs to book parts (e.g. parts and chapters) using the <code>@id</code> attribute on the element that creates the book part (e.g. <code>&lt;book-part&gt;</code>). The <code>@id</code> is used for replacements, so please be sure to include this in the xml. See <a href="#automaticreplacementsforpartsandchapters">Automatic replacements for parts and chapters</a>.</p>
+
+<p>These IDs must be unique within the book. They can be any combination of numbers and letters but must start with a letter, per XML rules.</p>
+
+<h3 id="ids-otherelements">IDs - Other elements</h3>
+
+<p>Publishers may have IDs on as many other elements as they like, and this is encouraged by Silverchair. IDs at levels below the book part must also be unique across the book (they cannot duplicate the IDs on book parts).</p>
+
+<p>Unique identifiers allow for the replacement of content while maintaining semantic tagging, retaining statistical usage data, Learning Module links, user bookmarks, and cross-site links.</p>
+
+<h3 id="doi-partschaptersandotherelements">DOI - Parts, chapters, and other elements</h3>
+
+<p>For DOIs assigned to a book chapter or other book parts, use <code>&lt;book-part-id book-part-id-type=&quot;doi&quot;&gt;</code>.</p>
+
+<pre><code>&lt;book-part-id book-part-id-type=&quot;doi&quot;&gt;10.1234/myBook_3352.2013&lt;/book-part-id&gt;
+</code></pre>
+
+<p>For DOIs assigned to figures, tables, supplementary material or any other components within the book, use the <code>&lt;object-id&gt;</code> element with a <code>@pub-id-type=&quot;doi&quot;</code> attribute. Example:</p>
+
+<pre><code>&lt;fig&gt;
+&lt;object-id pub-id-type=&quot;doi&quot;&gt;10.1234/ch8fig1.20130413&lt;/object-id&gt;
+...
+&lt;/fig&gt;
+</code></pre>
+
+<p>DOIs are optional; however, if they are used for replaceable units (eg, chapters), they must be unique across all books.</p>
+
+<p>DOIs within citations are tagged differently. They use the <code>&lt;pub-id&gt;</code> element. See DOIs in <a href="#references">References</a> for more information.</p>
+
+<h3 id="automaticreplacementsforpartsandchapters">Automatic replacements for parts and chapters</h3>
+
+<p>Zipline uses the <code>&lt;book-part&gt;</code>&#8217;s <code>@id</code> to identify content that needs to be replaced.</p>
+
+<p>There are two methods for replacing parts and chapters: </p>
+
+<ul>
+<li>Reload the single <code>&lt;book&gt;</code> file with all parts and chapters in place in the single file.</li>
+<li>Alternatively, after a <code>&lt;book&gt;</code> file has been loaded to establish part and chapter order, <code>&lt;book-part-wrapper&gt;</code> files can be used to replace parts and chapters. Please note that if DOIs are used on book-parts, the DOI must be included in both the <code>&lt;book&gt;</code> file and the <code>&lt;book-part-wrapper&gt;</code> files (ie, all IDs must be present and match between the two files).</li>
+</ul>
+
+<p>If there are only chapters in the book (ie no parts), then the <code>&lt;book-part-wrapper&gt;</code> file can simply contain the chapter that is being replaced. If the chapter being replaced is contained within a part, then the part information must also be provided in the <code>&lt;book-part-wrapper&gt;</code> file, alongside the chapter being replaced: </p>
+
+<pre><code>&lt;book-part id=&quot;book1part1&quot; book-part-type=&quot;part&quot;&gt;
+    &lt;book-part-meta&gt;
+        &lt;book-part-id book-part-id-type=&quot;doi&quot;&gt;0000.00/book1.part1&lt;/book-part-id&gt;
+        &lt;title-group&gt;
+            &lt;label&gt;Part 1&lt;/label&gt;
+            &lt;title&gt;The First Part&lt;/title&gt;
+            &lt;subtitle&gt;Subtitle to First Part&lt;/subtitle&gt;
+        &lt;/title-group&gt;
+    &lt;/book-part-meta&gt;
+    &lt;body&gt;
+        &lt;book-part id=&quot;book1chapter3&quot; book-part-type=&quot;chapter&quot;&gt;             
+            &lt;book-part-meta&gt;
+                &lt;book-part-id book-part-id-type=&quot;doi&quot;&gt;0000.00/book1.chap3&lt;/book-part-id&gt;
+                &lt;title-group&gt;
+                    &lt;label&gt;Chapter 3&lt;/label&gt;
+                    &lt;title&gt;The Third Chapter&lt;/title&gt;
+                &lt;/title-group&gt;
+            &lt;/book-part-meta&gt;
+            &lt;body&gt;
+            ...
+            &lt;/body&gt;
+        &lt;/book-part&gt;
+    &lt;/body&gt;
+&lt;/book-part&gt;
+</code></pre>
+
+<h3 id="issn">ISSN</h3>
+
+<p>To assign an electronic ISSN to a book (optional), use <code>&lt;issn&gt;</code> with the <code>@publication-format=&quot;electronic&quot;</code>. We also support print ISSNs for pricing and restriction purposes only. In the latter case, use <code>&lt;issn&gt;</code> with the <code>@publication-format=&quot;print&quot;</code>.</p>
+
+<h3 id="bookseries">Book Series</h3>
+
+<p>To assign a Book Series to a book (optional), use <code>&lt;collection-meta collection-type=&quot;series&quot;&gt;</code> with a <code>&lt;title-group&gt;</code> with a child element <code>&lt;title&gt;</code>.
+Example:</p>
+
+<pre><code>     &lt;collection-meta collection-type=&quot;series&quot;&gt;
+        &lt;title-group&gt;
+           &lt;title&gt;Book Series&lt;/title&gt;
+        &lt;/title-group&gt;
+     &lt;/collection-meta&gt;
+</code></pre>
+
+<h3 id="collection">Collection</h3>
+
+<p>To assign a generic Collection to a book that is not a series or edition set (optional), use <code>&lt;collection-meta collection-type=&quot;collection&quot;&gt;</code> with a <code>&lt;title-group&gt;</code> with a child element <code>&lt;title&gt;</code>.
+Example:</p>
+
+<pre><code>     &lt;collection-meta collection-type=&quot;collection&quot;&gt;
+        &lt;title-group&gt;
+           &lt;title&gt;Collection Name&lt;/title&gt;
+        &lt;/title-group&gt;
+     &lt;/collection-meta&gt;
+</code></pre>
+
+<p>Please note that we also have the concept of a collection container and collection articles, and this Collection feature does not specifically relate to that feature, although it can be used in conjunction with it, if desired. For more information, please see <a href="#collectioncontainers">Collection containers</a> and <a href="#collectioncontainerandcollectionarticles">Collection container and collection articles</a>.</p>
+
+<h3 id="editionset">Edition Set</h3>
+
+<p>To designate an Edition Set for a book (optional), use <code>&lt;collection-meta collection-type=&quot;edition-set&quot;&gt;</code> with <code>&lt;collection-id collection-id-type=&quot;editionSet&quot;&gt;</code>.</p>
+
+<pre><code> &lt;collection-meta collection-type=&quot;edition-set&quot;&gt;
+    &lt;collection-id collection-id-type=&quot;editionSet&quot;&gt;9790000000204&lt;/collection-id&gt;
+ &lt;/collection-meta&gt;
+</code></pre>
+
+<p>This identifier is used to connect multiple editions of the same book, and it must be numeric. Use the same identifier value for every edition of the book (for example, some publishers use the ISBN value of the first edition to connect all editions). Only one <code>&lt;collection-meta collection-type=&quot;edition-set&quot;&gt;</code> is allowed per book.</p>
+
+<h2 id="bookmetadata:thebook-metatag">Book metadata: The book-meta Tag</h2>
+
+<p>The first file imported for a book must include at least the following in the <code>&lt;book-meta&gt;</code>, so that the system can populate the data when the book is created:</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Element</th>
+	<th>Required attributes</th>
+	<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td><code>&lt;pub-date&gt;</code></td>
+	<td></td>
+	<td>4-digit year required, with month and day optional, e.g. <code>&lt;pub-date&gt;&lt;year&gt;2013&lt;/year&gt;&lt;/pub-date&gt;</code></td>
+</tr>
+<tr>
+	<td><code>&lt;isbn&gt;</code></td>
+	<td></td>
+	<td>At least one ISBN is required.</td>
+</tr>
+<tr>
+	<td><code>&lt;book-title&gt;</code></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td><code>&lt;alt-title alt-title-type=&quot;short-name&quot;&gt;</code></td>
+	<td></td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="bookmetadatareplacements">Book metadata replacements</h3>
+
+<p>When replacing a book&#8217;s metadata for a book that has been published, the following values must match what is already in the system; these values cannot be modified after a book is published:</p>
+
+<ul>
+<li>short name</li>
+<li>ISBN</li>
+<li>ISBN 10</li>
+<li>ISBN of the electronic version</li>
+<li>title</li>
+<li>subtitle</li>
+<li>citation name</li>
+<li>DOI</li>
+</ul>
+
+<p>Consult the Zipline user guide for instructions on how to replace book metadata.</p>
+
+<h3 id="bookids">Book IDs</h3>
+
+<p>The ISBNs serve as unique identifiers for books in SCM. The first file that is imported to a book will create the book in the system and establish the ISBNs for the book. All subsequent imports to the book must contain the ISBN so that the system can match the file to the existing book. The subsequent files do not need to contain all of the ISBN types, but cannot contain more ISBN types than are in the system.</p>
+
+<h3 id="booktitles">Book titles</h3>
+
+<p>Books may have up to five types of titles: book title, subtitle, display name, citation name, and short name:</p>
+
+<ul>
+<li>Book title is the official title of the book.</li>
+<li>Subtitle is the subtitle for the book (combined with the official book title on import).</li>
+<li>The display name, if configured, will display on the site instead of the official book title + subtitle; consult with your build team to activate this configuration.</li>
+<li>Citation name is used when creating citations for the book or when the book is sent to a third-party site such as Crossref.</li>
+<li>The short name is usually a short code to identify the book.</li>
+</ul>
+
+<p>The title and short name are required when creating a new book; the others are optional. If no alternate titles are provided, the official book title + subtitle will be used for display and for submission to third-party sites such as Crossref.</p>
+
+<p>Provide titles as follows:</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>title type</th>
+	<th>Element</th>
+	<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>book title</td>
+	<td><code>&lt;book-title&gt;</code></td>
+	<td>Required. The official title of the book.</td>
+</tr>
+<tr>
+	<td>subtitle</td>
+	<td><code>&lt;subtitle&gt;</code></td>
+	<td>An optional subtitle. Combined with the official book title on import.</td>
+</tr>
+<tr>
+	<td>display name</td>
+	<td><code>&lt;alt-title alt-title-type=&quot;display&quot;&gt;</code></td>
+	<td>Optional. If configured, display name will display on the site instead of the official book title + subtitle. If not provided or configured, book-title + subtitle will display.</td>
+</tr>
+<tr>
+	<td>citation name</td>
+	<td><code>&lt;alt-title alt-title-type=&quot;citation&quot;&gt;</code></td>
+	<td>Optional. If citation is not provided, the book title + subtitle will display and be submitted to third part sites such as Crossref.</td>
+</tr>
+<tr>
+	<td>short name</td>
+	<td><code>&lt;alt-title alt-title-type=&quot;short-name&quot;&gt;</code></td>
+	<td>Required. Short code used to identify the book, often used to prefix image names and ID values. This does not usually display on the site.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="edition">Edition</h3>
+
+<p>Provide the book&#8217;s edition in the <code>&lt;edition&gt;</code> element. Do not include the edition in the title of the book. Use the <code>@designator</code> attribute to include the edition number as an unadorned numeric or alphabetic value. In the example below, the value &#8220;1&#8221; will be stored for purposes such as sorting, while &#8220;1<sup>st</sup> edition&#8221; could be used for display.</p>
+
+<pre><code>&lt;edition designator=&quot;1&quot;&gt;1&lt;sup&gt;st&lt;/sup&gt; edition&lt;/edition&gt;
+</code></pre>
+
+<h3 id="volume">Volume</h3>
+
+<p>Provide a book&#8217;s volume number in the <code>&lt;book-volume-number&gt;</code> element.</p>
+
+<pre><code>    &lt;book-volume-number&gt;13&lt;/book-volume-number&gt;
+</code></pre>
+
+<h3 id="contributors">Contributors</h3>
+
+<h4 id="booklevelvs.chapterlevelcontributors">Book level vs. chapter level contributors</h4>
+
+<p>Contributors at the book level go in the <code>&lt;contrib-group&gt;</code> at the <code>&lt;book-meta&gt;</code> level.</p>
+
+<p>Part and chapter level contributors go into the <code>&lt;contrib-group&gt;</code> at the <code>&lt;book-part-meta&gt;</code> level.</p>
+
+<p>Contributors may also be included at the section level by putting a <code>&lt;contrib-group&gt;</code> at the <code>&lt;sec-meta&gt;</code> level.</p>
+
+<pre><code>&lt;book&gt;
+    &lt;book-meta&gt;
+    …
+    &lt;contrib-group&gt;
+        &lt;contrib id=&quot;ed1&quot;&gt;
+            &lt;name&gt;
+                &lt;surname&gt;Bear&lt;/surname&gt;
+                &lt;given-names&gt;Paddington&lt;/given-names&gt;
+                &lt;prefix&gt;Dr&lt;/prefix&gt;
+                &lt;suffix&gt;Jr&lt;/suffix&gt;
+            &lt;/name&gt;
+                &lt;degrees&gt;MD, PhD&lt;/degrees&gt;
+                &lt;role&gt;Editor&lt;/role&gt;
+        &lt;/contrib&gt;
+    &lt;/contrib-group&gt;
+    …
+    &lt;/book-meta&gt;
+    &lt;book-body&gt;
+        &lt;book-part id=&quot;chapter_1&quot; book-part-type=&quot;chapter&quot;&gt;
+            &lt;book-part-meta&gt;
+                &lt;title-group&gt;
+                    &lt;title&gt;Forest Fire Safety&lt;/title&gt;
+                &lt;/title-group&gt;
+                &lt;contrib-group&gt;
+                    &lt;contrib id=&quot;auth1&quot;&gt;
+                        &lt;name&gt;
+                            &lt;surname&gt;Bear&lt;/surname&gt;
+                            &lt;given-names&gt;Smokey&lt;/given-names&gt;
+                            &lt;prefix&gt;Dr&lt;/prefix&gt;
+                        &lt;/name&gt;
+                        &lt;degrees&gt;PhD&lt;/degrees&gt;
+                    &lt;/contrib&gt;
+                &lt;/contrib-group&gt;
+                …
+            &lt;/book-part-meta&gt;
+        &lt;/book-part&gt;
+    &lt;/book-body&gt;
+&lt;/book&gt;
+</code></pre>
+
+<h4 id="tagging">Tagging</h4>
+
+<p>Authors and other contributors that should appear in the content by-line should be placed in a <code>&lt;contrib-group&gt;</code> node.</p>
+
+<p>Place each contributor in a <code>&lt;contrib&gt;</code> node with a <code>@contrib-type</code> value of &#8220;author&#8221;, &#8220;editor&#8221;, &#8220;chair&#8221;, or &#8220;translator&#8221;. A <code>&lt;contrib&gt;</code> element with no <code>@contrib-type</code> attribute will default to <code>@contrib-type=&quot;author&quot;</code>. <code>&lt;contrib&gt;</code> elements with a <code>@contrib-type</code> attribute value other than &#8220;author&#8221;, &#8220;editor&#8221;, &#8220;chair&#8221;, or &#8220;translator&#8221; will be ignored unless configured with the development team prior to loading. Please note that any <code>@contrib-type</code> value other than &#8220;author&#8221; will need a configuration turned on by the development team to display.</p>
+
+<p>Use the <code>&lt;role&gt;</code> sub-element to include the role of the contributor to be displayed.</p>
+
+<p>Use the <code>@equal-contrib</code> attribute on <code>&lt;contrib&gt;</code> to indicate whether contributors contributed equally. If the contributor whom this attribute modifies contributed equally with all other contributors, this attribute should be set to &#8220;yes&#8221;; if their contribution was greater or lesser, then this attribute should be set to &#8220;no&#8221;. These contributors may contain a link to a footnote in <code>&lt;author-notes&gt;</code> for further description, such a link should use <code>&lt;xref ref-type=&quot;author-notes&quot;&gt;</code>. Please note that equal contributor information is not currently imported into our system for books. </p>
+
+<p>You can use the <code>@initials</code> attribute on <code>&lt;surname&gt;</code> and <code>&lt;given-names&gt;</code> if contributor initials are made available in your XML authoring workflow. This attribute is not imported by our platform.</p>
+
+<h4 id="orcidid">ORCID iD</h4>
+
+<p>Include an ORCID iD for an individual author in a <code>&lt;contrib-id&gt;</code> element with <code>@contrib-id-type=&quot;orcid&quot;</code>. Only individual authors and individual members of an organization (members of a <code>&lt;collab&gt;</code>) may have an ORCID iD. Specify the ORCID iD as a full URI—e.g. <code>&lt;contrib-id contrib-id-type=&quot;orcid&quot;&gt;http://orcid.org/0000-0002-1825-0097&lt;/contrib-id&gt;</code>.</p>
+
+<p>The <code>@authenticated</code> attribute can be used with a value of &#8220;true&#8221; or &#8220;false&#8221; to indicate that the authority associated with the ID type (named in <code>@contrib-id-type</code>) has authenticated the value of the ID. The default value is &#8220;false&#8221;. This value is used only for Crossref metadata purposes. </p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Value</th>
+	<th>Meaning</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>true</td>
+	<td>This contributor identifier has been marked by the issuing authority as authenticated.</td>
+</tr>
+<tr>
+	<td>false</td>
+	<td>No guarantee has been made about this contributor identifier.</td>
+</tr>
+</tbody>
+</table>
+
+<p>To be accepted by Crossref, the ORCID iD must pass a checksum using a check digit, which is the last character of the ORCID iD. </p>
+
+<h4 id="royalsocietyfellowid">Royal Society Fellow ID</h4>
+
+<p>A Royal Society Fellow ID can be included for an individual author using a <code>&lt;contrib-id&gt;</code> element with <code>@contrib-id-type=&quot;royal-society-fellow&quot;</code>. This ID is not used or validated by our platform but is permitted in the XML for passthrough to downstream depositors: </p>
+
+<pre><code>&lt;contrib-id contrib-id-type=&quot;royal-society-fellow&quot; authenticated=&quot;true&quot;&gt;NA299&lt;/contrib-id&gt;
+</code></pre>
+
+<p>The <code>@authenticated</code> attribute can be set to &#8220;true&#8221; or &#8220;false&#8221; to indicate whether the authority associated with the ID type (as specified in <code>@contrib-id-type</code>) has authenticated the ID value. The default value is &#8220;false&#8221;.</p>
+
+<h4 id="correspondingauthors">Corresponding authors</h4>
+
+<p>To indicate that a contributor is the corresponding contributor for the content, use the optional <code>@corresp</code> attribute: <code>&lt;contrib contrib-type=&quot;author&quot; corresp=&quot;yes&quot;&gt;</code>. Contact information included as a child of <code>&lt;contrib&gt;</code>, such as <code>&lt;email&gt;</code>, will be stored as metadata about the author, and will be the source for features such as toll-free links. For the author to display as corresponding, you must link the author to contact information contained in a <code>&lt;corresp&gt;</code> within <code>&lt;author-notes&gt;</code>, using <code>&lt;xref ref-type=&quot;corresp&quot;&gt;</code> that points to the element&#8217;s <code>@id</code>. See <a href="#authornotes">Author notes</a> for more information.</p>
+
+<h4 id="alternativenames">Alternative names</h4>
+
+<p>If a single author has more than one version of their name, use the <code>&lt;name-alternatives&gt;</code> element within the <code>&lt;contrib&gt;</code> element. The element <code>&lt;string-name&gt;</code> can be used for personal names where the order of the name components should not be enforced.</p>
+
+<pre><code>&lt;contrib-group&gt;
+        &lt;contrib contrib-type=&quot;author&quot;&gt;
+            &lt;name-alternatives&gt;
+                    &lt;name&gt;
+                            &lt;surname&gt;Balzer&lt;/surname&gt;
+                            &lt;given-names&gt;Carsten&lt;/given-names&gt;
+                    &lt;/name&gt;
+                    &lt;name&gt;
+                            &lt;surname&gt;LaGata&lt;/surname&gt;
+                            &lt;given-names&gt;Carla&lt;/given-names&gt;
+                    &lt;/name&gt;
+            &lt;/name-alternatives&gt;
+        &lt;/contrib&gt;
+&lt;/contrib-group&gt;
+</code></pre>
+
+<p>If the intention is to provide the author’s name in multiple languages, the <code>@name-style</code> and <code>@xml:lang</code> attributes should be used when supplying multiple versions of a name for proper display. The value for the <code>@xml:lang</code> attribute needs to be a valid ISO 639–1 language code.</p>
+
+<pre><code>&lt;contrib contrib-type=&quot;author&quot;&gt;
+    &lt;name-alternatives&gt;
+        &lt;name name-style=&quot;western&quot;&gt;
+            &lt;surname&gt;Zhang&lt;/surname&gt;
+            &lt;given-names&gt;Y. P.&lt;/given-names&gt;
+        &lt;/name&gt;
+        &lt;string-name name-style=&quot;eastern&quot; xml:lang=&quot;zh&quot;&gt;张轶泼&lt;/string-name&gt;
+    &lt;/name-alternatives&gt;
+&lt;/contrib&gt;      
+</code></pre>
+
+<h4 id="authoraffiliations">Author affiliations</h4>
+
+<p>If there are author affiliations (<code>&lt;aff&gt;</code>), the <code>&lt;aff&gt;</code> nodes can be included as sibling elements to the <code>&lt;contrib-group&gt;</code> node. These <code>&lt;aff&gt;</code> nodes must include an <code>@id</code> attribute. In the <code>&lt;contrib&gt;</code> node for which the affiliation applies, include an <code>&lt;xref&gt;</code> node that references the appropriate <code>&lt;aff&gt;</code> node. </p>
+
+<p>If your sites are designed to display separate linked text from the author to the affiliation (e.g. a superscripted number), the <code>&lt;aff&gt;</code> node must include a <code>&lt;label&gt;</code>. Do not include a label as content of the <code>&lt;xref&gt;</code> in this case.</p>
+
+<pre><code>&lt;contrib-group&gt; 
+        &lt;contrib contrib-type=&quot;author&quot;&gt;
+            &lt;name&gt;
+                &lt;surname&gt;Keefe&lt;/surname&gt;
+                &lt;given-names&gt;Lindsey&lt;/given-names&gt;
+            &lt;/name&gt;
+            &lt;degrees&gt;PhD&lt;/degrees&gt;
+            &lt;xref ref-type=&quot;aff&quot; rid=&quot;aff1&quot; /&gt;
+        &lt;/contrib&gt;
+        …
+&lt;/contrib-group&gt;
+
+&lt;aff id=&quot;aff1&quot;&gt;
+    &lt;label&gt;1&lt;/label&gt;Silverchair, &lt;city&gt;Charlottesville&lt;city&gt;, &lt;state&gt;VA&lt;/state&gt;, &lt;country country=&quot;us&quot;&gt;USA&lt;/country&gt;, 
+        &lt;postal-code&gt;22902&lt;/postal-code&gt;. 
+&lt;/aff&gt;
+</code></pre>
+
+<p>Affiliations that are not linked from a <code>&lt;contrib&gt;</code> element will be ignored.</p>
+
+<p>The <code>&lt;aff&gt;</code> node can also be included as a child of the <code>&lt;contrib&gt;</code> element to which the affiliation applies. Using this method, affiliations must be repeated for each contributor if multiple contributors have the same affiliation, and the <code>@id</code> attribute is not required.</p>
+
+<p>Each affiliated organization should be included in a separate <code>&lt;aff&gt;</code> node. </p>
+
+<p>In addition, <code>&lt;institution&gt;</code> tagging can be used to further identify affiliations. SCM supports <code>@content-type</code> on <code>&lt;institution&gt;</code> to identify educational and departmental aspects of the affiliation. Please note that Crossref accepts up to 6 instances of institution in a single affiliation: </p>
+
+<pre><code>&lt;aff id=&quot;aff2&quot;&gt;
+    &lt;institution-wrap&gt;
+        &lt;institution content-type=&quot;edu&quot;&gt;University of Virginia&lt;/institution&gt;
+        &lt;institution content-type=&quot;dept&quot;&gt;Department of History&lt;/institution&gt;
+    &lt;/institution-wrap&gt;
+&lt;/aff&gt; 
+</code></pre>
+
+<h4 id="rorids">ROR IDs</h4>
+
+<p>An ROR (research organization registry) ID can be included within <code>&lt;institution-wrap&gt;</code> in the <code>&lt;aff&gt;</code> node to connect a contributor to a given research organization. If ROR IDs are included in the xml, they will be stored in our database and deposited downstream. Please note that ROR IDs will not display.</p>
+
+<p>Within the <code>&lt;institution-wrap&gt;</code> element, use <code>&lt;institution-id&gt;</code> with <code>@institution-id-type=&quot;ror&quot;</code> to contain the ROR ID and <code>&lt;institution&gt;</code> to contain the associated organization name.</p>
+
+<pre><code>&lt;aff id=&quot;aff1&quot;&gt;
+    &lt;label&gt;a&lt;/label&gt;
+    &lt;institution-wrap&gt;
+        &lt;institution-id institution-id-type=&quot;ror&quot;&gt;https://ror.org/03vek6s52&lt;/institution-id&gt;
+        &lt;institution&gt;Harvard University&lt;/institution&gt;
+    &lt;/institution-wrap&gt;
+        Cambridge, MA 02138, &lt;country country=&quot;us&quot;&gt;United States&lt;/country&gt;
+&lt;/aff&gt; 
+</code></pre>
+
+<p>If a contributor is affiliated with more than one research organization, please include a separate <code>&lt;institution-wrap&gt;</code> for each organization within the <code>&lt;aff&gt;</code> element. Note that although <code>&lt;institution-wrap&gt;</code> is allowed in other locations, it will only be imported as a contributor ROR ID when used in <code>&lt;aff&gt;</code>. In other locations, such as within <code>&lt;funding-source&gt;</code>, this information will simply be copied. </p>
+
+<h4 id="collaborativegroupauthors">Collaborative group authors</h4>
+
+<p>Use <code>&lt;collab&gt;</code> instead of <code>&lt;name&gt;</code> if the author is a group credited under a single name or the author is an organization (such groups may be known by other names such as collaborative groups or collectives). Members of each group can be provided inside a <code>&lt;contrib-group&gt;</code> node that is a child of the <code>&lt;collab&gt;</code> element. These contributing members are not treated as authors and will not appear in the by-line, but will be submitted to PubMed as investigators/collaborators. If any <code>&lt;contrib&gt;</code> in <code>&lt;collab&gt;</code> has associated affiliation tagging (ie, <code>&lt;aff&gt;</code>; see section <a href="#authoraffiliations">Author affiliations</a>), then those will be imported, and the affiliation(s) will appear on the collaborative group.</p>
+
+<h4 id="onbehalfof">On behalf of</h4>
+
+<p>Use <code>&lt;on-behalf-of&gt;</code> as a child of <code>&lt;contrib&gt;</code> if a single author is writing on behalf of an organization, and use the tag as a child of <code>&lt;contrib-group&gt;</code> to apply it to a list of authors. If a subset of authors is writing on behalf of an organization and another subset isn&#8217;t, group the authors in different <code>&lt;contrib-group&gt;</code> elements. The separation of authors into different <code>&lt;contrib-group&gt;</code> elements has no other bearing on the content. Include the full content for display in the <code>&lt;on-behalf-of&gt;</code> element. For example: <code>&lt;on-behalf-of&gt;for the Joint Working Group&lt;/on-behalf-of&gt;</code>. The <code>&lt;on-behalf-of&gt;</code> will only be imported for top-level authors; it may not be included for the individual members of a collaborative group.</p>
+
+<p>Please note that this feature is currently only supported for journals and proceedings. Although <code>&lt;on-behalf-of&gt;</code> is allowed in SCBITS, it is not currently imported into our system or displayed for books.</p>
+
+<h4 id="authorcomments">Author comments</h4>
+
+<p>Notes that are not affiliations but are specific to a contributor can be included in an <code>&lt;author-comment&gt;</code> node within the <code>&lt;contrib&gt;</code> node to which the note applies. The <code>@content-type</code> attribute must be included to indicate the type of note. Permitted attribute values are: </p>
+
+<ul>
+<li><code>&lt;author-comment content-type=&quot;disclosure&quot;&gt;</code></li>
+<li><code>&lt;author-comment content-type=&quot;deceased&quot;&gt;</code></li>
+<li><code>&lt;author-comment content-type=&quot;other&quot;&gt;</code></li>
+<li><code>&lt;author-comment content-type=&quot;occupation&quot;&gt;</code></li>
+<li><code>&lt;author-comment content-type=&quot;url&quot;&gt;</code></li>
+</ul>
+
+<p>Please note that import and display of author comments with a <code>@content-type</code> value of &#8220;occupation&#8221; or &#8220;url&#8221; is currently only supported for books. Please also note that for books the display of these types of author comment (ie, &#8220;occupation&#8221; and &#8220;url&#8221;) is configurable by client, so consult with your development team about whether you would like these to appear on your site.</p>
+
+<h4 id="biographicaldata">Biographical data</h4>
+
+<p>Include biographical data in the <code>&lt;bio&gt;</code> element within the <code>&lt;contrib&gt;</code> node to which the bio applies. A <code>&lt;bio&gt;</code> element placed as a child of <code>&lt;contrib-group&gt;</code> will apply to all authors in that group. The <code>&lt;bio&gt;</code> element may also be used under the <code>&lt;collab&gt;</code> element.</p>
+
+<h4 id="authornotes">Author notes</h4>
+
+<p>Use an author notes section for additional notes about contributors that are not directly tied to a single author. The author notes can be included using the <code>&lt;author-notes&gt;</code> element.</p>
+
+<p>Use <code>&lt;corresp&gt;</code> to include display information concerning how and with whom to correspond about content. The <code>&lt;corresp&gt;</code> must include an <code>@id</code> attribute for it to link to the <code>&lt;contrib&gt;</code> element.</p>
+
+<pre><code>&lt;author-notes&gt;
+    &lt;corresp id=&quot;cor1&quot;&gt;
+        &lt;email&gt;lkeefe@university.edu&lt;/email&gt;
+    &lt;/corresp&gt;
+&lt;/author-notes&gt;
+</code></pre>
+
+<p>Use <code>&lt;fn fn-type=&quot;coi-statement&quot;&gt;</code> or <code>&lt;fn fn-type=&quot;conflict&quot;&gt;</code> in <code>&lt;author-notes&gt;</code> to include a Conflict of Interest statement. A Conflict of Interest statement can be specifically linked to an individual contrib that contains an <code>&lt;xref&gt;</code> with <code>@ref-type=&quot;author-notes&quot;</code>.</p>
+
+<pre><code> &lt;author-notes&gt;
+    &lt;fn fn-type=&quot;coi-statement&quot; id=&quot;con1&quot;&gt;
+      &lt;label&gt;*&lt;/label&gt;
+      &lt;p&gt;Competing Interests: The authors have declared that no competing interests exist.&lt;/p&gt;
+    &lt;/fn&gt;
+ &lt;/author-notes&gt;
+</code></pre>
+
+<p>Use <code>&lt;fn fn-type=&quot;equal&quot;&gt;</code> to provide a statement about equal contributors. This can be used separately or in conjunction with <code>&lt;contrib equal-contrib=&quot;yes&quot;&gt;</code>. </p>
+
+<pre><code>&lt;author-notes&gt;
+    ...
+    &lt;fn fn-type=&quot;equal&quot; id=&quot;afn9&quot;&gt;
+      &lt;label&gt;*&lt;/label&gt;          
+      &lt;p&gt;Keefe and Hibino contributed equally to this paper.&lt;/p&gt;
+    &lt;/fn&gt;
+ &lt;/author-notes&gt;
+</code></pre>
+
+<p>If your sites are designed to display separate linked text from the author to the author-notes (e.g. a statement for Conflict of Interest or equal contribution), the <code>&lt;fn&gt;</code> node must include a <code>&lt;label&gt;</code>. Do not include a label as content of the <code>&lt;xref&gt;</code> in this case.</p>
+
+<p>Generally, acknowledgements should be included in the <code>&lt;ack&gt;</code> section of the <code>&lt;book-back&gt;</code>. Many larger books are edited by one or more persons and chapters are authored by a different group of individuals. Use <code>&lt;author-comment&gt;</code> when an individual chapter author wishes to include an acknowledgement or comment that is relevant for that individual author only and not any of the other chapter authors. For acknowledgements or notes by all the chapter authors, use the <code>&lt;author-notes&gt;</code> tag in the <code>&lt;book-part-meta&gt;</code> section. You may also use the <code>&lt;author-notes&gt;</code> tag at the <code>&lt;book-meta&gt;</code> level for notes applicable to all book authors if there is a need to differentiate the notes from acknowledgements.</p>
+
+<h3 id="dates">Dates</h3>
+
+<p>The publication date for the book should be included in a <code>&lt;pub-date&gt;</code> node.</p>
+
+<p>To supply a date, the following options are available:</p>
+
+<ul>
+<li>Supply at least a <code>&lt;year&gt;</code> in numerical form. Optionally, also provide <code>&lt;month&gt;</code> in non-numerical (e.g. <code>&lt;month&gt;January&lt;/month&gt;</code>) or numerical form and provide <code>&lt;day&gt;</code> in numerical form.</li>
+<li>Supply a date in ISO 8601 format using an <code>@iso-8601-date</code> attribute and the format YYYY-MM-DD.</li>
+<li>Supply the publication format using the <code>@publication-format</code> and <code>@date-type</code> attributes.</li>
+</ul>
+
+<p>If the date is provided in a form other than numerical month, day, and year, then the <code>@iso-8601-date</code> attribute must be included to supply a numerical publication date. In this case, the year, month, and day provided can be used for display, while the <code>@iso-8601-date</code> value is used as the underlying publication date by the system.</p>
+
+<p>If an ISO 8601 date is not provided and only a <code>&lt;year&gt;</code> is supplied, January 1st of that year will be used as the underlying publication date by the system.</p>
+
+<p>If a distinction between print and electronic publication date is needed, then the <code>@publication-format</code> and <code>@date-type</code> attributes should be included. Use <code>&lt;pub-date publication-format=&quot;print&quot; date-type=&quot;pub&quot;&gt;</code> to indicate a print publication date and <code>&lt;pub-date publication-format=&quot;electronic&quot; date-type=&quot;pub&quot;&gt;</code> to indicate an electronic publication date.</p>
+
+<p>For date support on chapters, see section <a href="#chapters">Chapters</a>. For date support on collection articles, see section <a href="#collectioncontainerandcollectionarticles">Collection container and collection articles</a>.</p>
+
+<p>The publication date tagging model was changed in specification version 1.41. The old model, based on using <code>@publication-format</code> values of &#8220;ppub&#8221; and &#8220;epub&#8221;, has been deprecated and will trigger a warning during content loading. More information can be found here: <a href="#publication-formatvaluesofepubandppub"><code>@publication-format</code> values of &#8220;epub&#8221; and &#8220;ppub&#8221;</a>.</p>
+
+<h3 id="documenthistory">Document history</h3>
+
+<p>The <code>&lt;pub-history&gt;</code> element is used as a container for dates related to the processing history of the document, such as received date and accepted date, or the version history of the document.</p>
+
+<p>Processing history is optional and can be included in both the book and book-part levels.</p>
+
+<pre><code>&lt;book-meta&gt;
+    …
+    &lt;pub-history&gt;
+        &lt;date date-type=&quot;received&quot;&gt;
+            &lt;day&gt;05&lt;/day&gt;
+            &lt;month&gt;01&lt;/month&gt;
+            &lt;year&gt;1998&lt;/year&gt;
+        &lt;/date&gt;
+        &lt;date date-type=&quot;rev-recd&quot;&gt;
+            &lt;day&gt;24&lt;/day&gt;
+            &lt;month&gt;05&lt;/month&gt;
+            &lt;year&gt;1998&lt;/year&gt;
+        &lt;/date&gt;
+        &lt;date date-type=&quot;accepted&quot;&gt;
+            &lt;day&gt;06&lt;/day&gt;
+            &lt;month&gt;06&lt;/month&gt;
+            &lt;year&gt;1998&lt;/year&gt;
+        &lt;/date&gt;
+        &lt;date date-type=&quot;reviewed&quot;&gt;
+            &lt;day&gt;08&lt;/day&gt;
+            &lt;month&gt;06&lt;/month&gt;
+            &lt;year&gt;1998&lt;/year&gt;
+        &lt;/date&gt;
+    &lt;/pub-history&gt;
+    …
+&lt;/book-meta&gt;
+</code></pre>
+
+<h4 id="chapterversioning">Chapter versioning</h4>
+
+<p>Version history is optional and can only be included at the chapter book-part level (i.e., <code>&lt;book-part book-part-type=&quot;chapter&quot;&gt;</code>). It is presumed that when a book is initially published, chapters will not have version metadata. However, all subsequent versions must include metadata via <code>&lt;pub-history&gt;</code>. </p>
+
+<p>When establishing version history, you must include <code>&lt;event&gt;</code> tagging that references the original published version with <code>&lt;event event-type=&quot;published&quot;&gt;</code>. The <code>&lt;event event-type=&quot;published&quot;&gt;</code> metadata on a new version is important as it will set a version number and published date on the original chapter. The version number within the published event history must be 0.</p>
+
+<p>While all versions of a chapter are unique, they share the same publisher ID. Each version must contain a unique DOI and version number. If previous versions of a chapter will not be published on Silverchair&#8217;s platform, they should still be represented via version metadata. </p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Element</th>
+	<th>Required attributes</th>
+	<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td><code>&lt;event&gt;</code></td>
+	<td><code>@event-type</code></td>
+	<td>Use &#8220;published&#8221; to reference the original version, &#8220;version&#8221; for everything else</td>
+</tr>
+<tr>
+	<td><code>&lt;event-desc&gt;</code></td>
+	<td><code>@specific-use=&quot;version-number&quot;</code></td>
+	<td>This is where the version number is stored. Version number for <code>@event-type='published'</code> must equal 0.</td>
+</tr>
+<tr>
+	<td><code>&lt;pub-date&gt;</code></td>
+	<td></td>
+	<td>If non-numeric date used or <code>&lt;day&gt;</code>, <code>&lt;month&gt;</code>, or <code>&lt;year&gt;</code> not provided, use <code>@iso-8601-date</code></td>
+</tr>
+<tr>
+	<td><code>&lt;notes&gt;</code></td>
+	<td></td>
+	<td>Optional field for front-end description of the version</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>&lt;book-part-meta&gt;
+    …
+    &lt;pub-history&gt;
+        &lt;event event-type=&quot;published&quot;&gt;
+            &lt;event-desc specific-use=&quot;version-number&quot;&gt;0&lt;/event-desc&gt;
+            &lt;pub-date iso-8601-date=&quot;2013-07-13&quot;&gt;
+                 &lt;day&gt;13&lt;/day&gt;
+                 &lt;month&gt;07&lt;/month&gt;
+                 &lt;year&gt;2013&lt;/year&gt;
+            &lt;/pub-date&gt;
+        &lt;/event&gt;
+        &lt;event event-type=&quot;version&quot;&gt;
+            &lt;event-desc specific-use=&quot;version-number&quot;&gt;1&lt;/event-desc&gt;
+            &lt;pub-date iso-8601-date=&quot;2013-08-12&quot;&gt;
+                 &lt;day&gt;12&lt;/day&gt;
+                 &lt;month&gt;08&lt;/month&gt;
+                 &lt;year&gt;2013&lt;/year&gt;
+            &lt;/pub-date&gt;
+            &lt;notes&gt;&lt;p&gt;Added A to paragraph title&lt;/p&gt;&lt;/notes&gt;
+        &lt;/event&gt;
+    &lt;/pub-history&gt;
+    …
+&lt;/book-part-meta&gt;
+</code></pre>
+
+<p>Loading of versioned content requires reloading a chapter with the same <code>@id</code> value. This can be done either by reloading the whole book with the updated chapter and new version metadata, or, by loading multiple versions of the same chapter in the same zipline package with separate book-part-wrapper xml files. Whole book xml files and book-part-wrappers cannot be mixed in a single Zipline package. </p>
+
+<p>To replace a versioned book part chapter, both the publisher ID and the DOI must be present in the replacement package. If a DOI is not included, then the book part version cannot be replaced upon reload to Zipline.</p>
+
+<p>When loading and publishing a new version to Zipline, the previous versions will still be surfaceable through the latest version of the chapter. Please note, however, that only the most recent, published version can be surfaced by a front end search of the web site.</p>
+
+<h3 id="permissions">Permissions</h3>
+
+<p>The <code>&lt;permissions&gt;</code> element holds copyright information and license material.</p>
+
+<h4 id="copyright">Copyright</h4>
+
+<p>Copyright should include:</p>
+
+<ul>
+<li><code>&lt;copyright-statement&gt;</code>: The information that will display on the site should be the complete statement of copyright for the content. It is likely that this will duplicate information in the <code>&lt;copyright-year&gt;</code> and <code>&lt;copyright-holder&gt;</code> elements.</li>
+<li><code>&lt;copyright-year&gt;</code>: The year of copyright.</li>
+<li><code>&lt;copyright-holder&gt;</code>:The name of the copyright holder.</li>
+</ul>
+
+<!-- -->
+
+<pre><code>&lt;permissions id=&quot;per1&quot;&gt;
+  &lt;copyright-statement&gt;&amp;#xA9; 2012 Silverchair Science and Communications (SSC)&lt;/copyright-statement&gt;
+  &lt;copyright-year&gt;2012&lt;/copyright-year&gt;
+  &lt;copyright-holder&gt;Silverchair Holdings, Inc.&lt;/copyright-holder&gt;
+  ...
+&lt;/permissions&gt;
+</code></pre>
+
+<p>When the <code>&lt;permissions&gt;</code> element is in the <code>&lt;book-meta&gt;</code> or <code>&lt;book-part-meta&gt;</code>, its <code>&lt;license&gt;</code> element sets the access type for the book or book part, respectively. If a funder for a book or book part has an embargo period, then the book or book part will automatically become available outside the paywall after the embargo period. See the section <a href="#fundinginformation">Funding information</a> for how to include funding information.</p>
+
+<h4 id="freetoread">Free to Read</h4>
+
+<p>The <code>&lt;ali:free_to_read&gt;</code> element is a simple flag whose presence indicates that the document is free-to-read, without making statements about any additional reuse rights or restrictions. Date attributes (<code>@start_date</code> and <code>@end_date</code>) can specify when the document is free to be read. The absence of both start and end dates indicates a permanent free-to-read status. Note the namespace must be included on the element, or declared in the document header. </p>
+
+<pre><code>&lt;permissions&gt;
+    ...
+    &lt;ali:free_to_read xmlns:ali=&quot;http://www.niso.org/schemas/ali/1.0/&quot;/&gt;
+    ...
+&lt;/permissions&gt;
+</code></pre>
+
+<h4 id="licenseincludingfreeandopenaccess">License, including free and open access</h4>
+
+<p>The <code>&lt;license&gt;</code> element contains the set of conditions under which people are allowed to use the content, or other license-related information or restrictions. The <code>@license-type</code> attribute defines the type of license being granted for the book or chapter. To deposit license information to Crossref, a license URL is required, in either <code>@xlink:href</code> (on <code>&lt;license&gt;</code>) or <code>&lt;ali:license_ref&gt;</code>.</p>
+
+<ul>
+<li><code>@license-type</code> attribute: The access type to be stored in the database for the content. The &#8220;free&#8221;, &#8220;open-access&#8221;, and Creative Commons licenses will make the content available on the site without authentication. The &#8220;crown-copyright&#8221; and &#8220;us-gov&#8221; license types will default to private. If there is no <code>&lt;license&gt;</code> element in the xml file or the <code>@license-type</code> is not specified, the content will default to private. Please note that if a chapter has no <code>&lt;license&gt;</code> element or specific <code>@license-type</code>, that content will inherit the <code>@license-type</code> used at the book level. By default, the &#8220;cc-by&#8221; license types will display boiler plate text when no <code>&lt;license-p&gt;</code> has been provided in the XML. Please consult with your build team if you wish to have the boiler plate text shown instead in all cases, even when text has been provided in <code>&lt;license-p&gt;</code>.</li>
+</ul>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>license type</th>
+	<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td><code>@license-type=&quot;free&quot;</code></td>
+	<td>Free book/chapter</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;open-access&quot;</code></td>
+	<td>Open Access book/chapter</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;crown-copyright&quot;</code></td>
+	<td>CrownCopyright article (defaults to private, but access requirement can be configured with your build team)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;us-gov&quot;</code></td>
+	<td>USGov book/chapter (defaults to private, but access requirement can be configured with your build team)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by&quot;</code></td>
+	<td>Creative Commons Attribution license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-nc&quot;</code></td>
+	<td>Creative Commons Attribution-NonCommercial license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-nc-nd&quot;</code></td>
+	<td>Creative Commons Attribution-NonCommercial-NoDerivs license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-nc-sa&quot;</code></td>
+	<td>Creative Commons Attribution-NonCommercial-ShareAlike license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-nd&quot;</code></td>
+	<td>Creative Commons Attribution-NoDerivs license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-sa&quot;</code></td>
+	<td>Creative Commons Attribution-ShareAlike license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-igo&quot;</code></td>
+	<td>Creative Commons Attribution-IGO license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;publisher&quot;</code></td>
+	<td>Publisher, assigned by author (Private)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;exclusive&quot;</code></td>
+	<td>Exclusive, author retains copyright but allows publisher use (Private)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;non-exclusive&quot;</code></td>
+	<td>Non-exclusive, author published previously and copyright not assigned to current publisher (Private)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;society&quot;</code></td>
+	<td>Society, partnership title where use is driven by the owners and not the publisher (defaults to private, but access requirement can be configured with your build team)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;reprint&quot;</code></td>
+	<td>Reprint, original publisher retains copyright but allows current publisher to have certain distribution rights (Private)</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><code>@license-type</code> can also be used to indicate that the content should be excluded from on-site purchase. Simply use the attribute <code>@license-type=&quot;not-for-sale&quot;</code>.</li>
+<li><code>@xlink:href</code> attribute: A URL to a resource describing the license.</li>
+<li><code>&lt;license-p&gt;</code>: A paragraph of text within the description of a <code>&lt;license&gt;</code>. If you want the license information to display on the site, it must be included in <code>&lt;license-p&gt;</code>.</li>
+<li><code>&lt;ali:license_ref&gt;</code>: A reference to a URI that carries the license terms specifying how a work may be used. Note the namespace must be included on the element, or declared in the document header.</li>
+<li>Please note that best practice is to use only one or the other of <code>@xlink:href</code> on <code>&lt;license&gt;</code> or <code>&lt;ali:license_ref&gt;</code>.</li>
+</ul>
+
+<!-- -->
+
+<pre><code>&lt;permissions&gt;
+…
+    &lt;license license-type=&quot;open-access&quot; xlink:href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;
+        &lt;license-p&gt;This content is available without a subscription.  It may not be altered in any way and proper attribution is required.&lt;/license-p&gt;
+    &lt;/license&gt;
+&lt;/permissions&gt;
+</code></pre>
+
+<p>OR</p>
+
+<pre><code>&lt;permissions id=&quot;per1&quot;&gt;
+…
+    &lt;license license-type=&quot;free&quot;&gt;
+        &lt;ali:license_ref xmlns:ali=&quot;http://www.niso.org/schemas/ali/1.0/&quot;&gt;https://creativecommons.org/licenses/by/4.0/&lt;/ali:license_ref&gt;
+        &lt;license-p&gt;This content is available without a subscription.  It may not be altered in any way and proper attribution is required.&lt;/license-p&gt;
+    &lt;/license&gt;
+&lt;/permissions&gt;
+</code></pre>
+
+<h3 id="linkingtootherversionsofcontent">Linking to other versions of content</h3>
+
+<p>The <code>&lt;self-uri&gt;</code> element is intended to link to the same piece of content in different forms. For data supplements or other book-level files use the <code>&lt;supplementary-material&gt;</code> element (section <a href="#supplementarymaterial">Supplementary material</a>). For links within the same document, use the <code>&lt;xref&gt;</code> element (section <a href="#cross-references">Cross-references</a>). For links to external resources in book-meta or book-part-meta, use the <code>&lt;related-object&gt;</code> element (section <a href="#externallinkstorelatedcontent">External links to related content</a>).</p>
+
+<h4 id="linktopdfofcontent">Link to PDF of content</h4>
+
+<p>Import a PDF of the book or book part using <code>&lt;self-uri&gt;</code> in the <code>&lt;book-meta&gt;</code> or <code>&lt;book-part-meta&gt;</code> respectively. For example, <code>&lt;self-uri xlink:href=&quot;2011.11010094.pdf&quot;/&gt;</code> where the <code>@xlink:href</code> value is the exact file name as it occurs in the package. Do not prepend the file name with a directory path. The attribute and value <code>@content-type=&quot;pdf&quot;</code> may also be indicated on <code>&lt;self-uri&gt;</code>, but it is not required.</p>
+
+<p>To link to book or book part PDFs in different languages, use additional <code>&lt;self-uri&gt;</code> elements, each with an <code>@xml:lang</code> attribute that has as its value the appropriate ISO 639–1 (i.e., two-letter) code. If multiple self-uri elements are used, they all must have <code>@xml:lang</code> attributes with unique ISO 639&#8211;1 codes. Ask your build team for the full list of supported languages.</p>
+
+<pre><code>&lt;self-uri xlink:href=&quot;book.pdf&quot; xml:lang=&quot;en&quot;/&gt;
+&lt;self-uri xlink:href=&quot;book_french_pdf.pdf&quot; xml:lang=&quot;fr&quot;/&gt;
+&lt;self-uri xlink:href=&quot;book_chinese_pdf.pdf&quot; xml:lang=&quot;zh&quot;/&gt;
+</code></pre>
+
+<p>To import so-called &#8220;PDF-only&#8221; books, simply include <code>&lt;self-uri&gt;</code> elements for each book part&#8217;s PDF file and omit the front matter, body, and back matter from the XML.</p>
+
+<h4 id="linktomobiorepubofcontent">Link to MOBI or ePub of content</h4>
+
+<p>Link a MOBI or ePub file of the book or book part using <code>&lt;self-uri&gt;</code> with <code>@content-type=&quot;mobi&quot;</code> or <code>@content-type=&quot;epub&quot;</code>, respectively. For example <code>&lt;self-uri content-type=&quot;epub&quot; xlink:href=&quot;2011.11010094.epub&quot;/&gt;</code> where the <code>@xlink:href</code> value is the exact file name as it occurs in the assets folder. Do not prepend the file name with a directory path. Please note that this feature requires a configuration for existing clients.</p>
+
+<h4 id="linktocountry-specificpdfofcontent">Link to Country-Specific PDF of content</h4>
+
+<p>Some publishers have a requirement to provide country-specific versions of PDFs to users. SCM supports the ability to provide country-specific PDFs by using the <code>@content-type</code> and <code>@specific-use</code> attribtues on the <code>&lt;self-uri&gt;</code> element in addition to calling out the PDF. The <code>@content-type</code> should always have the value of &#8220;pdf-country-specific&#8221;; whereas, the <code>@specific-use</code> attribute will change based on the country&#8217;s ISO 3166&#8211;1 code. For example, the PDF shown below will surface for users in France:</p>
+
+<pre><code>&lt;self-uri content-type=&quot;pdf-country-specific&quot; specific-use=&quot;fr&quot; xlink:href=&quot;bookpdf_fr.pdf&quot;/&gt; 
+</code></pre>
+
+<p>For multiple country PDFs support, provide a separate <code>&lt;self-uri&gt;</code> for each country. Please note that if you do not provide a PDF per the instructions in <a href="#linktopdfofcontent">Link to PDF of content</a> but a country-specific PDF is provided, then the PDF will only be available to the user in that country.</p>
+
+<h3 id="supplementarymaterial">Supplementary material</h3>
+
+<p>To add supplementary material to the book, use the <code>&lt;supplementary-material&gt;</code> tag in the <code>&lt;book-meta&gt;</code>; to add supplementary material to a chapter, use the <code>&lt;supplementary-material&gt;</code> tag in the <code>&lt;book-part-meta&gt;</code></p>
+
+<p>Put the exact data supplement file name, including the extension, in the <code>@xlink:href</code> attribute value, as in <code>&lt;supplementary-material content-type=&quot;data-supplement&quot; xlink:href=&quot;supplement.pdf&quot;&gt;</code>. Do not include a file path.</p>
+
+<p>For data supplements use the attribute <code>@content-type=&quot;data-supplement&quot;</code>. For disclosures use the attribute <code>@content-type=&quot;disclosure&quot;</code>. If no <code>@content-type</code> attribute is provided, the material will be treated as a data supplement.</p>
+
+<p>Any file type listed in the Zipline – Package Requirements is acceptable for supplementary material.</p>
+
+<p>Use the <code>&lt;label&gt;</code> tag for a label, and the <code>&lt;title&gt;</code> tag inside the <code>&lt;caption&gt;</code> for a title. Other explanatory text should go in the <code>&lt;caption&gt;</code> tag, in <code>&lt;p&gt;</code> elements.</p>
+
+<p>If a data supplement is referenced within the text, the <code>&lt;supplementary-material&gt;</code> element must have a unique identifier in the <code>@id</code> attribute. Use an <code>&lt;xref&gt;</code> in the text to indicate the link to the supplement.</p>
+
+<pre><code>&lt;xref ref-type=&quot;supplementary-material&quot; rid=&quot;sup1&quot;&gt;Table 3&lt;/xref&gt;
+</code></pre>
+
+<p>Supplementary material can be assigned a unique identifier such as a DOI using the <code>&lt;object-id&gt;</code> tag within the element. The <code>@pub-id-type</code> attribute must be included with a value of either &#8220;doi&#8221; or &#8220;publisher-id&#8221;. If there is no publisher-id in an <code>&lt;object-id&gt;</code> element and the <code>&lt;supplementary-material&gt;</code> element has an <code>@id</code> attribute, SCM will use the value of the <code>@id</code> as the publisher-id.</p>
+
+<h3 id="book-levelassetfiles">Book-level asset files</h3>
+
+<p>Books may have ancillary material at the book level such as a book cover, front matter, etc. that publishers want available on the site in non-HTML formats. To add book-level assets to the book, use the <code>&lt;supplementary-material&gt;</code> tag in the <code>&lt;book-meta&gt;</code>.</p>
+
+<p>Put the exact data supplement file name, including the extension, in the <code>@xlink:href</code> attribute value, as in <code>&lt;supplementary-material content-type=&quot;cover&quot; xlink:href=&quot;cover.png&quot;&gt;</code>. Do not include a file path.</p>
+
+<p>The following asset types may be included, using the values listed for <code>@content-type</code>.</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>book-level file</th>
+	<th>Attribute value</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>Cover image</td>
+	<td><code>@content-type=&quot;cover&quot;</code></td>
+</tr>
+<tr>
+	<td>Front matter</td>
+	<td><code>@content-type=&quot;front&quot;</code></td>
+</tr>
+<tr>
+	<td>Back matter</td>
+	<td><code>@content-type=&quot;back&quot;</code></td>
+</tr>
+<tr>
+	<td>Editorial Board</td>
+	<td><code>@content-type=&quot;ed-board&quot;</code></td>
+</tr>
+<tr>
+	<td>Table of Contents</td>
+	<td><code>@content-type=&quot;toc&quot;</code></td>
+</tr>
+<tr>
+	<td>MARC record</td>
+	<td><code>@content-type=&quot;marc&quot;</code></td>
+</tr>
+<tr>
+	<td>Affiliate logo</td>
+	<td><code>@content-type=&quot;affiliate-logo&quot;</code></td>
+</tr>
+<tr>
+	<td>Google Preview PDF (see the section <a href="#booktypeattribute">Book type attribute</a> for more information on Google Scholar requirements)</td>
+	<td><code>@content-type=&quot;preview-pdf&quot;</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>Any file type listed in the Zipline – Package Requirements for book-level files is acceptable.</p>
+
+<h3 id="abstracts">Abstracts</h3>
+
+<p>Abstracts are included in the <code>&lt;abstract&gt;</code> node within the <code>&lt;book-meta&gt;</code> or <code>&lt;book-part-meta&gt;</code> elements. The authored abstract should have no <code>@abstract-type</code> attribute, or it should have the attribute <code>@abstract-type=&quot;abstract&quot;</code>. The attributes <code>@abstract-type=&quot;teaser&quot;</code> and <code>@abstract-type=&quot;precis&quot;</code> will also be imported. Although both values are accepted, we recommend the use of &#8220;teaser&#8221; over &#8220;precis&#8221; unless there is a compelling reason to use &#8220;precis&#8221;. This is more in line with what the platform offers in terms of display and functionality. </p>
+
+<h3 id="hierarchicalcategories">Hierarchical categories</h3>
+
+<p>Content can be assigned to categories. Use the <code>&lt;subj-group subj-group-type=&quot;category&quot;&gt;</code> and <code>&lt;subject&gt;</code> elements to designate categories for the content. Each category should be placed in a <code>&lt;subject&gt;</code> element within the <code>&lt;subj-group&gt;</code> element.</p>
+
+<p>The following content can be assigned to categories using <code>&lt;subj-group&gt;</code>:</p>
+
+<ul>
+<li>articles</li>
+<li>books</li>
+<li>chapters</li>
+<li>standalone multimedia</li>
+</ul>
+
+<p>SCM does not create categories on the fly, except for categories with category type &#8220;toc-heading&#8221; (see below) or for specific book product codes. They must be set up in SCM before importing. Categories—factoring in category type and hierarchy—must be unique.</p>
+
+<p>SCM supports hierarchical categories, which allows for parent-child relationships between categories. When assigning a child-level category to content, the parent categories must also be supplied in case more than one subcategory shares the same name. Zipline can currently import up to a 2-level hierarchy. The example below shows content with a category structure of:</p>
+
+<ul>
+<li>Wireless Sensor Networks
+
+<ul>
+<li>Alternative Energy Harvesting Systems</li>
+</ul></li>
+</ul>
+
+<!-- -->
+
+<pre><code>&lt;subj-group subj-group-type=&quot;category&quot;&gt;
+    &lt;subject&gt;Wireless Sensor Networks&lt;/subject&gt;
+    &lt;subj-group subj-group-type=&quot;category&quot;&gt;
+        &lt;subject&gt;Alternative Energy Harvesting Systems&lt;/subject&gt;
+    &lt;/subj-group&gt;
+&lt;/subj-group&gt;
+</code></pre>
+
+<p>Since the schema only allows nested <code>&lt;subj-group&gt;</code> elements after the <code>&lt;subject&gt;</code> elements, use multiple top-level <code>&lt;subj-group subj-group-type=&quot;category&quot;&gt;</code> nodes to designate multiple parent-child categories.</p>
+
+<p>If multiple facets of organization are required and the same category name exists for multiple facets, append a hyphen and the name of the category type to the end of the <code>@subj-group-type</code> value. For example, if the following categories have been set up in SCM for the same site:</p>
+
+<ul>
+<li>Research (with category type of Book Categories)</li>
+<li>Research (with category type of Article Categories)</li>
+</ul>
+
+<p>then specify the former in the XML by including:</p>
+
+<pre><code>&lt;subj-group subj-group-type=&quot;category-Book Categories&quot;&gt;
+    &lt;subject&gt;Research&lt;/subject&gt;
+&lt;/subj-group&gt;
+</code></pre>
+
+<p>specify the latter in the XML by including:</p>
+
+<pre><code>&lt;subj-group subj-group-type=&quot;category-Article Categories&quot;&gt;
+    &lt;subject&gt;Research&lt;/subject&gt;
+&lt;/subj-group&gt;
+</code></pre>
+
+<p>Optionally, SCM may be configured to create categories on the fly during import for the category type &#8220;toc-heading&#8221; (<code>&lt;subj-group subj-group-type=&quot;category-toc-heading&quot;&gt;</code>). If this configuration is turned on, the system will create new categories under this category type when it finds new values in the XML. These categories are used to dynamically order the TOC—meaning articles with the same category-toc-heading value will be grouped on the issue TOC. Please note that a manually ordered TOC provided in an issue file for an issue will override any category-toc-heading provided in the articles (see [Manually ordered TOC]). By default, this configuration is turned off; please consult your Silverchair representative to enable the configuration.</p>
+
+<p>Please note that although <code>@content-type</code> is allowed on the <code>&lt;subject&gt;</code> element, its use is intended for pass-through only and does not drive any functionality on SCM.</p>
+
+<h3 id="productmappingcategory">Product mapping category</h3>
+
+<p>Product mapping categories are intended to provide content groupings based on a product name that will allow clients to create product rules and to drive deposit feed functionality. To provide a product mapping, use <code>&lt;subj-group&gt;</code> tagging with <code>@subj-group-type=&quot;category-product-mapping&quot;</code>, with the subject&#8217;s value being the name of the product: </p>
+
+<pre><code>&lt;subj-group subj-group-type=&quot;category-product-mapping&quot;&gt;
+    &lt;subject&gt;Product Name&lt;/subject&gt;
+&lt;/subj-group&gt;
+</code></pre>
+
+<p>These subject values must be set up in SCM before loading content containing this tagging.</p>
+
+<h3 id="taxonomies">Taxonomies</h3>
+
+<p>To assign content to a taxonomy, use <code>&lt;subj-group subj-group-type=&quot;category-taxonomy-collection&quot;&gt;</code> and place each taxonomic ID in <code>&lt;subject&gt;</code>. Use only one <code>&lt;subject&gt;</code> per <code>&lt;subj-group&gt;</code>.</p>
+
+<pre><code>&lt;subj-group subj-group-type=&quot;category-taxonomy-collection&quot;&gt;
+    &lt;subject&gt;T-123&lt;/subject&gt;
+&lt;/subj-group&gt;
+&lt;subj-group subj-group-type=&quot;category-taxonomy-collection&quot;&gt;
+    &lt;subject&gt;T-456&lt;/subject&gt;
+&lt;/subj-group&gt;
+</code></pre>
+
+<p>Note that before content can be assigned to a taxonomy, the taxonomy must exist in the SCM database or the content will produce an error. To add a taxonomy to the database, upload it as an RDF file via the Zipline API. For more information, please consult the Zipline User Guide via the client tool portal.</p>
+
+<h3 id="countrylocationlabel">Country location label</h3>
+
+<p>To add a country location label to the content, use <code>&lt;subj-group subj-group-type=&quot;category-location&quot;&gt;</code> with the appropriate 3-letter ISO&#8211;3166 country code. This allows for the content to be browsed and filtered by country: </p>
+
+<pre><code>&lt;subj-group subj-group-type=&quot;category-location&quot;&gt;
+    &lt;subject&gt;USA&lt;/subject&gt;
+&lt;/subj-group&gt;
+</code></pre>
+
+<h3 id="bookpublicationstatus">Book publication status</h3>
+
+<p>To designate a book&#8217;s publication status, such as &#8220;in progress&#8221; ahead of print publication, use a <code>&lt;custom-meta&gt;</code> node with <code>&lt;meta-name&gt;publication-status&lt;/meta-name&gt;</code> and a <code>&lt;meta-value&gt;</code> containing one of the statuses listed below.</p>
+
+<pre><code>&lt;custom-meta-group&gt;
+        &lt;custom-meta&gt;
+            &lt;meta-name&gt;publication-status&lt;/meta-name&gt;
+            &lt;meta-value&gt;in-progress&lt;/meta-value&gt;
+        &lt;/custom-meta&gt;
+&lt;/custom-meta-group&gt;
+</code></pre>
+
+<p>The accepted publication statuses are as follows: </p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Publication Status</th>
+	<th>Required <code>&lt;meta-value&gt;</code></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>In Progress</td>
+	<td>in-progress</td>
+</tr>
+<tr>
+	<td>Available</td>
+	<td>available</td>
+</tr>
+<tr>
+	<td>Out of Print</td>
+	<td>out-of-print</td>
+</tr>
+<tr>
+	<td>Out of Print Available Online</td>
+	<td>out-of-print-available-online</td>
+</tr>
+<tr>
+	<td>Out of Print New Edition in Preparation</td>
+	<td>out-of-print-new-edition-in-preparation</td>
+</tr>
+<tr>
+	<td>Out of Print Reprint in Preparation</td>
+	<td>out-of-print-reprint-in-preparation</td>
+</tr>
+<tr>
+	<td>No Longer Distributed by Publisher</td>
+	<td>no-longer-distributed-by-publisher</td>
+</tr>
+</tbody>
+</table>
+
+<p>Please consult your build team for display requirements. </p>
+
+<p>Note that the in progress publication status tagging is not needed for the asynchronous book model, which offers a more robust workflow (see <a href="#asynchronousbookpublicationmodel">Asynchronous book publication model</a>).</p>
+
+<h3 id="asynchronousbookpublicationmodel">Asynchronous book publication model</h3>
+
+<p>SCM supports the concept of an asynchronous book publication model via <code>&lt;custom-meta&gt;</code> tagging. This model supports a Zipline workflow for books where chapters are loaded and published over time, rather than all at once, as for a traditional book. Note that this is different from setting a book publication status, which is only used for labelling. To indicate that a book should use this publication model, use <code>&lt;custom-meta&gt;</code> with a <code>&lt;meta-name&gt;</code> value of &#8220;publication-model&#8221; and a <code>&lt;meta-value&gt;</code> value of &#8220;asynchronous&#8221;: </p>
+
+<pre><code>&lt;custom-meta-group&gt;
+        &lt;custom-meta&gt;
+            &lt;meta-name&gt;publication-model&lt;/meta-name&gt;
+            &lt;meta-value&gt;asynchronous&lt;/meta-value&gt;
+        &lt;/custom-meta&gt;
+&lt;/custom-meta-group&gt;
+</code></pre>
+
+<p>The asynchronous publication model creates an &#8220;Open&#8221; book that can be closed once the book is completed (see the Zipline User Guide for more information). When the book is &#8220;Open&#8221;, an &#8220;In Progress&#8221; label will display on the front end. The closure of the book will trigger a publication date that will display as a range, which begins with the electronic publication date provided in the <code>&lt;book-meta&gt;</code> and ends with the electronic publication date of the last published chapter. </p>
+
+<p>To simply apply a publication status label, such as &#8220;In Progress&#8221;, without triggering the additional Zipline functionality for asynchronous books, instead, use publication status tagging (see <a href="#bookpublicationstatus">Book publication status</a>).</p>
+
+<p>This model can leverage a traditional TOC (see <a href="#tableofcontents">Table of Contents</a>), or you can opt to use the collection container feature, which offers a SOLR-based TOC (see <a href="#collectioncontainerandcollectionarticles">Collection container and collection articles</a>).</p>
+
+<h3 id="bookindustrycommunicationbicandbookindustrystandardsandcommunicationsbisacproductcodes">Book Industry Communication (BIC) and Book Industry Standards and Communications (BISAC) Product Codes</h3>
+
+<p>To designate a BIC or BISAC product code for a book or book chapter, use <code>&lt;subj-group subj-group-type=&quot;bic&quot;&gt;</code> or <code>&lt;subj-group subj-group-type=&quot;bisac&quot;&gt;</code>.</p>
+
+<pre><code>&lt;subj-group subj-group-type=&quot;bic&quot;&gt;
+        &lt;subject&gt;JPVK&lt;/subject&gt;
+&lt;/subj-group&gt;
+</code></pre>
+
+<h1 id="frontmatter">Front matter</h1>
+
+<p>The front-matter section is optional. Front matter is generally shown on the book TOC page on the site, usually with its own link to view the front matter content. Publishers can use the named (predefined) book part elements from BITS in the book and book-part front matter, or use <code>&lt;front-matter-part&gt;</code> for anything not covered by the predefined elements. The <code>@book-part-type</code> attribute on <code>&lt;front-matter-part&gt;</code> can be used to differentiate these front matter parts.</p>
+
+<p>To indicate that a piece of front matter should be suppressed from search, use the attribute <code>@indexed</code> on <code>&lt;front-matter-part&gt;</code> (<code>&lt;front-matter-part id=&quot;BDD1-ex&quot; indexed=&quot;no&quot;&gt;</code>).</p>
+
+<h2 id="tableofcontents">Table of contents</h2>
+
+<p>The TOC is automatically generated from the order of the chapters and parts as designated in the XML. For a book contained in a single XML file, arrange the parts and chapters in the order you wish them to appear on the TOC, with the correct nesting for chapters inside parts.</p>
+
+<p>If the book is supplied with separate chapter files (ie, using book-part-wrapper), you will need to load a metadata file to order the TOC. The metadata file is a book file with the book-part shells placed for order. This book file should be loaded before any book-part-wrapper files are loaded. </p>
+
+<p>You may submit a pre-structured table of contents using the <code>&lt;toc&gt;</code> element in book parts or at the top level of the book-part-wrapper. The <code>&lt;toc&gt;</code> element is a presentational model and not a metadata model—it is for display only and will not affect the actual order or structure of book parts in the book.</p>
+
+<h1 id="backmatter">Back matter</h1>
+
+<p>The <code>&lt;book-back&gt;</code> element is optional. Within <code>&lt;book-back&gt;</code>, the <code>@book-part-type</code> attribute on <code>&lt;book-part&gt;</code> can be used to differentiate end matter parts.</p>
+
+<p>To indicate that a piece of end matter should be suppressed from search, use the attribute <code>@indexed</code> on <code>&lt;book-part&gt;</code> (<code>&lt;book-part id=&quot;9101&quot; book-part-type=&quot;illustration&quot; indexed=&quot;no&quot;&gt;</code>).</p>
+
+<h1 id="bookbody">Book body</h1>
+
+<p>A book may include parts or chapters, tagged using the <code>&lt;book-part&gt;</code> element with either the <code>@book-part-type=&quot;part&quot;</code> or <code>@book-part-type=&quot;chapter&quot;</code> attribute. A collection container may include collection articles, tagged using the <code>&lt;book-part&gt;</code> element with either the <code>@book-part-type=&quot;collection-article&quot;</code> or <code>@book-part-type=&quot;reference-article&quot;</code> attribute. See section <a href="#collectioncontainerandcollectionarticles">Collection container and collection articles</a>. Other values in <code>@book-part-type</code> are prohibited.</p>
+
+<p>To indicate that a book-part should be suppressed from search, use the attribute <code>@indexed</code> on <code>&lt;book-part&gt;</code> (<code>&lt;book-part id=&quot;5678&quot; book-part-type=&quot;chapter&quot; indexed=&quot;no&quot;&gt;</code>).</p>
+
+<p>Include part and chapter numbers/designations in the <code>&lt;label&gt;</code> element under the <code>&lt;title-group&gt;</code>, along with the term you would like used to refer to that part. Chapter &#8220;numbers&#8221; may be either numeric or non-numeric, e.g. e17 for an electronic-only chapter or 3s indicating a supplemental chapter. For example, the tagging</p>
+
+<pre><code>&lt;book-part id=&quot;1234&quot; book-part-type=&quot;part&quot;&gt;
+    &lt;book-part-meta&gt;
+        &lt;title-group&gt;
+            &lt;label&gt;Part 1&lt;/label&gt;
+            &lt;title&gt;Bees and Honey&lt;/title&gt;
+        &lt;/title-group&gt;
+    &lt;/book-part-meta&gt;
+&lt;/book-part&gt;
+</code></pre>
+
+<p>will produce the following output on the site (styling shown for illustrative purpose only): <span style="font-variant:small-caps">Part 1</style> <strong><span style="font-variant:normal">Bees and Honey</style></strong></p>
+
+<p>Include part and chapter titles in the <code>&lt;title&gt;</code> element under <code>&lt;title-group&gt;</code>. Include subtitle in the <code>&lt;subtitle&gt;</code> element under <code>&lt;title-group&gt;</code>.</p>
+
+<h2 id="parts">Parts</h2>
+
+<p>Use Parts for any piece of the book hierarchy that is above a chapter. Some books use the term &#8220;Section&#8221; instead of Part. Parts can have text content.</p>
+
+<p>Book parts are indicated using the <code>&lt;book-part&gt;</code> tag with an attribute of <code>@book-part-type=&quot;part&quot;</code>. Parts may be nested in other parts, and parts may contain chapters.</p>
+
+<pre><code>&lt;book-part id=&quot;1234&quot; book-part-type=&quot;part&quot;&gt;
+    &lt;book-part-meta&gt;
+        &lt;title-group&gt;
+            &lt;label&gt;Part 1&lt;/label&gt;
+            &lt;title&gt;Bees and Honey&lt;/title&gt;
+        &lt;/title-group&gt;
+    &lt;/book-part-meta&gt;
+    &lt;body&gt;
+        &lt;book-part id=&quot;chapter_1&quot; book-part-type=&quot;chapter&quot;&gt;
+            &lt;book-part-meta&gt;
+                &lt;title-group&gt;
+                    &lt;label&gt;Chapter 1&lt;/label&gt;
+                    &lt;title&gt;Honey Production&lt;/title&gt;
+                &lt;/title-group&gt;
+            &lt;/book-part-meta&gt;
+        &lt;/book-part&gt;
+        &lt;book-part id=&quot;chapter_2&quot; book-part-type=&quot;chapter&quot;&gt;
+            &lt;book-part-meta&gt;
+                &lt;title-group&gt;
+                    &lt;label&gt;Chapter 2&lt;/label&gt;
+                    &lt;title&gt;Honey Collection&lt;/title&gt;
+                &lt;/title-group&gt;
+            &lt;/book-part-meta&gt;
+        &lt;/book-part&gt;
+    &lt;/body&gt;
+&lt;/book-part&gt;
+</code></pre>
+
+<h2 id="chapters">Chapters</h2>
+
+<p>Chapters may contain the main text content. Chapters can be inside or outside a part. For example, the structure below is acceptable. Chapters may not contain other parts or chapters; the chapter must be a leaf node in the TOC structure of the book.</p>
+
+<p>The chapter element is <code>&lt;book-part book-part-type=&quot;chapter&quot;&gt;</code>. Required attributes are <code>@book-part-type=&quot;chapter&quot;</code>, and <code>@id</code>.</p>
+
+<pre><code>&lt;book-part id=&quot;1111&quot; book-part-type=&quot;chapter&quot;&gt;
+    &lt;book-part-meta&gt;
+        &lt;title-group&gt;&lt;title&gt;Introduction&lt;/title&gt;&lt;/title-group&gt;
+    &lt;/book-part-meta&gt;
+&lt;/book-part&gt;
+&lt;book-part id=&quot;1234&quot; book-part-type=&quot;part&quot;&gt;
+    &lt;book-part-meta&gt;
+        &lt;title-group&gt;
+        &lt;label&gt;Part 1&lt;/label&gt;
+            &lt;title&gt;Bees and Honey&lt;/title&gt;
+        &lt;/title-group&gt;
+    &lt;/book-part-meta&gt;
+    &lt;body&gt;
+        &lt;book-part id=&quot;chapter_1&quot; book-part-type=&quot;chapter&quot;&gt;
+            &lt;book-part-meta&gt;
+                &lt;title-group&gt;
+                    &lt;label&gt;Chapter 1&lt;/label&gt;
+                    &lt;title&gt;Honey Production&lt;/title&gt;
+                &lt;/title-group&gt;
+                &lt;pub-date publication-format=&quot;electronic&quot; date-type=&quot;pub&quot; iso-8601-date=&quot;2022-07-13&quot;&gt;
+                    &lt;day&gt;13&lt;/day&gt;
+                    &lt;month&gt;07&lt;/month&gt;
+                    &lt;year&gt;2022&lt;/year&gt;
+                &lt;/pub-date&gt;
+            &lt;/book-part-meta&gt;
+        &lt;/book-part&gt;
+        &lt;book-part id=&quot;chapter_2&quot; book-part-type=&quot;chapter&quot;&gt;
+            &lt;book-part-meta&gt;
+                &lt;title-group&gt;
+                    &lt;label&gt;Chapter 2&lt;/label&gt;
+                    &lt;title&gt;Honey Collection&lt;/title&gt;
+                &lt;/title-group&gt;
+            &lt;/book-part-meta&gt;
+        &lt;/book-part&gt;
+    &lt;/body&gt;
+&lt;/book-part&gt;
+</code></pre>
+
+<p>Chapters may optionally include a publication date using the <code>&lt;pub-date&gt;</code> node. This will enable chapters to display a publication date if it is different from the book publication date. Please note that, by default, the chapter page will display the book&#8217;s publication date, and you will need to consult with your build team to display a specific chapter publication date on your site.</p>
+
+<p>To supply a date, please follow these instructions:</p>
+
+<ul>
+<li>Supply a <code>&lt;year&gt;</code> in numerical form, a <code>&lt;month&gt;</code> in non-numerical (e.g. <code>&lt;month&gt;January&lt;/month&gt;</code>) or numerical form, and <code>&lt;day&gt;</code> in numerical form.</li>
+<li>Supply a date in ISO 8601 format using an <code>@iso-8601-date</code> attribute and the format YYYY-MM-DD.</li>
+<li>Supply a the type of publication date using the <code>@publication-format</code> attribute with a value of &#8220;electronic&#8221; and the <code>@date-type</code> attribute with a value of &#8220;pub&#8221;.</li>
+</ul>
+
+<p>If the date is provided in a form other than numerical month, day, and year, then the <code>@iso-8601-date</code> attribute must be included to supply a numerical publication date. In this case, the year, month, and day provided can be used for display, while the <code>@iso-8601-date</code> value is used as the underlying publication date by the system.</p>
+
+<p>The <code>@publication-format</code> and <code>@date-type</code> attributes are required, and &#8220;electronic&#8221; and &#8220;pub&#8221;, respectively, are the only values supported here.</p>
+
+<h2 id="collectioncontainerandcollectionarticles">Collection container and collection articles</h2>
+
+<p>SCM now supports the concept of collection containers via <code>&lt;custom-meta&gt;</code> and <code>&lt;book-part&gt;</code> tagging. This is intended for long-form, online-only content that does not fit into a structured table of contents chapter model. It is considered a collection of content pieces that are either unordered or are alphabetically indexed, in which each content object is discrete. </p>
+
+<p>The <code>&lt;custom-meta&gt;</code> tagging that will trigger that the content is part of a collection container is as follows: </p>
+
+<pre><code>&lt;custom-meta-group&gt;
+    &lt;custom-meta&gt;
+        &lt;meta-name&gt;container-type&lt;/meta-name&gt;
+        &lt;meta-value&gt;collection&lt;/meta-value&gt;
+    &lt;/custom-meta&gt;
+&lt;custom-meta-group&gt;
+</code></pre>
+
+<p>In addition, the <code>&lt;book-part&gt;</code> should be tagged with a <code>@book-part-type</code> value of &#8220;collection-article&#8221; to distinguish the content object from a traditional chapter. Optionally, if you need to distinguish reference content from non-reference collection container content, use a @book-part-type value of &#8220;reference-article&#8221;. An <code>@id</code> is also required:</p>
+
+<pre><code>&lt;book-part id=&quot;article2024&quot; book-part-type=&quot;collection-article&quot;&gt;
+</code></pre>
+
+<p>Please contact your build team if you plan to use the collection container.</p>
+
+<p>Collection articles may optionally include a publication date using the <code>&lt;pub-date&gt;</code> node. This will enable collection articles to display a publication date if it is different from the collection container publication date. See section <a href="#chapters">Chapters</a> for tagging instructions. If these dates are applied in conjunction with the asynchronous model, then a date range will display (see section <a href="#asynchronousbookpublicationmodel">Asynchronous book publication model</a>).</p>
+
+<p>Note that we recommend the use of the asynchronous model along with this feature, as it is specifically designed to optimize display for collection containers (see section <a href="#asynchronousbookpublicationmodel">Asynchronous book publication model</a>).</p>
+
+<h1 id="specialfeaturesforbooks">Special features for books</h1>
+
+<h2 id="headings">Headings</h2>
+
+<p>Special characters within headings need to be Unicode entity values. Inline images are supported.</p>
+
+<h2 id="relatedcontent">Related content</h2>
+
+<h3 id="linkstocontentinscm">Links to content in SCM</h3>
+
+<p>You may link content to other content that is published separately in the SCM system. Your site can use these links to surface related content to the user. Some example use cases include:</p>
+
+<ul>
+<li>Surfacing translations of the same piece of content.</li>
+<li>Connecting an errata to its original document.</li>
+<li>Explicitly connecting two pieces of content that cover the same topic.</li>
+<li>Connecting an author interview video to the content they authored.</li>
+</ul>
+
+<p>Use the <code>&lt;related-object&gt;</code> element in <code>&lt;book-meta&gt;</code> or <code>&lt;book-part-meta&gt;</code> to designate a relation to another piece of content, or in the running text to link between chapters in books. Use the <code>@document-type</code>, <code>@document-id-type</code>, and <code>@document-id</code> attributes to designate the type of content and document to target. To link to an object (e.g. figure, table) within a piece of content, also include the <code>@object-type</code>, <code>@object-id-type</code>, and <code>@object-id</code> attributes with the appropriate values. You must designate both the document and the object when linking to an object.</p>
+
+<p>Links to the following content types can be created from books and chapters. The XML with the <code>&lt;related-object&gt;</code> tag and the target XML can be imported in any order.</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Target document/content type</th>
+	<th>tagging format</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>Book (using ISBN 13)</td>
+	<td><code>&lt;related-object document-type=&quot;book&quot; document-id-type=&quot;isbn13&quot; document-id=&quot;1-234-56790-3125&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Book (using ISBN 10)</td>
+	<td><code>&lt;related-object document-type=&quot;book&quot; document-id-type=&quot;isbn10&quot; document-id=&quot;7412589636&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Book (using eISBN)</td>
+	<td><code>&lt;related-object document-type=&quot;book&quot; document-id-type=&quot;eisbn&quot; document-id=&quot;1-234-56790-3125&quot;/&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>To target objects within the document, additionally include the following attributes (please note that Target objects with an asterisk (*) are not supported at the <code>&lt;book-meta&gt;</code> or <code>&lt;book-part-meta&gt;</code> level):</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Target object</th>
+	<th>tagging format</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>Part</td>
+	<td><code>&lt; … object-type=&quot;part&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;book1.part1&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Chapter</td>
+	<td><code>&lt; … object-type=&quot;chapter&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;book1.ch1&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Collection article</td>
+	<td><code>&lt; … object-type=&quot;collection-article&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;coll1.coll-article1&quot;/&gt;</code> or <code>&lt; … object-type=&quot;reference-article&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;coll1.reference-article1&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Corresponding author information*</td>
+	<td><code>&lt; … object-type=&quot;corresp&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.corresp01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Author notes*</td>
+	<td><code>&lt; … object-type=&quot;author-notes&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.authornote01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Supplementary data</td>
+	<td><code>&lt; … object-type=&quot;supplementary-data&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.supdata01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Section</td>
+	<td><code>&lt; … object-type=&quot;sec&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.sec01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Figure</td>
+	<td><code>&lt; … object-type=&quot;fig&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.fig01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Table</td>
+	<td><code>&lt; … object-type=&quot;table&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.table01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Boxed text*</td>
+	<td><code>&lt; … object-type=&quot;boxed-text&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.box01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Display formula*</td>
+	<td><code>&lt; … object-type=&quot;disp-formula&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.formula01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Video</td>
+	<td><code>&lt; … object-type=&quot;video&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.vid01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Audio</td>
+	<td><code>&lt; … object-type=&quot;audio&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.aud01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Page number</td>
+	<td><code>&lt; … object-type=&quot;target&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.page01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>End note</td>
+	<td><code>&lt; … object-type=&quot;end-note&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.endnote01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Appendix*</td>
+	<td><code>&lt; … object-type=&quot;app&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.app01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Footnote*</td>
+	<td><code>&lt; … object-type=&quot;fn&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.fn01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Reference list*</td>
+	<td><code>&lt; … object-type=&quot;ref-list&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.references01&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Object not otherwise covered</td>
+	<td><code>&lt; … object-type=&quot;other&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;12345.para01&quot;/&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>An example of chapter-to-chapter links in the running text: <code>&lt;related-object document-type=&quot;book&quot; document-id-type=&quot;isbn13&quot; document-id=&quot;9781234567897&quot; object-type=&quot;chapter&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;book-9781234567897-ch1&quot;&gt;Chapter 1&lt;/related-object&gt;</code></p>
+
+<p>Use the <code>@link-type</code> attribute to designate the link type. The link-type must match a value in our system. If the link-type is directional in nature (e.g. A is a correction for B vs. B is corrected by A), the link-type should follow the logic:</p>
+
+<p>&#8220;The content in <strong>this XML</strong> is a/the <strong>[linkType]</strong> of/for the <strong>target</strong> content.&#8221;</p>
+
+<!--###Embedding objects from other content###
+
+Use the `<related-object>` tag within a `<p content-type="embed-container">` to include a portion of another piece of content in your content. For example, if there is a standalone video you would like to re-use in your content, you may reference that video for display without importing another copy. Referencing content in this way will not create a new copy of the content; if the referenced content is replaced, the updated version will display with your content.
+
+The following table lists the types of objects from other content that can be referenced.
+
+|referenced content              |child element  |@object-id value in the `<related-object>` tag |
+|--------                        |--             |----    |
+|Standalone multimedia figures   |`<fig>`        |Reference the id of the `<fig>` element; not the `<graphic>` element within the `<fig>`. |
+|Standalone multimedia videos    |`<media>`      |Reference the id of the `<media>` element. |
+
+You may include new textual content such as a label, title, and caption with your XML.
+
+Use the following format to include objects from other content:
+
+    <p id="sample.vid1" content-type="embed-container">
+        <related-object document-type="multimedia" document-id-type="doi" document-id="11.1111/11111111" link-type="embed-consumer"/>
+        <media>
+            <label>Video 1</label>
+            <caption>
+                <title>Video title</title>
+                <p>This is a new caption for the borrowed video.</p>
+            </caption>
+        </media>
+    </p>
+
+* The `<p>` element must have the attribute `@content-type="embed-container"`.
+* The only children of the `<p>` element should be the `<related-object>` and an element corresponding to the referenced content (see table above).
+* The `<related-object>` tag must reference the object to include in the content, following the conventions set forth in [Related content].
+* The `@link-type` attribute must be `@link-type="embed-consumer"`. -->
+
+<h3 id="externallinkstorelatedcontent">External links to related content</h3>
+
+<p>You may also link content to related external links at the book (<code>&lt;book-meta&gt;</code>) and chapter level (<code>&lt;book-part-meta&gt;</code>). Your site can use these links to surface related content to the user.</p>
+
+<p>Use the <code>&lt;related-object&gt;</code> element in the <code>&lt;book-meta&gt;</code> or <code>&lt;book-part-meta&gt;</code> to designate a relation to an external link. Use the <code>@document-type</code>, <code>@source-id</code>, <code>@source-id-type</code>, and <code>@source-type</code> attributes to designate the type of content and external link target. The value of <code>@source-id-type</code> should always be &#8220;url&#8221;.</p>
+
+<p>Links to the following source types can be created from books and chapters. Please speak to your project team if additional values are needed.</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Type</th>
+	<th><code>@source-id</code> value example</th>
+	<th><code>@source-type</code> value</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>Companion website</td>
+	<td>http://www.companionwebsite.com</td>
+	<td>companion-website</td>
+</tr>
+<tr>
+	<td>Blog article</td>
+	<td>http://blogname.com/2012/11/vsi-english-literature-text-analyser/</td>
+	<td>blog-article</td>
+</tr>
+<tr>
+	<td>Video</td>
+	<td>http://www.youtube.com/watch?v=youtubeid</td>
+	<td>video</td>
+</tr>
+<tr>
+	<td>External resource</td>
+	<td>http://www.externalsource.com</td>
+	<td>external-resource</td>
+</tr>
+<tr>
+	<td>Quiz</td>
+	<td>http://www.websitename.com/pagename</td>
+	<td>quiz</td>
+</tr>
+<tr>
+	<td>Related archive material</td>
+	<td>https://relatedarchive.org/papername</td>
+	<td>related-archive-material</td>
+</tr>
+<tr>
+	<td>Biography</td>
+	<td>https://doi.org/10.1093/bioref</td>
+	<td>biography</td>
+</tr>
+<tr>
+	<td>CME</td>
+	<td>https://cme.com</td>
+	<td>cme</td>
+</tr>
+<tr>
+	<td>Podcast</td>
+	<td>https://www.podcastname.com</td>
+	<td>podcast</td>
+</tr>
+<tr>
+	<td>Conference</td>
+	<td>https://www.oranization.org/technical-divisions/conference</td>
+	<td>conference</td>
+</tr>
+</tbody>
+</table>
+
+<p>Example of companion website: </p>
+
+<pre><code>&lt;related-object document-type=&quot;url&quot; source-id=&quot;http://www.companionwebsite.com&quot; source-id-type=&quot;url&quot; 
+    source-type=&quot;companion-website&quot;&gt;Companion website&lt;/related-object&gt;
+</code></pre>
+
+<p>Please note that if no link text is provided within the elements, then the <code>@source-id</code> value will display as the link on the site. </p>
+
+<h2 id="authorassignedkeywords">Author assigned keywords</h2>
+
+<p>SCM accepts keywords in <code>&lt;book-meta&gt;</code> and <code>&lt;book-part-meta&gt;</code>. Speak to your build team about using keywords to create quick search links on the chapter page. Keywords do not require advance setup in SCM and will be created on the fly during import.</p>
+
+<pre><code>&lt;kwd-group kwd-group-type=&quot;Chemicals&quot;&gt;
+    &lt;kwd&gt;chlorantraniliprole&lt;/kwd&gt;
+&lt;/kwd-group&gt;
+</code></pre>
+
+<h2 id="restrictedimagesbasedonelectronicrights">Restricted images based on electronic rights</h2>
+
+<p>To designate a figure image as restricted due to lack of electronic rights, include the <code>&lt;permissions&gt;</code> element as a child of <code>&lt;fig&gt;</code>, with a <code>&lt;license license-type=&quot;NoElectronicRight&quot;&gt;</code> element inside the <code>&lt;permissions&gt;</code>. This type of restricted image will not be displayed and should not be supplied. Instead, the user will see a notice that indicates that the image has been omitted due to lack of electronic rights.</p>
+
+<h2 id="qacontent">Q&amp;A content</h2>
+
+<p>SCM allows the ability to designate when content is Q&amp;A content. You can designate that a piece of content is an answer or question using the following values in <code>@specific-use</code> on the <code>&lt;sec&gt;</code> containing the Q&amp;A content:</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Value of</th>
+</tr>
+<tr>
+	<th><code>@specific-use</code></th>
+	<th>Definition</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>question-set</td>
+	<td>a set of multiple questions</td>
+</tr>
+<tr>
+	<td>question</td>
+	<td>a single question</td>
+</tr>
+<tr>
+	<td>answer-set</td>
+	<td>a set of multiple answers</td>
+</tr>
+<tr>
+	<td>answer</td>
+	<td>a single answer</td>
+</tr>
+</tbody>
+</table>
+
+<p>Speak to your build team if you need specific functionality associated with these designations.</p>
+
+<h2 id="cross-references">Cross-references</h2>
+
+<p>Cross-reference links to items within the same chapter or other type of book part are indicated with the <code>&lt;xref&gt;</code> element. The <code>@ref-type</code> attribute indicates the element type of the cross-reference target and the <code>@rid</code> provides its id value. </p>
+
+<p>Please note that content outside of the chapter or other type of book part must be cross-referenced using the <code>&lt;related-object&gt;</code> element. See <a href="#relatedcontent">Related content</a> for guidance in structuring those links.</p>
+
+<p>SCM supports the following different <code>&lt;xref&gt;</code> <code>@ref-type</code> values (eg, <code>&lt;xref ref-type=&quot;aff&quot;&gt;</code>), and specific behavior should be confirmed with the build team:</p>
+
+<table>
+<caption id="reftypes">Ref types</caption>
+<colgroup>
+<col style="text-align:center;"/>
+<col style="text-align:center;"/>
+</colgroup>
+
+<thead>
+<tr>
+	<th style="text-align:center;">ref-type attribute</th>
+	<th style="text-align:center;">Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td style="text-align:center;">aff</td>
+	<td style="text-align:center;">Affiliation</td>
+</tr>
+<tr>
+	<td style="text-align:center;">app</td>
+	<td style="text-align:center;">Appendix</td>
+</tr>
+<tr>
+	<td style="text-align:center;">author-notes</td>
+	<td style="text-align:center;">Author notes</td>
+</tr>
+<tr>
+	<td style="text-align:center;">award</td>
+	<td style="text-align:center;">Award group, funding</td>
+</tr>
+<tr>
+	<td style="text-align:center;">bibr</td>
+	<td style="text-align:center;">Bibliographic reference</td>
+</tr>
+<tr>
+	<td style="text-align:center;">boxed-text</td>
+	<td style="text-align:center;">Textbox or sidebar</td>
+</tr>
+<tr>
+	<td style="text-align:center;">corresp</td>
+	<td style="text-align:center;">Corresponding author</td>
+</tr>
+<tr>
+	<td style="text-align:center;">disp-formula</td>
+	<td style="text-align:center;">Display formula or group of display formulas</td>
+</tr>
+<tr>
+	<td style="text-align:center;">fig</td>
+	<td style="text-align:center;">Figure or group of figures</td>
+</tr>
+<tr>
+	<td style="text-align:center;">fn</td>
+	<td style="text-align:center;">Footnote</td>
+</tr>
+<tr>
+	<td style="text-align:center;">other</td>
+	<td style="text-align:center;">None of the other items listed</td>
+</tr>
+<tr>
+	<td style="text-align:center;">sec</td>
+	<td style="text-align:center;">Section</td>
+</tr>
+<tr>
+	<td style="text-align:center;">supplementary-material</td>
+	<td style="text-align:center;">Supplementary material file</td>
+</tr>
+<tr>
+	<td style="text-align:center;">table</td>
+	<td style="text-align:center;">Table or group of tables</td>
+</tr>
+<tr>
+	<td style="text-align:center;">table-fn</td>
+	<td style="text-align:center;">Table footnote</td>
+</tr>
+<tr>
+	<td style="text-align:center;">statement</td>
+	<td style="text-align:center;">Statement element</td>
+</tr>
+</tbody>
+</table>
+
+<p>An <code>&lt;xref&gt;</code> element used to designate an affiliation for a contributor must also have a <code>@ref-type=&quot;aff&quot;</code> attribute. An <code>&lt;xref&gt;</code> element used to connect a contributor to a Conflict of Interest statement in <code>&lt;author-notes&gt;</code> should have a <code>@ref-type=&quot;author-notes&quot;</code>. Similarly, an <code>&lt;xref&gt;</code> element used to connect a contributor to a footnote indicating equal contribution in <code>&lt;author-notes&gt;</code> should have a <code>@ref-type=&quot;author-notes&quot;</code>.</p>
+
+<p>Except for references to author affiliations, correspondence information for authors, and Conflict of Interest statements, the content of the element—often the figure number—must be included. Provide literal content for display as shown by the &#8220;4(g)&#8221; in this example: </p>
+
+<pre><code>See figure &lt;xref ref-type=&quot;fig&quot; rid=&quot;f4&quot;&gt;4(g)&lt;/xref&gt;.
+</code></pre>
+
+<p>The <code>@rid</code> attribute may have multiple values; separate each value with a space. If a document has a string of cross references either a single <code>&lt;xref&gt;</code> can link to all the references in the string or each reference can have an <code>&lt;xref&gt;</code>. So, if a document contains: </p>
+
+<pre><code>… widely discussed [1, 2, 3] in the …
+</code></pre>
+
+<p>you may either tag: </p>
+
+<pre><code>… widely discussed [&lt;xref ref-type=&quot;bibr&quot; rid=&quot;r1 r2 r3&quot;&gt;1, 2, 3&lt;/xref&gt;] in the …
+</code></pre>
+
+<p>or</p>
+
+<pre><code>… widely discussed [&lt;xref ref-type=&quot;bibr&quot; rid=&quot;r1&quot;&gt;1&lt;/xref&gt;, &lt;xref ref-type=&quot;bibr&quot; rid=&quot;r2&quot;&gt;2&lt;/xref&gt;, &lt;xref ref-type=&quot;bibr&quot; rid=&quot;r3&quot;&gt;3&lt;/xref&gt;] in the ….
+</code></pre>
+
+<p>You may also include the content as a range. The following would appear as &#8220;… widely discussed [1–3] in the …&#8221;.</p>
+
+<pre><code>… widely discussed [&lt;xref ref-type=&quot;bibr&quot; rid=&quot;r1 r2 r3&quot;&gt;1–3&lt;/xref&gt;] in the …
+</code></pre>
+
+<h2 id="printsales">Print sales</h2>
+
+<p>SCM supports print sales for books using the ProductBuilder tool. The book must exist in our database to enable selection as a print product and to provide book-level information for display on the site if a product page is desired. This means that print-only books will still need to be loaded via Zipline in SCBITS xml. In this case, please provide only book-level information in the <code>&lt;book-meta&gt;</code> element. Note that any book (online and print-only) can be designated for sale.</p>
+
+<h2 id="fundinginformation">Funding information</h2>
+
+<p>Include information about funding of the research in the <code>&lt;funding-group&gt;</code> tag. Zipline can import the funder&#8217;s name, funder&#8217;s identifier, and associated award identifiers, and SCM can match this information to the Funder Registry. Inside the <code>&lt;funding-source&gt;</code> element, use the <code>&lt;institution-wrap&gt;</code> element with child elements <code>&lt;institution&gt;</code> and <code>&lt;institution-id&gt;</code> to designate the name and identifiers of an institution, respectively. On <code>&lt;institution-id&gt;</code>, the attribute <code>@institution-id-type=&quot;DOI&quot;</code> must be present if the ID comes from the Open Funder Registry. The <code>@award-type</code> attribute is optional.</p>
+
+<p>In addition, you can optionally add information in the <code>&lt;funding-source&gt;</code> element to indicate individual(s) or institution(s) to whom the award was given (ie, <code>&lt;principal-award-recipient&gt;</code>) and the person(s) responsible for the intellectual content of the work reported in the document (ie, <code>&lt;principal-investigator&gt;</code>). These will display as given on the site. You can also add in a funding statement that will display on the site, using <code>&lt;funding-statement&gt;</code> in <code>&lt;funding-group&gt;</code>.</p>
+
+<pre><code>&lt;funding-group specific-use=&quot;FundRef&quot;&gt;
+     &lt;award-group award-type=&quot;grant&quot; id=&quot;award1&quot;&gt;
+        &lt;funding-source id=&quot;fundingsource1&quot;&gt;
+            &lt;institution-wrap&gt;                      
+                &lt;institution&gt;National Science Foundation&lt;/institution&gt;
+                &lt;institution-id institution-id-type=&quot;DOI&quot;&gt;10.13039/100000001&lt;/institution-id&gt;
+            &lt;/institution-wrap&gt;
+        &lt;/funding-source&gt;            
+        &lt;award-id&gt;WU4001&lt;/award-id&gt;
+        &lt;principal-award-recipient id=&quot;recipient1&quot;&gt;
+            &lt;name&gt;
+                &lt;surname&gt;Carberry&lt;/surname&gt;
+                &lt;given-names&gt;Josiah Stinkney&lt;/given-names&gt;
+            &lt;/name&gt;
+            &lt;contrib-id contrib-id-type=&quot;orcid&quot; authenticated=&quot;true&quot;&gt;
+                    https://orcid.org/0000-0002-1825-0097&lt;/contrib-id&gt;
+        &lt;/principal-award-recipient&gt;
+        &lt;principal-investigator id=&quot;investigator1&quot;&gt;
+            &lt;name&gt;
+                &lt;surname&gt;Carberry&lt;/surname&gt;
+                &lt;given-names&gt;Josiah Stinkney&lt;/given-names&gt;
+            &lt;/name&gt;
+            &lt;contrib-id contrib-id-type=&quot;orcid&quot; authenticated=&quot;true&quot;&gt;
+                    https://orcid.org/0000-0002-1825-0097&lt;/contrib-id&gt;
+            &lt;/principal-investigator&gt;
+    &lt;/award-group&gt;
+    &lt;funding-statement id=&quot;statement1&quot;&gt;&lt;bold&gt;Funding:&lt;/bold&gt; This is a funding statement.&lt;/funding-statement&gt;
+ &lt;/funding-group&gt;
+</code></pre>
+
+<p>If an embargo period is stored in SCM for a funder, content associated with an award from that funder will automatically become available outside the paywall after that embargo period. Embargo periods for funding agencies are maintained in SCM and are not included in the XML.</p>
+
+<p>The initial access type for content is set during import. A license URL for content can also be sent to Crossref. See section <a href="#permissions">Permissions</a> for information about setting access type and including licensing information.</p>
+
+<p>The funder&#8217;s name, award id, award recipient name, investigator name, and funding statement will display under the author and content information. The funding information can be cross-referenced in the body of the content with an <code>&lt;xref ref-type=&quot;award&quot;&gt;</code> that references the award group&#8217;s @id.</p>
+
+<pre><code>&lt;body&gt;
+     ...
+     &lt;p&gt;&lt;xref rid=&quot;award1&quot; ref-type=&quot;award&quot;&gt;This author&lt;/xref&gt; received funding for this work.&lt;/p&gt;
+     ...
+&lt;/body&gt;
+</code></pre>
+
+<h2 id="bookindex">Book index</h2>
+
+<p>To accommodate books that have an index, SCM supports <code>&lt;index-group&gt;</code> and <code>&lt;index&gt;</code> tagging in <code>&lt;book-back&gt;</code>. This can be set up as either a static list, using the tagging available in <code>&lt;index-group&gt;</code> or <code>&lt;index&gt;</code>, or it can be expanded to link back to parts of the book. An example of expanded tagging is shown below: </p>
+
+<pre><code>&lt;book-back&gt;
+    &lt;index-group&gt;
+        &lt;index&gt;
+            &lt;index-title-group&gt;
+                &lt;title&gt;Author Index&lt;/title&gt;
+            &lt;/index-title-group&gt;
+            ...
+            &lt;index-div&gt;
+                &lt;index-title-group&gt;
+                    &lt;title&gt;K&lt;/title&gt;
+                &lt;/index-title-group&gt;
+                &lt;index-entry&gt;
+                    &lt;term&gt;Kay, Michael&lt;/term&gt;
+                    &lt;nav-pointer-group&gt; 
+                        &lt;nav-pointer&gt;&lt;related-object document-type=&quot;book&quot; document-id-type=&quot;isbn13&quot; document-id=&quot;1234567890123&quot; object-type=&quot;target&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;K1&quot;&gt;1&lt;/related-object&gt;&lt;/nav-pointer&gt;
+                        &lt;nav-pointer&gt;&lt;related-object document-type=&quot;book&quot; document-id-type=&quot;isbn13&quot; document-id=&quot;1234567890123&quot; object-type=&quot;target&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;K2&quot;&gt;2&lt;/related-object&gt;&lt;/nav-pointer&gt;
+                    &lt;/nav-pointer-group&gt;
+                &lt;/index-entry&gt;
+                &lt;index-entry&gt;
+                    &lt;term&gt;Kepper, Johannes&lt;/term&gt;
+                    &lt;nav-pointer&gt;&lt;related-object document-type=&quot;book&quot; document-id-type=&quot;isbn13&quot; document-id=&quot;1234567890123&quot; object-type=&quot;target&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;K3&quot;&gt;3&lt;/related-object&gt;&lt;/nav-pointer&gt;
+                &lt;/index-entry&gt;
+            &lt;/index-div&gt;
+        &lt;/index&gt;
+    &lt;/index-group&gt;
+&lt;/book-back&gt;
+</code></pre>
+
+<p>Generally, an index will include a term and associated page numbers. If you want to link the page numbers back to text, you can use either a <code>&lt;nav-pointer-group&gt;</code> for multiple pages, or a <code>&lt;nav-pointer&gt;</code> for a single page number. The <code>&lt;nav-pointer&gt;</code> must contain a <code>&lt;related-object&gt;</code> to link to another part of the book, like a section, table, figure, or target that is anchored somewhere in the book&#8217;s text. See <a href="#linkstocontentinscm">Links to content in SCM</a> for more information on how to create these links. </p>
+
+<p>When an index points to page numbers, there may be a need identify where those page numbers are in the text. To accomplish this, page numbers are identified in the flow of the book using <code>&lt;target&gt;</code> tagging, and the index can link to those <code>&lt;target&gt;</code> anchors in the text (see the index tagging example, above). Use <code>&lt;target&gt;</code> with <code>@target-type=&quot;page&quot;</code> to place a page number within the flow of the book: </p>
+
+<pre><code>&lt;p&gt;&lt;bold&gt;Brian Smith&lt;/bold&gt; is an Associate Professor at the Faculty of Law of the
+    University of the United States. They studied in Dallas, Texas,
+    &lt;target target-type=&quot;page&quot; id=&quot;target2&quot;&gt;viii&lt;/target&gt;and Modesto, California, and
+    holds a Ph.D. in Law.&lt;/p&gt;
+</code></pre>
+
+<p><code>&lt;see-entry&gt;</code> and <code>&lt;see-also-entry&gt;</code> tagging can be used to point to different parts of the index. These can be static entries or use an <code>@rid</code> to link to the other term in the index.</p>
+
+<h1 id="body">Body</h1>
+
+<h2 id="sectionsandparagraphs">Sections and paragraphs</h2>
+
+<p>Sections can be nested to form sub-sections. Sub-sections intended to be at the same sub-section level should appear in the XML in <code>&lt;sec&gt;</code> elements at the same nested level.</p>
+
+<p>The paragraph element <code>&lt;p&gt;</code> describes block-level text. Paragraph elements cannot be nested. Each <code>&lt;p&gt;</code> element does not necessarily need to represent a single key point, thought, or topic as in the common definition of a paragraph. For example, if a list appears in the middle of a paragraph (in the common sense), then the paragraph should be split into two separate <code>&lt;p&gt;</code> elements with a <code>&lt;list&gt;</code> element in between.</p>
+
+<h2 id="automaticnumbering">Automatic numbering</h2>
+
+<p>Automatic numbering of figures (and analogous elements such as tables and boxed text) is not provided. If numbering is desired the numbers should be provided in the <code>&lt;title&gt;</code> or <code>&lt;label&gt;</code> element contents.</p>
+
+<pre><code>&lt;fig id=&quot;f1&quot;&gt;
+    &lt;label&gt;Fig. 1&lt;/label&gt;
+    &lt;caption&gt;&lt;p&gt;A schematic of … &lt;/p&gt;&lt;/caption&gt;
+    &lt;graphic xlink:href=&quot;JBO_17_2_026001_f001.png&quot;/&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<h2 id="nestingspecialcontentelements">Nesting special content elements</h2>
+
+<p>Certain content elements—figures, tables, boxed-text, graphics, media, supplementary material, lists, and verse groups (poems)—can have special display characteristics enabled on SCM. For example, clicking on a figure may enlarge the image, or tables may be listed in an index of tables. </p>
+
+<p>Nesting these elements inside any other special element, or inside a paragraph element, may cause those special display characteristics to fail. In general, nesting these elements should be avoided if they need to be detected for special display logic.</p>
+
+<h2 id="figuresandgraphics">Figures and graphics</h2>
+
+<p>Please see <a href="#alt-textforimages">alt-text for images</a> and <a href="#long-descforimages">long-desc for images</a> for information on how to make images accessible. </p>
+
+<h3 id="figures">Figures</h3>
+
+<p>Figures (<code>&lt;fig&gt;</code>) should be placed after the paragraph in which they are cited, not mid-paragraph. If more than one figure or table is cited in any particular paragraph, they should be placed in the order they are cited. If they are cited in a list item, they should be placed after the (outermost) closing list tag.</p>
+
+<pre><code>&lt;p&gt;... in &lt;xref ref-type=&quot;fig&quot; rid=&quot;f1&quot;&gt;Fig.&amp;#xA0;1&lt;/xref&gt;. The ...&lt;/p&gt;
+&lt;fig id=&quot;f1&quot;&gt;&lt;label&gt;Fig. 1&lt;/label&gt;&lt;caption&gt;&lt;p&gt;...&lt;/p&gt;&lt;/caption&gt;&lt;graphic xlink:href=&quot;XXX_22_2_026001_f001.png&quot;/&gt;&lt;/fig&gt;
+</code></pre>
+
+<p><code>&lt;fig&gt;</code> elements should be used for formal figures, especially when numbered and/or captioned. If your site includes features such as an index of figures, figure carousel, or tab of figures, the <code>&lt;fig&gt;</code> element designates the items that appear in those features.</p>
+
+<p>If a figure has more than one image part, and the image parts require labels, use the <code>&lt;fig-group&gt;</code> element. For example, the group of figures may have a caption, with the internal figures each having their own label and caption.</p>
+
+<p>The <code>@id</code> attribute must be used on the <code>&lt;fig&gt;</code> or the <code>&lt;fig-group&gt;</code> if they will be referenced from the body of the text using an <code>&lt;xref&gt;</code>.</p>
+
+<p>The <code>&lt;graphic&gt;</code> element within the <code>&lt;fig&gt;</code> is used to point to the external file containing a still image. A <code>&lt;graphic&gt;</code> must have an attribute <code>@xlink:href</code>, whose value should be the exact file name of the image. Provide only the literal file name relative to the directory specified for the file in the appropriate packaging guidelines. For example, a figure image stored directly in the Assets directory should use <code>@xlink:href=&quot;image.png&quot;</code> without a file path preceding the file name.</p>
+
+<p>To designate a figure image as restricted, include the <code>&lt;permissions&gt;</code> element as a child of <code>&lt;fig&gt;</code>, with a <code>&lt;license license-type=&quot;restricted&quot;&gt;</code> element inside the <code>&lt;permissions&gt;</code>. Restricted images can prevent download of the image, for example. Confirm desired functionality with your build team.</p>
+
+<p>Figures can be assigned a unique identifier such as a DOI using the <code>&lt;object-id&gt;</code> tag within the element. The <code>@pub-id-type</code> attribute must be included with a value of either &#8220;doi&#8221; or &#8220;publisher-id&#8221;.</p>
+
+<h3 id="graphics">Graphics</h3>
+
+<p>The <code>&lt;graphic&gt;</code> element can also be used without a <code>&lt;fig&gt;</code>. A <code>&lt;graphic&gt;</code> can be placed either outside or inside a paragraph, and will appear on its own line in either case.</p>
+
+<p>This tagging should be used for images that are not numbered and may or may not have a label, such as author headshots. These images will appear within the text of the document, without a pop up. These images will not appear in features such as the figures tab. </p>
+
+<!-- Not yet supported 
+*Not yet supported:* Graphics can be assigned a unique identifier such as a DOI using the `<object-id>` tag within the element. The `@pub-id-type` attribute must be included with a value of either "doi" or "publisher-id".
+-->
+
+<h4 id="textwrapforanchoredimages">Text wrap for anchored images</h4>
+
+<p>There is an optional extension for journal articles that enables text to wrap around images tagged with the <code>&lt;graphic&gt;</code> element and the attribute <code>@position=&quot;anchor&quot;</code>. For example, this could be used when there is an image of a person with a paragraph about that person that should appear alongside the photograph, as opposed to above or below the photograph. The paragraph that it should appear alongside should follow the <code>&lt;graphic&gt;</code> element. Including a caption is optional:</p>
+
+<pre><code>&lt;graphic id=&quot;personimage1&quot; position=&quot;anchor&quot; xlink:href=&quot;personimage1.jpeg&quot;&gt;
+     &lt;caption&gt;&lt;p&gt;Name of person.&lt;/p&gt;&lt;/caption&gt;
+&lt;/graphic&gt;
+&lt;p&gt;Paragraph about the person.&lt;/p&gt;
+</code></pre>
+
+<p>To use this feature, you must consult your build team.</p>
+
+<h3 id="inlinegraphics">Inline graphics</h3>
+
+<p>Inline graphics appear within a line of text, and are tagged using the <code>&lt;inline-graphic&gt;</code> element. An <code>&lt;inline-graphic&gt;</code> must have an attribute <code>@xlink:href</code>, whose value should be the exact file name of the image. </p>
+
+<pre><code>&lt;p&gt;The temperatures rose 20 degrees &lt;inline-graphic xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; xlink:href=&quot;sparkline.png&quot; /&gt; in 20 minutes. ...&lt;/p&gt;
+</code></pre>
+
+<h2 id="tables">Tables</h2>
+
+<p>Use the <code>&lt;table-wrap&gt;</code> element to include tables. The element may contain a <code>&lt;label&gt;</code> and <code>&lt;caption&gt;</code>, and must contain a <code>&lt;table&gt;</code> or <code>&lt;graphic&gt;</code> element. Include XML content for the table in <code>&lt;table&gt;</code>. To provide the table content in the form of an image, use the <code>&lt;graphic&gt;</code> element to point to the image file instead of using the <code>&lt;table&gt;</code> element. Please note that although we allow images as tables, this is not accessible. Please see the section <a href="#tabulardata">Tabular data</a> under the section <a href="#accessibility">Accessibility</a> for more information.</p>
+
+<p>Like figures, tables should be placed after the paragraph in which they are cited, and not mid-paragraph.</p>
+
+<p>A <code>&lt;graphic&gt;</code> must have an attribute <code>@xlink:href</code>, whose value should be the exact file name of the image. Provide only the literal file name relative to the directory specified for the file in the appropriate packaging guidelines. For example, a table image stored directly in the Assets directory should use <code>@xlink:href=&quot;image.png&quot;</code> without a file path preceding the file name.</p>
+
+<p>If a group of tables should be treated as a unit, group tables using the <code>&lt;table-wrap-group&gt;</code> element. For example, the group of tables may have a caption, with the internal tables each having their own label and caption.</p>
+
+<p>The <code>@id</code> attribute must be used on the <code>&lt;table-wrap&gt;</code> or <code>&lt;table-wrap-group&gt;</code> if the table will be referenced by an <code>&lt;xref&gt;</code> from elsewhere in the article.</p>
+
+<h3 id="tabularformatting">Tabular formatting</h3>
+
+<p>To apply tabular formatting to content without the full-fledged table treatment (e.g. listing in table of tables, expandable thumbnails, downloads), use either the <code>&lt;table-wrap&gt;</code> element with a <code>@specific-use=&quot;inline&quot;</code> attribute or the <code>&lt;array&gt;</code> element within a <code>&lt;p&gt;</code> element. The element <code>&lt;table-wrap specific-use=&quot;inline&quot;&gt;</code> allows a label, title, caption, and column headings while the <code>&lt;array&gt;</code> does not. However, the <code>&lt;array&gt;</code> element is commonly understood whereas the use of <code>&lt;table-wrap specific-use=&quot;inline&quot;&gt;</code> is idiosyncratic to SCM.</p>
+
+<!-- Not yet supported 
+*Not yet supported:* Tables can be assigned a unique identifier such as a DOI using the `<object-id>` tag within the `<table-wrap>` element. The `@pub-id-type` attribute must be included with a value of either "doi" or "publisher-id".
+-->
+
+<h2 id="sidebarsandboxed-text">Sidebars and boxed-text</h2>
+
+<p>Use the <code>&lt;boxed-text&gt;</code> element without a <code>@content-type</code> attribute for a boxed-text that is not a sidebar.</p>
+
+<p>For sidebars, use the <code>&lt;boxed-text&gt;</code> element with special flags on the <code>@content-type</code> attribute. There are three types of sidebars allowed, in three sizes, as indicated by the value of the <code>@content-type</code> attribute:</p>
+
+<ul>
+<li><code>&lt;boxed-text content-type=&quot;sidebar-small&quot;&gt;</code></li>
+<li><code>&lt;boxed-text content-type=&quot;sidebar-medium&quot;&gt;</code></li>
+<li><code>&lt;boxed-text content-type=&quot;sidebar-large&quot;&gt;</code></li>
+</ul>
+
+<p>Please note that, although three different sizes are allowed, they will all display at the same size by default, and the need to change the size of the display is a customization.</p>
+
+<p>Placement in XML is indicative of online placement; for instance, if a sidebar or box is placed between two paragraphs, that is where it will appear on the web site.</p>
+
+<p>Like figures and tables, sidebars and boxed-text may be numbered by using <code>&lt;label&gt;</code>, and can include a <code>&lt;caption&gt;</code>. The <code>@id</code> attribute must be used on the <code>&lt;boxed-text&gt;</code> if the boxed text will be referenced by an <code>&lt;xref&gt;</code> from elsewhere in the article.</p>
+
+<p>Sidebars and boxed text should not be placed mid-paragraph. </p>
+
+<!-- Not yet supported 
+*Not yet supported:* Boxed text and sidebars can be assigned a unique identifier such as a DOI using the `<object-id>` tag within the element. The `@pub-id-type` attribute must be included with a value of either "doi" or "publisher-id".
+-->
+
+<h2 id="multimedia">Multimedia</h2>
+
+<p>Include video, audio, or models in a <code>&lt;fig&gt;</code> element with attribute <code>@fig-type=&quot;video&quot;</code>, <code>@fig-type=&quot;audio&quot;</code>, or <code>@fig-type=&quot;model&quot;</code>, respectively. The <code>&lt;fig&gt;</code> element for multimedia must have a child <code>&lt;media&gt;</code> element instead of a <code>&lt;graphic&gt;</code> element. The <code>&lt;media&gt;</code> element within the <code>&lt;fig&gt;</code> designates the multimedia file or location. Please note that Silverchair does not directly host multimedia. Thus, publishers are expected to upload their multimedia files to a 3rd party host, preferably one of those described in the sections below. If your multimedia is currently hosted by a provider that is not listed below, please consult with your development team.</p>
+
+<p>Place the <code>&lt;fig&gt;</code> element after the paragraph in which it is cited, not mid-paragraph. If more than one figure or table is cited in any particular paragraph, they should be placed in the order they are cited. If they are cited in a list item, they should be placed after the (outermost) closing list tag.</p>
+
+<p>Do not include multimedia inside a <code>&lt;fig-group&gt;</code>.</p>
+
+<p>The <code>@id</code> attribute must be used on the <code>&lt;fig&gt;</code> if the multimedia will be referenced from the body of the text using an <code>&lt;xref&gt;</code>.</p>
+
+<p>Multimedia can be assigned a unique identifier such as a DOI using the <code>&lt;object-id&gt;</code> tag as a child of the <code>&lt;fig&gt;</code> element. The <code>@pub-id-type</code> attribute must be included with a value of either &#8220;doi&#8221; or &#8220;publisher-id&#8221;.</p>
+
+<p>Please see the section <a href="#transcriptsforaudioandvideo">Transcripts for audio and video</a> for information on how to provide in-text transcripts for accessibility. </p>
+
+<h3 id="brightcove">Brightcove</h3>
+
+<p>Use Brightcove content for multimedia by using <code>@content-type=&quot;brightcove&quot;</code> on the <code>&lt;media&gt;</code> element. </p>
+
+<p>To identify the video in Brightcove, one of either the Brightcove Video ID or Brightcove Reference ID must be included using <code>&lt;object-id pub-id-type=&quot;videoid&quot;&gt;</code> and <code>&lt;object-id pub-id-type=&quot;referenceid&quot;&gt;</code>, respectively, as a child of the <code>&lt;media&gt;</code> element. Both may be included. Optionally, include Brightcove&#8217;s shortened URL for the video in the <code>@xlink:href</code> attribute. Do not include other Brightcove metadata in the XML.</p>
+
+<p>Note that the <code>&lt;object-id&gt;</code> under the <code>&lt;media&gt;</code> element points to the video in Brightcove, while the <code>&lt;object-id&gt;</code> under the <code>&lt;fig&gt;</code> assigns an ID to the figure/video/audio.</p>
+
+<pre><code>&lt;fig id=&quot;video1&quot; fig-type=&quot;video&quot;&gt;
+    &lt;object-id pub-id-type=&quot;doi&quot;&gt;10.9999/SSC_20120928_v107i3_043_video1&lt;/object-id&gt;
+    &lt;label&gt;Video 1&lt;/label&gt;
+    &lt;caption&gt;&lt;title&gt;Fluoroscopy&lt;/title&gt;&lt;p&gt;Video of fluoroscopy.&lt;/p&gt;&lt;/caption&gt;
+    &lt;media content-type=&quot;brightcove&quot; xlink:href=&quot;http://bcove.me/hky4pn1o&quot;&gt;
+        &lt;object-id pub-id-type=&quot;videoid&quot;&gt;123456789&lt;/object-id&gt;
+        &lt;object-id pub-id-type=&quot;referenceid&quot;&gt;myVideo1&lt;/object-id&gt;
+    &lt;/media&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<h3 id="sketchfab">Sketchfab</h3>
+
+<p>Use Sketchfab content for multimedia by using <code>@content-type=&quot;sketchfab&quot;</code> on the <code>&lt;media&gt;</code> element. </p>
+
+<p>To identify the model in Sketchfab, the model ID must be included using <code>&lt;object-id pub-id-type=&quot;modelid&quot;&gt;</code> as a child of the <code>&lt;media&gt;</code> element. </p>
+
+<p>Note that the <code>&lt;object-id&gt;</code> under the <code>&lt;media&gt;</code> element points to the model in Sketchfab, while the <code>&lt;object-id&gt;</code> under the <code>&lt;fig&gt;</code> assigns an ID to the model in our system.</p>
+
+<pre><code>&lt;fig id=&quot;model1&quot; fig-type=&quot;model&quot;&gt;
+    &lt;object-id pub-id-type=&quot;doi&quot;&gt;10.9999/SSC_20120928_v107i3_043_model1&lt;/object-id&gt;
+    &lt;label&gt;Model 1&lt;/label&gt;
+    &lt;caption&gt;&lt;title&gt;Model Title&lt;/title&gt;&lt;p&gt;Description of the model.&lt;/p&gt;&lt;/caption&gt;
+    &lt;media content-type=&quot;sketchfab&quot;&gt;
+         &lt;object-id pub-id-type=&quot;modelid&quot;&gt;123cf4cc5d67e89f1bf0000ad123df456&lt;/object-id&gt;
+    &lt;/media&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<h3 id="glencoe">Glencoe</h3>
+
+<p>For Glencoe-hosted media, use <code>@content-type=&quot;glencoe&quot;</code> on the <code>&lt;media&gt;</code> element. Put the full URI to the video in <code>@xlink:href</code> on <code>&lt;media content-type=&quot;glencoe&quot;&gt;</code>.</p>
+
+<pre><code>&lt;fig id=&quot;video1&quot; fig-type=&quot;video&quot;&gt;
+    &lt;object-id pub-id-type=&quot;doi&quot;&gt;10.9999/SSC_20120928_v107i3_043_video2&lt;/object-id&gt;
+    &lt;label&gt;Video 2&lt;/label&gt;
+    &lt;caption&gt;&lt;title&gt;Fluoroscopy II&lt;/title&gt;&lt;p&gt;Second video of fluoroscopy.&lt;/p&gt;&lt;/caption&gt;
+    &lt;media content-type=&quot;glencoe&quot; xlink:href=&quot;https://movie.scpress.org/media/by_doi/10.0000/201904144.v1/source&quot;/&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<h3 id="videowithmediafiletobearchivedatsilverchair">Video with media file to be archived at Silverchair</h3>
+
+<p>If the media file is in the package and is to be archived for downstream deposits at Silverchair, use the <code>&lt;alternatives&gt;</code> tag with children media elements. Under <code>&lt;alternatives&gt;</code>, provide <code>&lt;media content-type=&quot;media-archive&quot;&gt;</code> and put the video file name in <code>@xlink:href</code>. If <code>&lt;media content-type=&quot;media-archive&quot;&gt;</code> is provided, it must have a sibling element media element, with the media host provider specified in <code>@content-type</code>, for example, <code>&lt;media content-type=&quot;glencoe&quot;&gt;</code>. The physical media file will not be hosted, and is included only for downstream full text deposits.</p>
+
+<pre><code>&lt;fig id=&quot;video1&quot; fig-type=&quot;video&quot;&gt;
+        &lt;object-id pub-id-type=&quot;doi&quot;&gt;10.9999/SSC_20120928_v107i3_043_video3&lt;/object-id&gt;
+    &lt;label&gt;Video 3&lt;/label&gt;
+    &lt;caption&gt;&lt;title&gt;Fluoroscopy III&lt;/title&gt;&lt;p&gt;Third video of fluoroscopy.&lt;/p&gt;&lt;/caption&gt;
+    &lt;alternatives&gt;
+        &lt;media content-type=&quot;glencoe&quot; xlink:href=&quot;https://movie.scpress.org/media/by_doi/10.0000/201904144.v1/source&quot;/&gt;
+        &lt;media content-type=&quot;media-archive&quot; xlink:href=&quot;SSC_20120928_v107i3_043_video3.mp4&quot;/&gt;
+    &lt;/alternatives&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<p>Please note that if a <code>&lt;fig&gt;</code> has a <code>&lt;alternatives&gt;</code> element as a child, then the <code>&lt;fig&gt;</code> cannot also have a <code>&lt;media&gt;</code> element as a child. Only <code>&lt;alternatives&gt;</code> or <code>&lt;media&gt;</code> is allowed as a direct child of <code>&lt;fig&gt;</code>. </p>
+
+<h3 id="awsjwplayer">AWS (JWPlayer)</h3>
+
+<p>AWS-hosted media is played through JWPlayer. You will need to consult your build team to have the video display on your site. For AWS-hosted media, use <code>@content-type=&quot;jwplayer&quot;</code> on the <code>&lt;media&gt;</code> element.</p>
+
+<p>Put the full URI to the video in <code>@xlink:href</code> on <code>&lt;media content-type=&quot;jwplayer&quot;&gt;</code>:</p>
+
+<pre><code> &lt;fig id=&quot;video1&quot; fig-type=&quot;video&quot;&gt;
+        &lt;object-id pub-id-type=&quot;doi&quot;&gt;10.9999/SSC_20120928_v107i3_043_video3&lt;/object-id&gt;
+    &lt;label&gt;Video 3&lt;/label&gt;
+    &lt;caption&gt;&lt;title&gt;Fluoroscopy III&lt;/title&gt;&lt;p&gt;Third video of fluoroscopy.&lt;/p&gt;&lt;/caption&gt;
+    &lt;media content-type=&quot;jwplayer&quot; xlink:href=&quot;https://content.jwplatform.com/players/GYOa3BzN-Sym6DpzW.js&quot;/&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<h3 id="youtube">YouTube</h3>
+
+<p>For YouTube-hosted media, use <code>@content-type=&quot;youtube&quot;</code> on the <code>&lt;media&gt;</code> element. Put the full URI to the video in <code>@xlink:href</code> on <code>&lt;media content-type=&quot;youtube&quot;&gt;</code>. You will need to consult your build team to have the video display on your site.</p>
+
+<pre><code>&lt;fig id=&quot;video6&quot; fig-type=&quot;video&quot;&gt;
+    &lt;label&gt;Video 6.&lt;/label&gt;
+    &lt;caption&gt;&lt;p&gt;Caption about video 6…&lt;/p&gt;&lt;/caption&gt;
+    &lt;media content-type=&quot;youtube&quot; xlink:href=&quot;https://youtu.be/[idOfVideo]&quot;/&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<h3 id="soundcloud">SoundCloud</h3>
+
+<p>For SoundCloud-hosted media, use <code>@content-type=&quot;soundcloud&quot;</code> on the <code>&lt;media&gt;</code> element. Specify <code>@fig-type=&quot;audio&quot;</code>, per normal rules for audio in <code>&lt;fig&gt;</code>. Put the embed URI to the audio in <code>@xlink:href</code> on <code>&lt;media content-type=&quot;soundcloud&quot;&gt;</code>. You will need to consult your build team to have the media display on your site.</p>
+
+<pre><code>&lt;fig id=&quot;audio6&quot; fig-type=&quot;audio&quot;&gt;
+    &lt;label&gt;Audio 6.&lt;/label&gt;
+    &lt;caption&gt;&lt;p&gt;Caption about audio 6…&lt;/p&gt;&lt;/caption&gt;
+    &lt;media content-type=&quot;soundcloud&quot; xlink:href=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/000000006&quot;/&gt;      
+&lt;/fig&gt;
+</code></pre>
+
+<h3 id="cadmore">Cadmore</h3>
+
+<p>For Cadmore-hosted media, use <code>@content-type=&quot;cadmore&quot;</code> on the <code>&lt;media&gt;</code> element. </p>
+
+<p>To identify the video in Cadmore, you will need to reference the Cadmore Video ID using <code>&lt;object-id pub-id-type=&quot;videoid&quot;&gt;</code> as a child of the <code>&lt;media&gt;</code> element. Do not include other Cadmore metadata in the XML.</p>
+
+<p>Note that the <code>&lt;object-id&gt;</code> under the <code>&lt;media&gt;</code> element points to the video in Cadmore, while the <code>&lt;object-id&gt;</code> under the <code>&lt;fig&gt;</code> assigns an ID to the video/audio.</p>
+
+<pre><code>&lt;fig id=&quot;video7&quot; fig-type=&quot;video&quot;&gt;
+    &lt;object-id pub-id-type=&quot;doi&quot;&gt;10.9999/SSC_22_ch10fgA22&lt;/object-id&gt;
+    &lt;label&gt;Video 7.&lt;/label&gt;
+    &lt;caption&gt;&lt;p&gt;Caption about video 7…&lt;/p&gt;&lt;/caption&gt;
+    &lt;media content-type=&quot;cadmore&quot;&gt;
+        &lt;object-id pub-id-type=&quot;videoid&quot;&gt;123456789-5cc5-4b22-82f0-168f1606f00&lt;/object-id&gt;
+    &lt;/media&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<h3 id="vimeo">Vimeo</h3>
+
+<p>For Vimeo-hosted media, use <code>@content-type=&quot;vimeo&quot;</code> on the <code>&lt;media&gt;</code> element. Specify <code>@fig-type=&quot;video&quot;</code>, per normal rules for video in <code>&lt;fig&gt;</code>. Put the full URI to the video in <code>@xlink:href</code> on <code>&lt;media content-type=&quot;vimeo&quot;&gt;</code>. You will need to consult your build team to have the media display on your site.</p>
+
+<pre><code>&lt;fig id=&quot;video8&quot; fig-type=&quot;video&quot;&gt;
+    &lt;label&gt;Video 8.&lt;/label&gt;
+    &lt;caption&gt;&lt;p&gt;Caption about Video 8…&lt;/p&gt;&lt;/caption&gt;
+    &lt;media content-type=&quot;vimeo&quot; xlink:href=&quot;https://player.vimeo.com/video/[idOfVideo]&quot;/&gt;       
+&lt;/fig&gt;
+</code></pre>
+
+<h2 id="mathandequations">Math and equations</h2>
+
+<p>Equations must be placed in a <code>&lt;disp-formula&gt;</code> element or an <code>&lt;inline-formula&gt;</code> element. Both formula elements may contain text, MathML, LaTeX, TeX, or images. MathML is preferred for accessibility purposes. See <a href="#mathml">MathML</a> under <a href="#accessibility">Accessibility</a> for more information. The <code>&lt;inline-formula&gt;</code> may not contain a <code>&lt;graphic&gt;</code>, but may contain an <code>&lt;inline-graphic&gt;</code>. </p>
+
+<p>Equations appearing on their own line should be contained in a <code>&lt;disp-formula&gt;</code> element. The <code>&lt;disp-formula&gt;</code> element may be placed inside or outside a <code>&lt;p&gt;</code>. To label the formula—for example, with a number that appears to the right of the formula—include the label text in a <code>&lt;label&gt;</code> within the <code>&lt;disp-formula&gt;</code>. The <code>&lt;disp-formula&gt;</code> may be referenced by an <code>&lt;xref&gt;</code>; if the formula will be referenced, an <code>@id</code> attribute must be included.</p>
+
+<p>Equations appearing within a line of text should be placed in an <code>&lt;inline-formula&gt;</code> element. The element should appear within a paragraph (<code>&lt;p&gt;</code>) or other element containing text. Inline formulas cannot be referenced by an <code>&lt;xref&gt;</code>.</p>
+
+<p>Mathematical equations can be described using MathML contained in the <code>&lt;mml:math&gt;</code> element. XML Schema allows use of any namespace prefix for the MathML elements. However, the MathML elements must use &#8220;mml&#8221; as the namespace prefix to validate to the Silverchair XSDs. SCJATS, SCBITS, and SCMM currently support MathML 2 and MathML 3 in XSD format. The XSDs without a MathML designation use MathML 2. The XSDs with &#8220;-mathml3&#8221; in the filename are the XSDs to use for MathML 3. In keeping with industry practices and to account for the fact that MathML 3 is not backwards compatible with MathML 2, we have created a separate set of XSD files for MathML 3 rather than adding it to our main xsd files, which still reference MathML 2. </p>
+
+<p>Please note that, as of release 1.41 and the addition of MathML 3 support, MathJax renders MathML 3 dynamically. That said, there are some limitations in MathJax rendering that are still under development. Information on those limitations can be found here: <a href="https://docs.mathjax.org/en/latest/input/mathml.html">https://docs.mathjax.org/en/latest/input/mathml.html</a>.</p>
+
+<p>Mathematical equations can also be described using LaTeX or TeX contained in the <code>&lt;tex-math&gt;</code> element. Further wrap the LaTeX markup in CDATA or escape special literal characters (e.g. ampersands) to prevent them from invalidating your XML document. We support LaTeX and TeX via MathJax. The Silverchair Platform does not support custom markup. </p>
+
+<p>Details in the MathML documentation may be found at <a href="http://www.w3.org/TR/MathML2/">http://www.w3.org/TR/MathML2/</a> and <a href="http://www.w3.org/TR/MathML3/">http://www.w3.org/TR/MathML3/</a>.</p>
+
+<h2 id="statements">Statements</h2>
+
+<p>Include formal statements such as theorems, lemma, and proofs in a <code>&lt;statement&gt;</code> element.</p>
+
+<h2 id="lists">Lists</h2>
+
+<p>Place lists inside the <code>&lt;list&gt;</code> element. The <code>&lt;list&gt;</code> element should not be placed within a <code>&lt;p&gt;</code> element, except where required by the XSD. The <code>@list-type</code> attribute can be used to designate the type of list as follows. If no <code>@list-type</code> is provided, the list will default to a simple list. Do not include the list item character (i.e. numbering or bullets) in the content; this will be generated automatically. We also discourage the use of labels, because it does not conform to accessibility and can create inconsistencies in display (see the section <a href="#labelsinlists">Labels in lists</a> under the section <a href="#accessibility">Accessibility</a> for more information).</p>
+
+<table>
+<caption id="listtypes">List types</caption>
+<colgroup>
+<col style="text-align:center;"/>
+<col style="text-align:center;"/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th style="text-align:center;">list-type attribute</th>
+	<th style="text-align:center;">Default list item character</th>
+	<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td style="text-align:center;">simple</td>
+	<td style="text-align:center;">n/a</td>
+	<td>Gets list indentation, but no character in front of each item. Sometimes called “unordered”.</td>
+</tr>
+<tr>
+	<td style="text-align:center;">bullet</td>
+	<td style="text-align:center;">•</td>
+	<td></td>
+</tr>
+<tr>
+	<td style="text-align:center;">number</td>
+	<td style="text-align:center;">1, 2, 3</td>
+	<td></td>
+</tr>
+<tr>
+	<td style="text-align:center;">alpha-lower</td>
+	<td style="text-align:center;">a, b, c</td>
+	<td></td>
+</tr>
+<tr>
+	<td style="text-align:center;">alpha-upper</td>
+	<td style="text-align:center;">A, B, C</td>
+	<td></td>
+</tr>
+<tr>
+	<td style="text-align:center;">roman-lower</td>
+	<td style="text-align:center;">i, ii, iii, iv</td>
+	<td></td>
+</tr>
+<tr>
+	<td style="text-align:center;">roman-upper</td>
+	<td style="text-align:center;">I, II, III, IV</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="poems">Poems</h2>
+
+<p>Poems can be included in the <code>&lt;verse-group&gt;</code> element. The <code>&lt;verse-group&gt;</code> element should not be placed within a <code>&lt;p&gt;</code> element.</p>
+
+<h2 id="externallinks">External links</h2>
+
+<p>Use the <code>&lt;ext-link&gt;</code> element for links external to SCM from the content&#8217;s text. The <code>@xlink:href</code> attribute should be used to indicate the location of the external content.</p>
+
+<h3 id="databaselinks">Database links</h3>
+
+<p>Silverchair supports links to external databases. For example, use an <code>&lt;ext-link&gt;</code> to link to PDB with <code>@ext-link-type=&quot;pdb&quot;</code> and an <code>@xlink:href</code> with the value of the ID of the data (e.g., <code>@xlink:href=&quot;6N2I&quot;</code>). In the <code>&lt;ext-link&gt;</code>, provide the value that you want linked: </p>
+
+<pre><code>&lt;ext-link ext-link-type=&quot;pdb&quot; xlink:href=&quot;6N2I&quot;&gt;6N2I&lt;/ext-link&gt;
+</code></pre>
+
+<p>A complete listing of the supported values follows: </p>
+
+<table>
+<colgroup>
+<col style="text-align:center;"/>
+<col style="text-align:center;"/>
+</colgroup>
+
+<thead>
+<tr>
+	<th style="text-align:center;">Database</th>
+	<th style="text-align:center;">ext-link-type attribute value</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td style="text-align:center;">PDB</td>
+	<td style="text-align:center;">pdb</td>
+</tr>
+<tr>
+	<td style="text-align:center;">GenBank - Gene</td>
+	<td style="text-align:center;">gene</td>
+</tr>
+<tr>
+	<td style="text-align:center;">GenBank - Nucleotide</td>
+	<td style="text-align:center;">ntide</td>
+</tr>
+<tr>
+	<td style="text-align:center;">PomBase</td>
+	<td style="text-align:center;">pombase</td>
+</tr>
+<tr>
+	<td style="text-align:center;">OMIM</td>
+	<td style="text-align:center;">omim</td>
+</tr>
+<tr>
+	<td style="text-align:center;">FlyBase</td>
+	<td style="text-align:center;">flybase</td>
+</tr>
+<tr>
+	<td style="text-align:center;">WormBase</td>
+	<td style="text-align:center;">wormbase</td>
+</tr>
+<tr>
+	<td style="text-align:center;">miRbase</td>
+	<td style="text-align:center;">mirbase</td>
+</tr>
+<tr>
+	<td style="text-align:center;">Rfam</td>
+	<td style="text-align:center;">rfam</td>
+</tr>
+<tr>
+	<td style="text-align:center;">Pfam</td>
+	<td style="text-align:center;">pfam</td>
+</tr>
+<tr>
+	<td style="text-align:center;">PROSITE</td>
+	<td style="text-align:center;">prosite</td>
+</tr>
+<tr>
+	<td style="text-align:center;">Swiss-Prot</td>
+	<td style="text-align:center;">sprot</td>
+</tr>
+<tr>
+	<td style="text-align:center;">Swiss-Model</td>
+	<td style="text-align:center;">smodel</td>
+</tr>
+<tr>
+	<td style="text-align:center;">ClinicalTrials.gov</td>
+	<td style="text-align:center;">clintri</td>
+</tr>
+<tr>
+	<td style="text-align:center;">DDBJ/EMBL/GenBank</td>
+	<td style="text-align:center;">gen</td>
+</tr>
+<tr>
+	<td style="text-align:center;">NCBI:refseq</td>
+	<td style="text-align:center;">refseq</td>
+</tr>
+<tr>
+	<td style="text-align:center;">NCBI:geo</td>
+	<td style="text-align:center;">geo</td>
+</tr>
+<tr>
+	<td style="text-align:center;">NCBI:protein</td>
+	<td style="text-align:center;">protein</td>
+</tr>
+<tr>
+	<td style="text-align:center;">NCBI:pubchem-substance</td>
+	<td style="text-align:center;">substance</td>
+</tr>
+<tr>
+	<td style="text-align:center;">NCBI:pubchem-bioassay</td>
+	<td style="text-align:center;">bioassay</td>
+</tr>
+<tr>
+	<td style="text-align:center;">NCBI:pubchem-compound</td>
+	<td style="text-align:center;">compound</td>
+</tr>
+<tr>
+	<td style="text-align:center;">NCBI:sra</td>
+	<td style="text-align:center;">sra</td>
+</tr>
+<tr>
+	<td style="text-align:center;">NCBI:structure</td>
+	<td style="text-align:center;">structure</td>
+</tr>
+<tr>
+	<td style="text-align:center;">NCBI:taxonomy</td>
+	<td style="text-align:center;">taxonomy</td>
+</tr>
+<tr>
+	<td style="text-align:center;">EBI:arrayexpress</td>
+	<td style="text-align:center;">arrayexpress</td>
+</tr>
+<tr>
+	<td style="text-align:center;">emblalign</td>
+	<td style="text-align:center;">emblalign</td>
+</tr>
+<tr>
+	<td style="text-align:center;">CCDC</td>
+	<td style="text-align:center;">ccdc</td>
+</tr>
+</tbody>
+</table>
+
+<p>If there are other values that need to be supported, please contact your build team.</p>
+
+<h2 id="references">References</h2>
+
+<p>References or bibliographic citations should be tagged inside <code>&lt;ref-list&gt;</code>. Each bibliographic entry should be in a <code>&lt;ref&gt;</code> element.</p>
+
+<p>References should be tagged at as granular a level as possible to enable SCM to query PubMed, Crossref, or other online databases; retrieve citation information and turn it into a live link; and format citations on the site. Granular tagging also enables any other functionality based on references that may be desired on the site.</p>
+
+<p>Silverchair recommends that at least these elements should be tagged:</p>
+
+<ul>
+<li><code>&lt;source&gt;</code></li>
+<li><code>&lt;article-title&gt;</code> (for journal and proceedings articles)</li>
+<li><code>&lt;chapter-title&gt;</code> (for books)</li>
+<li><code>&lt;volume&gt;</code></li>
+<li><code>&lt;issue&gt;</code></li>
+<li><code>&lt;fpage&gt;</code></li>
+<li><code>&lt;surname&gt;</code></li>
+<li><code>&lt;year&gt;</code></li>
+<li><code>&lt;month&gt;</code></li>
+<li><code>&lt;day&gt;</code></li>
+</ul>
+
+<p>SCM can create links to PubMed and Crossref for journal articles, conference proceedings, or books referenced in the references section. For SCM to determine and create these links, specific <code>@publication-type</code> values must be included in the <code>&lt;element-citation&gt;</code> or <code>&lt;mixed-citation&gt;</code> element. The values that are supported are <code>@publication-type=&quot;journal&quot;</code> for journal articles, <code>@publication-type=&quot;confproc&quot;</code> for conference proceedings, and <code>@publication-type=&quot;book&quot;</code> for books. In addition, if the <code>&lt;ref&gt;</code> element has more than one <code>&lt;element-citation&gt;</code> or <code>&lt;mixed-citation&gt;</code> element, each of those citations must have a unique <code>@id</code> value.</p>
+
+<pre><code>&lt;ref id=&quot;ref1&quot;&gt;
+    &lt;mixed-citation id=&quot;ref1a&quot; publication-type=&quot;journal&quot;&gt;
+        .....
+    &lt;/mixed-citation&gt;
+    &lt;mixed-citation id=&quot;ref1b&quot; publication-type=&quot;book&quot;&gt;
+        .....
+    &lt;/mixed-citation&gt;
+&lt;/ref&gt;
+</code></pre>
+
+<p>Crossref, PubMed, arXiv, and Web of Science information may optionally be supplied with the references by including a <code>&lt;pub-id&gt;</code> element. Use the attribute <code>@pub-id-type=&quot;doi&quot;</code> for a DOI, <code>@pub-id-type=&quot;pmid&quot;</code> for PubMed ID, <code>@pub-id-type=&quot;arxiv&quot;</code> for arXiv, and <code>@pub-id-type=&quot;wos&quot;</code> for Web of Science.</p>
+
+<p>The system provides formatting and punctuation for <code>&lt;element-citation&gt;</code>, while <code>&lt;mixed-citation&gt;</code> is formatted and punctuated from the source data.</p>
+
+<p>If you are using <code>&lt;element-citation&gt;</code>, we suggest you preview the rendition of your data in our system to ensure good results. </p>
+
+<pre><code>&lt;element-citation publication-type=&quot;journal&quot; publication-format=&quot;print&quot;&gt;
+    &lt;name&gt;&lt;surname&gt;Carila&lt;/surname&gt;&lt;given-names&gt;RC&lt;/given-names&gt;&lt;/name&gt;
+    &lt;name&gt;&lt;surname&gt;Poole&lt;/surname&gt;&lt;given-names&gt;JM&lt;/given-names&gt;&lt;/name&gt;
+    &lt;name&gt;&lt;surname&gt;Keefe&lt;/surname&gt;&lt;given-names&gt;LE&lt;/given-names&gt;&lt;/name&gt;
+    &lt;name&gt;&lt;surname&gt;Wan&lt;/surname&gt;&lt;given-names&gt;L&lt;/given-names&gt;&lt;/name&gt;   
+    &lt;article-title&gt;Blood pressure levels among sedentary workers&lt;/article-title&gt;   
+    &lt;source&gt;J Dem Diseases&lt;/source&gt;
+    &lt;year&gt;2012&lt;/year&gt;
+    &lt;month&gt;Jan&lt;/month&gt;
+    &lt;volume&gt;32&lt;/volume&gt;
+    &lt;issue&gt;1&lt;/issue&gt;
+    &lt;fpage&gt;112&lt;/fpage&gt;
+    &lt;lpage&gt;116&lt;/lpage&gt;   
+&lt;/element-citation&gt;
+</code></pre>
+
+<p>If you are using <code>&lt;mixed-citation&gt;</code> the XML must include all punctuation and spacing (such as the space between the <code>&lt;surname&gt;</code> and <code>&lt;given-names&gt;</code> below) as it should be displayed. </p>
+
+<pre><code>&lt;mixed-citation publication-type=&quot;journal&quot; publication-format=&quot;print&quot;&gt;&lt;string-name&gt;&lt;surname&gt;Carila&lt;/surname&gt; &lt;given-names&gt;RC&lt;/given-names&gt;&lt;/string-name&gt;, &lt;string-name&gt;&lt;surname&gt;Poole&lt;/surname&gt; &lt;given-names&gt;JM&lt;/given-names&gt;&lt;/string-name&gt;, &lt;string-name&gt;&lt;surname&gt;Keefe&lt;/surname&gt; &lt;given-names&gt;LE&lt;/given-names&gt;&lt;/string-name&gt;, &lt;string-name&gt;&lt;surname&gt;Wan&lt;/surname&gt; &lt;given-names&gt;L&lt;/given-names&gt;&lt;/string-name&gt;. &lt;article-title&gt;Blood pressure levels among sedentary workers&lt;/article-title&gt;. &lt;source&gt;J Dem Diseases&lt;/source&gt;. &lt;year&gt;2012&lt;/year&gt; &lt;month&gt;Jan&lt;/month&gt;; &lt;volume&gt;32&lt;/volume&gt;(&lt;issue&gt;1&lt;/issue&gt;): &lt;fpage&gt;112&lt;/fpage&gt;–&lt;lpage&gt;116&lt;/lpage&gt;.&lt;/mixed-citation&gt;
+</code></pre>
+
+<p>Note: <code>&lt;element-citation&gt;</code> should be reserved for citations that have consistent tagging, where automatic formatting is likely to be satisfactory. If that is not the case, we recommend using <code>&lt;mixed-citation&gt;</code> to preserve more controlled formatting.</p>
+
+<p>The <code>&lt;ref&gt;</code> element must have an <code>@id</code> attribute if it is linked from elsewhere in the content using an <code>&lt;xref&gt;</code>.</p>
+
+<h3 id="datacitations">Data citations</h3>
+
+<p>When citing a data set, use <code>@publication-type=&quot;data&quot;</code>. Use <code>@person-group-type=&quot;curator&quot;</code> on <code>&lt;person-group&gt;</code> when appropriate. Include at least one of <code>&lt;data-title&gt;</code> (name of data set) or <code>&lt;source&gt;</code> (name of repository holding the data). Wrap the repository ID in <code>&lt;pub-id&gt;</code> and include the full URI to the data, if known, in <code>@xlink:href</code>. Use <code>@assigning-authority</code> on <code>&lt;pub-id&gt;</code> when appropriate to identify the group responsible for the identifier. The version number of the dataset should appear in <code>&lt;version&gt;</code>, with a machine-readable number in the <code>@designator</code> attribute.</p>
+
+<pre><code> &lt;mixed-citation publication-type=&quot;data&quot;&gt; ... &lt;data-title&gt;Dataset 10&lt;/data-title&gt; &lt;source&gt;FigShare&lt;/source&gt;. &lt;pub-id pub-id-type=&quot;doi&quot; assigning-authority=&quot;figshare&quot; xlink:href=&quot;http:doi.org/10.6084/m9.figshare.815894&quot;&gt;10.6084/m9.figshare.815894&lt;/pub-id&gt;. &lt;version designator=&quot;16.2&quot;&gt;16th version, second release&lt;/version&gt;.&lt;/mixed-citation&gt;
+</code></pre>
+
+<h2 id="footnotes">Footnotes</h2>
+
+<p>Footnotes should be included in an <code>&lt;fn-group&gt;</code> element, with each footnote in an <code>&lt;fn&gt;</code>. The <code>&lt;fn&gt;</code> element must have an <code>@id</code> attribute if it is linked from elsewhere in the content using an <code>&lt;xref&gt;</code>. Footnotes provided in <code>&lt;fn-group&gt;</code> or general <code>&lt;author-notes&gt;</code> will display as a separate footnotes section at the end of the article. Footnotes in any other section will display where they appear.</p>
+
+<h2 id="whitespacebetweenelements">Whitespace between elements</h2>
+
+<p>The current default functionality of Zipline removes spaces in between xml elements when the only data between those elements is whitespace. For example, in the xml <code>&lt;p&gt;&lt;xref ref-type=&quot;bibr&quot; rid=&quot;bib82&quot;&gt;Soroor et al., 2019&lt;/xref&gt; &lt;italic&gt;Preprint&lt;/italic&gt;&lt;/p&gt;</code>, the space between the closing tag <code>&lt;/xref&gt;</code> and the opening <code>&lt;italic&gt;</code> tag will be stripped by the content processor. </p>
+
+<p>There are two options to retain whitespace: To manually preserve this space, as needed, we recommend that clients either use non-breaking space (<code>&amp;#160;</code>), or place the whitespace within the previous element&#8217;s closing tag. The functional solutions are as follows:</p>
+
+<ul>
+<li><code>&lt;p&gt;&lt;xref ref-type=&quot;bibr&quot; rid=&quot;bib82&quot;&gt;Soroor et al., 2019&lt;/xref&gt;&amp;#160;&lt;italic&gt;Preprint&lt;/italic&gt;&lt;/p&gt;</code></li>
+<li><code>&lt;p&gt;&lt;xref ref-type=&quot;bibr&quot; rid=&quot;bib82&quot;&gt;Soroor et al., 2019 &lt;/xref&gt;&lt;italic&gt;Preprint&lt;/italic&gt;&lt;/p&gt;</code></li>
+</ul>
+
+<p>Alternatively, there is an option to turn on a whitespace preservation override in Zipline. This override will preserve all whitespace but also normalizes it, meaning that multiple spaces will be taken down to one space. Please note that carriage returns and line breaks are not preserved. They need to be hard-coded, as necessary. Please speak to your build team if you wish to turn on this configuration.</p>
+
+<h2 id="displayattributes">Display attributes</h2>
+
+<p>Although not supported on the front-end by default, SCM does allow you to upload content containing certain display attributes for custom display, or for use in print or other non-SCM purposes. For custom display using these attributes, consult with your development team. Note that not all of these values are retained in the output XML that is downstreamed for deposits or other services.</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>attribute value</th>
+	<th>Meaning</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>align</td>
+	<td>Sets the horizontal alignment inside a table cell.</td>
+</tr>
+<tr>
+	<td>border</td>
+	<td>Thickness, in pixels, of the border to draw around a table.</td>
+</tr>
+<tr>
+	<td>cell-padding</td>
+	<td>Amount of space, measured in pixels, between the borders of a cell and the contents of a table cell.</td>
+</tr>
+<tr>
+	<td>cell-spacing</td>
+	<td>Width of space between cells in a table.</td>
+</tr>
+<tr>
+	<td>disp-level</td>
+	<td>Indicates the level at which to display a section when the display level and hierarchical level are different.</td>
+</tr>
+<tr>
+	<td>frame</td>
+	<td>Specifies which sides of a table should be given rules.</td>
+</tr>
+<tr>
+	<td>orientation</td>
+	<td>Indicates whether an object should be positioned in a tall manner (&#8220;portrait&#8221;) or in a wide manner (&#8220;landscape&#8221;).</td>
+</tr>
+<tr>
+	<td>position</td>
+	<td>Typically indicates whether a display object must be anchored in its exact location or may float to a different location in the document.</td>
+</tr>
+<tr>
+	<td>rules</td>
+	<td>Defines which rules to draw between rows and columns of an XHTML 1.1 table.</td>
+</tr>
+<tr>
+	<td>style</td>
+	<td>Names the style or rendering to be applied to the element.</td>
+</tr>
+<tr>
+	<td>valign</td>
+	<td>Sets the vertical alignment inside a table cell.</td>
+</tr>
+<tr>
+	<td>width</td>
+	<td>Used within a NISO JATS table to specify width.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="accessibility">Accessibility</h2>
+
+<p>With the 1.45 release of the specification, we have introduced additional guidance and new Zipline business rules to encourage accessible XML practices. Much of this new guidance is based on the JATS4R Accessibility recommendation. For more information about the full recommendation from JATS4R, please visit <a href="https://jats4r.niso.org/accessibility/">https://jats4r.niso.org/accessibility/</a>.</p>
+
+<h3 id="languageaccessibility">Language accessibility</h3>
+
+<p>Often, there are phrases within common elements, such as <code>&lt;p&gt;</code>, that are in a foreign language. These are not easily readable for accessibility purposes unless the foreign language is identified. When a foreign language phrase appears within an element, use <code>&lt;named-content&gt;</code> to identify the language being used, with a <code>@content-type</code> value of &#8220;foreign-phrase&#8221; and an <code>@xml:lang</code> value that matches the appropriate ISO 639&#8211;1 code: </p>
+
+<pre><code>&lt;p&gt;. . . remarkable for his &lt;named-content content-type=&quot;foreign-phrase&quot; xml:lang=&quot;fr&quot;&gt;joie de vivre&lt;/named-content&gt; and lively expression.&lt;/p&gt;
+</code></pre>
+
+<p>Please note that the use of <code>&lt;named-content&gt;</code> to drive any feature or display functionality other than language accessibility is not currently supported.</p>
+
+<h3 id="alt-textforimages">alt-text for images</h3>
+
+<p>We have implemented a check for <code>&lt;alt-text&gt;</code> for figures and images. If <code>&lt;alt-text&gt;</code> is missing or otherwise not indicated as being unneeded (see note below regarding decorative images), then a warning will be thrown so that this can be remediated. This check is for <code>&lt;alt-text&gt;</code> either within or as a sibling of <code>&lt;graphic&gt;</code> and <code>&lt;inline-graphic&gt;</code>, although tagging directly on the <code>&lt;graphic&gt;</code> or <code>&lt;inline-graphic&gt;</code> is preferred per the JATS4R recommendation: </p>
+
+<pre><code>&lt;fig id=&quot;figure1&quot;&gt;
+    &lt;label&gt;Figure 1&lt;/label&gt;
+    &lt;caption&gt;
+        &lt;title&gt;Lorem ipsum dolor.&lt;/title&gt;
+            &lt;p&gt;Nullam semper pretium porta. Nunc dignissim bibendum enim.&lt;/p&gt;
+    &lt;/caption&gt;
+    &lt;graphic xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; xlink:href=&quot;figure1filename.png&quot;&gt;
+        &lt;alt-text&gt;Description of figure 1&lt;/alt-text&gt;
+    &lt;/graphic&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<p>Note that decorative images do not require meaningful alt-text, but screen readers do expect an indicator that these images are purely decorative. The accepted indicator of this is a &#8220;NULL&#8221; value within alt-text: </p>
+
+<pre><code>&lt;alt-text&gt;NULL&lt;/alt-text&gt;
+</code></pre>
+
+<p>For more information on how to provide meaningful alt-text, please refer to the JATS4R recommendation (<a href="https://jats4r.niso.org/accessibility/#figures-and-images">https://jats4r.niso.org/accessibility/#figures-and-images</a>).</p>
+
+<h3 id="long-descforimages">long-desc for images</h3>
+
+<p>In cases where <code>&lt;alt-text&gt;</code> is not sufficient to describe the complexity of the image or figure, use <code>&lt;long-desc&gt;</code>. For example, <code>&lt;long-desc&gt;</code> could be useful to describe images of graphs or tables that show important data that leads to various conclusions. This element can be included as a child of <code>&lt;graphic&gt;</code> or <code>&lt;fig&gt;</code>. Please see <a href="https://jats4r.niso.org/accessibility/#figures-and-images">https://jats4r.niso.org/accessibility/#figures-and-images</a> for more examples and information:</p>
+
+<pre><code>&lt;fig id=&quot;figure1&quot;&gt;
+    &lt;label&gt;Figure 1&lt;/label&gt;
+    &lt;caption&gt;
+        &lt;title&gt;Lorem ipsum dolor.&lt;/title&gt;
+            &lt;p&gt;Nullam semper pretium porta. Nunc dignissim bibendum enim.&lt;/p&gt;
+    &lt;/caption&gt;
+    &lt;graphic xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; xlink:href=&quot;figure1filename.png&quot;&gt;
+        &lt;alt-text&gt;Description of figure 1&lt;/alt-text&gt;
+        &lt;long-desc&gt;Description of figure 1 that is longer than the alt-text description.&lt;/long-desc&gt;
+    &lt;/graphic&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<p>Alternatively, to link to an external, structured long-desc, use <code>@xlink:href</code> on <code>&lt;long-desc&gt;</code>: </p>
+
+<pre><code>&lt;fig id=&quot;figure1&quot;&gt;
+    &lt;label&gt;Figure 1&lt;/label&gt;
+    &lt;caption&gt;
+        &lt;title&gt;Lorem ipsum dolor.&lt;/title&gt;
+            &lt;p&gt;Nullam semper pretium porta. Nunc dignissim bibendum enim.&lt;/p&gt;
+    &lt;/caption&gt;
+    &lt;graphic xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; xlink:href=&quot;figure1filename.png&quot;&gt;
+        &lt;alt-text&gt;Description of figure 1&lt;/alt-text&gt;
+        &lt;long-desc xlink:href=&quot;https://example.com/long-desc/figure1&quot;/&gt;
+    &lt;/graphic&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<p>Note that we are aware that browsers have deprecated the HTML attribute longdesc. We have sought an alternative HTML solution that will not impact the XML tagging.</p>
+
+<h3 id="mathml">MathML</h3>
+
+<p>Although images are allowed to be used to represent math, that method of displaying math is not accessible. JATS4R recommends that all math be encoded as MathML. LaTeX and TeX are also ok in our system because they are converted to MathJax; however, on their own, these methods are not considered accessible. Please see the section <a href="#mathandequations">Math and equations</a> and <a href="https://jats4r.niso.org/accessibility/#math">https://jats4r.niso.org/accessibility/#math</a> for more guidance.</p>
+
+<h3 id="transcriptsforaudioandvideo">Transcripts for audio and video</h3>
+
+<p>Audio and video should be accompanied by an in-text transcript for accessibility purposes. Please tag the transcript as a <code>&lt;sec sec-type=&quot;transcript&quot;&gt;</code> in <code>&lt;back&gt;</code>: </p>
+
+<pre><code>&lt;sec sec-type=&quot;transcript&quot; id=&quot;TR1&quot;&gt;
+    &lt;title&gt;Interview With A Vampire&lt;/title&gt;
+    &lt;speech&gt;&lt;speaker&gt;Lestat&lt;/speaker&gt;&lt;p&gt;Thank you for joining me&lt;/p&gt;&lt;/speech&gt;
+    &lt;speech&gt;&lt;speaker&gt;Louis&lt;/speaker&gt;&lt;p&gt;Great to be here!&lt;/p&gt;&lt;/speech&gt;
+&lt;/sec&gt;
+</code></pre>
+
+<p>In addition, the audio or video should be linked to its transcript using <code>&lt;xref ref-type=&quot;transcript&quot;&gt;</code>: </p>
+
+<pre><code>&lt;fig id=&quot;video6&quot; fig-type=&quot;video&quot;&gt;
+    &lt;label&gt;Video 6.&lt;/label&gt;
+    &lt;caption&gt;&lt;p&gt;Interview With A Vampire&lt;/p&gt;&lt;/caption&gt;
+    &lt;media content-type=&quot;youtube&quot; xlink:href=&quot;https://youtu.be/[idOfVideo]&quot;&gt;
+        &lt;xref ref-type=&quot;custom&quot; custom-type=&quot;transcript&quot; rid=&quot;TR1&quot;/&gt;
+    &lt;/media&gt;
+&lt;/fig&gt;
+</code></pre>
+
+<h3 id="private-char">private-char</h3>
+
+<p>The element <code>&lt;private-char&gt;</code> should be avoided as tagging for special characters. Instead, use Unicode values to ensure that the special character can be read by screen readers or other text-to-speech or text-to-braille systems. For more guidance, please see the section <a href="#specialcharacters">Special characters</a> and <a href="https://jats4r.niso.org/accessibility/#special-characters">https://jats4r.niso.org/accessibility/#special-characters</a>.</p>
+
+<h3 id="labelsinlists">Labels in lists</h3>
+
+<p>The element, <code>&lt;label&gt;</code> should be avoided in <code>&lt;list-item&gt;</code> for tagging numbered or unordered lists. Instead, use <code>&lt;list&gt;</code> with an accepted <code>@list-type</code> value to represent any label that is needed so that the content is accessible and machine readable. For more guidance, please see the section <a href="#lists">Lists</a> and <a href="https://jats4r.niso.org/accessibility/#lists">https://jats4r.niso.org/accessibility/#lists</a>.</p>
+
+<h3 id="tabulardata">Tabular data</h3>
+
+<p>Table tagging should be used for tabular data, organized into rows and columns with headers. We do not recommend using tables for layout purposes. They should be tagged using the <code>&lt;table&gt;</code> element and should not be supplied as images (ie, images should not be used in lieu of table tagging). The <code>&lt;th&gt;</code> element is also recommended to define headers for columns and/or rows. Please see <a href="https://jats4r.niso.org/accessibility/#tables">https://jats4r.niso.org/accessibility/#tables</a> for more information.</p>
+
+<h1 id="thirdpartyxmlchecks">Third Party XML Checks</h1>
+
+<p>We now support a new category of business rule in Zipline (Third Party Warning) to check for XML issues that will trigger an error with third party service providers, such as Crossref. The intent of these checks is not to fully replicate the requirements for those providers, but rather to draw attention to common issues that will cause your content deposits to fail. It&#8217;s important to note that the rules in this category do not apply to our system requirements and have no impact on how your content will be ingested or displayed on the SCM platform.</p>
+
+<h1 id="deprecatedfeatures">Deprecated Features</h1>
+
+<p>The following features have been deprecated from SCBITS, but have been preserved in the specification to allow for backwards compatibility. These features will trigger a warning when content is loaded into Zipline, and we recommended updating the source content. These features may not be allowed in future releases of the Silverchair Specifications. </p>
+
+<h2 id="appendixelementaschildofbiographyelement"><code>appendix</code> element as child of <code>biography</code> element</h2>
+
+<p>The use of the <code>&lt;app&gt;</code> tag within <code>&lt;bio&gt;</code> is not valid to BITS 2.0 or JATS 1.2, and it should not be used. Appendices should be moved to an <code>&lt;app&gt;</code> or <code>&lt;app-group&gt;</code> in <code>&lt;back&gt;</code>. Proper use is as follows. </p>
+
+<pre><code>&lt;back&gt;
+    &lt;app-group id=&quot;appgroup-1&quot;&gt;
+        &lt;app id=&quot;app1&quot;&gt;
+            &lt;label&gt;Appendix 1&lt;/label&gt;
+            &lt;title&gt;Appendectomy&lt;/title&gt;
+            &lt;sec id=&quot;app1_sec1_1&quot;&gt;
+                &lt;title&gt;Appendix Section title&lt;/title&gt;
+                &lt;p&gt;An appendectomy is the surgical removal of the appendix. &lt;/p&gt;
+            &lt;/sec&gt;
+        &lt;/app&gt;
+    &lt;/app-group&gt;
+&lt;/back&gt; 
+</code></pre>
+
+<h2 id="app-groupelementaschildofbook-backelement"><code>app-group</code> element as child of <code>book-back</code> element</h2>
+
+<p>The use of the <code>&lt;app-group&gt;</code> tag within <code>&lt;book-back&gt;</code> is not valid to BITS 2.0, and it should not be used. Appendices should be moved to a <code>&lt;book-app-group&gt;</code> or <code>&lt;book-app&gt;</code> in <code>&lt;book-back&gt;</code>.
+Proper use is as follows. </p>
+
+<pre><code>&lt;book-back&gt;
+    &lt;book-app-group id=&quot;bag1&quot;&gt;
+        &lt;book-part-meta&gt;
+            &lt;title-group&gt;
+                &lt;title&gt;Appendices Group&lt;/title&gt;
+            &lt;/title-group&gt;
+        &lt;/book-part-meta&gt;
+        &lt;book-app id=&quot;ba1&quot;&gt;
+            &lt;book-part-meta&gt;
+                &lt;title-group&gt;
+                    &lt;title&gt;Appendix 1&lt;/title&gt;
+                &lt;/title-group&gt;
+            &lt;/book-part-meta&gt;
+            &lt;body&gt;
+                &lt;sec id=&quot;ba1s1&quot;&gt;
+                    &lt;title&gt;Scientific Name&lt;/title&gt;
+                    &lt;p&gt;Every node in the database is required to have ...&lt;/p&gt;
+                &lt;/sec&gt;
+            &lt;/body&gt;
+        &lt;/book-app&gt;
+    &lt;/book-app-group&gt;
+&lt;/book-back&gt; 
+</code></pre>
+
+<h2 id="fn-typevalueofcoi-statement"><code>@fn-type</code> value of &#8220;COI-statement&#8221;</h2>
+
+<p>The value of <code>@fn-type=&quot;COI-statement&quot;</code> to support Conflict of Interest statements has been deprecated and should not be used. Instead, please use <code>@fn-type=&quot;coi-statement&quot;</code> or <code>@fn-type=&quot;conflict&quot;</code>.</p>
+
+<h2 id="meta-namevalueofin-progressandmeta-valuevalueofinprogress"><code>&lt;meta-name&gt;</code> value of &#8220;in-progress&#8221; and <code>&lt;meta-value&gt;</code> value of &#8220;in progress&#8221;</h2>
+
+<p>Designating a book as “in progress” ahead of print publication, using a <code>&lt;custom-meta&gt;</code> node with <code>&lt;meta-name&gt;in-progress&lt;/meta-name&gt;</code> and <code>&lt;meta-value&gt;in progress&lt;/meta-value&gt;</code> has been deprecated. Instead, please use <code>&lt;meta-name&gt;publication-status&lt;/meta-name&gt;</code> and <code>&lt;meta-value&gt;in-progress&lt;/meta-value&gt;</code>. See section <a href="#bookpublicationstatus">Book publication status</a>.</p>
+
+<h2 id="publication-formatvaluesofepubandppub"><code>@publication-format</code> values of &#8220;epub&#8221; and &#8220;ppub&#8221;</h2>
+
+<p>Use of the <code>@publication-format</code> values &#8220;epub&#8221; and &#8220;ppub&#8221; on <code>&lt;pub-date&gt;</code> have been deprecated in favor of the values &#8220;electronic&#8221; and &#8220;print&#8221;, along with a <code>@date-type</code> vlaue of &#8220;pub&#8221;. See sections <a href="#dates">Dates</a> and <a href="#chapters">Chapters</a> for more information. </p>
+
+</body>
+</html>

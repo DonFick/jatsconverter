@@ -1,0 +1,2237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:mml="http://www.w3.org/1998/Math/MathML"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://specifications.silverchair.com/xsd/1/48/SCBITS-book.xsd"
+	targetNamespace="http://specifications.silverchair.com/xsd/1/48/SCBITS-book.xsd"
+	elementFormDefault="qualified">
+	<xs:import namespace="http://www.w3.org/1998/Math/MathML"
+		schemaLocation="ncbi-mathml2/mathml2.xsd"/>
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:import namespace="http://www.niso.org/schemas/ali/1.0/" schemaLocation="ali.xsd"/>
+	<!-- 
+		*************************************************************************************************************
+		Redefine the types that are in common.xsd. Extensions and restrictions would go here, if any. 
+		*************************************************************************************************************
+	-->
+	<xs:redefine schemaLocation="SC-common.xsd">
+		<xs:complexType name="sc-app-type" mixed="true">
+			<xs:complexContent>
+				<xs:extension base="sc-app-type">
+					<xs:sequence>
+						<xs:sequence>
+							<xs:element name="sec-meta" type="sc-sec-meta-type" minOccurs="0"/>
+							<xs:element name="label" type="sc-label-type" minOccurs="0"/>
+							<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+							<xs:element name="subtitle" type="sc-subtitle-type" minOccurs="0"
+								maxOccurs="unbounded"/>
+							<xs:choice minOccurs="0" maxOccurs="unbounded">
+								<xs:element name="array" type="sc-array-type"/>
+								<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+								<xs:element name="fig" type="sc-fig-type"/>
+								<xs:element name="fig-group" type="sc-fig-group-type"/>
+								<xs:element name="graphic" type="sc-graphic-type"/>
+								<xs:element name="media" type="sc-media-type"/>
+								<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+								<xs:element name="table-wrap-group" type="sc-table-wrap-group-type"/>
+								<xs:element name="disp-formula" type="sc-disp-formula-type"/>
+								<xs:element name="p" type="sc-p-type"/>
+								<xs:element name="def-list" type="sc-def-list-type"/>
+								<xs:element name="list" type="sc-list-type"/>
+								<xs:element name="disp-quote" type="sc-disp-quote-type"/>
+								<xs:element name="speech" type="sc-speech-type"/>
+								<xs:element name="statement" type="sc-statement-type"/>
+								<xs:element name="verse-group" type="sc-verse-group-type"/>
+							</xs:choice>
+							<xs:element name="sec" type="sc-sec-type" minOccurs="0"
+								maxOccurs="unbounded"/>
+							<xs:choice minOccurs="0" maxOccurs="unbounded">
+								<xs:element name="fn-group" type="sc-fn-group-type"/>
+								<xs:element name="ref-list" type="sc-ref-list-type"/>
+							</xs:choice>
+						</xs:sequence>
+					</xs:sequence>
+					<xs:attribute name="id" type="xs:ID"/>
+					<xs:attribute ref="xml:lang"/>
+					<xs:attribute name="aid" type="xs:integer"/>
+					<xs:attribute name="content-type"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-back-type">
+			<xs:complexContent>
+				<xs:extension base="sc-back-type">
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="toc" type="sc-toc-type"/>
+						<xs:group ref="sc.sig-block.class"/>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-glossary-type">
+			<xs:complexContent>
+				<xs:extension base="sc-glossary-type">
+					<xs:sequence>
+						<xs:element name="fn-group" type="sc-fn-group-type" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-label-type" mixed="true">
+			<xs:complexContent>
+				<xs:extension base="sc-label-type">
+					<xs:choice maxOccurs="unbounded" minOccurs="0">
+						<xs:group ref="sc.label.class"/>
+						<xs:group ref="sc.address-link.class"/>
+						<xs:group ref="sc.article-link.class"/>
+						<xs:group ref="j.appearance.class"/>
+						<xs:element name="fixed-case" type="sc-fixed-case-type"/>
+						<xs:element name="overline-start" type="j-overline-start-type"/>
+						<xs:element name="overline-end" type="j-overline-end-type"/>
+						<xs:element name="serif" type="sc-serif-type"/>
+						<xs:element name="underline-start" type="j-underline-start-type"/>
+						<xs:element name="underline-end" type="j-underline-end-type"/>
+						<xs:element name="ruby" type="sc-ruby-type"/>
+						<xs:group ref="j.math.class"/>
+						<xs:group ref="sc.phrase.class"/>
+						<xs:group ref="sc.simple-link.class"/>
+						<xs:group ref="j.x.class"/>
+						<xs:group ref="j.break.class"/>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-label-type-body" mixed="true">
+			<xs:complexContent>
+				<xs:extension base="sc-label-type-body">
+					<xs:choice maxOccurs="unbounded" minOccurs="0">
+						<xs:group ref="sc.label.class"/>
+						<xs:group ref="sc.address-link.class"/>
+						<xs:group ref="sc.article-link.class"/>
+						<xs:group ref="j.appearance.class"/>
+						<xs:element name="fixed-case" type="sc-fixed-case-type"/>
+						<xs:element name="overline-start" type="j-overline-start-type"/>
+						<xs:element name="overline-end" type="j-overline-end-type"/>
+						<xs:element name="serif" type="sc-serif-type"/>
+						<xs:element name="underline-start" type="j-underline-start-type"/>
+						<xs:element name="underline-end" type="j-underline-end-type"/>
+						<xs:element name="ruby" type="sc-ruby-type"/>
+						<xs:group ref="j.math.class"/>
+						<xs:group ref="sc.phrase.class"/>
+						<xs:group ref="sc.simple-link.class"/>
+						<xs:group ref="j.x.class"/>
+						<xs:group ref="j.break.class"/>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-publisher-type">
+			<xs:complexContent>
+				<xs:restriction base="sc-publisher-type">
+					<xs:sequence>
+						<xs:element name="publisher-name" type="j-publisher-name-type"/>
+						<xs:element name="publisher-loc" type="sc-publisher-loc-type" minOccurs="0"
+						/>
+					</xs:sequence>
+					<xs:attribute name="content-type" use="prohibited"/>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-ref-list-type">
+			<xs:complexContent>
+				<xs:extension base="sc-ref-list-type">
+					<xs:sequence>
+						<xs:element name="label" type="sc-label-type-body" minOccurs="0"/>
+						<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="address" type="sc-address-type"/>
+							<xs:element name="alternatives" type="sc-alternatives-type"/>
+							<xs:element name="array" type="sc-array-type"/>
+							<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+							<xs:element name="chem-struct-wrap" type="sc-chem-struct-wrap-type"/>
+							<xs:element name="fig" type="sc-fig-type"/>
+							<xs:element name="fig-group" type="sc-fig-group-type-body"/>
+							<xs:element name="graphic" type="sc-graphic-type"/>
+							<xs:element name="media" type="sc-media-type"/>
+							<xs:element name="preformat" type="sc-preformat-type"/>
+							<xs:element name="supplementary-material"
+								type="sc-supplementary-material-type"/>
+							<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+							<xs:element name="table-wrap-group" type="sc-table-wrap-group-type-body"/>
+							<xs:element name="disp-formula" type="sc-disp-formula-type"/>
+							<xs:element name="disp-formula-group" type="sc-disp-formula-group-type"/>
+							<xs:element name="def-list" type="sc-def-list-type"/>
+							<xs:element name="list" type="sc-list-type"/>
+							<xs:element name="tex-math" type="j-tex-math-type"/>
+							<xs:element ref="mml:math"/>
+							<xs:element name="p" type="sc-p-type"/>
+							<xs:element name="related-article" type="sc-related-article-type-body"/>
+							<xs:element name="related-object" type="sc-related-object-type-body"/>
+							<xs:element name="disp-quote" type="sc-disp-quote-type"/>
+							<xs:element name="speech" type="sc-speech-type"/>
+							<xs:element name="statement" type="sc-statement-type"/>
+							<xs:element name="verse-group" type="sc-verse-group-type"/>
+							<xs:element name="ref" type="sc-ref-type" minOccurs="0"
+								maxOccurs="unbounded"/>
+						</xs:choice>
+						<xs:element name="ref-list" type="sc-ref-list-type" minOccurs="0"
+							maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-sec-type">
+			<xs:complexContent>
+				<xs:extension base="sc-sec-type">
+					<xs:sequence>
+						<xs:element name="sec-meta" type="sc-sec-meta-type" minOccurs="0"/>
+						<xs:element name="label" type="sc-label-type" minOccurs="0"/>
+						<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+						<xs:element name="subtitle" type="sc-subtitle-type" minOccurs="0"/>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="array" type="sc-array-type"/>
+							<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+							<xs:element name="fig" type="sc-fig-type"/>
+							<xs:element name="fig-group" type="sc-fig-group-type"/>
+							<xs:element name="graphic" type="sc-graphic-type"/>
+							<xs:element name="media" type="sc-media-type"/>
+							<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+							<xs:element name="table-wrap-group" type="sc-table-wrap-group-type"/>
+							<xs:element name="disp-formula" type="sc-disp-formula-type"/>
+							<xs:element name="p" type="sc-p-type"/>
+							<xs:element name="def-list" type="sc-def-list-type"/>
+							<xs:element name="list" type="sc-list-type"/>
+							<xs:element name="disp-quote" type="sc-disp-quote-type"/>
+							<xs:element name="speech" type="sc-speech-type"/>
+							<xs:element name="statement" type="sc-statement-type"/>
+							<xs:element name="verse-group" type="sc-verse-group-type"/>
+						</xs:choice>
+						<xs:element name="sec" type="sc-sec-type" minOccurs="0"
+							maxOccurs="unbounded"/>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="fn-group" type="sc-fn-group-type"/>
+							<xs:element name="ref-list" type="sc-ref-list-type"/>
+						</xs:choice>
+					</xs:sequence>
+					<xs:attribute name="disp-level" use="optional" type="xs:string"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="sc-trans-title-type" mixed="true">
+			<xs:complexContent>
+				<xs:extension base="sc-trans-title-type">
+					<xs:choice maxOccurs="unbounded" minOccurs="0">
+						<xs:group ref="j.appearance.class"/>
+						<xs:element name="fixed-case" type="sc-fixed-case-type"/>
+						<xs:element name="overline-start" type="j-overline-start-type"/>
+						<xs:element name="overline-end" type="j-overline-end-type"/>
+						<xs:element name="serif" type="sc-sans-serif-type"/>
+						<xs:element name="underline-start" type="j-underline-start-type"/>
+						<xs:element name="underline-end" type="j-underline-end-type"/>
+						<xs:element name="ruby" type="sc-ruby-type"/>
+						<xs:element name="index-term" type="sc-index-term-type"/>
+						<xs:element name="index-term-range-end" type="j-index-term-range-end-type"/>
+						<xs:group ref="j.x.class"/>
+					</xs:choice>
+					<xs:attribute ref="xml:base" use="optional"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="j-uri-type" mixed="true">
+			<xs:complexContent>
+				<xs:extension base="j-uri-type">
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="inline-graphic" type="j-inline-graphic-type"/>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:redefine>
+	<!-- 
+		*************************************************************************************
+		Definition of types and declaration of elements specific to books.
+		*************************************************************************************
+	-->
+	<xs:element name="book" type="sc-book-type"/>
+	<xs:element name="book-part-wrapper" type="sc-book-part-wrapper-type"/>
+	<xs:complexType name="sc-abstract-type">
+		<xs:group ref="sc-abstract-model"/>
+		<xs:attribute name="abstract-type" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="abstract"/>
+					<xs:enumeration value="precis"/>
+					<xs:enumeration value="teaser"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<!--<xs:complexType name="sc-answer-type">
+		<xs:group ref="sc-answer-model"/>
+		<xs:attribute name="correct">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="yes"/>
+					<xs:enumeration value="no"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<!-\-<xs:attribute name="content-type" use="optional" type="xs:string"/>-\->
+		<!-\-<xs:attribute name="pointer-to-question" use="required" type="xs:IDREFS"/>-\->
+		<!-\-<xs:attribute name="specific-use" use="optional" type="xs:string"/>-\->
+		<!-\-<xs:attribute ref="xml:base" use="optional"/>-\->
+	</xs:complexType>-->
+	<!--<xs:complexType name="sc-answer-set-type">
+		<xs:group ref="sc-answer-set-model"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<!-\-<xs:attribute name="content-type" use="optional" type="xs:string"/>-\->
+		<!-\-<xs:attribute name="specific-use" use="optional" type="xs:string"/>-\->
+		<!-\-<xs:attribute ref="xml:base" use="optional"/>-\->
+	</xs:complexType>-->
+	<xs:complexType name="sc-body-type">
+		<xs:group ref="sc-body-model"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-book-app-type">
+		<xs:group ref="sc-book-app-model"/>
+		<!--xs:attribute name="book-part-type" use="optional" type="xs:string"/-->
+		<xs:attribute name="id" use="required" type="xs:ID"/>
+		<!--xs:attribute name="seq" use="optional" type="xs:string"/-->
+		<!--xs:attribute name="specific-use" use="optional" type="xs:string"/-->
+		<!--xs:attribute ref="xml:base" use="optional"/-->
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-book-app-group-type">
+		<xs:group ref="sc-book-app-group-model"/>
+		<!--xs:attribute name="book-part-type" use="optional" type="xs:string"/-->
+		<xs:attribute name="id" use="required" type="xs:ID"/>
+		<!--xs:attribute name="seq" use="optional" type="xsd:string"/-->
+		<!--xs:attribute name="specific-use" use="optional" type="xsd:string"/-->
+		<!--xs:attribute ref="xml:base" use="optional"/-->
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-book-volume-number" mixed="true"/>
+	<xs:complexType name="sc-book-type">
+		<xs:group ref="sc-book-model"/>
+		<xs:attribute name="dtd-version" type="xs:string" fixed="2.0"/>
+		<xs:attribute ref="xml:lang" use="optional" default="en"/>
+		<xs:attribute name="book-type" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="book"/>
+					<xs:enumeration value="edited-volume"/>
+					<xs:enumeration value="monograph"/>
+					<xs:enumeration value="reference"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<!--<xs:attribute name="id" type="xs:ID" use="optional"/>-->
+		<!--<xs:attribute name="indexed" use="optional">
+			<xs:simpleType>
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="no"/>
+					<xs:enumeration value="yes"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-book-body-type">
+		<xs:group ref="sc-book-body-model"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-book-back-type">
+		<xs:group ref="sc-book-back-model" maxOccurs="unbounded"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-book-id-type" mixed="true">
+		<!--<xs:attribute name="book-id-type" type="xs:string" use="optional"/>-->
+		<xs:attribute name="book-id-type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="doi"/>
+					<xs:enumeration value="publisher-id"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<!--<xs:choice minOccurs="0" maxOccurs="unbounded"/>-->
+		<!--<xs:attribute name="assigning-authority" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="id" use="optional" type="xs:ID"/>-->
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+		<!--<xs:attribute ref="xml:lang" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-book-meta-type">
+		<xs:group ref="sc-book-meta-model"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-book-part-type">
+		<xs:group ref="sc-book-part-model"/>
+		<xs:attribute name="book-part-type" use="required"/>
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<xs:attribute name="indexed" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="no"/>
+					<xs:enumeration value="yes"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<!--<xs:attribute name="seq" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-book-part-id-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+		<!--<xs:attribute name="book-part-id-type" type="xs:string" use="optional"/>-->
+		<xs:attribute name="book-part-id-type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="doi"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<!--<xs:attribute name="id" use="optional" type="xs:ID"/>-->
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+		<!--<xs:attribute ref="xml:lang" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-book-part-meta-type">
+		<xs:group ref="sc-book-part-meta-model"/>
+		<!--<xs:attribute name="id" use="optional" type="xs:ID"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-book-part-wrapper-type">
+		<xs:group ref="sc-book-part-wrapper-model"/>
+		<xs:attribute name="dtd-version" type="xs:string" fixed="2.0"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<!--<xs:attribute name="content-type" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="from-where" use="optional">
+			<xs:simpleType>
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="back"/>
+					<xs:enumeration value="body"/>
+					<xs:enumeration value="front-matter"/>
+					<xs:enumeration value="supplemental"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>-->
+		<!--<xs:attribute name="id" use="optional" type="xs:ID"/>-->
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-book-title-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-book-title-elements"/>
+		</xs:choice>
+		<!--<xs:attribute name="id" use="optional" type="xs:ID"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-book-title-group-type">
+		<xs:group ref="sc-book-title-group-model"/>
+		<!--<xs:attribute name="id" use="optional" type="xs:ID"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	
+	<xs:complexType name="sc-code-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-code-elements"/>
+		</xs:choice>
+		<xs:attribute name="code-type" type="xs:string" use="optional"/>
+		<xs:attribute name="code-version" type="xs:string" use="optional"/>
+		<xs:attribute name="executable" use="optional">
+			<xs:simpleType>
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="no"/>
+					<xs:enumeration value="yes"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="language" type="xs:string" use="optional"/>
+		<xs:attribute name="language-version" type="xs:string" use="optional"/>
+		<xs:attribute name="orientation" use="optional" default="portrait">
+			<xs:simpleType>
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="landscape"/>
+					<xs:enumeration value="portrait"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="platforms" type="xs:string" use="optional"/>
+		<xs:attribute name="position" use="optional" default="float">
+			<xs:simpleType>
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="anchor"/>
+					<xs:enumeration value="background"/>
+					<xs:enumeration value="float"/>
+					<xs:enumeration value="margin"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<xs:attribute ref="xml:space" fixed="preserve"/>
+	</xs:complexType>
+	<xs:complexType name="sc-collection-id-type" mixed="true">
+		<!--xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute ref="xml:base"/-->
+		<xs:attribute name="collection-id-type" use="required"/>
+		<!--xs:attribute name="specific-use"/>
+		<xs:attribute ref="xml:lang"/-->
+	</xs:complexType>
+	<xs:complexType name="sc-collection-meta-type">
+		<xs:sequence>
+			<xs:element name="collection-id" type="sc-collection-id-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="title-group" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="title" minOccurs="0" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="collection-type" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="collection"/>
+					<xs:enumeration value="edition-set"/>
+					<xs:enumeration value="series"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="sc-dedication-type">
+		<xs:group ref="sc-dedication-model"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<!--<xs:attribute name="book-part-type" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="indexed" use="optional">
+			<xs:simpleType>
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="no"/>
+					<xs:enumeration value="yes"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>-->
+		<!--<xs:attribute name="seq" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-edition-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-edition-elements"/>
+		</xs:choice>
+		<xs:attribute name="designator" type="xs:string" use="optional"/>
+		<!--<xs:attribute name="content-type" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="id" use="optional" type="xs:ID"/>-->
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+		<!--<xs:attribute ref="xml:lang" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-event-type">
+		<xs:group ref="sc-event-model"/>
+		<!--xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute ref="xml:base"/-->
+		<xs:attribute name="event-type"/>
+		<!--xs:attribute name="specific-use"/>
+		<xs:attribute ref="xml:lang"/-->
+	</xs:complexType>
+	<xs:complexType name="sc-event-desc-type" mixed="true">
+		<!--xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element ref="book-id"/>
+			<xs:element ref="edition"/>
+			<xs:element ref="date"/>
+			<xs:element ref="string-date"/>
+			<xs:element ref="issn"/>
+			<xs:element ref="issn-l"/>
+			<xs:element ref="isbn"/>
+			<xs:element ref="pub-date"/>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute ref="xml:base"/-->
+		<xs:attribute name="specific-use"/>
+		<!--xs:attribute ref="xml:lang"/-->
+	</xs:complexType>
+	<xs:complexType name="sc-explanation-type">
+		<xs:group ref="sc-explanation-model"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<!--<xs:attribute name="content-type" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="pointer-to-explained" use="required" type="xs:IDREFS"/>-->
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-fixed-case-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-emphasized-text"/>
+		</xs:choice>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-foreword-type">
+		<xs:group ref="sc-foreword-model"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<!--<xs:attribute name="book-part-type" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="indexed" use="optional">
+			<xs:simpleType>
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="no"/>
+					<xs:enumeration value="yes"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>-->
+		<!--<xs:attribute name="seq" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-front-matter-type">
+		<xs:group ref="sc-front-matter-model" maxOccurs="unbounded"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-front-matter-part-type">
+		<xs:choice>
+			<xs:group ref="sc-front-matter-part-model"/>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<xs:attribute name="book-part-type" use="optional" type="xs:string"/>
+		<xs:attribute name="indexed" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="no"/>
+					<xs:enumeration value="yes"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<!--<xs:attribute name="seq" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>	
+	<xs:complexType name="sc-index-type">
+		<xs:group ref="sc-index-model"/>
+		<xs:attribute name="content-type" use="optional" type="xs:string"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
+		<xs:attribute name="index-type" use="optional" type="xs:string"/>
+		<xs:attribute name="specific-use" use="optional" type="xs:string"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-index-div-type">
+		<xs:group ref="sc-index-div-model"/>
+		<xs:attribute name="content-type" use="optional" type="xs:string"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
+		<xs:attribute name="specific-use" use="optional" type="xs:string"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-index-entry-type">
+		<xs:group ref="sc-index-entry-model"/>
+		<xs:attribute name="content-type" use="optional" type="xs:string"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
+		<!--xs:attribute name="sort-key" use="optional" type="xs:string"/-->
+		<xs:attribute name="specific-use" use="optional" type="xs:string"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-index-group-type">
+		<xs:group ref="sc-index-group-model"/>
+		<xs:attribute name="content-type" use="optional" type="xs:string"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
+		<xs:attribute name="specific-use" use="optional" type="xs:string"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-index-term-type">
+		<xs:group ref="sc-index-term-model"/>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="index-type" type="xs:NMTOKENS" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-index-title-group-type">
+		<xs:group ref="sc-index-title-group-model"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="j-index-term-range-end-type">
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="rid" type="xs:IDREF" use="required"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	<!--<xs:complexType name="j-institution-id-type" mixed="true">
+		<xs:group ref="j-institution-id-model" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:attribute name="content-type" use="optional" type="xs:string"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
+		<xs:attribute name="institution-id-type" use="optional" type="xs:string"/>
+		<xs:attribute name="specific-use" use="optional" type="xs:string"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>-->
+	<!--<xs:complexType name="sc-institution-wrap-type">
+		<xs:group ref="sc-institution-wrap-model" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>-->
+	<xs:complexType name="sc-issn-type" mixed="true">
+		<xs:attribute name="publication-format" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="sc-named-book-part-body-type">
+		<xs:choice>
+			<xs:group ref="sc-named-book-part-body-model"/>
+		</xs:choice>
+		<!--<xs:attribute name="id" use="optional" type="xs:ID"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-name-address-wrap-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-name-address-wrap-elements"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="sc-nav-pointer-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-nav-pointer-elements"/>
+		</xs:choice>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="nav-pointer-type" use="optional">
+			<xs:simpleType>
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="end-of-range"/>
+					<xs:enumeration value="point"/>
+					<xs:enumeration value="start-of-range"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="rid" type="xs:IDREF" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-nav-pointer-group-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-nav-pointer-group-elements"/>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="j-overline-start-type">
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="j-overline-end-type">
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="rid" type="xs:IDREF" use="required"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	
+	<xs:complexType name="sc-preface-type">
+		<xs:group ref="sc-preface-model"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<!--<xs:attribute name="book-part-type" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="indexed" use="optional">
+			<xs:simpleType>
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="no"/>
+					<xs:enumeration value="yes"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>-->
+		<!--<xs:attribute name="seq" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-pub-date-type">
+		<xs:group ref="sc-pub-date-model" maxOccurs="unbounded"/>
+		<xs:attribute name="pub-type" use="prohibited"/>
+		<xs:attribute name="publication-format" use="optional"/>
+		<xs:attribute name="date-type" use="optional"/>
+		<xs:attribute name="iso-8601-date" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-pub-history-type">
+		<xs:group ref="sc-pub-history-model"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	<!--<xs:complexType name="sc-question-type">
+		<xs:group ref="sc-question-model"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<!-\-<xs:attribute name="content-type" use="optional" type="xs:string"/>-\->
+		<!-\-<xs:attribute name="question-response-type" use="optional">
+			<xs:simpleType>
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="essay"/>
+					<xs:enumeration value="fill-in-the-blank"/>
+					<xs:enumeration value="multi-select"/>
+					<xs:enumeration value="multiple-choice"/>
+					<xs:enumeration value="short-answer"/>
+					<xs:enumeration value="true-false"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>-\->
+		<!-\-<xs:attribute name="specific-use" use="optional" type="xs:string"/>-\->
+		<!-\-<xs:attribute ref="xml:base" use="optional"/>-\->
+	</xs:complexType>-->
+	<!--<xs:complexType name="sc-question-wrap-type">
+		<xs:group ref="sc-question-wrap-model"/>
+		<xs:attribute name="content-type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="short-answer"/>
+					<xs:enumeration value="true-false"/>
+					<xs:enumeration value="single-select"/>
+					<xs:enumeration value="multiple-choice"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<!-\-<xs:attribute name="audience" use="optional" type="xs:string"/>-\->
+		<!-\-<xs:attribute name="specific-use" use="optional" type="xs:string"/>-\->
+		<!-\-<xs:attribute ref="xml:base" use="optional"/>-\->
+	</xs:complexType>-->
+	<xs:complexType name="sc-rb-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-rb-elements"/>
+		</xs:choice>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="j-rp-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="j-rt-type" mixed="true">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-rt-elements"/>
+		</xs:sequence>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-ruby-type">
+		<xs:group ref="sc-ruby-model"/>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-see-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-see-elements"/>
+		</xs:choice>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="rid" type="xs:IDREFS" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-see-also-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-see-also-elements"/>
+		</xs:choice>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="rid" type="xs:IDREFS" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-see-also-entry-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-see-also-entry-elements"/>
+		</xs:choice>
+		<xs:attribute name="content-type" use="optional" type="xs:string"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
+		<xs:attribute name="rid" use="optional" type="xs:IDREFS"/>
+		<xs:attribute name="specific-use" use="optional" type="xs:string"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-see-entry-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-see-entry-elements"/>
+		</xs:choice>
+		<xs:attribute name="content-type" use="optional" type="xs:string"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
+		<xs:attribute name="rid" use="optional" type="xs:IDREFS"/>
+		<xs:attribute name="specific-use" use="optional" type="xs:string"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-serif-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-emphasized-text"/>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute name="toggle" use="optional" default="no">
+			<xs:simpleType>
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="no"/>
+					<xs:enumeration value="yes"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	
+	<xs:complexType name="sc-title-group-type">
+		<xs:group ref="sc-title-group-model"/>
+		<!--<xs:attribute name="id" use="optional" type="xs:ID"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-toc-type">
+		<xs:group ref="sc-toc-model"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<!--<xs:attribute name="content-type" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute name="specific-use" use="optional" type="xs:string"/>-->
+		<!--<xs:attribute ref="xml:base" use="optional"/>-->
+	</xs:complexType>
+	<xs:complexType name="sc-toc-div-type">
+		<xs:group ref="sc-toc-div-model"/>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-toc-entry-type">
+		<xs:group ref="sc-toc-entry-model"/>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-toc-title-group-type">
+		<xs:group ref="sc-toc-title-group-model"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-trans-abstract-type">
+		<xs:group ref="sc-trans-abstract-model"/>
+		<xs:attribute name="abstract-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-trans-subtitle-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-trans-subtitle-elements"/>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sc-trans-title-group-type">
+		<xs:group ref="sc-trans-title-group-model"/>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="j-underline-end-type">
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="rid" type="xs:IDREF" use="required"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="j-underline-start-type">
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="j-x-type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="sc-x-elements"/>
+		</xs:choice>
+		<xs:attribute name="content-type" type="xs:string" use="optional"/>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+		<xs:attribute name="specific-use" type="xs:string" use="optional"/>
+		<xs:attribute ref="xml:base" use="optional"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<xs:attribute ref="xml:space" fixed="preserve"/>
+	</xs:complexType>
+	<!-- 
+		*************************************************************************************
+		Definition of groups specific to books.
+		*************************************************************************************
+	-->
+	<xs:group name="sc-abstract-model">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.id.class"/>
+			</xs:choice>
+			<xs:group ref="sc-sec-opt-title-model"/>
+		</xs:sequence>
+	</xs:group>
+
+	<!--<xs:group name="sc-answer-model">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<!-\-<xs:group ref="sc.id.class"/>-\-> </xs:choice>
+			<xs:element name="label" type="sc-label-type" minOccurs="0"/>
+			<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+			<!-\-<xs:element ref="subtitle" minOccurs="0" maxOccurs="unbounded"/>-\->
+			<xs:element name="alt-title" type="sc-alt-title-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:choice>
+				<xs:choice maxOccurs="unbounded">
+					<xs:group ref="sc-sec-level"/>
+				</xs:choice>
+				<xs:sequence>
+					<xs:choice maxOccurs="unbounded">
+						<xs:group ref="sc-answer-para-level"/>
+					</xs:choice>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:group ref="sc-sec-level"/>
+					</xs:choice>
+				</xs:sequence>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-sec-back-matter-mix"/>
+			</xs:choice>
+			<xs:element name="explanation" type="sc-explanation-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>-->
+	<!--<xs:group name="sc-answer-para-level">
+		<xs:choice>
+			<xs:group ref="sc.block-display-minus-explanation.class"/>
+			<xs:group ref="sc.block-math.class"/>
+			<xs:group ref="sc.list.class"/>
+			<!-\-<xs:group ref="j.math.class"/>-\->
+			<xs:group ref="sc.nothing-but-para.class"/>
+			<!-\-<xs:group ref="sc.related-article.class"/>-\->
+			<xs:group ref="sc.rest-of-para.class"/>
+			<!-\-<xs:group ref="j.x.class"/>-\->
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-answer-set-model">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<!-\-<xs:group ref="sc.id.class"/>-\-> </xs:choice>
+			<!-\-<xs:element ref="label" minOccurs="0"/>-\->
+			<!-\-<xs:element ref="title" minOccurs="0"/>-\->
+			<!-\-<xs:element ref="subtitle" minOccurs="0" maxOccurs="unbounded"/>-\->
+			<!-\-<xs:element ref="alt-title" minOccurs="0" maxOccurs="unbounded"/>-\->
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="answer" type="sc-answer-type"/>
+				<xs:group ref="sc.just-para.class"/>
+				<xs:element name="explanation" type="sc-explanation-type"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>-->
+	<xs:group name="sc-body-model">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-para-level"/>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-sec-level"/>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.book-part.class"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-book-app-model">
+		<xs:sequence>
+			<xs:element name="book-part-meta" type="sc-book-part-meta-type" minOccurs="1"/>
+			<!--xs:element ref="front-matter" minOccurs="0"/-->
+			<xs:element name="body" type="sc-body-type" minOccurs="0"/>
+			<xs:element name="back" type="sc-back-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-book-app-group-model">
+		<xs:sequence>
+			<xs:element name="book-part-meta" type="sc-book-part-meta-type" minOccurs="1"/>
+			<!--xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-para-level"/>
+			</xs:choice-->
+			<!--xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-sec-level"/>
+			</xs:choice-->
+			<!--xs:choice maxOccurs="unbounded">
+				<xs:element name="book-app" type="sc-book-app-type"/>
+			</xs:choice-->
+			<xs:element name="book-app" type="sc-book-app-type" minOccurs="1" maxOccurs="unbounded"
+			/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-book-back-model">
+		<xs:choice>
+			<xs:group ref="sc.book-back-only.class"/>
+			<xs:group ref="sc.book-part.class"/>
+			<xs:group ref="sc.both-front-back.class"/>
+			<xs:group ref="sc.front-back.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-book-body-model">
+		<xs:choice>
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="sc.book-part.class"/>
+			</xs:choice>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-book-model">
+		<xs:sequence>
+			<xs:element name="collection-meta" type="sc-collection-meta-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="book-meta" type="sc-book-meta-type"/>
+			<xs:element name="front-matter" type="sc-front-matter-type" minOccurs="0"/>
+			<xs:element name="book-body" type="sc-book-body-type" minOccurs="0"/>
+			<xs:element name="book-back" type="sc-book-back-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-book-meta-model">
+		<xs:sequence>
+			<xs:element name="book-id" type="sc-book-id-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="subj-group" type="sc-subj-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="book-title-group" type="sc-book-title-group-type" minOccurs="0"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.contrib-group.class"/>
+				<xs:group ref="sc.aff-alternatives.class"/>
+				<!--<xs:group ref="j.x.class"/>-->
+			</xs:choice>
+			<xs:element name="author-notes" type="sc-author-notes-type" minOccurs="0"/>
+			<xs:element name="pub-date" type="sc-pub-date-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="book-volume-number" type="sc-book-volume-number" minOccurs="0"/>
+			<!--<xs:element ref="book-volume-id" minOccurs="0" maxOccurs="unbounded"/>-->
+			<xs:element name="issn" type="sc-issn-type" minOccurs="0" maxOccurs="unbounded"/>
+			<!--<xs:element ref="issn-l" minOccurs="0"/>-->
+			<xs:element name="isbn" type="sc-isbn-type" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="publisher" type="sc-publisher-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="edition" type="sc-edition-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="supplementary-material" type="sc-supplementary-material-type"
+				minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="pub-history" type="sc-pub-history-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="permissions" type="sc-permissions-type" minOccurs="0"/>
+			<xs:element name="self-uri" type="sc-self-uri-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.related-article.class"/>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.abstract.class"/>
+			</xs:choice>
+			<!--<xs:element ref="trans-abstract" minOccurs="0" maxOccurs="unbounded"/>-->
+			<xs:element name="kwd-group" type="sc-kwd-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="funding-group" type="sc-funding-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<!--<xs:element ref="conference" minOccurs="0" maxOccurs="unbounded"/>-->
+			<xs:element name="counts" type="sc-counts-type" minOccurs="0"/>
+			<xs:element name="custom-meta-group" type="sc-custom-meta-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<!--<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.front-back.class"/>
+			</xs:choice>-->
+		</xs:sequence>
+	</xs:group>
+	
+	<xs:group name="sc-book-part-model">
+		<xs:sequence>
+			<xs:element name="book-part-meta" type="sc-book-part-meta-type" minOccurs="0"/>
+			<xs:element name="front-matter" type="sc-front-matter-type" minOccurs="0"/>
+			<xs:element name="body" type="sc-body-type" minOccurs="0"/>
+			<xs:element name="back" type="sc-back-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-book-part-meta-model">
+		<xs:sequence>
+			<xs:element name="book-part-id" type="sc-book-part-id-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="subj-group" type="sc-subj-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="title-group" type="sc-title-group-type" minOccurs="0"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.contrib-group.class"/>
+				<xs:group ref="sc.aff-alternatives.class"/>
+				<!--<xs:group ref="j.x.class"/>-->
+			</xs:choice>
+			<xs:element name="author-notes" type="sc-author-notes-type" minOccurs="0"/>
+			<xs:element name="pub-date" type="sc-pub-date-type" minOccurs="0" maxOccurs="unbounded"/>
+			<!--<xs:element ref="edition" minOccurs="0" maxOccurs="unbounded"/>-->
+			<!--<xs:element ref="issn" minOccurs="0" maxOccurs="unbounded"/>-->
+			<!--<xs:element ref="issn-l" minOccurs="0"/>-->
+			<!--<xs:element ref="isbn" minOccurs="0" maxOccurs="unbounded"/>-->
+			<!--<xs:element ref="publisher" minOccurs="0" maxOccurs="unbounded"/>-->
+			<xs:choice minOccurs="0">
+				<xs:sequence>
+					<xs:element name="fpage" type="sc-fpage-type"/>
+					<xs:element name="lpage" type="sc-lpage-type" minOccurs="0"/>
+				</xs:sequence>
+				<!--<xs:element ref="elocation-id"/>-->
+			</xs:choice>
+			<xs:element name="supplementary-material" type="sc-supplementary-material-type"
+				minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="pub-history" type="sc-pub-history-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="permissions" type="sc-permissions-type" minOccurs="0"/>
+			<xs:element name="self-uri" type="sc-self-uri-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.related-article.class"/>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.abstract.class"/>
+			</xs:choice>
+			<!--<xs:element ref="trans-abstract" minOccurs="0" maxOccurs="unbounded"/>-->
+			<xs:element name="kwd-group" type="sc-kwd-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="funding-group" type="sc-funding-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<!--<xs:element ref="conference" minOccurs="0" maxOccurs="unbounded"/>-->
+			<xs:element name="counts" type="sc-counts-type" minOccurs="0"/>
+			<!--<xs:element ref="custom-meta-group" minOccurs="0" maxOccurs="unbounded"/>-->
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<!--<xs:group ref="sc.front-back.class"/>--> </xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-book-part-wrapper-model">
+		<xs:sequence>
+			<xs:element name="collection-meta" type="sc-collection-meta-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="book-meta" type="sc-book-meta-type"/>
+			<xs:choice>
+				<xs:group ref="sc-book-parts-mix"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-book-parts-mix">
+		<xs:choice>
+			<xs:group ref="sc.book-part.class"/>
+			<xs:group ref="sc.book-back-only.class"/>
+			<xs:group ref="sc.front-only.class"/>
+			<xs:group ref="sc.front-back.class"/>
+			<xs:group ref="sc.both-front-back.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-book-title-elements">
+		<xs:choice>
+			<xs:group ref="sc-all-phrase"/>
+			<xs:group ref="j.break.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-book-title-group-model">
+		<xs:sequence>
+			<!--<xs:element ref="label" minOccurs="0"/>-->
+			<xs:element name="book-title" type="sc-book-title-type" minOccurs="0"/>
+			<xs:element name="subtitle" type="sc-subtitle-type" minOccurs="0"/>
+			<!--<xs:element ref="trans-title-group" minOccurs="0" maxOccurs="unbounded"/>-->
+			<xs:element name="alt-title" type="sc-alt-title-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<!--<xs:element ref="fn-group" minOccurs="0"/>-->
+		</xs:sequence>
+	</xs:group>
+	
+	<xs:group name="sc-code-elements">
+		<xs:choice>
+			<xs:group ref="sc.address-link.class"/>
+			<xs:group ref="sc.emphasis.class"/>
+			<xs:group ref="sc.phrase.class"/>
+			<xs:group ref="sc.simple-link.class"/>
+			<xs:group ref="sc.subsup.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-dedication-model">
+		<xs:sequence>
+			<xs:group ref="sc-named-book-part-model"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-edition-elements">
+		<xs:choice>
+			<xs:group ref="sc-just-rendition"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-emphasized-text">
+		<xs:choice>
+			<xs:group ref="sc-all-phrase"/>
+			<xs:group ref="j.break.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-index-entry-model">
+		<xs:sequence>
+			<xs:element name="term" type="sc-term-type"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.index-entry.class"/>
+				<xs:group ref="sc.struct-link.class"/>
+				<xs:group ref="sc.see-also-see-entry.class"/>
+				<xs:group ref="j.x.class"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-event-model">
+		<xs:sequence>
+			<xs:element name="event-desc" type="sc-event-desc-type" minOccurs="0"/>
+			<!--xs:element minOccurs="0" maxOccurs="unbounded" ref="book-id"/>
+			<xs:element minOccurs="0" maxOccurs="unbounded" ref="edition"/-->
+			<xs:element name="pub-date" type="sc-pub-date-type" minOccurs="0" maxOccurs="unbounded"/>
+			<!--xs:element name="date" type="sc-date-type" minOccurs="0" maxOccurs="unbounded"/-->
+			<!--xs:element minOccurs="0" maxOccurs="unbounded" ref="issn"/>
+			<xs:element minOccurs="0" ref="issn-l"/>
+			<xs:element minOccurs="0" maxOccurs="unbounded" ref="isbn"/>
+			<xs:element minOccurs="0" ref="permissions"/-->
+			<xs:element name="notes" type="sc-notes-type" minOccurs="0" maxOccurs="unbounded"/>
+			<!--xs:element minOccurs="0" maxOccurs="unbounded" ref="self-uri"/-->
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-explanation-model">
+		<xs:sequence>
+			<xs:element name="p" type="sc-p-type" maxOccurs="unbounded"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<!--<xs:group ref="sc.id.class"/>--> </xs:choice>
+			<!--<xs:element ref="label" minOccurs="0"/>-->
+			<!--<xs:element ref="title" minOccurs="0"/>-->
+			<!--<xs:element ref="subtitle" minOccurs="0" maxOccurs="unbounded"/>-->
+			<!--<xs:element ref="alt-title" minOccurs="0" maxOccurs="unbounded"/>-->
+			<xs:choice>
+				<xs:choice maxOccurs="unbounded">
+					<!--<xs:group ref="sc-sec-level"/>--> </xs:choice>
+				<xs:sequence>
+					<xs:choice maxOccurs="unbounded">
+						<!--<xs:group ref="sc-answer-para-level"/>--> </xs:choice>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<!--<xs:group ref="sc-sec-level"/>--> </xs:choice>
+				</xs:sequence>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<!--<xs:group ref="sc-sec-back-matter-mix"/>--> </xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-foreword-model">
+		<xs:sequence>
+			<xs:group ref="sc-named-book-part-model"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-front-matter-model">
+		<xs:choice>
+			<xs:group ref="sc.both-front-back.class"/>
+			<xs:group ref="sc.front-only.class"/>
+			<xs:group ref="sc.front-back.class"/>
+			<!--<xs:group ref="ref-list.class"/>-->
+			<!--<xs:group ref="xinclude.class"/>-->
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-front-matter-part-model">
+		<xs:sequence>
+			<xs:group ref="sc-named-book-part-model"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-index-model">
+		<xs:sequence>
+			<xs:element name="index-title-group" type="sc-index-title-group-type" minOccurs="0"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-para-level-minus-x"/>
+			</xs:choice>
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="sc.index-entry.class"/>
+				<xs:group ref="sc.index-div.class"/>
+				<xs:group ref="j.x.class"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-index-div-model">
+		<xs:sequence>
+			<xs:element name="index-title-group" type="sc-index-title-group-type" minOccurs="0"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-para-level-minus-x"/>
+			</xs:choice>
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="sc.index-entry.class"/>
+				<xs:group ref="sc.index-div.class"/>
+				<xs:group ref="j.x.class"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-index-group-model">
+		<xs:sequence>
+			<xs:element name="index-title-group" type="sc-index-title-group-type" minOccurs="0"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-para-level"/>
+			</xs:choice>
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="sc.index.class"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-index-term-model">
+		<xs:sequence>
+			<xs:element name="term" type="sc-term-type"/>
+			<xs:choice>
+				<xs:element name="index-term" type="sc-index-term-type"/>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="see" type="sc-see-type"/>
+					<xs:element name="see-also" type="sc-see-also-type"/>
+				</xs:choice>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-index-title-group-model">
+		<xs:sequence>
+			<xs:element name="label" type="sc-label-type" minOccurs="0"/>
+			<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+			<xs:element name="subtitle" type="sc-title-type" minOccurs="0" maxOccurs="unbounded"/>
+			<!--xs:element name="trans-title-group" minOccurs="0" maxOccurs="unbounded"/-->
+			<!--xs:element name="alt-title" minOccurs="0" maxOccurs="unbounded"/-->
+			<!--xs:element name="fn-group" minOccurs="0"/-->
+		</xs:sequence>
+	</xs:group>
+	<!--<xs:group name="j-institution-id-model">
+		<xs:choice/>
+	</xs:group>-->
+	<!--<xs:group name="sc-institution-wrap-model">
+		<xs:choice>
+			<xs:group ref="sc.institution.class"/>
+		</xs:choice>
+	</xs:group>-->
+	<xs:group name="sc-just-rendition">
+		<xs:choice>
+			<xs:group ref="sc-all-phrase"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-link-elements">
+		<xs:choice>
+			<xs:group ref="sc-all-phrase"/>
+			<xs:group ref="j.break.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-name-address-wrap-elements">
+		<xs:choice>
+			<xs:group ref="sc.address.class"/>
+			<xs:group ref="sc.address-only.class"/>
+			<xs:group ref="sc.address-link.class"/>
+			<xs:element name="label" type="sc-label-type" minOccurs="0"/>
+			<xs:group ref="sc.name.class"/>
+			<xs:group ref="sc.role-only.class"/>
+			<xs:group ref="sc.simple-link.class"/>
+			<xs:group ref="j.x.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-named-book-part-model">
+		<xs:sequence>
+			<xs:element name="book-part-meta" type="sc-book-part-meta-type" minOccurs="0"/>
+			<xs:element name="named-book-part-body" type="sc-named-book-part-body-type"
+				minOccurs="0"/>
+			<xs:element name="back" type="sc-back-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-named-book-part-body-model">
+		<xs:choice>
+			<xs:sequence>
+				<xs:choice maxOccurs="unbounded">
+					<xs:group ref="sc-para-level"/>
+				</xs:choice>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:group ref="sc-sec-level"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="sc-sec-level"/>
+			</xs:choice>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-nav-pointer-elements">
+		<xs:choice>
+			<xs:group ref="sc-link-elements"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-nav-pointer-group-elements">
+		<xs:choice>
+			<xs:group ref="sc.nav-pointer.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-para-level">
+		<xs:choice>
+			<xs:group ref="sc.block-display.class"/>
+			<xs:group ref="sc.block-math.class"/>
+			<xs:group ref="sc.list.class"/>
+			<!--<xs:group ref="j.math.class"/>-->
+			<xs:group ref="sc.nothing-but-para.class"/>
+			<!--<xs:group ref="sc.related-article.class"/>-->
+			<xs:group ref="sc.rest-of-para.class"/>
+			<!--<xs:group ref="j.x.class"/>-->
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-para-level-body">
+		<xs:choice>
+			<xs:group ref="sc.block-display.class.body"/>
+			<xs:group ref="sc.block-math.class.body"/>
+			<xs:group ref="sc.list.class"/>
+			<xs:group ref="j.math.class"/>
+			<xs:group ref="sc.nothing-but-para.class"/>
+			<xs:group ref="sc.related-article.class.body"/>
+			<xs:group ref="sc.rest-of-para.class"/>
+			<xs:group ref="j.x.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-para-level-minus-x">
+		<xs:choice>
+			<xs:group ref="sc.block-display.class.body"/>
+			<xs:group ref="sc.block-math.class.body"/>
+			<xs:group ref="sc.list.class"/>
+			<xs:group ref="j.math.class"/>
+			<xs:group ref="sc.nothing-but-para.class"/>
+			<xs:group ref="sc.related-article.class.body"/>
+			<xs:group ref="sc.rest-of-para.class"/>
+		</xs:choice>
+	</xs:group>
+	
+	<xs:group name="sc-pub-date-model">
+		<xs:choice>
+			<xs:element name="day" type="sc-day-type"/>
+			<xs:element name="month" type="sc-month-type"/>
+			<xs:element name="year" type="sc-year-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-preface-model">
+		<xs:sequence>
+			<xs:group ref="sc-named-book-part-model"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-pub-history-model">
+		<xs:sequence>
+			<xs:element name="date" type="sc-date-type" minOccurs="0" maxOccurs="unbounded"/>
+			<!--<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="date.class"/>
+			</xs:choice>-->
+			<xs:element name="event" type="sc-event-type" minOccurs="0" maxOccurs="unbounded"/>
+			<!--<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:group ref="event.class"/>
+			</xs:choice>-->
+		</xs:sequence>
+	</xs:group>
+	<!--<xs:group name="sc-question-model">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<!-\-<xs:group ref="sc.id.class"/>-\-> </xs:choice>
+			<!-\-<xs:element ref="sec-meta" minOccurs="0"/>-\->
+			<xs:element name="label" type="sc-label-type" minOccurs="0"/>
+			<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+			<!-\-<xs:element ref="subtitle" minOccurs="0" maxOccurs="unbounded"/>-\->
+			<!-\-<xs:element ref="alt-title" minOccurs="0" maxOccurs="unbounded"/>-\->
+			<xs:choice>
+				<xs:choice maxOccurs="unbounded">
+					<xs:group ref="sc-sec-level"/>
+				</xs:choice>
+				<xs:sequence>
+					<xs:choice maxOccurs="unbounded">
+						<xs:group ref="sc-para-level"/>
+					</xs:choice>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:group ref="sc-sec-level"/>
+					</xs:choice>
+				</xs:sequence>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<!-\-<xs:group ref="option.class"/>-\-> </xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-sec-back-matter-mix"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-question-wrap-model">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<!-\-<xs:group ref="sc.id.class"/>-\-> </xs:choice>
+			<xs:element name="question" type="sc-question-type"/>
+			<xs:choice minOccurs="0">
+				<xs:element name="answer" type="sc-answer-type"/>
+				<xs:element name="answer-set" type="sc-answer-set-type"/>
+			</xs:choice>
+			<xs:element name="explanation" type="sc-explanation-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>-->
+	<xs:group name="sc-rb-elements">
+		<xs:choice>
+			<xs:group ref="sc-all-phrase"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-rt-elements">
+		<xs:choice/>
+	</xs:group>
+	<xs:group name="sc-ruby-model">
+		<xs:sequence>
+			<xs:element name="rb" type="sc-rb-type"/>
+			<xs:choice>
+				<xs:element name="rt" type="j-rt-type"/>
+				<xs:sequence>
+					<xs:element name="rp" type="j-rp-type"/>
+					<xs:element name="rt" type="j-rt-type"/>
+					<xs:element name="rp" type="j-rp-type"/>
+				</xs:sequence>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-sec-back-matter-mix">
+		<xs:choice>
+			<xs:group ref="sc.front-back.class"/>
+			<xs:group ref="sc.sec-back.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-sec-level">
+		<xs:choice>
+			<xs:group ref="sc.sec.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-sec-opt-title-model">
+		<xs:sequence>
+			<xs:element name="sec-meta" type="sc-sec-meta-type" minOccurs="0"/>
+			<xs:element name="label" type="sc-label-type-body" minOccurs="0"/>
+			<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+			<xs:element name="subtitle" type="sc-subtitle-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="alt-title" type="sc-alt-title-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-para-level"/>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-sec-level"/>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-sec-back-matter-mix"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-see-elements">
+		<xs:choice>
+			<xs:group ref="sc-simple-phrase"/>
+			<xs:group ref="sc.block-math.class.body"/>
+			<xs:group ref="sc.simple-display-noalt.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-see-also-elements">
+		<xs:choice>
+			<xs:group ref="sc-simple-phrase"/>
+			<xs:group ref="sc.block-math.class.body"/>
+			<xs:group ref="sc.simple-display-noalt.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-see-also-entry-elements">
+		<xs:choice>
+			<xs:group ref="sc-simple-phrase"/>
+			<xs:group ref="sc.block-math.class"/>
+			<xs:group ref="sc.simple-display-noalt.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-see-entry-elements">
+		<xs:choice>
+			<xs:group ref="sc-simple-phrase"/>
+			<xs:group ref="sc.block-math.class"/>
+			<xs:group ref="sc.simple-display-noalt.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-simple-phrase">
+		<xs:choice>
+			<xs:group ref="sc-all-phrase"/>
+		</xs:choice>
+	</xs:group>
+	
+	<xs:group name="sc-title-elements">
+		<xs:choice>
+			<xs:group ref="sc-all-phrase"/>
+			<xs:group ref="j.break.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-title-group-model">
+		<xs:sequence>
+			<xs:element name="label" type="sc-label-type" minOccurs="0"/>
+			<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+			<xs:element name="subtitle" type="sc-subtitle-type" minOccurs="0" maxOccurs="unbounded"/>
+			<!--<xs:element ref="trans-title-group" minOccurs="0" maxOccurs="unbounded"/>-->
+			<!--<xs:element ref="alt-title" minOccurs="0" maxOccurs="unbounded"/>-->
+			<!--<xs:element ref="fn-group" minOccurs="0"/>-->
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-toc-model">
+		<xs:sequence>
+			<xs:element name="toc-title-group" type="sc-toc-title-group-type" minOccurs="0"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc-para-level-minus-x"/>
+			</xs:choice>
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="sc.toc-entry.class"/>
+				<xs:group ref="sc.toc-div.class"/>
+				<xs:group ref="j.x.class"/>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.fn-group.class"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-toc-div-model">
+		<xs:sequence>
+			<xs:element name="toc-title-group" type="sc-toc-title-group-type" minOccurs="0"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.contrib-group.class"/>
+				<xs:group ref="sc-para-level-body"/>
+			</xs:choice>
+			<xs:choice minOccurs="0">
+				<xs:group ref="sc.struct-link.class"/>
+			</xs:choice>
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="sc.toc-entry.class"/>
+				<xs:group ref="sc.toc-div.class"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-toc-entry-model">
+		<xs:sequence>
+			<xs:element name="label" type="sc-label-type" minOccurs="0"/>
+			<xs:element name="title" type="sc-title-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="subtitle" type="sc-subtitle-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.contrib-group.class"/>
+				<xs:group ref="sc-para-level-body"/>
+				<xs:group ref="sc.toc-abstract.class"/>
+			</xs:choice>
+			<xs:choice minOccurs="0">
+				<xs:group ref="sc.struct-link.class"/>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.toc-entry.class"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-toc-title-group-model">
+		<xs:sequence>
+			<xs:element name="label" type="sc-label-type" minOccurs="0"/>
+			<xs:element name="title" type="sc-title-type" minOccurs="0"/>
+			<xs:element name="subtitle" type="sc-subtitle-type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="trans-title-group" type="sc-trans-title-group-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="alt-title" type="sc-alt-title-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="fn-group" type="sc-fn-group-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-trans-abstract-model">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="sc.id.class"/>
+			</xs:choice>
+			<xs:group ref="sc-sec-opt-title-model"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-trans-subtitle-elements">
+		<xs:choice>
+			<xs:group ref="sc-title-elements"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-trans-title-group-model">
+		<xs:sequence>
+			<xs:element name="label" type="sc-label-type" minOccurs="0"/>
+			<xs:element name="trans-title" type="sc-trans-title-type"/>
+			<xs:element name="trans-subtitle" type="sc-trans-subtitle-type" minOccurs="0"
+				maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="sc-x-elements">
+		<xs:choice>
+			<xs:group ref="sc.emphasis.class"/>
+			<xs:group ref="sc.phrase-content.class"/>
+			<xs:group ref="sc.subsup.class"/>
+			<xs:group ref="j.x.class"/>
+		</xs:choice>
+	</xs:group>
+	<!-- 
+		*************************************************************************************
+		Definition of groups for classes specific to books.
+		*************************************************************************************
+	-->
+	<xs:group name="sc.abstract.class">
+		<xs:choice>
+			<xs:element name="abstract" type="sc-abstract-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc-all-phrase">
+		<xs:choice>
+			<xs:group ref="sc.address-link.class"/>
+			<xs:group ref="sc.article-link.class"/>
+			<xs:group ref="j.appearance.class"/>
+			<xs:group ref="sc.emphasis.class"/>
+			<xs:group ref="sc.inline-display.class"/>
+			<xs:group ref="sc.inline-math.class"/>
+			<xs:group ref="j.math.class"/>
+			<xs:group ref="sc.phrase.class"/>
+			<xs:group ref="sc.simple-link.class"/>
+			<xs:group ref="sc.subsup.class"/>
+			<xs:group ref="j.x.class"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.address.class">
+		<xs:choice>
+			<xs:element name="addr-line" type="sc-addr-line-type"/>
+			<xs:element name="city" type="j-city-type"/>
+			<xs:element name="country" type="j-country-type"/>
+			<xs:element name="fax" type="j-fax-type"/>
+			<xs:element name="institution" type="sc-institution-type"/>
+			<xs:element name="institution-wrap" type="sc-institution-wrap-type"/>
+			<xs:element name="phone" type="j-phone-type"/>
+			<xs:element name="postal-code" type="j-postal-code-type"/>
+			<xs:element name="state" type="j-state-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.address-only.class">
+		<xs:choice>
+			<xs:element name="address" type="sc-address-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.address-link.class">
+		<xs:choice>
+			<xs:element name="email" type="j-email-type"/>
+			<xs:element name="ext-link" type="sc-ext-link-type"/>
+			<xs:element name="uri" type="j-uri-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.aff-alternatives.class">
+		<xs:choice>
+			<xs:element name="aff" type="sc-aff-type"/>
+			<!--<xs:element ref="aff-alternatives"/>-->
+		</xs:choice>
+	</xs:group>
+	<xs:group name="j.appearance.class">
+		<xs:choice>
+			<xs:element name="hr" type="j-hr-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.article-link.class">
+		<xs:choice>
+			<xs:element name="inline-supplementary-material"
+				type="sc-inline-supplementary-material-type"/>
+			<xs:element name="related-article" type="sc-related-article-type-body"/>
+			<xs:element name="related-object" type="sc-related-object-type-body"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.block-display.class">
+		<xs:choice>
+			<!--<xs:element ref="address"/>-->
+			<!--<xs:element ref="alternatives"/>-->
+			<!--<xs:element name="answer" type="sc-answer-type"/>-->
+			<!--<xs:element name="answer-set" type="sc-answer-set-type"/>-->
+			<!--<xs:element ref="array"/>-->
+			<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+			<!--<xs:element ref="chem-struct-wrap"/>-->
+			<!--<xs:element ref="code"/>-->
+			<!--<xs:element ref="explanation"/>-->
+			<xs:element name="fig" type="sc-fig-type"/>
+			<xs:element name="fig-group" type="sc-fig-group-type"/>
+			<xs:element name="graphic" type="sc-graphic-type"/>
+			<xs:element name="media" type="sc-media-type"/>
+			<!--<xs:element ref="name-address-wrap"/>-->
+			<!--<xs:element ref="preformat"/>-->
+			<!--<xs:element name="question" type="sc-question-type"/>-->
+			<!--<xs:element name="question-wrap" type="sc-question-wrap-type"/>-->
+			<!--<xs:element ref="question-wrap-group"/>-->
+			<!--<xs:element ref="supplementary-material"/>-->
+			<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+			<xs:element name="table-wrap-group" type="sc-table-wrap-group-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.block-display.class.body">
+		<xs:choice>
+			<xs:element name="address" type="sc-address-type"/>
+			<xs:element name="alternatives" type="sc-alternatives-type"/>
+			<!--<xs:element name="answer" type="sc-answer-type"/>-->
+			<!--<xs:element name="answer-set" type="sc-answer-set-type"/>-->
+			<xs:element name="array" type="sc-array-type"/>
+			<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+			<xs:element name="chem-struct-wrap" type="sc-chem-struct-wrap-type"/>
+			<xs:element name="code" type="sc-code-type"/>
+			<xs:element name="explanation" type="sc-explanation-type"/>
+			<xs:element name="fig" type="sc-fig-type"/>
+			<xs:element name="fig-group" type="sc-fig-group-type-body"/>
+			<xs:element name="graphic" type="sc-graphic-type"/>
+			<xs:element name="media" type="sc-media-type"/>
+			<xs:element name="name-address-wrap" type="sc-name-address-wrap-type"/>
+			<xs:element name="preformat" type="sc-preformat-type"/>
+			<!--<xs:element name="question" type="sc-question-type"/>-->
+			<!--<xs:element name="question-wrap" type="sc-question-wrap-type"/>-->
+			<!--<xs:element ref="question-wrap-group"/>-->
+			<xs:element name="supplementary-material" type="sc-supplementary-material-type"/>
+			<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+			<xs:element name="table-wrap-group" type="sc-table-wrap-group-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.block-display-minus-explanation.class">
+		<xs:choice>
+			<!--<xs:element ref="address"/>-->
+			<!--<xs:element ref="alternatives"/>-->
+			<!--<xs:element name="answer" type="sc-answer-type"/>-->
+			<!--<xs:element name="answer-set" type="sc-answer-set-type"/>-->
+			<!--<xs:element ref="array"/>-->
+			<xs:element name="boxed-text" type="sc-boxed-text-type"/>
+			<!--<xs:element ref="chem-struct-wrap"/>-->
+			<!--<xs:element ref="code"/>-->
+			<xs:element name="fig" type="sc-fig-type"/>
+			<xs:element name="fig-group" type="sc-fig-group-type"/>
+			<xs:element name="graphic" type="sc-graphic-type"/>
+			<xs:element name="media" type="sc-media-type"/>
+			<!--<xs:element ref="name-address-wrap"/>-->
+			<!--<xs:element ref="preformat"/>-->
+			<!--<xs:element name="question" type="sc-question-type"/>-->
+			<!--<xs:element name="question-wrap" type="sc-question-wrap-type"/>-->
+			<!--<xs:element ref="question-wrap-group"/>-->
+			<!--<xs:element ref="supplementary-material"/>-->
+			<xs:element name="table-wrap" type="sc-table-wrap-type"/>
+			<xs:element name="table-wrap-group" type="sc-table-wrap-group-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.block-math.class">
+		<xs:choice>
+			<xs:element name="disp-formula" type="sc-disp-formula-type"/>
+			<!--<xs:element ref="disp-formula-group"/>-->
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.block-math.class.body">
+		<xs:choice>
+			<xs:element name="disp-formula" type="sc-disp-formula-type"/>
+			<xs:element name="disp-formula-group" type="sc-disp-formula-group-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.book-back-only.class">
+		<xs:choice>
+			<xs:element name="book-app" type="sc-book-app-type"/>
+			<xs:element name="book-app-group" type="sc-book-app-group-type"/>
+			<!-- app-group has been deprecated from book-back in SCBITS and is preserved only for backwards compatibility.-->
+			<xs:element name="app-group" type="sc-app-group-type"/>
+			<!--<xs:element ref="floats-group"/>-->
+			<xs:element name="index" type="sc-index-type"/>
+			<xs:element name="index-group" type="sc-index-group-type"/>
+			<xs:element name="ref-list" type="sc-ref-list-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.book-part.class">
+		<xs:choice>
+			<xs:element name="book-part" type="sc-book-part-type"/>
+			<!--<xs:element ref="xi:include"/>-->
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.both-front-back.class">
+		<xs:choice>
+			<xs:element name="ack" type="sc-ack-type"/>
+			<xs:element name="bio" type="sc-bio-type"/>
+			<xs:element name="dedication" type="sc-dedication-type"/>
+			<xs:element name="fn-group" type="sc-fn-group-type"/>
+			<!--<xs:element ref="glossary"/>-->
+			<xs:element name="toc" type="sc-toc-type"/>
+			<!--<xs:element ref="toc-group"/>-->
+		</xs:choice>
+	</xs:group>
+	<xs:group name="j.break.class">
+		<xs:choice>
+			<xs:element name="break" type="j-break-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.contrib-group.class">
+		<xs:choice>
+			<xs:element name="contrib-group" type="sc-contrib-group-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.emphasis.class">
+		<xs:choice>
+			<xs:element name="bold" type="sc-bold-type"/>
+			<xs:element name="fixed-case" type="sc-fixed-case-type"/>
+			<xs:element name="italic" type="sc-italic-type"/>
+			<xs:element name="monospace" type="sc-monospace-type"/>
+			<xs:element name="overline" type="sc-overline-type"/>
+			<xs:element name="overline-start" type="j-overline-start-type"/>
+			<xs:element name="overline-end" type="j-overline-end-type"/>
+			<xs:element name="roman" type="sc-roman-type"/>
+			<xs:element name="sans-serif" type="sc-sans-serif-type"/>
+			<xs:element name="sc" type="sc-sc-type"/>
+			<xs:element name="serif" type="sc-sans-serif-type"/>
+			<xs:element name="strike" type="sc-strike-type"/>
+			<xs:element name="underline" type="sc-underline-type"/>
+			<xs:element name="underline-start" type="j-underline-start-type"/>
+			<xs:element name="underline-end" type="j-underline-end-type"/>
+			<xs:element name="ruby" type="sc-ruby-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.fn-group.class">
+		<xs:choice>
+			<xs:element name="fn-group" type="sc-fn-group-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.front-back.class">
+		<xs:choice>
+			<xs:element name="notes" type="sc-notes-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.front-only.class">
+		<xs:choice>
+			<xs:element name="front-matter-part" type="sc-front-matter-part-type"/>
+			<xs:element name="foreword" type="sc-foreword-type"/>
+			<xs:element name="preface" type="sc-preface-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.id.class">
+		<xs:choice>
+			<xs:element name="object-id" type="sc-object-id-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.index.class">
+		<xs:choice>
+			<xs:element name="index" type="sc-index-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.index-entry.class">
+		<xs:choice>
+			<xs:element name="index-entry" type="sc-index-entry-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.index-div.class">
+		<xs:choice>
+			<xs:element name="index-div" type="sc-index-div-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.inline-display.class">
+		<xs:choice>
+			<xs:element name="alternatives" type="sc-alternatives-type"/>
+			<xs:element name="inline-graphic" type="j-inline-graphic-type"/>
+			<xs:element name="private-char" type="j-private-char-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.inline-math.class">
+		<xs:choice>
+			<xs:element name="chem-struct" type="sc-chem-struct-type"/>
+			<xs:element name="inline-formula" type="sc-inline-formula-type"/>
+		</xs:choice>
+	</xs:group>
+	<!--<xs:group name="sc.institution.class">
+		<xs:choice>
+			<xs:element name="institution" type="sc-institution-type"/>
+			<xs:element name="institution-id" type="j-institution-id-type"/>
+		</xs:choice>
+	</xs:group>-->
+	<xs:group name="sc.just-para.class">
+		<xs:choice>
+			<xs:element name="p" type="sc-p-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.list.class">
+		<xs:choice>
+			<xs:element name="def-list" type="sc-def-list-type"/>
+			<xs:element name="list" type="sc-list-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="j.math.class">
+		<xs:choice>
+			<xs:element name="tex-math" type="j-tex-math-type"/>
+			<xs:element ref="mml:math"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.name.class">
+		<xs:choice>
+			<xs:element name="anonymous" type="j-anonymous-type"/>
+			<xs:element name="collab" type="sc-collab-type-body"/>
+			<xs:element name="collab-alternatives" type="j-collab-alternatives-type"/>
+			<xs:element name="name" type="sc-name-type"/>
+			<xs:element name="name-alternatives" type="j-name-alternatives-type"/>
+			<xs:element name="string-name" type="sc-string-name-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.nav-pointer.class">
+		<xs:choice>
+			<xs:element name="nav-pointer" type="sc-nav-pointer-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.nothing-but-para.class">
+		<xs:choice>
+			<xs:element name="p" type="sc-p-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.phrase.class">
+		<xs:choice>
+			<xs:element name="abbrev" type="sc-abbrev-type"/>
+			<xs:element name="index-term" type="sc-index-term-type"/>
+			<xs:element name="index-term-range-end" type="j-index-term-range-end-type"/>
+			<xs:element name="milestone-end" type="j-milestone-end-type"/>
+			<xs:element name="milestone-start" type="j-milestone-start-type"/>
+			<xs:element name="named-content" type="sc-named-content-type-body"/>
+			<xs:element name="styled-content" type="sc-styled-content-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.phrase-content.class">
+		<xs:choice>
+			<xs:element name="named-content" type="sc-named-content-type-body"/>
+			<xs:element name="styled-content" type="sc-styled-content-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.related-article.class">
+		<xs:choice>
+			<!--<xs:element ref="related-article"/>-->
+			<xs:element name="related-object" type="sc-related-object-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.related-article.class.body">
+		<xs:choice>
+			<xs:element name="related-article" type="sc-related-article-type-body"/>
+			<xs:element name="related-object" type="sc-related-object-type-body"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.rest-of-para.class">
+		<xs:choice>
+			<xs:element name="ack" type="sc-ack-type"/>
+			<xs:element name="disp-quote" type="sc-disp-quote-type"/>
+			<xs:element name="speech" type="sc-speech-type"/>
+			<xs:element name="statement" type="sc-statement-type"/>
+			<xs:element name="verse-group" type="sc-verse-group-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.role-only.class">
+		<xs:choice>
+			<xs:element name="role" type="sc-role-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.sec.class">
+		<xs:choice>
+			<xs:element name="sec" type="sc-sec-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.sec-back.class">
+		<xs:choice>
+			<xs:element name="fn-group" type="sc-fn-group-type"/>
+			<!--<xs:element ref="glossary"/>-->
+			<xs:element name="ref-list" type="sc-ref-list-type"/>
+			<!--<xs:element ref="sig-block"/>-->
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.see-also-see-entry.class">
+		<xs:choice>
+			<xs:element name="see-entry" type="sc-see-entry-type"/>
+			<xs:element name="see-also-entry" type="sc-see-also-entry-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.sig-block.class">
+		<xs:choice>
+			<xs:element name="sig-block" type="sc-sig-block-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.simple-display-noalt.class">
+		<xs:choice>
+			<xs:element name="array" type="sc-array-type"/>
+			<xs:element name="code" type="sc-code-type"/>
+			<xs:element name="graphic" type="sc-graphic-type"/>
+			<xs:element name="media" type="sc-media-type"/>
+			<xs:element name="preformat" type="sc-preformat-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.simple-link.class">
+		<xs:choice>
+			<xs:element name="fn" type="sc-fn-type"/>
+			<xs:element name="target" type="sc-target-type"/>
+			<xs:element name="xref" type="sc-xref-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.struct-link.class">
+		<xs:choice>
+			<xs:element name="ext-link" type="sc-ext-link-type"/>
+			<xs:element name="nav-pointer" type="sc-nav-pointer-type"/>
+			<xs:element name="nav-pointer-group" type="sc-nav-pointer-group-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.subsup.class">
+		<xs:choice>
+			<xs:element name="sub" type="sc-sub-type"/>
+			<xs:element name="sup" type="sc-sup-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.toc-abstract.class">
+		<xs:choice>
+			<xs:element name="abstract" type="sc-abstract-type"/>
+			<xs:element name="trans-abstract" type="sc-trans-abstract-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.toc-entry.class">
+		<xs:choice>
+			<xs:element name="toc-entry" type="sc-toc-entry-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="sc.toc-div.class">
+		<xs:choice>
+			<xs:element name="toc-div" type="sc-toc-div-type"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="j.x.class">
+		<xs:choice>
+			<xs:element name="x" type="j-x-type"/>
+		</xs:choice>
+	</xs:group>
+</xs:schema>

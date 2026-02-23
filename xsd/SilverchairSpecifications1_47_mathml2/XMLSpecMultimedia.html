@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>SCM Standalone Multimedia Specification</title>
+	<meta name="revision" content="1.47"/>
+	<meta name="date" content="October 14, 2025"/>
+	<meta name="author" content="Silverchair"/>
+	<meta name="web" content="http://www.silverchair.com"/>
+	<link type="text/css" rel="stylesheet" href="supportfiles/sisspec.css"/>
+<script src="supportfiles/jquery.min.js" type="text/javascript"></script>
+<script src="supportfiles/jquery.tableofcontents.min.js" type="text/javascript"></script>
+<script src="supportfiles/startup.js" type="text/javascript"></script>
+</head>
+<body>
+
+<p><img src="./supportfiles/SC_horizontal_black.png" alt="Silverchair logo" />
+<p id="sisspectitle">
+<script type="text/javascript">
+<!--
+document.write(document.title);
+//-->
+</script>
+</p></p>
+
+<ul id="toc"></ul>
+
+<table>
+<caption id="documentrevisionhistory">Document Revision History</caption>
+<colgroup>
+<col/>
+<col/>
+<col style="text-align:center;"/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Date</th>
+	<th>Description</th>
+	<th style="text-align:center;">Version</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td></td>
+	<td>See <a href="./RevisionHistory.html">consolidated revision history page</a></td>
+	<td style="text-align:center;"></td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Silverchair has created a new tag set for loading standalone multimedia XML wrappers into SCM. We used newly created high-level elements (<code>&lt;multimedia&gt;</code>, <code>&lt;multimedia-meta&gt;</code>, <code>&lt;media-group&gt;</code>, and <code>&lt;multimedia-back&gt;</code>) and then used standard JATS for the child elements and attributes. </p>
+
+<p>Because this implementation of multimedia is unique to Silverchair, the recommendations below represent a very limited selection of elements. Silverchair staff are available to answer questions about any of the elements discussed herein or to help handle any situations not covered by this document.</p>
+
+<p>Additionally, we are committed to promoting best practices for accessible XML and supporting all available JATS tagging for accessibility, and we recognize that our clients play a crucial role in ensuring their content is accessible. To that end, we have implemented additional tools and resources to help them achieve this goal. Please see the section <a href="#accessibility">Accessibility</a> for our recommendations.</p>
+
+<p>Packaging requirements for Zipline loading are available in the Zipline User Guide via the client tool portal.</p>
+
+<h1 id="silverchairsxsds">Silverchair&#8217;s XSDs</h1>
+
+<p>Silverchair&#8217;s custom XML specifications are in an XSD format and are hosted alongside this narrative specification. Our recommendation is that users replace their entire set of specification files upon each release, as the XSDs refer to each other, and are meant to be used as a single unit. The latest release of the XSDs can be found in zip packages on the main specifications site <a href="http://specifications.silverchair.com/">http://specifications.silverchair.com/</a> (one is for MathML 2 and the other is for MathML 3).</p>
+
+<p>Silverchair&#8217;s custom XSDs include <a href="./SCJATS-journalpublishing.xsd">SCJATS-journalpublishing.xsd</a> and <a href="./SCJATS-journalpublishing-mathml3.xsd">SCJATS-journalpublishing-mathml3.xsd</a>, for articles and proceedings; <a href="./SCJATS-journalissue.xsd">SCJATS-journalissue.xsd</a> and <a href="./SCJATS-journalissue-mathml3.xsd">SCJATS-journalissue-mathml3.xsd</a>, for journal issue-meta files; <a href="./SCBITS-book.xsd">SCBITS-book.xsd</a> and <a href="./SCBITS-book-mathml3.xsd">SCBITS-book-mathml3.xsd</a>, for books; <a href="./SCMM-multimedia.xsd">SCMM-multimedia.xsd</a> and <a href="./SCMM-multimedia-mathml3.xsd">SCMM-multimedia-mathml3.xsd</a>, for standalone multimedia; and <a href="./SC-common.xsd">SC-common.xsd</a> and <a href="./SC-common-mathml3.xsd">SC-common-mathml3.xsd</a> files that serve as the base XSD for all formats. </p>
+
+<p>The files designated with &#8220;-mathml3&#8221; are for those using MathML 3 tagging. The same files without this designation support MathML 2. MathML 3 is not backwards compatible, and many users have material in MathML 2. Therefore, MathML 2 will continue to be supported in SCJATS, SCBITS, and SCMM.</p>
+
+<h1 id="samplexmlfiles">Sample XML Files</h1>
+
+<p>The following sample files have been provided in the Silverchair specifications zip package to illustrate commonplace examples of platform features. These XML files are provided alongside the Silverchair XSD files as representative, but not authoritative, samples and should be considered supplemental only.</p>
+
+<ul>
+<li><a href="./Multimedia_XML_Example.audio.xml">Audio Multimedia File</a></li>
+<li><a href="./Multimedia_XML_Example.image.xml">Image Multimedia File</a></li>
+<li><a href="./Multimedia_XML_Example.image-group.xml">Image Group Multimedia File</a></li>
+<li><a href="./Multimedia_XML_Example.video.xml">Video Multimedia File</a></li>
+<li><a href="./Multimedia_XML_Example.video.media-archive.xml">Video Media Archive Multimedia File</a></li>
+</ul>
+
+<h1 id="xmlencoding">XML encoding</h1>
+
+<p>XML must be well-formed conformant XML according to the W3C XML Recommendation, fully tagged, and valid to the SCMM schema. XML must also meet the requirements in this Silverchair specification.</p>
+
+<h2 id="xmldeclaration">XML declaration</h2>
+
+<p>Declarations required at the top of each XML file are:</p>
+
+<ul>
+<li>XML version</li>
+<li>Character encoding</li>
+</ul>
+
+<p>Example:</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+</code></pre>
+
+<h2 id="specialcharacters">Special characters</h2>
+
+<p>UTF&#8211;8 character encoding is required to ensure that characters are translated properly upon import into the SCM database. Content XML may also contain numeric character references (e.g., <code>&amp;#345;</code> or <code>&amp;#x159;</code>) or the character entity references that JATS supports for special characters. Predefined entities for the ampersand, less-than, and greater-than should be used where the intent is to display the actual characters ampersand (&amp;), less-than (&lt;), or greater-than (&gt;) respectively; the predefined entities should not be used where those characters are part of markup or encodings.</p>
+
+<p>Some characters do not have a unique encoding. Examples are a capital V with a dot over it, used to indicate ventilation rate in medical texts. To encode a V with a dot, use combining diacritical marks. For example, to encode V dot, use <code>&amp;#x0056;&amp;#x0307;</code> which will produce this: &#x0056;&#x0307;.</p>
+
+<p>Please note that special characters should not be represented with images or custom characters because they are not accessible. Please see the section <a href="#private-char">private-char</a> under the section <a href="#accessibility">Accessibility</a> for more information.</p>
+
+<h1 id="whatisstandalonemultimedia">What is Standalone Multimedia?</h1>
+
+<p>Silverchair defines <strong>standalone multimedia</strong> as any image, video, link, or other file format that comes to us independent of another XML-based resource. Examples include independent videos hosted by a third-party (such as Cadmore) with metadata and XML wrappers for independent PDF objects. <strong>Standalone multimedia must be loaded as an independent object and may even constitute a content set that has no other journal, conference, or book content counterpart</strong>.</p>
+
+<p>By contrast, <strong>integral multimedia</strong> consists of media that are part of the content of a larger XML resource. For example, a textbook may contain a number of images that are called out in the text and should be imported as assets of that resource.</p>
+
+<p>Standalone multimedia may link to other pieces of content even though they are independent content objects. In other words, they may designate other XML-based resources as related content. Related content can be declared in the XML wrapper submitted with the multimedia (see <a href="#relatedcontent">Related content</a>, below).</p>
+
+<h1 id="basicfilestructure">Basic file structure</h1>
+
+<p>Below is a very basic template for structuring a standalone multimedia XML wrapper. Keep in mind that the overall structure of the xml file will depend on the kind of media being submitted and the metadata requirements for that object.</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;multimedia 
+  multimedia-type=&quot;xray&quot; xml:lang=&quot;en&quot;
+  xmlns:mml=&quot;http://www.w3.org/1998/Math/MathML&quot;
+  xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;    
+  xmlns=&quot;http://specifications.silverchair.com/xsd/1/39/SCMM-multimedia.xsd&quot;
+  xsi:schemaLocation=&quot;http://specifications.silverchair.com/xsd/1/39/SCMM-multimedia.xsd SCMM-multimedia.xsd&quot;&gt;    
+  &lt;multimedia-meta&gt;
+    &lt;object-id pub-id-type=&quot;publisher-id&quot;&gt;publisher-id.object&lt;/object-id&gt;
+    &lt;object-id pub-id-type=&quot;doi&quot;&gt;10.1234/id_value&lt;/object-id&gt;
+    &lt;subj-group subj-group-type=&quot;category-multimedia-collection&quot;&gt;
+      &lt;subject&gt;Silverchair Multimedia of Demonstrable Diseases&lt;/subject&gt;      
+    &lt;/subj-group&gt;
+    &lt;title-group&gt;
+      &lt;label&gt;Multimedia 1.&lt;/label&gt;
+      &lt;title&gt;Title of Multimedia&lt;/title&gt;
+    &lt;/title-group&gt;
+    &lt;contrib-group&gt;
+      &lt;contrib&gt;
+        &lt;name&gt;
+          &lt;surname&gt;Smith&lt;/surname&gt;
+          &lt;given-names&gt;John Q.&lt;/given-names&gt;
+        &lt;/name&gt;
+        &lt;degrees&gt;MD&lt;/degrees&gt;
+      &lt;/contrib&gt;
+    &lt;/contrib-group&gt;
+    &lt;pub-date publication-format=&quot;electronic&quot; date-type=&quot;pub&quot; iso-8601-date=&quot;2020-07-23&quot;/&gt;
+    &lt;permissions/&gt;      
+    &lt;related-object document-type=&quot;article&quot; document-id-type=&quot;doi&quot;
+          document-id=&quot;10.9999/SSC_20200723_044.fakearticle&quot;/&gt;
+    &lt;related-object document-type=&quot;book&quot; document-id-type=&quot;isbn13&quot; document-id=&quot;123-4-56-789012-8&quot;
+      object-type=&quot;chapter&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;legacySectionID-value&quot;/&gt;       
+  &lt;/multimedia-meta&gt;
+  &lt;media content-type=&quot;image&quot; xlink:href=&quot;image.png&quot;&gt;
+    &lt;caption&gt;
+      &lt;p&gt;This is an image with a caption.&lt;/p&gt;
+    &lt;/caption&gt;
+  &lt;/media&gt;
+  &lt;multimedia-back&gt;
+    &lt;ref-list&gt;
+      &lt;title&gt;References&lt;/title&gt;
+      &lt;ref id=&quot;bib1&quot;&gt;
+        &lt;label&gt;1.&lt;/label&gt;
+        &lt;element-citation publication-type=&quot;journal&quot; publication-format=&quot;print&quot;&gt;
+            ...
+        &lt;/element-citation&gt;
+      &lt;/ref&gt;
+  &lt;/multimedia-back&gt; 
+&lt;/multimedia&gt;
+</code></pre>
+
+<h1 id="uniqueidentifiers">Unique identifiers</h1>
+
+<p><strong>Every file must receive a unique identifier</strong> for automatic replacements and related content linking to work. Many clients choose to assign DOIs to their digital objects and use these as the unique identifier, but in the absence of these, Silverchair relies on the publisher to create and manage unique publisher IDs. Note that although DOIs are not required in general, the Glencoe API relies on DOIs to retrieve multimedia objects, so a DOI should be included when the standalone multimedia file includes multimedia hosted by Glencoe.</p>
+
+<p>Zipline will use the multimedia&#8217;s DOI or publisher ID to automatically identify duplicate multimedia and make replacements. DOI will take precedence over publisher ID for the purpose of matching multimedia. To replace content, the value of the DOI or publisher ID <strong>must be unique and remain stable</strong> for the revised content to correctly replace the originals on the site.</p>
+
+<p>Use the following nodes to designate the multimedia&#8217;s unique ID:</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>ID</th>
+	<th>node</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>DOI</td>
+	<td><code>&lt;object-id pub-id-type=&quot;doi&quot;&gt;</code></td>
+</tr>
+<tr>
+	<td>publisher ID</td>
+	<td><code>&lt;object-id pub-id-type=&quot;publisher-id&quot;&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>For content without DOIs, please consult with Silverchair if there is any question about how best to assign IDs to new content.</p>
+
+<p>We also ask that, whatever your system of choice for assigning IDs, please use it for assigning IDs to filename and image naming conventions as well. </p>
+
+<h1 id="themultimediawrapper">The multimedia wrapper</h1>
+
+<p>Every standalone multimedia record must have the root element of <code>&lt;multimedia&gt;</code>. The following elements are contained within the root element: </p>
+
+<ul>
+<li><code>&lt;multimedia-meta&gt;</code>: contains the information about the multimedia (i.e., metadata).</li>
+<li><code>&lt;media-group&gt;</code>: contains the <code>&lt;media&gt;</code> element and <code>&lt;alternatives&gt;</code> element, and allows grouping of multiple media of one type.</li>
+<li><code>&lt;media&gt;</code>: contains the media itself and its caption.</li>
+<li><code>&lt;alternatives&gt;</code>: contains the media of video or audio when supplying a media file to be archived for downstream purposes.</li>
+<li><code>&lt;multimedia-back&gt;</code>: contains the multimedia&#8217;s references or bibliographic citations.</li>
+</ul>
+
+<p>Please note that you have a choice to use one of <code>&lt;media-group&gt;</code>, <code>&lt;media&gt;</code>, or <code>&lt;alternatives&gt;</code> to meet your needs and cannot use more than one.</p>
+
+<h2 id="multimediatypeattribute">Multimedia type attribute</h2>
+
+<p>The <code>@multimedia-type</code> attribute on the root <code>&lt;multimedia&gt;</code> element is required and is used for indexing and retrieval. Any value may be used for multimedia type, but all multimedia types must be set up in SCM before importing the multimedia. Note that spaces and variations in punctuation and spelling will be read and processed as different multimedia types, though values supplied for <code>@multimedia-type</code> are not case-sensitive. See example below: </p>
+
+<pre><code>&lt;multimedia multimedia-type=&quot;podcast&quot;&gt;
+</code></pre>
+
+<h1 id="multimediametadata">Multimedia metadata</h1>
+
+<p>The element <code>&lt;multimedia-meta&gt;</code> provides information on the individual object being submitted. It contains all the metadata directly related to the object itself. This element is required. The following sections describe what is available in the <code>&lt;multimedia-meta&gt;</code> element.</p>
+
+<h2 id="multimediaobjectidentifier">Multimedia object identifier</h2>
+
+<p>The standalone multimedia object must also carry a unique ID in the <code>&lt;object-id&gt;</code> element. See <a href="#uniqueidentifiers">Unique identifiers</a> for more detail.</p>
+
+<h2 id="collectioncategories">Collection categories</h2>
+
+<p>The object you are submitting can belong to a general collection set for the site. This general collection set might be a browsable feature on the site (perhaps there is a &#8220;Browse Multimedia&#8221; option in the navigation) or it might be accessible only through its declared related content objects. Either way, the <code>&lt;subj-group subj-group-type=&quot;category-multimedia-collection&quot;&gt;</code> element is set aside for telling our system which collection set the object is a part of.</p>
+
+<p>See the snippet from the example above:</p>
+
+<pre><code>&lt;subj-group subj-group-type=&quot;category-multimedia-collection&quot;&gt;
+    &lt;subject&gt;Silverchair Multimedia of Demonstrable Diseases&lt;/subject&gt;      
+&lt;/subj-group&gt;
+</code></pre>
+
+<p>In this example, <code>&lt;subj-group&gt;</code>, and its child element, <code>&lt;subject&gt;</code>, is the name of the overall collection set to which the multimedia object belongs, and <code>&lt;subject&gt;</code> is a required element. Please keep in mind that, if the content set is meant to be browsed on your site, the value of <code>&lt;subject&gt;</code> <strong>should reflect how you want that content set to appear on your site</strong>. Also, these values must be set up ahead of time in SCM.</p>
+
+<h2 id="hierarchicalcategories">Hierarchical categories</h2>
+
+<p>Content can be assigned to categories. Use the <code>&lt;subj-group subj-group-type=&quot;category&quot;&gt;</code> and <code>&lt;subject&gt;</code> elements to designate categories for the content. Each category should be placed in a <code>&lt;subject&gt;</code> element within the <code>&lt;subj-group&gt;</code> element.</p>
+
+<p>The following content can be assigned to categories using <code>&lt;subj-group&gt;</code>:</p>
+
+<ul>
+<li>articles</li>
+<li>books</li>
+<li>chapters</li>
+<li>standalone multimedia</li>
+</ul>
+
+<p>These categories are not created on the fly. They must be set up in SCM before importing. Categories—factoring in category type and hierarchy—must be unique.</p>
+
+<p>SCM supports hierarchical categories, which allows for parent-child relationships between categories. When assigning a child-level category to content, the parent categories must also be supplied in case more than one subcategory shares the same name. Zipline can currently import up to a 2-level hierarchy. The example below shows content with a category structure of:</p>
+
+<ul>
+<li>Wireless Sensor Networks
+
+<ul>
+<li>Alternative Energy Harvesting Systems</li>
+</ul></li>
+</ul>
+
+<!-- -->
+
+<pre><code>&lt;subj-group subj-group-type=&quot;category&quot;&gt;
+    &lt;subject&gt;Wireless Sensor Networks&lt;/subject&gt;
+    &lt;subj-group subj-group-type=&quot;category&quot;&gt;
+        &lt;subject&gt;Alternative Energy Harvesting Systems&lt;/subject&gt;
+    &lt;/subj-group&gt;
+&lt;/subj-group&gt;
+</code></pre>
+
+<p>Because the schema only allows nested <code>&lt;subj-group&gt;</code> elements after the <code>&lt;subject&gt;</code> elements, use multiple top-level <code>&lt;subj-group subj-group-type=&quot;category&quot;&gt;</code> nodes to designate multiple parent-child categories.</p>
+
+<p>Please note that although <code>@content-type</code> is allowed on the <code>&lt;subject&gt;</code> element, its use is intended for pass-through only and does not drive any functionality on SCM.</p>
+
+<h2 id="taxonomies">Taxonomies</h2>
+
+<p>To assign content to a taxonomy, use <code>&lt;subj-group subj-group-type=&quot;category-taxonomy-collection&quot;&gt;</code> and place each taxonomic ID in <code>&lt;subject&gt;</code>. Use only one <code>&lt;subject&gt;</code> per <code>&lt;subj-group&gt;</code>.</p>
+
+<pre><code>&lt;subj-group subj-group-type=&quot;category-taxonomy-collection&quot;&gt;
+    &lt;subject&gt;T-123&lt;/subject&gt;
+&lt;/subj-group&gt;
+&lt;subj-group subj-group-type=&quot;category-taxonomy-collection&quot;&gt;
+    &lt;subject&gt;T-456&lt;/subject&gt;
+&lt;/subj-group&gt;
+</code></pre>
+
+<p>Note that before content can be assigned to a taxonomy, the taxonomy must exist in the SCM database or the content will produce an error. To add a taxonomy to the database, upload it as an RDF file via the Zipline API. For more information, please consult the Zipline User Guide via the client tool portal.</p>
+
+<h2 id="countrylocationlabel">Country location label</h2>
+
+<p>To add a country location label to the content, use <code>&lt;subj-group subj-group-type=&quot;category-location&quot;&gt;</code> with the appropriate 3-letter ISO&#8211;3166 country code. This allows for the content to be browsed and filtered by country: </p>
+
+<pre><code>&lt;subj-group subj-group-type=&quot;category-location&quot;&gt;
+    &lt;subject&gt;USA&lt;/subject&gt;
+&lt;/subj-group&gt;
+</code></pre>
+
+<h2 id="multimediatitle">Multimedia title</h2>
+
+<p>Every object must contain a title using <code>&lt;title-group&gt;</code> tagging. Please include a <code>&lt;title&gt;</code> element with a value. Use of the <code>&lt;label&gt;</code> element is optional.</p>
+
+<h2 id="authors">Authors</h2>
+
+<!-- NOTE that I had to copy this in from the common contribs document because the head levels were incorrect. -->
+
+<p>Authors and other contributors that should appear in the content by-line should be placed in a <code>&lt;contrib-group&gt;</code> node.</p>
+
+<p>Place each contributor in a <code>&lt;contrib&gt;</code> node with a <code>@contrib-type</code> value of &#8220;author&#8221;, &#8220;editor&#8221;, &#8220;chair&#8221;, or &#8220;translator&#8221;. A <code>&lt;contrib&gt;</code> element with no <code>@contrib-type</code> attribute will default to <code>@contrib-type=&quot;author&quot;</code>. <code>&lt;contrib&gt;</code> elements with a <code>@contrib-type</code> attribute value other than &#8220;author&#8221;, &#8220;editor&#8221;, &#8220;chair&#8221;, or &#8220;translator&#8221; will be ignored unless configured with the development team prior to loading. Please note that any <code>@contrib-type</code> value other than &#8220;author&#8221; will need a configuration turned on by the development team to display.</p>
+
+<p>Use the <code>&lt;role&gt;</code> sub-element to include the role of the contributor to be displayed.</p>
+
+<p>Use the <code>@equal-contrib</code> attribute on <code>&lt;contrib&gt;</code> to indicate whether contributors contributed equally. If the contributor whom this attribute modifies contributed equally with all other contributors, this attribute should be set to &#8220;yes&#8221;; if their contribution was greater or lesser, then this attribute should be set to &#8220;no&#8221;. These contributors may contain a link to a footnote in <code>&lt;author-notes&gt;</code> for further description, such a link should use <code>&lt;xref ref-type=&quot;author-notes&quot;&gt;</code>. Please note that equal contributor information is not currently imported into our system for books. </p>
+
+<p>You can use the <code>@initials</code> attribute on <code>&lt;surname&gt;</code> and <code>&lt;given-names&gt;</code> if contributor initials are made available in your XML authoring workflow. This attribute is not imported by our platform.</p>
+
+<h3 id="orcidid">ORCID iD</h3>
+
+<p>Include an ORCID iD for an individual author in a <code>&lt;contrib-id&gt;</code> element with <code>@contrib-id-type=&quot;orcid&quot;</code>. Only individual authors and individual members of an organization (members of a <code>&lt;collab&gt;</code>) may have an ORCID iD. Specify the ORCID iD as a full URI—e.g. <code>&lt;contrib-id contrib-id-type=&quot;orcid&quot;&gt;http://orcid.org/0000-0002-1825-0097&lt;/contrib-id&gt;</code>.</p>
+
+<p>The <code>@authenticated</code> attribute can be used with a value of &#8220;true&#8221; or &#8220;false&#8221; to indicate that the authority associated with the ID type (named in <code>@contrib-id-type</code>) has authenticated the value of the ID. The default value is &#8220;false&#8221;. This value is used only for Crossref metadata purposes. </p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Value</th>
+	<th>Meaning</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>true</td>
+	<td>This contributor identifier has been marked by the issuing authority as authenticated.</td>
+</tr>
+<tr>
+	<td>false</td>
+	<td>No guarantee has been made about this contributor identifier.</td>
+</tr>
+</tbody>
+</table>
+
+<p>To be accepted by Crossref, the ORCID iD must pass a checksum using a check digit, which is the last character of the ORCID iD. </p>
+
+<h3 id="correspondingauthors">Corresponding authors</h3>
+
+<p>To indicate that a contributor is the corresponding contributor for the content, use the optional <code>@corresp</code> attribute: <code>&lt;contrib contrib-type=&quot;author&quot; corresp=&quot;yes&quot;&gt;</code>. Contact information included as a child of <code>&lt;contrib&gt;</code>, such as <code>&lt;email&gt;</code>, will be stored as metadata about the author, and will be the source for features such as toll-free links. For the author to display as corresponding, you must link the author to contact information contained in a <code>&lt;corresp&gt;</code> within <code>&lt;author-notes&gt;</code>, using <code>&lt;xref ref-type=&quot;corresp&quot;&gt;</code> that points to the element&#8217;s <code>@id</code>. See <a href="#authornotes">Author notes</a> for more information.</p>
+
+<h3 id="alternativenames">Alternative names</h3>
+
+<p>If a single author has more than one version of their name, use the <code>&lt;name-alternatives&gt;</code> element within the <code>&lt;contrib&gt;</code> element. The element <code>&lt;string-name&gt;</code> can be used for personal names where the order of the name components should not be enforced.</p>
+
+<pre><code>&lt;contrib-group&gt;
+        &lt;contrib contrib-type=&quot;author&quot;&gt;
+            &lt;name-alternatives&gt;
+                    &lt;name&gt;
+                            &lt;surname&gt;Balzer&lt;/surname&gt;
+                            &lt;given-names&gt;Carsten&lt;/given-names&gt;
+                    &lt;/name&gt;
+                    &lt;name&gt;
+                            &lt;surname&gt;LaGata&lt;/surname&gt;
+                            &lt;given-names&gt;Carla&lt;/given-names&gt;
+                    &lt;/name&gt;
+            &lt;/name-alternatives&gt;
+        &lt;/contrib&gt;
+&lt;/contrib-group&gt;
+</code></pre>
+
+<p>If the intention is to provide the author’s name in multiple languages, the <code>@name-style</code> and <code>@xml:lang</code> attributes should be used when supplying multiple versions of a name for proper display. The value for the <code>@xml:lang</code> attribute needs to be a valid ISO 639–1 language code.</p>
+
+<pre><code>&lt;contrib contrib-type=&quot;author&quot;&gt;
+    &lt;name-alternatives&gt;
+        &lt;name name-style=&quot;western&quot;&gt;
+            &lt;surname&gt;Zhang&lt;/surname&gt;
+            &lt;given-names&gt;Y. P.&lt;/given-names&gt;
+        &lt;/name&gt;
+        &lt;string-name name-style=&quot;eastern&quot; xml:lang=&quot;zh&quot;&gt;张轶泼&lt;/string-name&gt;
+    &lt;/name-alternatives&gt;
+&lt;/contrib&gt;      
+</code></pre>
+
+<h3 id="authoraffiliations">Author affiliations</h3>
+
+<p>If there are author affiliations (<code>&lt;aff&gt;</code>), the <code>&lt;aff&gt;</code> nodes can be included as sibling elements to the <code>&lt;contrib-group&gt;</code> node. These <code>&lt;aff&gt;</code> nodes must include an <code>@id</code> attribute. In the <code>&lt;contrib&gt;</code> node for which the affiliation applies, include an <code>&lt;xref&gt;</code> node that references the appropriate <code>&lt;aff&gt;</code> node. </p>
+
+<p>If your sites are designed to display separate linked text from the author to the affiliation (e.g. a superscripted number), the <code>&lt;aff&gt;</code> node must include a <code>&lt;label&gt;</code>. Do not include a label as content of the <code>&lt;xref&gt;</code> in this case.</p>
+
+<pre><code>&lt;contrib-group&gt; 
+        &lt;contrib contrib-type=&quot;author&quot;&gt;
+            &lt;name&gt;
+                &lt;surname&gt;Keefe&lt;/surname&gt;
+                &lt;given-names&gt;Lindsey&lt;/given-names&gt;
+            &lt;/name&gt;
+            &lt;degrees&gt;PhD&lt;/degrees&gt;
+            &lt;xref ref-type=&quot;aff&quot; rid=&quot;aff1&quot; /&gt;
+        &lt;/contrib&gt;
+        …
+&lt;/contrib-group&gt;
+
+&lt;aff id=&quot;aff1&quot;&gt;
+    &lt;label&gt;1&lt;/label&gt;Silverchair, &lt;city&gt;Charlottesville&lt;city&gt;, &lt;state&gt;VA&lt;/state&gt;, &lt;country country=&quot;us&quot;&gt;USA&lt;/country&gt;, 
+        &lt;postal-code&gt;22902&lt;/postal-code&gt;. 
+&lt;/aff&gt;
+</code></pre>
+
+<p>Affiliations that are not linked from a <code>&lt;contrib&gt;</code> element will be ignored.</p>
+
+<p>The <code>&lt;aff&gt;</code> node can also be included as a child of the <code>&lt;contrib&gt;</code> element to which the affiliation applies. Using this method, affiliations must be repeated for each contributor if multiple contributors have the same affiliation, and the <code>@id</code> attribute is not required.</p>
+
+<p>Each affiliated organization should be included in a separate <code>&lt;aff&gt;</code> node.</p>
+
+<p>In addition, <code>&lt;institution&gt;</code> tagging can be used to further identify affiliations. SCM supports <code>@content-type</code> on <code>&lt;institution&gt;</code> to identify educational and departmental aspects of the affiliation. Please note that Crossref accepts up to 6 instances of institution in a single affiliation: </p>
+
+<pre><code>&lt;aff id=&quot;aff2&quot;&gt;
+    &lt;institution-wrap&gt;
+        &lt;institution content-type=&quot;edu&quot;&gt;University of Virginia&lt;/institution&gt;
+        &lt;institution content-type=&quot;dept&quot;&gt;Department of History&lt;/institution&gt;
+    &lt;/institution-wrap&gt;
+&lt;/aff&gt; 
+</code></pre>
+
+<h3 id="rorids">ROR IDs</h3>
+
+<p>An ROR (research organization registry) ID can be included within <code>&lt;institution-wrap&gt;</code> in the <code>&lt;aff&gt;</code> node to connect a contributor to a given research organization. If ROR IDs are included in the xml, they will be stored in our database and deposited downstream. Please note that ROR IDs will not display.</p>
+
+<p>Within the <code>&lt;institution-wrap&gt;</code> element, use <code>&lt;institution-id&gt;</code> with <code>@institution-id-type=&quot;ror&quot;</code> to contain the ROR ID and <code>&lt;institution&gt;</code> to contain the associated organization name.</p>
+
+<pre><code>&lt;aff id=&quot;aff1&quot;&gt;
+    &lt;label&gt;a&lt;/label&gt;
+    &lt;institution-wrap&gt;
+        &lt;institution-id institution-id-type=&quot;ror&quot;&gt;https://ror.org/03vek6s52&lt;/institution-id&gt;
+        &lt;institution&gt;Harvard University&lt;/institution&gt;
+    &lt;/institution-wrap&gt;
+        Cambridge, MA 02138, &lt;country country=&quot;us&quot;&gt;United States&lt;/country&gt;
+&lt;/aff&gt; 
+</code></pre>
+
+<p>If a contributor is affiliated with more than one research organization, please include a separate <code>&lt;institution-wrap&gt;</code> for each organization within the <code>&lt;aff&gt;</code> element. Note that although <code>&lt;institution-wrap&gt;</code> is allowed in other locations, it will only be imported as a contributor ROR ID when used in <code>&lt;aff&gt;</code>. In other locations, such as within <code>&lt;funding-source&gt;</code>, this information will simply be copied. </p>
+
+<h3 id="collaborativegroupauthors">Collaborative group authors</h3>
+
+<p>Use <code>&lt;collab&gt;</code> instead of <code>&lt;name&gt;</code> if the author is a group credited under a single name or the author is an organization (such groups may be known by other names such as collaborative groups or collectives). Members of each group can be provided inside a <code>&lt;contrib-group&gt;</code> node that is a child of the <code>&lt;collab&gt;</code> element. These contributing members are not treated as authors and will not appear in the by-line, but will be submitted to PubMed as investigators/collaborators.</p>
+
+<h3 id="onbehalfof">On behalf of</h3>
+
+<p>Use <code>&lt;on-behalf-of&gt;</code> as a child of <code>&lt;contrib&gt;</code> if a single author is writing on behalf of an organization, and use the tag as a child of <code>&lt;contrib-group&gt;</code> to apply it to a list of authors. If a subset of authors is writing on behalf of an organization and another subset isn&#8217;t, group the authors in different <code>&lt;contrib-group&gt;</code> elements. The separation of authors into different <code>&lt;contrib-group&gt;</code> elements has no other bearing on the content. Include the full content for display in the <code>&lt;on-behalf-of&gt;</code> element. For example: <code>&lt;on-behalf-of&gt;for the Joint Working Group&lt;/on-behalf-of&gt;</code>. The <code>&lt;on-behalf-of&gt;</code> will only be imported for top-level authors; it may not be included for the individual members of a collaborative group.</p>
+
+<p>Please note that this feature is currently only supported for journals and proceedings. Although <code>&lt;on-behalf-of&gt;</code> is allowed in SCBITS, it is not currently imported into our system or displayed for books.</p>
+
+<h3 id="authorcomments">Author comments</h3>
+
+<p>Notes that are not affiliations but are specific to a contributor can be included in an <code>&lt;author-comment&gt;</code> node within the <code>&lt;contrib&gt;</code> node to which the note applies. The <code>@content-type</code> attribute must be included to indicate the type of note. Permitted attribute values are: </p>
+
+<ul>
+<li><code>&lt;author-comment content-type=&quot;disclosure&quot;&gt;</code></li>
+<li><code>&lt;author-comment content-type=&quot;deceased&quot;&gt;</code></li>
+<li><code>&lt;author-comment content-type=&quot;other&quot;&gt;</code></li>
+<li><code>&lt;author-comment content-type=&quot;occupation&quot;&gt;</code></li>
+<li><code>&lt;author-comment content-type=&quot;url&quot;&gt;</code></li>
+</ul>
+
+<p>Please note that import and display of author comments with a <code>@content-type</code> value of &#8220;occupation&#8221; or &#8220;url&#8221; is currently only supported for books. Please also note that for books the display of these types of author comment (ie, &#8220;occupation&#8221; and &#8220;url&#8221;) is configurable by client, so consult with your development team about whether you would like these to appear on your site.</p>
+
+<h3 id="biographicaldata">Biographical data</h3>
+
+<p>Include biographical data in the <code>&lt;bio&gt;</code> element within the <code>&lt;contrib&gt;</code> node to which the bio applies. A <code>&lt;bio&gt;</code> element placed as a child of <code>&lt;contrib-group&gt;</code> will apply to all authors in that group. The <code>&lt;bio&gt;</code> element may also be used under the <code>&lt;collab&gt;</code> element.</p>
+
+<h3 id="authornotes">Author notes</h3>
+
+<p>Use an author notes section for additional notes about contributors that are not directly tied to a single author. The author notes can be included using the <code>&lt;author-notes&gt;</code> element.</p>
+
+<p>Use <code>&lt;corresp&gt;</code> to include display information concerning how and with whom to correspond about content. The <code>&lt;corresp&gt;</code> must include an <code>@id</code> attribute for it to link to the <code>&lt;contrib&gt;</code> element.</p>
+
+<pre><code>&lt;author-notes&gt;
+    &lt;corresp id=&quot;cor1&quot;&gt;
+        &lt;email&gt;lkeefe@university.edu&lt;/email&gt;
+    &lt;/corresp&gt;
+&lt;/author-notes&gt;
+</code></pre>
+
+<p>Use <code>&lt;fn fn-type=&quot;coi-statement&quot;&gt;</code> or <code>&lt;fn fn-type=&quot;conflict&quot;&gt;</code> in <code>&lt;author-notes&gt;</code> to include a Conflict of Interest statement. A Conflict of Interest statement can be specifically linked to an individual contrib that contains an <code>&lt;xref&gt;</code> with <code>@ref-type=&quot;author-notes&quot;</code>.</p>
+
+<pre><code> &lt;author-notes&gt;
+    &lt;fn fn-type=&quot;coi-statement&quot; id=&quot;con1&quot;&gt;
+      &lt;label&gt;*&lt;/label&gt;
+      &lt;p&gt;Competing Interests: The authors have declared that no competing interests exist.&lt;/p&gt;
+    &lt;/fn&gt;
+ &lt;/author-notes&gt;
+</code></pre>
+
+<p>Use <code>&lt;fn fn-type=&quot;equal&quot;&gt;</code> to provide a statement about equal contributors. This can be used separately or in conjunction with <code>&lt;contrib equal-contrib=&quot;yes&quot;&gt;</code>. </p>
+
+<pre><code>&lt;author-notes&gt;
+    ...
+    &lt;fn fn-type=&quot;equal&quot; id=&quot;afn9&quot;&gt;
+      &lt;label&gt;*&lt;/label&gt;          
+      &lt;p&gt;Keefe and Hibino contributed equally to this paper.&lt;/p&gt;
+    &lt;/fn&gt;
+ &lt;/author-notes&gt;
+</code></pre>
+
+<p>If your sites are designed to display separate linked text from the author to the author-notes (e.g. a statement for Conflict of Interest or equal contribution), the <code>&lt;fn&gt;</code> node must include a <code>&lt;label&gt;</code>. Do not include a label as content of the <code>&lt;xref&gt;</code> in this case.</p>
+
+<h2 id="publicationdate">Publication date</h2>
+
+<p>The publication date for the multimedia should be included in a <code>&lt;pub-date&gt;</code> node. To supply a date, please include the following information:</p>
+
+<ul>
+<li>Supply a date in ISO 8601 format using an <code>@iso-8601-date</code> attribute and the format YYYY-MM-DD.</li>
+<li>Supply the electronic publication format using <code>@publication-format=&quot;electronic&quot;</code> and <code>@date-type=&quot;pub&quot;</code> attributes and values.</li>
+</ul>
+
+<p>The publication date tagging model was changed in specification version 1.41. The old model, based on <code>&lt;pub-date&gt;</code> using <code>@pub-type</code>, has been deprecated and will trigger a warning during content loading. More information can be found here: <a href="#publication-formatvalueofepubonpub-date"><code>@publication-format</code> value of &#8220;epub&#8221; on <code>&lt;pub-date&gt;</code></a>.</p>
+
+<h2 id="supplementarymaterials">Supplementary materials</h2>
+
+<p>Use the <code>&lt;supplementary-material&gt;</code> tag in <code>&lt;multimedia-meta&gt;</code> to include supplementary files associated and imported with the standalone multimedia.</p>
+
+<p>The value <code>@content-type=&quot;featured-figure&quot;</code> is reserved for a featured image that is available to unauthenticated users. See <a href="#featuredimages">Featured images</a> for more details.</p>
+
+<p>For all other types of supplementary data, use <code>content-type=&quot;data-supplement&quot;</code>. Put the exact data supplement file name, including the extension, in the <code>@xlink:href</code> attribute value, as in <code>&lt;supplementary-material content-type=&quot;data-supplement&quot; xlink:href=&quot;supplement.pdf&quot;&gt;</code>. Do not include a file path.</p>
+
+<p>Any file type listed in the packaging requirements of the Zipline User Guide is acceptable for supplementary material (the guide is available via the client tool portal).</p>
+
+<p>Use the <code>&lt;label&gt;</code> tag for a label, and the <code>&lt;title&gt;</code> tag inside the <code>&lt;caption&gt;</code> for a title. Other explanatory text should go in <code>&lt;p&gt;</code> elements within the <code>&lt;caption&gt;</code> tag.</p>
+
+<p>Supplementary material can be assigned a unique identifier such as a DOI using the <code>&lt;object-id&gt;</code> tag within the element. The <code>@pub-id-type</code> attribute must be included with a value of either “doi” or “publisher-id”. If there is no publisher-id in an <code>&lt;object-id&gt;</code> element and the <code>&lt;supplementary-material&gt;</code> element has an <code>@id</code> attribute, SCM will use the value of the <code>@id</code> as the publisher-id. </p>
+
+<h3 id="featuredimages">Featured images</h3>
+
+<p>To designate a featured image, include a <code>&lt;supplementary-material&gt;</code> element with <code>@content-type=&quot;featured-figure&quot;</code> in the multimedia-meta. Use a <code>&lt;graphic&gt;</code> element for the pointer to the image file.</p>
+
+<pre><code>&lt;supplementary-material id=&quot;featured&quot; content-type=&quot;featured-figure&quot;&gt;
+    &lt;label&gt;Some title for the image&lt;/label&gt;
+    &lt;caption&gt;
+        &lt;p&gt;A caption for the featured image.&lt;/p&gt;
+    &lt;/caption&gt;
+    &lt;graphic xlink:href=&quot;FeaturedImage.png&quot;/&gt;
+&lt;/supplementary-material&gt;
+</code></pre>
+
+<p>If the same image should appear as part of the standalone multimedia object, it should also be included in <code>&lt;media&gt;</code>.</p>
+
+<p>Note that only one image will be used as the featured image.</p>
+
+<h2 id="permissions">Permissions</h2>
+
+<p>The <code>&lt;permissions&gt;</code> element holds copyright information and license material.</p>
+
+<h3 id="copyright">Copyright</h3>
+
+<p>Copyright should include:</p>
+
+<ul>
+<li><code>&lt;copyright-statement&gt;</code>: The information that will display on the site should be the complete statement of copyright for the content. It is likely that this will duplicate information in the <code>&lt;copyright-year&gt;</code> and <code>&lt;copyright-holder&gt;</code> elements.</li>
+<li><code>&lt;copyright-year&gt;</code>: The year of copyright.</li>
+<li><code>&lt;copyright-holder&gt;</code>: The name of the copyright holder.</li>
+</ul>
+
+<!-- -->
+
+<pre><code>&lt;permissions&gt;
+    &lt;copyright-statement&gt;Copyright &amp;#x00A9; 2020 by Silverchair. Reproduction for the purposes of education is permitted: all other uses must receive written permission from Silverchair.&lt;/copyright-statement&gt;
+    &lt;copyright-year&gt;2020&lt;/copyright-year&gt;
+    &lt;copyright-holder&gt;Silverchair&lt;/copyright-holder&gt;
+    ...
+&lt;/permissions&gt;
+</code></pre>
+
+<h3 id="freetoread">Free to Read</h3>
+
+<p>The <code>&lt;ali:free_to_read&gt;</code> element is a simple flag that indicates that the document is free-to-read, without making statements about any additional reuse rights or restrictions. Date attributes (<code>@start_date</code> and <code>@end_date</code>) can specify when the document is free to be read. The absence of both start and end dates indicates a permanent free-to-read status. Note that the namespace must be included on the element or declared in the document header. </p>
+
+<pre><code>&lt;permissions&gt;
+    ...
+    &lt;ali:free_to_read xmlns:ali=&quot;http://www.niso.org/schemas/ali/1.0/&quot;/&gt;
+    ...
+&lt;/permissions&gt;
+</code></pre>
+
+<p>Please also note that this tagging will not drive any access functionality unless enabled to do so in ProductBuilder.</p>
+
+<h3 id="licenseincludingfreeandopenaccess">License, including free and open access</h3>
+
+<p>The <code>&lt;license&gt;</code> element contains the set of conditions under which people are allowed to use the content, or other license-related information or restrictions. The <code>@license-type</code> attribute defines the type of license being granted for the content object.</p>
+
+<ul>
+<li><code>@license-type</code> attribute: The access type to be stored in the database for the content object. The following licenses have various default behavior. Some license types will default to private and others will make the content available on the site without authentication. If there is no license element in the xml file or the <code>@license-type</code> is not specified, the content will default to private. By default, the &#8220;cc-by&#8221; license types will display boiler plate text when no <code>&lt;license-p&gt;</code> has been provided in the XML. Please consult with your build team if you wish to have the boiler plate text shown instead in all cases, even when text has been provided in <code>&lt;license-p&gt;</code>.</li>
+</ul>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>license type</th>
+	<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td><code>@license-type=&quot;free&quot;</code></td>
+	<td>Free multimedia</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;open-access&quot;</code></td>
+	<td>Open Access multimedia</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;crown-copyright&quot;</code></td>
+	<td>CrownCopyright content (defaults to private, but access requirement can be configured with the build team)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;us-gov&quot;</code></td>
+	<td>USGov multimedia (defaults to private, but access requirement can be configured with the build team)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by&quot;</code></td>
+	<td>Creative Commons Attribution license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-nc&quot;</code></td>
+	<td>Creative Commons Attribution-NonCommercial license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-nc-nd&quot;</code></td>
+	<td>Creative Commons Attribution-NonCommercial-NoDerivs license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-nc-sa&quot;</code></td>
+	<td>Creative Commons Attribution-NonCommercial-ShareAlike license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-nd&quot;</code></td>
+	<td>Creative Commons Attribution-NoDerivs license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-sa&quot;</code></td>
+	<td>Creative Commons Attribution-ShareAlike license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;cc-by-igo&quot;</code></td>
+	<td>Creative Commons Attribution-IGO license (Open Access)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;publisher&quot;</code></td>
+	<td>Publisher, assigned by author (Private)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;exclusive&quot;</code></td>
+	<td>Exclusive, author retains copyright but allows publisher use (Private)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;non-exclusive&quot;</code></td>
+	<td>Non-exclusive, author published previously and copyright not assigned to current publisher (Private)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;society&quot;</code></td>
+	<td>Society, partnership title where use is driven by the owners and not the publisher (defaults to private, but access requirement can be configured with your build team)</td>
+</tr>
+<tr>
+	<td><code>@license-type=&quot;reprint&quot;</code></td>
+	<td>Reprint, original publisher retains copyright but allows current publisher to have certain distribution rights (Private)</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><code>@license-type</code> can also be used to indicate that the content should be excluded from on-site purchase. Simply use the attribute <code>@license-type=&quot;not-for-sale&quot;</code>.</li>
+<li><code>@xlink:href</code> attribute: A URL to a resource describing the license.</li>
+<li><code>&lt;license-p&gt;</code>: A paragraph of text within the description of a <code>&lt;license&gt;</code>. If you want the license information to display on the site, it must be included in <code>&lt;license-p&gt;</code>.</li>
+<li><code>&lt;ali:license_ref&gt;</code>: A reference to a URI that carries the license terms specifying how a work may be used. Note the namespace must be included on the element or declared in the document header.</li>
+<li>Please note that best practice is to use only one or the other of <code>@xlink:href</code> on <code>&lt;license&gt;</code> or <code>&lt;ali:license_ref&gt;</code>.</li>
+</ul>
+
+<!-- -->
+
+<pre><code>&lt;permissions&gt;
+…
+    &lt;license license-type=&quot;open-access&quot; xlink:href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;
+        &lt;license-p&gt;This content is available without a subscription.  It may not be altered in any way and proper attribution is required.&lt;/license-p&gt;
+    &lt;/license&gt;
+&lt;/permissions&gt;
+</code></pre>
+
+<p>OR</p>
+
+<pre><code>&lt;permissions id=&quot;per1&quot;&gt;
+…
+    &lt;license license-type=&quot;free&quot;&gt;
+        &lt;ali:license_ref xmlns:ali=&quot;http://www.niso.org/schemas/ali/1.0/&quot;&gt;https://creativecommons.org/licenses/by/4.0/&lt;/ali:license_ref&gt;
+        &lt;license-p&gt;This content is available without a subscription.  It may not be altered in any way and proper attribution is required.&lt;/license-p&gt;
+    &lt;/license&gt;
+&lt;/permissions&gt;
+</code></pre>
+
+<h2 id="transcripts">Transcripts</h2>
+
+<p>To reference a PDF transcript of the multimedia object, use the <code>&lt;self-uri&gt;</code> element. The <code>content-type</code> attribute is required and must have a value of <code>@content-type=&quot;transcript&quot;</code>.</p>
+
+<p>Reference the PDF file using the <code>@xlink:href</code> attribute. Put the exact PDF file name, including the extension, and do not include a file path:</p>
+
+<pre><code>&lt;self-uri content-type=&quot;transcript&quot; xlink:href=&quot;transcript.pdf&quot;/&gt;   
+</code></pre>
+
+<h2 id="abstracts">Abstracts</h2>
+
+<p>An abstract can be included in the <code>&lt;abstract&gt;</code> node. The authored abstract should have no <code>@abstract-type</code> attribute, or it should have the attribute <code>@abstract-type=&quot;abstract&quot;</code>. Only one authored abstract is allowed on a multimedia object. The attributes <code>@abstract-type=&quot;teaser&quot;</code> and <code>@abstract-type=&quot;precis&quot;</code> will also be imported. Teasers are a short summary or descriptive text that will appear in various places on the site, such as in Search Results. If you would like for a multimedia object to have a teaser, encode it in the metadata as <code>&lt;abstract abstract-type=&quot;teaser&quot;&gt;</code>. Although both &#8220;teaser&#8221; and &#8220;precis&#8221; abstract types are accepted, we recommend the use of &#8220;teaser&#8221; over &#8220;precis&#8221; unless there is a compelling reason to use &#8220;precis&#8221;. This is more in line with what the platform offers in terms of display and functionality.</p>
+
+<p>The abstracts appear on the article in the order in which they are tagged in the xml. We recommend placing the authored abstract first, before other types of abstracts. This aligns with best practices for SEO, accessibility, and usability.</p>
+
+<h1 id="referencingthemultimediafile">Referencing the multimedia file</h1>
+
+<p>For information on how to make the image media accessible, please refer to the sections <a href="#alt-textforimages">alt-text for images</a> and <a href="#long-descforimages">long-desc for images</a> under the section <a href="#accessibility">Accessibility</a>.</p>
+
+<p>The <code>&lt;media&gt;</code> element is used to reference the object being submitted, and will have a value such as the file name or URL of the multimedia file itself. The <code>@xlink:href</code> value should be exactly the same as the object&#8217;s filename, if the multimedia is a file submitted with the Zipline package.</p>
+
+<p>For file names, provide only the literal file name relative to the directory specified for the file in the appropriate packaging guidelines. For example, an image stored directly in the Assets directory should use <code>xlink:href=&quot;image.png&quot;</code> without a file path preceding the file name.</p>
+
+<p>Silverchair does not directly host video and audio multimedia. Thus, publishers are expected to upload their multimedia files to a 3rd party host, preferably one of those described in the table below. If your multimedia is currently hosted by a provider that is not listed below, please consult with your development team.</p>
+
+<p>The <code>@content-type</code> value must be identified on the <code>&lt;media&gt;</code> element. Only one type of media is supported within a <code>&lt;media-group&gt;</code> (ie, all <code>&lt;media&gt;</code> within a <code>&lt;media-group&gt;</code> must have the same <code>@content-type</code> value). The list of accepted values for the media <code>@content-type</code> and the corresponding <code>@xlink:href</code> expectations are as follows. Please note that a few types require the <code>&lt;object-id&gt;</code> element, or, in the case of Glencoe, an <code>@id</code> on the <code>&lt;media&gt;</code> element. These values should correspond to values provided by your multimedia hosting service to identify multimedia on their platform.</p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>@content-type</th>
+	<th>type of value in @xlink:href</th>
+	<th>other required elements and attributes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>image</td>
+	<td>file name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pdf</td>
+	<td>file name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>excel</td>
+	<td>file name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>csv</td>
+	<td>file name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>powerpoint</td>
+	<td>file name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>word</td>
+	<td>file name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>txt</td>
+	<td>file name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>url</td>
+	<td>URL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>brightcove</td>
+	<td>URL</td>
+	<td><code>&lt;object-id pub-id-type=&quot;videoid&quot;&gt;</code> and/or <code>&lt;object-id pub-id-type=&quot;referenceid&quot;&gt;</code> (note that the &#8220;brightcove&#8221; value is used for video only; see below for the value for Brightcove audio)</td>
+</tr>
+<tr>
+	<td>brightcove-audio</td>
+	<td>URL</td>
+	<td><code>&lt;object-id pub-id-type=&quot;videoid&quot;&gt;</code> and/or <code>&lt;object-id pub-id-type=&quot;referenceid&quot;&gt;</code></td>
+</tr>
+<tr>
+	<td>jwplayer</td>
+	<td>URL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>youtube</td>
+	<td>URL (note that the url structure should be https://youtu.be/[idOfVideo])</td>
+	<td></td>
+</tr>
+<tr>
+	<td>glencoe</td>
+	<td>URL</td>
+	<td><code>&lt;media id=&quot;videoid&quot;...&gt;</code></td>
+</tr>
+<tr>
+	<td>soundcloud</td>
+	<td>URL (note that you need to use the embed URI)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>libsyn</td>
+	<td>URL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>cadmore</td>
+	<td>NA</td>
+	<td><code>&lt;object-id pub-id-type=&quot;videoid&quot;&gt;</code> (note that the &#8220;cadmore&#8221; value is used for video only; see below for the value for Cadmore audio)</td>
+</tr>
+<tr>
+	<td>cadmore-audio</td>
+	<td>NA</td>
+	<td><code>&lt;object-id pub-id-type=&quot;videoid&quot;&gt;</code></td>
+</tr>
+<tr>
+	<td>vimeo</td>
+	<td>URL (note that the url structure should be https://player.vimeo.com/video/[idOfVideo])</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>File name example: </p>
+
+<pre><code>&lt;media content-type=&quot;image&quot; xlink:href=&quot;image.png&quot;/&gt;
+</code></pre>
+
+<p>URL example: </p>
+
+<pre><code>&lt;media content-type=&quot;soundcloud&quot; xlink:href=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/000000006&quot;/&gt;
+</code></pre>
+
+<p>Brightcove example: </p>
+
+<pre><code>&lt;media content-type=&quot;brightcove&quot; xlink:href=&quot;http://bcove.me/1xyjm06i&quot;&gt;
+  &lt;object-id pub-id-type=&quot;videoid&quot;&gt;123456789&lt;/object-id&gt;
+  &lt;object-id pub-id-type=&quot;referenceid&quot;&gt;myVideo1&lt;/object-id&gt;
+&lt;/media&gt;
+</code></pre>
+
+<p>Cadmore example: </p>
+
+<pre><code>&lt;media content-type=&quot;cadmore&quot;&gt;
+     &lt;object-id pub-id-type=&quot;videoid&quot;&gt;123456789-5cc5-4b22-82f0-168f1606f00&lt;/object-id&gt;
+&lt;/media&gt;
+</code></pre>
+
+<p>Glencoe example:</p>
+
+<pre><code>&lt;media content-type=&quot;glencoe&quot; id=&quot;video1&quot; xlink:href=&quot;https://movie.scpress.org/media/by_doi/10.0000/201904144.v1/source&quot;/&gt;
+     &lt;caption&gt;
+         &lt;p&gt;sample caption&lt;/p&gt;
+     &lt;/caption&gt;
+&lt;/media&gt;
+</code></pre>
+
+<p>To call out more than one <code>&lt;media&gt;</code> element per multimedia object, use the <code>&lt;media-group&gt;</code> element. </p>
+
+<h2 id="videowithmediafiletobearchivedatsilverchair">Video with media file to be archived at Silverchair</h2>
+
+<p>If the media file is in the package and is to be archived for downstream deposits at Silverchair, use the <code>&lt;alternatives&gt;</code> tag with child media elements. Under <code>&lt;alternatives&gt;</code>, provide <code>&lt;media content-type=&quot;media-archive&quot;&gt;</code> and put the video file name in <code>@xlink:href</code>. If <code>&lt;media content-type=&quot;media-archive&quot;&gt;</code> is provided, it must have a sibling element media element, with the media host provider specified in <code>@content-type</code>, for example, <code>&lt;media content-type=&quot;glencoe&quot;&gt;</code>. The physical media file will not be hosted, and is included only for downstream full text deposits.</p>
+
+<pre><code>    &lt;alternatives&gt;
+        &lt;media id=&quot;video3&quot; content-type=&quot;glencoe&quot; xlink:href=&quot;https://movie.scpress.org/media/by_doi/10.0000/201904144.v1/source&quot;/&gt;
+        &lt;media content-type=&quot;media-archive&quot; xlink:href=&quot;SSC_20120928_v107i3_043_video3.mp4&quot;/&gt;
+    &lt;/alternatives&gt;
+</code></pre>
+
+<h2 id="mediacaption">Media caption</h2>
+
+<p>Store captions in the <code>&lt;caption&gt;</code> element, either under the <code>&lt;media-group&gt;</code> or at the individual <code>&lt;media&gt;</code> level. Captions are optional, and there can be more than one. Example:</p>
+
+<pre><code>&lt;caption&gt;
+    &lt;p&gt;Test Description: A caption that describes various interesting aspects of the image file.&lt;/p&gt;
+&lt;/caption&gt;  
+</code></pre>
+
+<h1 id="otherspecificguidelines">Other Specific Guidelines</h1>
+
+<h2 id="relatedcontent">Related content</h2>
+
+<p>You may link content to other content that is published separately in the SCM system. Your site can use these links to surface related content to the user. Some example use cases include:</p>
+
+<ul>
+<li>Surfacing translations of the same piece of content.</li>
+<li>Explicitly connecting two pieces of content that cover the same topic.</li>
+<li>Connecting an author interview video to the content they authored.</li>
+</ul>
+
+<p>Use the <code>&lt;related-object&gt;</code> element in the <code>&lt;multimedia-meta&gt;</code> to designate a relation to another piece content. Use the <code>@document-type</code>, <code>@document-id-type</code>, and <code>@document-id</code> attributes to designate the type of content and document to target. To link to a chapter within a piece of content, also include the <code>@object-type</code>, <code>@object-id-type</code>, and <code>@object-id</code> attributes with the appropriate values (see example below). You must designate both the document and the object when linking to a chapter.</p>
+
+<p>Links to the following content types can be created from the multimedia content. The XML containing the <code>&lt;related-object&gt;</code> needs to be imported after the target content is imported. </p>
+
+<table>
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+
+<thead>
+<tr>
+	<th>Target document/content type</th>
+	<th>tagging format</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>Article (using DOI)</td>
+	<td><code>&lt;related-object document-type=&quot;article&quot; document-id-type=&quot;doi&quot; document-id=&quot;11.1111/11111111&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Article (using publisher ID)</td>
+	<td><code>&lt;related-object document-type=&quot;article&quot; document-id-type=&quot;publisher-id&quot; document-id=&quot;article.11.12.30&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Book (using ISBN 13)</td>
+	<td><code>&lt;related-object document-type=&quot;book&quot; document-id-type=&quot;isbn13&quot; document-id=&quot;123-4-56-789012-8&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Book (using ISBN 10)</td>
+	<td><code>&lt;related-object document-type=&quot;book&quot; document-id-type=&quot;isbn10&quot; document-id=&quot;7412589636&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Book (using eISBN)</td>
+	<td><code>&lt;related-object document-type=&quot;book&quot; document-id-type=&quot;eisbn&quot; document-id=&quot;1-234-56790-3&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Standalone multimedia (using DOI)</td>
+	<td><code>&lt;related-object document-type=&quot;multimedia&quot; document-id-type=&quot;doi&quot; document-id=&quot;11.1111/11111111&quot;/&gt;</code></td>
+</tr>
+<tr>
+	<td>Standalone multimedia (using publisher ID)</td>
+	<td><code>&lt;related-object document-type=&quot;multimedia&quot; document-id-type=&quot;publisher-id&quot; document-id=&quot;vid.oneoneone&quot;/&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>To target a chapter (in book only), you must additionally include the following attributes:</p>
+
+<pre><code>&lt; … object-type=&quot;chapter&quot; object-id-type=&quot;publisher-id&quot; object-id=&quot;book1.ch1&quot;/&gt;
+</code></pre>
+
+<p>Use the <code>@link-type</code> attribute to designate the link type. The link-type must match a value in our system. If the link-type is directional in nature (e.g., A is a correction for B vs. B is corrected by A), the link-type should follow the logic: </p>
+
+<p>&#8220;The content in <strong>this XML</strong> is a/the <strong>[linkType]</strong> of/for the <strong>target</strong> content.&#8221;</p>
+
+<h2 id="cross-references">Cross-references</h2>
+
+<p>Cross-reference links to items within the same XML document are indicated with the <code>&lt;xref&gt;</code> element. The <code>@ref-type</code> attribute indicates the element type of the cross-reference target and the <code>@rid</code> provides its id value. </p>
+
+<p>SCM supports the following different <code>&lt;xref&gt;</code> types for multimedia, and specific behavior should be confirmed with the build team. Attribute types for <code>&lt;xref ref-type&gt;</code>:</p>
+
+<table>
+<caption id="reftypes">Ref types</caption>
+<colgroup>
+<col style="text-align:center;"/>
+<col style="text-align:center;"/>
+</colgroup>
+
+<thead>
+<tr>
+	<th style="text-align:center;">ref-type attribute</th>
+	<th style="text-align:center;">Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td style="text-align:center;">aff</td>
+	<td style="text-align:center;">Affiliation</td>
+</tr>
+<tr>
+	<td style="text-align:center;">author-notes</td>
+	<td style="text-align:center;">Author notes</td>
+</tr>
+<tr>
+	<td style="text-align:center;">award</td>
+	<td style="text-align:center;">Award group, funding</td>
+</tr>
+<tr>
+	<td style="text-align:center;">bibr</td>
+	<td style="text-align:center;">Bibliographic reference</td>
+</tr>
+<tr>
+	<td style="text-align:center;">corresp</td>
+	<td style="text-align:center;">Corresponding author</td>
+</tr>
+<tr>
+	<td style="text-align:center;">supplementary-material</td>
+	<td style="text-align:center;">Supplementary material file</td>
+</tr>
+</tbody>
+</table>
+
+<p>An <code>&lt;xref&gt;</code> element used to designate an affiliation for a contributor must also have a <code>@ref-type=&quot;aff&quot;</code> attribute. An <code>&lt;xref&gt;</code> element used to connect a contributor to a Conflict of Interest statement in <code>&lt;author-notes&gt;</code> should have a <code>@ref-type=&quot;author-notes&quot;</code>. Similarly, an <code>&lt;xref&gt;</code> element used to connect a contributor to a footnote indicating equal contribution in <code>&lt;author-notes&gt;</code> should have a <code>@ref-type=&quot;author-notes&quot;</code>.</p>
+
+<p>Except for references to author affiliations, correspondence information for authors, and Conflict of Interest statements, the content of the element must be included. Provide literal content for display as shown by the &#8220;4(g)&#8221; in this example: </p>
+
+<pre><code>See reference &lt;xref ref-type=&quot;bibr&quot; rid=&quot;ref4&quot;&gt;4&lt;/xref&gt;.
+</code></pre>
+
+<p>The <code>@rid</code> attribute may have multiple values; separate each value with a space. If a document has a string of cross references either a single <code>&lt;xref&gt;</code> can link to all the references in the string or each reference can have an <code>&lt;xref&gt;</code>. So, if a document contains: </p>
+
+<pre><code>… widely discussed [1, 2, 3] in the …
+</code></pre>
+
+<p>you may either tag: </p>
+
+<pre><code>… widely discussed [&lt;xref ref-type=&quot;bibr&quot; rid=&quot;r1 r2 r3&quot;&gt;1, 2, 3&lt;/xref&gt;] in the …
+</code></pre>
+
+<p>or</p>
+
+<pre><code>… widely discussed [&lt;xref ref-type=&quot;bibr&quot; rid=&quot;r1&quot;&gt;1&lt;/xref&gt;, &lt;xref ref-type=&quot;bibr&quot; rid=&quot;r2&quot;&gt;2&lt;/xref&gt;, &lt;xref ref-type=&quot;bibr&quot; rid=&quot;r3&quot;&gt;3&lt;/xref&gt;] in the ….
+</code></pre>
+
+<p>You may also include the content as a range. The following would appear as &#8220;… widely discussed [1–3] in the …&#8221;.</p>
+
+<pre><code>… widely discussed [&lt;xref ref-type=&quot;bibr&quot; rid=&quot;r1 r2 r3&quot;&gt;1–3&lt;/xref&gt;] in the …
+</code></pre>
+
+<h2 id="authorassignedkeywords">Author assigned keywords</h2>
+
+<p>SCM accepts keywords in <code>&lt;multimedia-meta&gt;</code>. Speak to your build team about using keywords to create quick search links on the multimedia content object page. Keywords do not require advance setup in SCM and will be created on the fly during import.</p>
+
+<pre><code>&lt;kwd-group kwd-group-type=&quot;author&quot;&gt;
+    &lt;kwd&gt;chlorantraniliprole&lt;/kwd&gt;
+&lt;/kwd-group&gt;
+</code></pre>
+
+<h2 id="fundinginformation">Funding information</h2>
+
+<p>Include information about funding of the research in the <code>&lt;funding-group&gt;</code> tag. Zipline can import the funder&#8217;s name, funder&#8217;s identifier, and associated award identifiers, and SCM can match this information to the Funder Registry. Inside the <code>&lt;funding-source&gt;</code> element, use the <code>&lt;institution-wrap&gt;</code> element with child elements <code>&lt;institution&gt;</code> and <code>&lt;institution-id&gt;</code> to designate the name and identifiers of an institution, respectively. On <code>&lt;institution-id&gt;</code>, the attribute <code>@institution-id-type=&quot;DOI&quot;</code> must be present if the ID comes from the Open Funder Registry. </p>
+
+<p>In addition, you can optionally add information in the <code>&lt;funding-source&gt;</code> element to indicate individual(s) or institution(s) to whom the award was given (ie, <code>&lt;principal-award-recipient&gt;</code>) and the person(s) responsible for the intellectual content of the work reported in the document (ie, <code>&lt;principal-investigator&gt;</code>). These will display as given on the site. You can also add in a funding statement that will display on the site, using <code>&lt;funding-statement&gt;</code> in <code>&lt;funding-group&gt;</code>.</p>
+
+<pre><code>&lt;funding-group specific-use=&quot;FundRef&quot;&gt;
+     &lt;award-group award-type=&quot;grant&quot; id=&quot;award1&quot;&gt;
+        &lt;funding-source id=&quot;fundingsource1&quot;&gt;
+            &lt;institution-wrap&gt;                      
+                &lt;institution&gt;National Science Foundation&lt;/institution&gt;
+                &lt;institution-id institution-id-type=&quot;DOI&quot;&gt;10.13039/100000001&lt;/institution-id&gt;
+            &lt;/institution-wrap&gt;
+        &lt;/funding-source&gt;            
+        &lt;award-id&gt;WU4001&lt;/award-id&gt;
+        &lt;principal-award-recipient id=&quot;recipient1&quot;&gt;
+            &lt;name&gt;
+                &lt;surname&gt;Carberry&lt;/surname&gt;
+                &lt;given-names&gt;Josiah Stinkney&lt;/given-names&gt;
+            &lt;/name&gt;
+            &lt;contrib-id contrib-id-type=&quot;orcid&quot; authenticated=&quot;true&quot;&gt;
+                    https://orcid.org/0000-0002-1825-0097&lt;/contrib-id&gt;
+        &lt;/principal-award-recipient&gt;
+        &lt;principal-investigator id=&quot;investigator1&quot;&gt;
+            &lt;name&gt;
+                &lt;surname&gt;Carberry&lt;/surname&gt;
+                &lt;given-names&gt;Josiah Stinkney&lt;/given-names&gt;
+            &lt;/name&gt;
+            &lt;contrib-id contrib-id-type=&quot;orcid&quot; authenticated=&quot;true&quot;&gt;
+                    https://orcid.org/0000-0002-1825-0097&lt;/contrib-id&gt;
+            &lt;/principal-investigator&gt;
+    &lt;/award-group&gt;
+    &lt;funding-statement id=&quot;statement1&quot;&gt;&lt;bold&gt;Funding:&lt;/bold&gt; This is a funding statement.&lt;/funding-statement&gt;
+ &lt;/funding-group&gt;
+</code></pre>
+
+<p>If an embargo period is stored in SCM for a funder, multimedia associated with an award from that funder will automatically become available outside the paywall after that embargo period. Embargo periods for funding agencies are maintained in SCM and are not included in the XML.</p>
+
+<p>The initial access type for multimedia is set during import. A license URL for an article can also be sent to Crossref. See section <a href="#permissions">Permissions</a> for information about setting access type and including licensing information.</p>
+
+<p>The funder&#8217;s name, award id, award recipient name, investigator name, and funding statement will display under the author and article information on the article. The funding information can be cross-referenced in the caption of the multimedia with an <code>&lt;xref ref-type=&quot;award&quot;&gt;</code> that references the award group&#8217;s @id.</p>
+
+<pre><code>&lt;body&gt;
+     ...
+     &lt;p&gt;&lt;xref rid=&quot;award1&quot; ref-type=&quot;award&quot;&gt;This author&lt;/xref&gt; received funding for this work.&lt;/p&gt;
+     ...
+&lt;/body&gt;
+</code></pre>
+
+<h2 id="references">References</h2>
+
+<p>References or bibliographic citations should be tagged inside <code>&lt;multimedia-back&gt;</code> using <code>&lt;ref-list&gt;</code>. Each bibliographic entry should be in a <code>&lt;ref&gt;</code> element.</p>
+
+<p>References should be tagged at as granular a level as possible to enable SCM to query PubMed, Crossref, or other online databases; retrieve citation information and turn it into a live link; and format citations on the site. Granular tagging also enables any other functionality based on references that may be desired on the site.</p>
+
+<p>Silverchair recommends that at least these elements should be tagged:</p>
+
+<ul>
+<li><code>&lt;source&gt;</code></li>
+<li><code>&lt;article-title&gt;</code> (for journal and proceedings articles)</li>
+<li><code>&lt;chapter-title&gt;</code> (for books)</li>
+<li><code>&lt;volume&gt;</code></li>
+<li><code>&lt;issue&gt;</code></li>
+<li><code>&lt;fpage&gt;</code></li>
+<li><code>&lt;surname&gt;</code></li>
+<li><code>&lt;year&gt;</code></li>
+<li><code>&lt;month&gt;</code></li>
+<li><code>&lt;day&gt;</code></li>
+</ul>
+
+<p>SCM can create links to PubMed and Crossref for journal articles, conference proceedings, or books referenced in the references section. For SCM to determine and create these links, specific <code>@publication-type</code> values must be included in the <code>&lt;element-citation&gt;</code> or <code>&lt;mixed-citation&gt;</code> element. The values that are supported are <code>@publication-type=&quot;journal&quot;</code> for journal articles, <code>@publication-type=&quot;confproc&quot;</code> for conference proceedings, and <code>@publication-type=&quot;book&quot;</code> for books. In addition, if the <code>&lt;ref&gt;</code> element has more than one <code>&lt;element-citation&gt;</code> or <code>&lt;mixed-citation&gt;</code> element, each of those citations must have a unique <code>@id</code> value.</p>
+
+<pre><code>&lt;ref id=&quot;ref1&quot;&gt;
+    &lt;mixed-citation id=&quot;ref1a&quot; publication-type=&quot;journal&quot;&gt;
+        .....
+    &lt;/mixed-citation&gt;
+    &lt;mixed-citation id=&quot;ref1b&quot; publication-type=&quot;book&quot;&gt;
+        .....
+    &lt;/mixed-citation&gt;
+&lt;/ref&gt;
+</code></pre>
+
+<p>Crossref, PubMed, arXiv, and Web of Science information may optionally be supplied with the references by including a <code>&lt;pub-id&gt;</code> element. Use the attribute <code>@pub-id-type=&quot;doi&quot;</code> for a DOI, <code>@pub-id-type=&quot;pmid&quot;</code> for PubMed ID, <code>@pub-id-type=&quot;arxiv&quot;</code> for arXiv, and <code>@pub-id-type=&quot;wos&quot;</code> for Web of Science.</p>
+
+<p>The system provides formatting and punctuation for <code>&lt;element-citation&gt;</code>, while <code>&lt;mixed-citation&gt;</code> is formatted and punctuated from the source data.</p>
+
+<p>If you are using <code>&lt;element-citation&gt;</code>, we suggest you preview the rendition of your data in our system to ensure good results. </p>
+
+<pre><code>&lt;element-citation publication-type=&quot;journal&quot; publication-format=&quot;print&quot;&gt;
+    &lt;name&gt;&lt;surname&gt;Carila&lt;/surname&gt;&lt;given-names&gt;RC&lt;/given-names&gt;&lt;/name&gt;
+    &lt;name&gt;&lt;surname&gt;Poole&lt;/surname&gt;&lt;given-names&gt;JM&lt;/given-names&gt;&lt;/name&gt;
+    &lt;name&gt;&lt;surname&gt;Keefe&lt;/surname&gt;&lt;given-names&gt;LE&lt;/given-names&gt;&lt;/name&gt;
+    &lt;name&gt;&lt;surname&gt;Wan&lt;/surname&gt;&lt;given-names&gt;L&lt;/given-names&gt;&lt;/name&gt;   
+    &lt;article-title&gt;Blood pressure levels among sedentary workers&lt;/article-title&gt;   
+    &lt;source&gt;J Dem Diseases&lt;/source&gt;
+    &lt;year&gt;2012&lt;/year&gt;
+    &lt;month&gt;Jan&lt;/month&gt;
+    &lt;volume&gt;32&lt;/volume&gt;
+    &lt;issue&gt;1&lt;/issue&gt;
+    &lt;fpage&gt;112&lt;/fpage&gt;
+    &lt;lpage&gt;116&lt;/lpage&gt;   
+&lt;/element-citation&gt;
+</code></pre>
+
+<p>If you are using <code>&lt;mixed-citation&gt;</code> the XML must include all punctuation and spacing (such as the space between the <code>&lt;surname&gt;</code> and <code>&lt;given-names&gt;</code> below) as it should be displayed. </p>
+
+<pre><code>&lt;mixed-citation publication-type=&quot;journal&quot; publication-format=&quot;print&quot;&gt;&lt;string-name&gt;&lt;surname&gt;Carila&lt;/surname&gt; &lt;given-names&gt;RC&lt;/given-names&gt;&lt;/string-name&gt;, &lt;string-name&gt;&lt;surname&gt;Poole&lt;/surname&gt; &lt;given-names&gt;JM&lt;/given-names&gt;&lt;/string-name&gt;, &lt;string-name&gt;&lt;surname&gt;Keefe&lt;/surname&gt; &lt;given-names&gt;LE&lt;/given-names&gt;&lt;/string-name&gt;, &lt;string-name&gt;&lt;surname&gt;Wan&lt;/surname&gt; &lt;given-names&gt;L&lt;/given-names&gt;&lt;/string-name&gt;. &lt;article-title&gt;Blood pressure levels among sedentary workers&lt;/article-title&gt;. &lt;source&gt;J Dem Diseases&lt;/source&gt;. &lt;year&gt;2012&lt;/year&gt; &lt;month&gt;Jan&lt;/month&gt;; &lt;volume&gt;32&lt;/volume&gt;(&lt;issue&gt;1&lt;/issue&gt;): &lt;fpage&gt;112&lt;/fpage&gt;–&lt;lpage&gt;116&lt;/lpage&gt;.&lt;/mixed-citation&gt;
+</code></pre>
+
+<p>Note: <code>&lt;element-citation&gt;</code> should be reserved for citations that have consistent tagging, where automatic formatting is likely to be satisfactory. If that is not the case, we recommend using <code>&lt;mixed-citation&gt;</code> to preserve more controlled formatting.</p>
+
+<p>The <code>&lt;ref&gt;</code> element must have an <code>@id</code> attribute if it is linked from elsewhere in the content using an <code>&lt;xref&gt;</code>.</p>
+
+<h3 id="datacitations">Data citations</h3>
+
+<p>When citing a data set, use <code>@publication-type=&quot;data&quot;</code>. Use <code>@person-group-type=&quot;curator&quot;</code> on <code>&lt;person-group&gt;</code> when appropriate. Include at least one of <code>&lt;data-title&gt;</code> (name of data set) or <code>&lt;source&gt;</code> (name of repository holding the data). Wrap the repository ID in <code>&lt;pub-id&gt;</code> and include the full URI to the data, if known, in <code>@xlink:href</code>. Use <code>@assigning-authority</code> on <code>&lt;pub-id&gt;</code> when appropriate to identify the group responsible for the identifier. The version number of the dataset should appear in <code>&lt;version&gt;</code>, with a machine-readable number in the <code>@designator</code> attribute.</p>
+
+<pre><code> &lt;mixed-citation publication-type=&quot;data&quot;&gt; ... &lt;data-title&gt;Dataset 10&lt;/data-title&gt; &lt;source&gt;FigShare&lt;/source&gt;. &lt;pub-id pub-id-type=&quot;doi&quot; assigning-authority=&quot;figshare&quot; xlink:href=&quot;http:doi.org/10.6084/m9.figshare.815894&quot;&gt;10.6084/m9.figshare.815894&lt;/pub-id&gt;. &lt;version designator=&quot;16.2&quot;&gt;16th version, second release&lt;/version&gt;.&lt;/mixed-citation&gt;
+</code></pre>
+
+<h2 id="accessibility">Accessibility</h2>
+
+<p>With the 1.45 release of the specification, we have introduced additional guidance and new Zipline business rules to encourage accessible XML practices. Much of this new guidance is based on the JATS4R Accessibility recommendation. For more information about the full recommendation from JATS4R, please visit <a href="https://jats4r.niso.org/accessibility/">https://jats4r.niso.org/accessibility/</a>.</p>
+
+<h3 id="alt-textforimages">alt-text for images</h3>
+
+<p>We have implemented a check for <code>&lt;alt-text&gt;</code> for images. If <code>&lt;alt-text&gt;</code> is missing or otherwise not indicated as being unneeded (see note below regarding decorative images), then a warning will be thrown so that this can be remediated. This check is for <code>&lt;alt-text&gt;</code> within <code>&lt;media content-type=&quot;fig&quot;&gt;</code>: </p>
+
+<pre><code>&lt;media content-type=&quot;image&quot; xlink:href=&quot;image1.png&quot;&gt;
+    &lt;alt-text&gt;Description of the image itself&lt;/alt-text&gt;
+    &lt;caption&gt;
+        &lt;p&gt;Test Description: A caption that describes various interesting aspects of the image file.&lt;/p&gt;
+    &lt;/caption&gt;
+    &lt;attrib&gt;Made by Content Architecture.&lt;/attrib&gt;
+&lt;/media&gt;  
+</code></pre>
+
+<p>Note that decorative images do not require meaningful alt-text, but screen readers do expect an indicator that these images are purely decorative. The accepted indicator of this is a &#8220;NULL&#8221; value within alt-text: </p>
+
+<pre><code>&lt;alt-text&gt;NULL&lt;/alt-text&gt;
+</code></pre>
+
+<p>For more information on how to provide meaningful alt-text, please refer to the JATS4R recommendation (<a href="https://jats4r.niso.org/accessibility/#figures-and-images">https://jats4r.niso.org/accessibility/#figures-and-images</a>).</p>
+
+<h3 id="long-descforimages">long-desc for images</h3>
+
+<p>In cases where <code>&lt;alt-text&gt;</code> is not sufficient to describe the complexity of the image, use <code>&lt;long-desc&gt;</code>. For example, <code>&lt;long-desc&gt;</code> could be useful to describe images of graphs or tables that show important data that leads to various conclusions. This element can be included as a child of <code>&lt;media&gt;</code>:</p>
+
+<pre><code>&lt;media content-type=&quot;image&quot; xlink:href=&quot;image1.png&quot;&gt;
+    &lt;alt-text&gt;Description of the image itself&lt;/alt-text&gt;
+    &lt;long-desc&gt;Description of image that is longer than the alt-text description.&lt;/long-desc&gt;
+    &lt;caption&gt;
+        &lt;p&gt;Test Description: A caption that describes various interesting aspects of the image file.&lt;/p&gt;
+    &lt;/caption&gt;
+    &lt;attrib&gt;Made by Content Architecture.&lt;/attrib&gt;
+&lt;/media&gt;
+</code></pre>
+
+<p>Alternatively, to link to an external, structured long-desc, use <code>@xlink:href</code> on <code>&lt;long-desc&gt;</code>:</p>
+
+<pre><code>&lt;media content-type=&quot;image&quot; xlink:href=&quot;image1.png&quot;&gt;
+    &lt;alt-text&gt;Description of the image itself&lt;/alt-text&gt;
+    &lt;long-desc xlink:href=&quot;https://example.com/long-desc/image1&quot;/&gt;
+    &lt;caption&gt;
+        &lt;p&gt;Test Description: A caption that describes various interesting aspects of the image file.&lt;/p&gt;
+    &lt;/caption&gt;
+    &lt;attrib&gt;Made by Content Architecture.&lt;/attrib&gt;
+&lt;/media&gt;
+</code></pre>
+
+<p>Note that we are aware that browsers have deprecated the HTML attribute longdesc. We have sought an alternative HTML solution that will not impact the XML tagging.</p>
+
+<h3 id="mathml">MathML</h3>
+
+<p>If math is used in any part of the description or other parts of the multimedia, please use MathML. JATS4R recommends that all math be encoded as MathML for accessibility purposes. LaTeX and TeX are also ok in our system because they are converted to MathJax; however, on their own, these methods are not considered accessible. Please see <a href="https://jats4r.niso.org/accessibility/#math">https://jats4r.niso.org/accessibility/#math</a> for more guidance.</p>
+
+<h3 id="private-char">private-char</h3>
+
+<p>The element <code>&lt;private-char&gt;</code> should be avoided as tagging for special characters. Instead, use Unicode values to ensure that the special character can be read by screen readers or other text-to-speech or text-to-braille systems. For more guidance, please see the section <a href="#specialcharacters">Special characters</a> and <a href="https://jats4r.niso.org/accessibility/#special-characters">https://jats4r.niso.org/accessibility/#special-characters</a>.</p>
+
+<h1 id="deprecatedfeatures">Deprecated Features</h1>
+
+<p>The following features have been deprecated from SCMM, but have been preserved in the specification to allow for backwards compatibility. These features will trigger a warning when content is loaded into Zipline, and we recommended updating the source content. These features may not be allowed in future releases of the Silverchair Specifications. </p>
+
+<h2 id="publication-formatvalueofepubonpub-date"><code>@publication-format</code> value of &#8220;epub&#8221; on <code>&lt;pub-date&gt;</code></h2>
+
+<p>Use of the value <code>@publication-format=&quot;epub&quot;</code> on <code>&lt;pub-date&gt;</code> has been deprecated in favor of <code>@publication-format=&quot;electronic&quot;</code> and <code>@date-type&quot;pub&quot;</code>. See section <a href="#publicationdate">Publication date</a> for more information. </p>
+
+</body>
+</html>

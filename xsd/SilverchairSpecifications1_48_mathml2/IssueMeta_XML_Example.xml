@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This XML file is provided alongside the Silverchair XSD files as a representative, but not authoritative, sample and should be considered supplemental only.-->
+
+<issue-meta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://specifications.silverchair.com/xsd/1/48/SCJATS-journalissue.xsd xsd/SCJATS-journalissue.xsd"
+	xmlns="http://specifications.silverchair.com/xsd/1/48/SCJATS-journalissue.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">	
+
+<!-- 
+Alternate root element using @dynamic-toc-type attribute. Value can be "default" or "topic-driven". 
+If the document has @dynamic-toc-type, it may not have a table-of-contents element. 
+Site default applies if both @dynamic-toc-type attribute and table-of-contents element are omitted.
+
+<issue-meta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="./xsd/SCJATS-journalissue1-0.xsd" xmlns:xlink="http://www.w3.org/1999/xlink" dynamic-toc-type="topic-driven"> 
+-->
+	<!-- issue-identifier, journal-meta, volume, issue required. -->
+	<journal-id journal-id-type="publisher-id">journalID</journal-id>
+	<issue-identifier>
+		<issn pub-type="ppub">1234-5687</issn>
+		<issn pub-type="epub">1234-5679</issn>
+		<volume>999</volume>
+		<issue>111</issue>
+	</issue-identifier>
+	<issue-title>Issue Title</issue-title>
+	<issue-sponsor>Issue sponsor</issue-sponsor>	
+	<!-- pub-date is optional. If omitted, issue date is populated by pub-date provided in article-meta. -->
+	<pub-date date-type="cover" iso-8601-date="2012-08-01">
+		<month>August</month>
+		<year>2012</year>
+	</pub-date>
+	<pub-date publication-format="print" date-type="pub">
+		<day>21</day>
+		<month>9</month> 
+		<year>2012</year>
+	</pub-date>	
+	<!-- issue-type optional. Default value (if omitted) is "regular". -->
+	<issue-type>supplemental</issue-type>
+	<contrib-group>
+		<contrib contrib-type="editor">
+			<name>
+				<surname>Canis</surname>
+				<given-names>Dule</given-names>
+				<prefix>Miss</prefix>
+			</name>
+			<xref ref-type="aff" rid="aff1"/>
+		</contrib>
+		<contrib contrib-type="topic-editor">
+			<name-alternatives>
+				<name name-style="western"><surname>Zhang</surname>
+					<given-names>Y. P.</given-names></name>
+				<string-name name-style="eastern" xml:lang="zh">张轶泼</string-name>
+			</name-alternatives>			
+		</contrib>
+	</contrib-group>
+	<!--Example of contrib with ROR ID.-->
+	<contrib-group>
+		<contrib contrib-type="editor">
+			<name>
+				<surname>Mouse</surname>
+				<given-names>Minnie</given-names>
+			</name>
+			<aff id="aff66w">						
+				<institution-wrap>
+					<institution-id institution-id-type="ror">https://ror.org/03vek6s52</institution-id>
+					<institution>Harvard University</institution>
+				</institution-wrap>
+				<city>Cambridge</city>, <state>MA</state>, <postal-code>02138</postal-code>, <country country="us">United States</country>						
+			</aff>
+		</contrib>
+	</contrib-group>	
+	<aff id="aff1"><label>1</label><institution-wrap>
+		<institution content-type="edu">Univerisity of Virginia</institution>
+		<institution content-type="dept">Department of History</institution>
+	</institution-wrap> Charlottesville, VA.</aff>
+	<!-- supplementary-material optional. -->
+	<supplementary-material content-type="cover" xlink:href="coverimage.png"/>
+	<supplementary-material content-type="cover-caption" xlink:href="caption.txt"/>
+	<supplementary-material content-type="toc" xlink:href="issuetoc.pdf"/>
+	<supplementary-material content-type="front" xlink:href="issuefrontmatter.pdf"/>
+	<supplementary-material content-type="back" xlink:href="issuebackmatter.pdf"/>
+	<supplementary-material content-type="ed-board" xlink:href="editorialboard.pdf"/>
+	<supplementary-material content-type="alternate-cover" xlink:href="alternatecoverimage.png">
+		<xref ref-type="supplementary-material" rid="covercaption2"/>
+		<ext-link ext-link-type="article" xlink:href="10.9999/SSC_20120928_v107i3_043_article"/>
+	</supplementary-material>
+	<supplementary-material id="covercaption2" content-type="alternate-cover-caption" xlink:href="alternatecaption.txt"/>
+	<!-- self-uri optional. -->
+	<self-uri xlink:href="journal_issue1.pdf"/>
+	<!-- self-uri country-specific PDF optional. -->
+	<self-uri content-type="pdf-country-specific" specific-use="fr" xlink:href="bookpdf_fr.pdf"/>
+	<!-- self-uri to YUDU Magazine view optional. -->
+	<self-uri content-type="yudu" xlink:href="https://content.yudu.com/web..."/>
+	<conference>
+		<conf-date>7–11 December 2020</conf-date>				
+		<conf-name>179th Meeting of the Acoustical Society of America</conf-name>
+		<conf-num>179ASA</conf-num>
+		<conf-loc>Acoustics Virtually Everywhere</conf-loc>	
+	</conference>		
+	<!-- TOC optional. Site default applies if table-of-contents element and @dynamic-toc-type attribute (in issue-meta element) are omitted.
+	     If the document has a table-of-contents element, it may not have a @dynamic-toc-type attribute in the issue-meta element. -->
+	<table-of-contents>
+		<toc-content pub-id-type="doi" xlink:href="10.1000/0000001"/>
+		<toc-content pub-id-type="doi" xlink:href="10.1000/0000002"/>		
+		<toc-sec>
+			<title>Editorials</title>
+			<toc-content pub-id-type="doi" xlink:href="10.1000/0000001"/>
+			<toc-content pub-id-type="doi" xlink:href="10.1000/0000002"/>
+			<toc-content pub-id-type="publisher-id" xlink:href="jabc.article.0000003"/>
+			<toc-sec>
+				<title>Some subhead</title>
+				<toc-content pub-id-type="publisher-id" xlink:href="jabc.article.0000004"/>
+				<toc-content pub-id-type="doi" xlink:href="10.1000/0000005"/>
+			</toc-sec>
+			<toc-content pub-id-type="publisher-id" xlink:href="jabc.article.0000011"/>
+		</toc-sec>
+		<toc-sec>
+			<title>Original Research</title>
+			<toc-sec>
+				<title>Asthma</title>
+				<toc-content pub-id-type="doi" xlink:href="10.1000/0000006"/>
+				<toc-content pub-id-type="doi" xlink:href="10.1000/0000007"/>
+			</toc-sec>
+			<toc-sec>
+				<title>Signs and Symptoms of Disease</title>
+				<toc-content pub-id-type="doi" xlink:href="10.1000/0000008"/>
+				<toc-content pub-id-type="doi" xlink:href="10.1000/0000009"/>
+				<toc-content pub-id-type="doi" xlink:href="10.1000/0000010"/>
+			</toc-sec>
+		</toc-sec>
+	</table-of-contents>
+</issue-meta>
