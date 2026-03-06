@@ -87,7 +87,7 @@
       <xsl:apply-templates select="." mode="id"/>
     </xsl:variable>
 
-    <div id="{$this-article}-front" class="front">
+    <div id="{$this-article}-front" class="front jats">
       <xsl:apply-templates select="front | front-stub" mode="metadata"/>
     </div>
  
@@ -95,7 +95,7 @@
     <!-- body -->
     <CJSTEXT>
     <xsl:for-each select="body">
-      <div id="{$this-article}-body" class="body">
+      <div id="{$this-article}-body" class="body jats">
         <xsl:apply-templates/>
       </div>
     </xsl:for-each>
@@ -104,14 +104,14 @@
     <xsl:if test="back | $loose-footnotes">
       <!-- $loose-footnotes is defined below as any footnotes outside
            front matter or fn-group -->
-      <div id="{$this-article}-back" class="back">
+      <div id="{$this-article}-back" class="back jats">
         <xsl:call-template name="make-back"/>
       </div>
     </xsl:if>
 
     <xsl:for-each select="floats-group | floats-wrap">
       <!-- floats-wrap is from 2.3 -->
-      <div id="{$this-article}-floats" class="back">
+      <div id="{$this-article}-floats" class="back jats">
         <xsl:call-template name="main-title">
           <xsl:with-param name="contents">
             <span class="generated">Floating objects</span>
@@ -122,7 +122,7 @@
     </xsl:for-each>
 
     <!-- more metadata goes in the footer -->
-    <div id="{$this-article}-footer" class="article-footer">
+    <div id="{$this-article}-footer" class="article-footer jats">
     
     <!-- Only show the combined heading if something exists -->
       <xsl:variable name="has-ack" select="boolean(ack[normalize-space(.)!=''])"/>

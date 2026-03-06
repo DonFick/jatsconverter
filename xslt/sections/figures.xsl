@@ -19,6 +19,63 @@
 
 
   
+
+  <!-- Standalone graphics (not inside <fig>): render as a thumbnail image without a link -->
+<xsl:template match="graphic[not(ancestor::fig)] | inline-graphic[not(ancestor::fig)]" priority="3">
+  
+    <xsl:variable name="img">
+      <xsl:choose>
+        <xsl:when test="@xlink:href">
+          <xsl:value-of select="@xlink:href"/>
+        </xsl:when>
+        <xsl:when test="@href">
+          <xsl:value-of select="@href"/>
+        </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+    <!-- last-segment + strip-last-extension helpers assumed available -->
+    <xsl:variable name="filename">
+      <xsl:call-template name="last-segment">
+        <xsl:with-param name="path" select="$img"/>
+      </xsl:call-template>
+    </xsl:variable>
+
+    <xsl:variable name="basename">
+      <xsl:call-template name="strip-last-extension">
+        <xsl:with-param name="filename" select="normalize-space($filename)"/>
+      </xsl:call-template>
+    </xsl:variable>
+
+    <xsl:variable name="label"   select="normalize-space(label)"/>
+    <xsl:variable name="caption" select="normalize-space(caption)"/>
+
+  <div class="figure">
+    <img src="{concat('../thumbs/', $basename, '.jpg')}"
+           class="thumbnail" width="200">
+      <!-- Prefer explicit alt-text; otherwise fall back to @xlink:href -->
+      <xsl:choose>
+        <xsl:when test="alt-text">
+          <xsl:attribute name="alt">
+            <xsl:value-of select="normalize-space(string(alt-text[1]))"/>
+          </xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="alt"><xsl:value-of select="@xlink:href"/></xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
+    </img>
+    <xsl:if test="$label">
+      <div class="fig-label"><xsl:value-of select="$label"/></div>
+    </xsl:if>
+    <xsl:if test="caption">
+      <div class="fig-caption caption">
+        <xsl:apply-templates select="caption/node()"/>
+      </div>
+    </xsl:if>
+
+  </div>
+</xsl:template>
+
 <xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" match="graphic | inline-graphic">
     <xsl:apply-templates/>
     <img alt="{@xlink:href}">
@@ -94,6 +151,13 @@
     <!-- Optional label below thumbnail -->
     <xsl:if test="$label">
       <div class="fig-label"><xsl:value-of select="$label"/></div>
+    </xsl:if>
+    
+    <xsl:if test="caption">
+      <div class="fig-caption caption">
+        <!-- render caption *contents* without wrapping it in the global <div class="caption"> -->
+        <xsl:apply-templates select="caption/node()"/>
+      </div>
     </xsl:if>
   </div>
 </xsl:template>
@@ -221,6 +285,12 @@
     </a>
     <xsl:if test="$label">
       <div class="fig-label"><xsl:value-of select="$label"/></div>
+    </xsl:if>
+
+    <xsl:if test="caption">
+      <div class="fig-caption caption">
+        <xsl:apply-templates select="caption/node()"/>
+      </div>
     </xsl:if>
   </div>
 </xsl:template>

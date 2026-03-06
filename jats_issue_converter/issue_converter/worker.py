@@ -14,7 +14,8 @@ from typing import Optional, Tuple, List
 from lxml import etree
 
 from .config import AppConfig
-from .emailer import EmailMessage, SesMailer
+# from .emailer import EmailMessage, SesMailer
+from .emailer import EmailMessage, SmtpMailer
 from .jats import extract_publisher_name, extract_journal_title, extract_volume_issue, load_xml_first, IssueIdentity
 from .manifest import write_issue_manifest, render_index_html
 from .transformer import copy_optional_dirs, run_xslt_on_issue, ensure_toc
@@ -71,6 +72,7 @@ def _write_log(log_path: Path, text: str) -> None:
 
 def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
     """Process a claimed ZIP file located in processing_dir."""
+    print("processing file", flush=True)
     ctx = JobContext(
         zip_path=zip_in_processing,
         zip_name=zip_in_processing.name,
@@ -78,7 +80,9 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
     )
 
     # Mailer (SES)
-    mailer = SesMailer(cfg.email.aws_region, cfg.email.from_address, cfg.email.to_addresses)
+    # mailer = SesMailer(cfg.email.aws_region, cfg.email.from_address, cfg.email.to_addresses)
+    # Mailer (SMTP)
+    mailer = SmtpMailer(from_address=cfg.email.from_address, to_addresses=cfg.email.to_addresses, host=cfg.email.smtp_host, port=cfg.email.smtp_port)
 
     # Create a per-job log path
     ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -96,6 +100,7 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
             zf.extractall(path=str(staging_job_root), members=members)
 
         # wrapper ignore
+        print( _choose_effective_root(staging_job_root))
         effective_root = _choose_effective_root(staging_job_root)
 
         # --- discover xml
@@ -238,8 +243,16 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
             _write_log(ctx.log_path, log_text)
 
         # Send SES email
+#         try:
+#             subject = f"Issue converter FAILED: {ctx.zip_name} (stage={ctx.stage})"
+#             mailer.send(EmailMessage(subject=subject, body_text=log_text))
+#         except Exception:
+#             # If SES fails, we still keep the local log
+#             pass
+
+        # Send SMTP email
         try:
-            subject = f"Issue converter FAILED: {ctx.zip_name} (stage={ctx.stage})"
+            subject = f"Issue converter NOTICE: {ctx.zip_name} (stage={ctx.stage})"
             mailer.send(EmailMessage(subject=subject, body_text=log_text))
         except Exception:
             # If SES fails, we still keep the local log

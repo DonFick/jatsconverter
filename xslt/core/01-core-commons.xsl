@@ -741,11 +741,19 @@
       <xsl:when test="$issue-info and not(issue-id[2] | issue-title[2] | issue-sponsor | issue-part)">
         <!-- if there are only one issue, issue-id and issue-title and nothing else, we make one line only -->
         <xsl:call-template name="cjsmetadata-labeled-entry">
-          <xsl:with-param name="label">No. </xsl:with-param>
+          <xsl:with-param name="label"></xsl:with-param>
           <xsl:with-param name="cjstag">CJSISSUE</xsl:with-param>
           <xsl:with-param name="contents">
-            <xsl:apply-templates select="issue | issue-title" mode="metadata-inline"/>
+            <xsl:choose>
+                <xsl:when test="not(issue-title)">
+                    <xsl:text>No. </xsl:text><xsl:apply-templates select="issue" mode="metadata-inline"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="issue-title" mode="metadata-inline"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates select="issue-id" mode="metadata-inline"/>
+            <xsl:text> (</xsl:text><xsl:call-template name="safe-month-name"><xsl:with-param name="date" select="pub-date"/></xsl:call-template><xsl:text>)</xsl:text>
           </xsl:with-param>
         </xsl:call-template>
       </xsl:when>
@@ -1982,11 +1990,12 @@
     </xsl:param>
     <xsl:call-template name="cjsmetadata-entry">
       <xsl:with-param name="contents">
-        <xsl:if test="normalize-space(string($label))">
           <xsl:copy-of select="$label"/>
           <xsl:element name="{$cjstag}">
             <xsl:copy-of select="$contents"/>
-          </xsl:element></xsl:if>
+          </xsl:element>
+        <xsl:if test="normalize-space(string($label))">
+        </xsl:if>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>

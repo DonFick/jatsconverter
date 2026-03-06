@@ -10,7 +10,7 @@ We intentionally keep this runner generic; your XSLT controls the final HTML des
 
 from __future__ import annotations
 
-import shutil
+import shutil, os
 from pathlib import Path
 from typing import Dict, Optional, List
 
@@ -102,8 +102,11 @@ def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -
     xslt_doc = etree.parse(str(stylesheet_path))
     transform = etree.XSLT(xslt_doc)
 
-    out_html_dir = output_root  # articles at root unless your XSLT chooses otherwise
+    out_html_dir = output_root / "html"  # articles at root unless your XSLT chooses otherwise
     out_html_dir.mkdir(parents=True, exist_ok=True)
+
+    out_figs_dir = output_root / "figs"  # articles at root unless your XSLT chooses otherwise
+    out_figs_dir.mkdir(parents=True, exist_ok=True)
 
     generated: List[Path] = []
     for xml_file in sorted(xml_dir.glob("*.xml")):
@@ -114,12 +117,31 @@ def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -
             "xml-basename": etree.XSLT.strparam(xml_file.stem),
         }
         
-        
         result = transform(doc, **params)
         html_name = xml_file.stem + ".html"
         html_path = out_html_dir / html_name
         html_path.write_bytes(etree.tostring(result, pretty_print=True, method="html", encoding="utf-8"))
         generated.append(html_path)
+        print(html_path)
+        
+        ## Build out corresponding figure pages            
+        figure_ids = doc.xpath("//fig/@id")        
+        for figure_id in figure_ids:
+            print(figure_id)
+            if not os.path.exists(out_figs_dir):
+                os.makedirs(out_figs_dir)
+            #############################################
+            # Build a figure page
+            params = {
+                "xml-basename": etree.XSLT.strparam(xml_file.stem),
+                "figure-id": etree.XSLT.strparam(figure_id),
+            }
+            result = transform(doc, **params)
+            # Write output
+            html_name = xml_file.stem + "." + figure_id + ".html"
+            html_path = out_figs_dir / html_name
+            html_path.write_bytes(etree.tostring(result, pretty_print=True, method="html", encoding="utf-8"))
+
 
     return generated
 

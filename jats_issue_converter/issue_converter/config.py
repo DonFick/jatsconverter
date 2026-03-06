@@ -83,6 +83,8 @@ class EmailConfig:
     from_address: str
     to_addresses: List[str]
     aws_region: str = "us-east-1"
+    smtp_host: str = "localhost"
+    smtp_port: int = 25
 
 
 @dataclass(frozen=True)
@@ -159,6 +161,8 @@ def load_config(path: str | Path) -> AppConfig:
         from_address=str(_require(email, "from_address")),
         to_addresses=list(_require(email, "to_addresses")),
         aws_region=str(email.get("aws_region", "us-east-1")),
+        smtp_host=str(email.get("smtp_host", "localhost")),
+        smtp_port=int(email.get("smtp_port", "25")),
     )
 
     if val_cfg.mode not in ("xsd", "dtd"):

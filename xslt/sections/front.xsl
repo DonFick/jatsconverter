@@ -38,6 +38,8 @@
       </CJSTITLE>
       <!-- contrib-group, aff, aff-alternatives, author-notes -->
       <xsl:apply-templates mode="metadata" select="contrib-group | author-notes"/>
+      <!-- Manuscript history (Received/Accepted) below affiliations -->
+      <xsl:call-template name="cjs-manuscript-history"/>
     </xsl:for-each>
 
 
@@ -512,7 +514,7 @@
               <!-- Corresponding-author marker (aligned with affiliation labels) -->
               <xsl:variable name="corx" select="xref[@ref-type='corresp'][1]"/>
               <xsl:if test="@corresp='yes' or $corx">
-                <sup class="corresp">
+                <span class="corresp">
                   <xsl:choose>
                     <xsl:when test="$corx">
                       <a href="#{$corx/@rid}">
@@ -521,7 +523,7 @@
                     </xsl:when>
                     <xsl:otherwise>*</xsl:otherwise>
                   </xsl:choose>
-                </sup>
+                </span>
               </xsl:if>
             </span>
           </xsl:if>
@@ -554,6 +556,7 @@
   <div class="affiliations">
     <xsl:apply-templates select="aff | ../aff" mode="metadata"/>
   </div>
+
 </xsl:template>
 
 
@@ -573,6 +576,53 @@
       <xsl:value-of select="normalize-space(string(.))"/>
     </xsl:otherwise>
   </xsl:choose>
+</xsl:template>
+
+
+
+<!-- Manuscript history block (below affiliations) -->
+<xsl:template name="cjs-manuscript-history">
+  <!-- history is typically a child of article-meta -->
+<xsl:variable name="am" select="ancestor-or-self::article-meta[1]"/>
+<xsl:variable name="received" select="$am/history/date[@date-type='received'][1]"/>
+<xsl:variable name="accepted" select="$am/history/date[@date-type='accepted'][1]"/>
+
+  <xsl:if test="$received or $accepted">
+    <div class="manuscript-history affiliations">
+      <xsl:if test="$received">
+        <div class="history-received">
+          <xsl:text>Received </xsl:text>
+          <xsl:call-template name="cjs-format-history-date">
+            <xsl:with-param name="d" select="$received"/>
+          </xsl:call-template>
+          <xsl:text>.</xsl:text>
+        </div>
+      </xsl:if>
+
+      <xsl:if test="$accepted">
+        <div class="history-accepted">
+          <xsl:text>Accepted </xsl:text>
+          <xsl:call-template name="cjs-format-history-date">
+            <xsl:with-param name="d" select="$accepted"/>
+          </xsl:call-template>
+          <xsl:text>.</xsl:text>
+        </div>
+      </xsl:if>
+    </div>
+  </xsl:if>
+</xsl:template>
+
+<!-- Format a JATS <date> with <day><month><year> as: Month dd, yyyy -->
+<xsl:template name="cjs-format-history-date">
+  <xsl:param name="d"/>
+
+  <xsl:call-template name="safe-month-name">
+    <xsl:with-param name="date" select="$d"/>
+  </xsl:call-template>
+  <xsl:text> </xsl:text>
+  <xsl:value-of select="number($d/day)"/>
+  <xsl:text>, </xsl:text>
+  <xsl:value-of select="normalize-space($d/year)"/>
 </xsl:template>
 
 </xsl:stylesheet>
