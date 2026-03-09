@@ -13,7 +13,7 @@ from __future__ import annotations
 import shutil, os
 from pathlib import Path
 from typing import Dict, Optional, List
-
+from PIL import Image
 from lxml import etree
 
 DEFAULT_NS = [
@@ -30,7 +30,50 @@ XML_NS    = "http://www.w3.org/XML/1998/namespace"  # usually keep (xml:lang, et
 XSI_NS    = "http://www.w3.org/2001/XMLSchema-instance"
 
 
-OPTIONAL_DIRS = ["eqs", "figs", "images", "media", "pdfs", "xml"]
+OPTIONAL_DIRS = ["eqs", "figs", "images", "media", "pdfs", "xml",]
+# JPEG_CONF = ["eqs", "figs", "images",]
+BUILD_JPEGS_CONF = [  # source, destination, size
+                    ["eqs","thumbs",200],
+                    ["figs","thumbs",200],
+                    ["images","thumbs",200],
+                    ["images","figs",0],
+                    ["eqs","eqs",0],
+                  ]
+THUMB_WIDTH = 200
+
+def generate_jpegs(source_dir, destination_dir, max_width = 0, ignore_jpeg = False):
+    # Loop through all files in directory
+    print("Generate jpegs", flush=True)
+    for filename in source_dir.iterdir():
+        print(filename, flush=True)
+        if not filename.is_file():
+            continue
+        if ignore_jpeg and filename.suffix.lower() in ['jpeg','jpg','jpe']:
+            continue
+        file_path = source_dir / filename
+        try:
+            # Open the image
+            with Image.open(file_path) as img:
+                if max_width > 0:
+                    # Calculate new dimensions maintaining aspect ratio
+                    width, height = img.size
+                    if width > max_width:
+                        ratio = max_width / float(width)
+                        new_height = int(height * ratio)
+                        img = img.resize((max_width, new_height), Image.LANCZOS)
+    
+                # Convert to RGB (JPEG doesn’t support transparency)
+                img = img.convert("RGB")
+    
+                # Output file path (same name, .jpg extension)
+                base_name = filename.stem
+                out_path = destination_dir / f"{base_name}.jpg"
+                print(out_path)
+                # Save as JPEG (quality=85 is a good balance)
+                img.save(out_path, "JPEG", quality=90)
+    
+        except Exception as e:
+            print(f"Skipping {filename}: {e}")
 
 
 def strip_default_namespace_everywhere(
@@ -84,7 +127,7 @@ def strip_default_namespace_everywhere(
     return doc
 
 
-def copy_optional_dirs(src_root: Path, dst_root: Path) -> None:
+def copy_optional_dirs(ctx, src_root: Path, dst_root: Path) -> None:
     for name in OPTIONAL_DIRS:
         s = src_root / name
         if s.exists() and s.is_dir():
@@ -92,6 +135,46 @@ def copy_optional_dirs(src_root: Path, dst_root: Path) -> None:
             if d.exists():
                 shutil.rmtree(d, ignore_errors=True)
             shutil.copytree(s, d)
+
+
+# def build_thumbs_dir(ctx, src_root: Path, dst_root: Path) -> None:
+#     print("build_thumbs_dir", flush=True)
+#     # we build thumbs from source image directories such as 'figs' and 'eqs'
+#     d = dst_root / 'thumbs'
+#     print(d, flush=True)
+#     if d.exists():
+#         shutil.rmtree(d, ignore_errors=True)
+#     for name in THUMB_SRC_DIRS:
+#         d.mkdir(parents=True, exist_ok=True)
+#         s = src_root / name
+#         if s.is_dir():
+#             print(s, flush=True)
+#             generate_jpegs(s, d, max_width=THUMB_WIDTH)
+# 
+# 
+# def build_full_jpegs(ctx, src_root: Path, dst_root: Path) -> None:
+#     print("build_figs_jpegs", flush=True)
+#     # we build full sized jpegs from source image directories 
+#     for source, destination in FULL_JPEG_DIRS:
+#     s = src_root / source
+#     d = dst_root / destination
+#     if s.exists() and s.is_dir():
+#         d.mkdir(parents=True, exist_ok=True)
+#         s = src_root / name
+#         if s.is_dir():
+#             print(s, flush=True)
+#             generate_jpegs(s, d, max_width=THUMB_WIDTH)
+
+def build_jpegs(ctx, src_root: Path, dst_root: Path) -> None:
+    print("build_jpegs", flush=True)
+    # we build jpegs from source image directories such as 'figs' and 'eqs'
+    for source, destination, size in BUILD_JPEGS_CONF:
+        s = src_root / source
+        if not s.is_dir():
+            continue
+        d = dst_root / destination
+        d.mkdir(parents=True, exist_ok=True)
+        generate_jpegs(s, d, max_width=size)
 
 
 def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -> List[Path]:

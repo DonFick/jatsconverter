@@ -18,10 +18,11 @@ from .config import AppConfig
 from .emailer import EmailMessage, SmtpMailer
 from .jats import extract_publisher_name, extract_journal_title, extract_volume_issue, load_xml_first, IssueIdentity
 from .manifest import write_issue_manifest, render_index_html
-from .transformer import copy_optional_dirs, run_xslt_on_issue, ensure_toc
+from .transformer import copy_optional_dirs, build_jpegs, run_xslt_on_issue, ensure_toc
 from .util import (
     slugify, pad3_if_int, sanitize_token, ensure_dirs,
-    atomic_replace_dir, safe_rmtree, zip_slip_safe_members
+    atomic_replace_dir, safe_rmtree, zip_slip_safe_members,
+    write_log,
 )
 from .validate import validate_xml_files
 
@@ -63,11 +64,6 @@ def _choose_effective_root(unpacked_root: Path) -> Path:
     if len(dirs) == 1 and len(files) == 0:
         return dirs[0]
     return unpacked_root
-
-
-def _write_log(log_path: Path, text: str) -> None:
-    log_path.parent.mkdir(parents=True, exist_ok=True)
-    log_path.write_text(text, encoding="utf-8")
 
 
 def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
@@ -117,7 +113,8 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
         errors = validate_xml_files(xml_files, cfg.validation)
         # modify here to be permissive instead of erroring out
         if errors:
-            raise ValueError("XML validation failed:\n" + "\n".join(errors))
+        #    raise ValueError("XML validation failed:\n" + "\n".join(errors))
+            write_log(ctx.log_path, "XML validation failed:\n" + "\n".join(errors))
 
         # --- extract identity
         ctx.stage = "extract_identity"
@@ -158,9 +155,15 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
         build_dir.mkdir(parents=True, exist_ok=True)
 
         # Copy optional dirs (kept separate)
-        copy_optional_dirs(effective_root, build_dir)
+        write_log(ctx.log_path, "Copy Directories")
+        copy_optional_dirs(ctx, effective_root, build_dir)
+
+        # Build directory of thumbnails
+        write_log(ctx.log_path, "Build JPEGS")
+        build_jpegs(ctx, effective_root, build_dir)
 
         # Run XSLT on each XML to generate HTML
+        write_log(ctx.log_path, "Generate HTML")
         generated_html = run_xslt_on_issue(xml_dir=xml_dir, output_root=build_dir, stylesheet_path=cfg.xslt.stylesheet_path)
 
         # Ensure toc exists
@@ -202,7 +205,7 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
         shutil.move(str(ctx.zip_path), str(dest))
 
         # Log success
-        _write_log(ctx.log_path, f"SUCCESS\nzip={ctx.zip_name}\npublished={publish_issue_dir}\n")
+        write_log(ctx.log_path, f"SUCCESS\nzip={ctx.zip_name}\npublished={publish_issue_dir}\n")
 
     except Exception as e:
         # Failure handling: move zip to failed_dir, send email, write logs
@@ -240,7 +243,7 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
         log_text = "\n".join(details)
 
         if ctx.log_path:
-            _write_log(ctx.log_path, log_text)
+            write_log(ctx.log_path, log_text)
 
         # Send SES email
 #         try:

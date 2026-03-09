@@ -108,3 +108,12 @@ def zip_slip_safe_members(members: Iterable[str]) -> list[str]:
             continue
         safe.append(name)
     return safe
+
+
+def write_log(log_path: Path, text: str) -> None:
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    existing_text = ''
+    if log_path.exists():
+        existing_text = log_path.read_text() + '\n'
+    log_path.write_text(existing_text + text, encoding="utf-8")
+
