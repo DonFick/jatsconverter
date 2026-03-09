@@ -239,7 +239,7 @@ def ensure_toc(output_root: Path, generated_html: List[Path]) -> Path:
         return toc
 
     # Minimal fallback TOC: simple list
-    items = "\n".join([f'<li><a href="{p.name}">{p.stem}</a></li>' for p in generated_html])
+    items = "\n".join([f'<li><a href="html/{p.name}">{p.stem}</a></li>' for p in generated_html])
     toc.write_text(
         "<!doctype html><html><head><meta charset='utf-8'><title>Table of Contents</title></head>"
         "<body><h1>Table of Contents</h1><ul>" + items + "</ul></body></html>",
