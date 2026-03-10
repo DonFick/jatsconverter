@@ -20,9 +20,7 @@
             <xsl:with-param name="date" select="pub-date"/>
         </xsl:call-template></CJSYEAR>), <xsl:call-template name="cjsissue-info">
           <!-- handles volume?, volume-id*, volume-series? -->
-        </xsl:call-template> (<xsl:call-template name="safe-month-name">
-          <xsl:with-param name="date" select="pub-date"/>
-        </xsl:call-template>), <CJSPAGES><xsl:call-template name="cjspage-info">
+        </xsl:call-template>, <CJSPAGES><xsl:call-template name="cjspage-info">
           <!-- handles (fpage, lpage?, page-range?) -->
         </xsl:call-template></CJSPAGES>
         <xsl:call-template name="cjs-doi-link"/>

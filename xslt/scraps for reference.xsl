@@ -78,3 +78,12 @@
 
   <br/>
 </xsl:template>
+
+
+
+
+<!-- removed from front, issue metadata -->
+
+(<xsl:call-template name="safe-month-name">
+          <xsl:with-param name="date" select="pub-date"/>
+        </xsl:call-template>)
