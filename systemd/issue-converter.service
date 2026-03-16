@@ -6,6 +6,7 @@ After=network-online.target
 Type=simple
 User=converter
 Group=converter
+WorkingDirectory=/opt/issue-converter/jats_issue_converter
 Environment=PYTHONUNBUFFERED=1
 ExecStart=/opt/issue-converter/venv/bin/python -m issue_converter.daemon --config /etc/issue-converter/config.toml
 Restart=on-failure
