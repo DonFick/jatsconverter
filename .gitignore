@@ -2,6 +2,8 @@
 # Runtime / Processing Data
 # =========================
 
+.DS_Store
+
 # Local Docker dev runtime directories
 devdata/
 incoming/
@@ -41,6 +43,7 @@ __pycache__/
 .venv/
 venv/
 env/
+myenv/
 ENV/
 
 # Packaging artifacts
