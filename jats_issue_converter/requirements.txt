@@ -3,3 +3,4 @@ lxml>=4.9.0
 boto3>=1.28.0
 tomli>=2.0.1; python_version < "3.11"
 pillow
+pikepdf

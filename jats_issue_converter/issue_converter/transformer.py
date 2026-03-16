@@ -15,6 +15,8 @@ from pathlib import Path
 from typing import Dict, Optional, List
 from PIL import Image
 from lxml import etree
+from .modpdf import append2pdf
+
 
 DEFAULT_NS = [
     "http://specifications.silverchair.com/xsd/1/22/SCJATS-journalpublishing.xsd",
@@ -224,6 +226,16 @@ def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -
             html_name = xml_file.stem + "." + figure_id + ".html"
             html_path = out_figs_dir / html_name
             html_path.write_bytes(etree.tostring(result, pretty_print=True, method="html", encoding="utf-8"))
+
+        ## Append Metadata to corresponding PDF file. We assume one
+        out_pdf_dir = output_root / "pdfs"  # articles at root unless your XSLT chooses otherwise
+        pdf = doc.xpath("//article-meta//self-uri/@href")
+        print(pdf, flush=True)
+        if len(pdf):
+            pdf_filename = pdf[0]
+            print(pdf_filename)
+            pdf_file = out_pdf_dir / pdf_filename
+            append2pdf(pdf_file, doc)
 
 
     return generated
