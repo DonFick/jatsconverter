@@ -93,7 +93,7 @@ delete the issue directory and regenerate `/data/index.html`.
 All admin commands use the same config file used by the daemon.
 
 List published issues
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 ```bash
 python -m issue_converter --config /etc/issue-converter/config.toml list-issues
 ```
@@ -103,7 +103,7 @@ Remove a published issue
 ```bash
 python -m issue_converter --config /etc/issue-converter/config.toml remove-issue \
   --journal-id <journal-id> --volume <volume> --issue <issue>
-```
+```   
 
 Notes:
 - `--volume` and `--issue` may be the raw values shown in the TOC/index (e.g., `SP28` and `1`) or the
@@ -113,6 +113,32 @@ Notes:
 
 Regenerate index only
 ~~~~~~~~~~~~~~~~~~~~~
-```bash
-python -m issue_converter --config /etc/issue-converter/config.toml reindex
-```
+```python -m issue_converter --config /etc/issue-converter/config.toml reindex```  
+
+
+Example: Removing an Issue
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+1) Using SSH, log in to SHINY3 using the “converter” username and password.  
+   - This will put you in the converter user home directory.
+
+2) Change directory to the issue-converter software directory:  
+   ```cd /opt/issue-converter/jats_issue_converter```  
+
+3) Activate a virtual environment for Python.  
+	```source ../venv/activate.sh```
+
+4) List the available issues with this command:  
+   ```python -m issue_converter --config /etc/issue-converter/config.toml list-issues```
+
+The list will show journal name, volume ID, Issue ID, and directory. Find the entry in the list you want to delete.
+
+For example, an entry for an issue will look like this:   
+`permian-basin-section	Vol 55 (id=055)	Issue 01 (id=001)	/mnt/volume_nyc3_01_500gb/www/pinetec/review-aapg/jats/data/permian-basin-section-society-of-economic-paleontologists-and-mineralogists/permian-basin-section/055/055001`
+
+5) Remove an issue with this command:  
+```python -m issue_converter --config /etc/issue-converter/config.toml remove-issue --journal-id <journal-id> --volume <volume> --issue <issue>```
+
+So, following the example above:  
+
+```python -m issue_converter --config /etc/issue-converter/config.toml remove-issue --journal-id permian-basin-section --volume 055 --issue 001
+ 

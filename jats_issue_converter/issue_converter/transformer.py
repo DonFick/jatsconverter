@@ -209,23 +209,32 @@ def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -
         generated.append(html_path)
         print(html_path)
         
-        ## Build out corresponding figure pages            
-        figure_ids = doc.xpath("//fig/@id")        
-        for figure_id in figure_ids:
-            print(figure_id)
+        ## Build out corresponding figure pages and table alternative pages
+        object_specs = []
+
+        for fig_id in doc.xpath("//fig[@id]/@id"):
+            object_specs.append(("fig", fig_id))
+
+        for table_id in doc.xpath("//table-wrap[@id][alternatives/*[self::graphic or self::inline-graphic]]/@id"):
+            object_specs.append(("table-image", table_id))
+
+        #############################################
+        # Build a figure page or table alternative
+        for object_kind, object_id in object_specs:
             if not os.path.exists(out_figs_dir):
                 os.makedirs(out_figs_dir)
-            #############################################
-            # Build a figure page
             params = {
                 "xml-basename": etree.XSLT.strparam(xml_file.stem),
-                "figure-id": etree.XSLT.strparam(figure_id),
+                "object-id": etree.XSLT.strparam(object_id),
+                "object-kind": etree.XSLT.strparam(object_kind),
             }
             result = transform(doc, **params)
             # Write output
-            html_name = xml_file.stem + "." + figure_id + ".html"
+            html_name = f"{xml_file.stem}.{object_id}.html"
             html_path = out_figs_dir / html_name
-            html_path.write_bytes(etree.tostring(result, pretty_print=True, method="html", encoding="utf-8"))
+            html_path.write_bytes(
+                etree.tostring(result, pretty_print=True, method="html", encoding="utf-8")
+            )
 
         ## Append Metadata to corresponding PDF file. We assume one
         out_pdf_dir = output_root / "pdfs"  # articles at root unless your XSLT chooses otherwise

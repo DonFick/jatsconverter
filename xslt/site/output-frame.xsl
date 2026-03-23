@@ -3,34 +3,48 @@
 <!-- Put this in your driver (e.g., main.xsl or site/output-frame.xsl) -->
 <!-- Root controller: handles normal article or single figure page -->
 
-<xsl:template match="/">
-  <xsl:choose>
-    <!-- If figure-id is passed, render that figure page -->
-    <xsl:when test="string-length($figure-id) &gt; 0">
-      <xsl:variable name="target" select="//fig[@id=$figure-id][1]"/>
-      <xsl:choose>
-        <xsl:when test="$target">
-          <xsl:apply-templates select="$target" mode="full-figure"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <html><body>
-            <p>Figure with @id='<xsl:value-of select="$figure-id"/>' not found.</p>
-          </body></html>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:when>
+    <xsl:template match="/">
+        <xsl:choose>
+            <!-- If figure-id is passed, render that figure page -->
+            <xsl:when test="string-length($object-id) &gt; 0 and $object-kind = 'fig'">
+                <xsl:variable name="target" select="//fig[@id=$object-id][1]"/>
+                <xsl:choose>
+                    <xsl:when test="$target">
+                        <xsl:apply-templates select="$target" mode="full-figure"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <html><body>
+                            <p>Figure with @id='<xsl:value-of select="$object-id"/>' not found.</p>
+                        </body></html>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="string-length($object-id) &gt; 0 and $object-kind = 'table-image'">
+                <xsl:variable name="target"
+                              select="//table-wrap[@id=$object-id][alternatives/*[self::graphic or self::inline-graphic]][1]"/>
+                <xsl:choose>
+                    <xsl:when test="$target">
+                        <xsl:apply-templates select="$target" mode="full-table-image"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <html><body>
+                            <p>Image-based table with @id='<xsl:value-of select="$object-id"/>' not found.</p>
+                        </body></html>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
 
-    <!-- Otherwise render the full article as usual -->
-    <xsl:otherwise>
-        <html>
-          <xsl:call-template name="make-html-header"/>
-          <body>
-            <xsl:apply-templates/>
-          </body>
-        </html>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
+            <!-- Otherwise render the full article as usual -->
+            <xsl:otherwise>
+                <html>
+                    <xsl:call-template name="make-html-header"/>
+                    <body>
+                        <xsl:apply-templates/>
+                    </body>
+                </html>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
 
 

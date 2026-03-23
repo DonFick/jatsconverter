@@ -8,7 +8,9 @@
 <xsl:output method="html" omit-xml-declaration="yes"/>
 
 
-<xsl:param name="figure-id" select="''"/>
+<xsl:param name="object-id" select="''"/>
+<xsl:param name="object-kind" select="''"/>
+
 <xsl:param name="xml-basename" select="''"/>
 
 <!-- Core (setup first so keys/params/modes exist) -->

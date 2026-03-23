@@ -85,7 +85,7 @@
 
 
   
-<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" match="       boxed-text | chem-struct-wrap | fig |       table-wrap | chem-struct-wrapper">
+<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" match="boxed-text | chem-struct-wrap | fig | table-wrap | chem-struct-wrapper">
     <!-- chem-struct-wrapper is from NLM 2.3 -->
     <xsl:variable name="gi">
       <xsl:choose>
@@ -304,5 +304,121 @@
   </xsl:template>
 
 
-  
+<!-- Added special specialized template for when a graphic alternative is provided for a table. We don't render the table.
+instead, we render a thumbnail that links out to a page with full sized image -->
+    <xsl:template match="table-wrap[@id][alternatives/*[self::graphic or self::inline-graphic]]" priority="3"
+                  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+        <xsl:variable name="table-id" select="@id"/>
+        <xsl:variable name="g" select="alternatives/*[self::graphic or self::inline-graphic][1]"/>
+
+        <xsl:variable name="img">
+            <xsl:choose>
+                <xsl:when test="$g/@xlink:href">
+                    <xsl:value-of select="$g/@xlink:href"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$g/@href"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:variable name="filename">
+            <xsl:call-template name="last-segment">
+                <xsl:with-param name="path" select="$img"/>
+            </xsl:call-template>
+        </xsl:variable>
+
+        <xsl:variable name="basename">
+            <xsl:call-template name="strip-last-extension">
+                <xsl:with-param name="filename" select="$filename"/>
+            </xsl:call-template>
+        </xsl:variable>
+
+        <xsl:variable name="label" select="normalize-space(label)"/>
+        <xsl:variable name="caption" select="normalize-space(string(caption))"/>
+
+        <div class="table-wrap panel table-image" id="{$table-id}">
+            <xsl:call-template name="named-anchor"/>
+
+            <a href="{concat('../figs/', $xml-basename, '.', $table-id, '.html')}">
+                <img src="{concat('../thumbs/', $basename, '.jpg')}"
+                     alt="{$caption}"
+                     class="thumbnail"
+                     width="200"/>
+            </a>
+
+            <xsl:if test="$label">
+                <div class="fig-label">
+                    <xsl:value-of select="$label"/>
+                </div>
+            </xsl:if>
+
+            <xsl:if test="caption">
+                <div class="fig-caption caption">
+                    <xsl:apply-templates select="caption/node()"/>
+                </div>
+            </xsl:if>
+        </div>
+    </xsl:template>
+
+    <!-- this template provides the equivalent of a figure detail page for graphic alternatives on tables -->
+    <xsl:template match="table-wrap[@id][alternatives/*[self::graphic or self::inline-graphic]]"
+                  mode="full-table-image"
+                  priority="3"
+                  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+        <xsl:variable name="table-id" select="@id"/>
+        <xsl:variable name="g" select="alternatives/*[self::graphic or self::inline-graphic][1]"/>
+
+        <xsl:variable name="img">
+            <xsl:choose>
+                <xsl:when test="$g/@xlink:href">
+                    <xsl:value-of select="$g/@xlink:href"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$g/@href"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:variable name="filename">
+            <xsl:call-template name="last-segment">
+                <xsl:with-param name="path" select="$img"/>
+            </xsl:call-template>
+        </xsl:variable>
+
+        <xsl:variable name="basename">
+            <xsl:call-template name="strip-last-extension">
+                <xsl:with-param name="filename" select="$filename"/>
+            </xsl:call-template>
+        </xsl:variable>
+
+        <html>
+            <head>
+                <title>
+                    <xsl:value-of select="concat(normalize-space(label), ': ', normalize-space(string(caption)))"/>
+                </title>
+                <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+                <link rel="stylesheet" type="text/css" href="../../../global.css" />
+                <meta name="parent-file" content="../html/.htm" />
+                <script type="text/javascript" src="http://archives.datapages.com/data/aapg-scripts/mathjax.js"></script>
+            </head>
+            <body>
+                <h2><xsl:value-of select="label"/></h2>
+
+                <img src="{concat('../figs/', $basename, '.jpg')}"
+                     alt="{normalize-space(string(caption))}"
+                     style="border: 0; margin: 10px 0; max-width: 100%; height: auto;" />
+
+                <div class="caption">
+                    <xsl:apply-templates select="caption"/>
+                </div>
+
+                <p>
+                    <a href="{concat('../html/', $xml-basename, '.html', '#', $table-id)}">Back to article</a>
+                </p>
+            </body>
+        </html>
+    </xsl:template>
 </xsl:stylesheet>
