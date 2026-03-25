@@ -125,7 +125,7 @@ Example: Removing an Issue
    ```cd /opt/issue-converter/jats_issue_converter```  
 
 3) Activate a virtual environment for Python.  
-	```source ../venv/activate.sh```
+	```source ../venv/bin/activate```
 
 4) List the available issues with this command:  
    ```python -m issue_converter --config /etc/issue-converter/config.toml list-issues```

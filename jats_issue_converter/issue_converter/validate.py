@@ -149,10 +149,23 @@ def validate_xml_files(xml_files: Iterable[Path], validation: ValidationConfig) 
         # Parse XML without DTD; keep network disabled.
         parser = etree.XMLParser(load_dtd=False, resolve_entities=False, no_network=True, huge_tree=True)
 
+        print("xsd_root: ", xsd_root, flush=True)
+        print("xsd_filename: ", xsd_filename, flush=True)
+        print("fixed_xsd_path: ", fixed_xsd_path, flush=True)
+
         for xf in xml_files:
             try:
                 doc = etree.parse(str(xf), parser)
                 root = doc.getroot()
+                schema_loc = root.attrib.get(
+                    "{http://www.w3.org/2001/XMLSchema-instance}schemaLocation"
+                )
+                parts = schema_loc.split()
+                pairs = [(parts[i], parts[i + 1]) for i in range(0, len(parts), 2)]
+
+                for namespace, schema in pairs:
+                    print("namespace: ", namespace, flush=True)
+                    print("schema: ", schema, flush=True)
 
                 # Determine which schema to use for THIS file
                 xsd_path: Optional[Path] = None
@@ -160,6 +173,9 @@ def validate_xml_files(xml_files: Iterable[Path], validation: ValidationConfig) 
                 if xsd_root is not None:
                     version = _detect_version_from_xml(root, xsd_filename)
                     xsd_path = _find_local_xsd(xsd_root, xsd_filename, version)
+                    print("version: ", version, flush=True)
+                    print("xsd_path: ", xsd_path, flush=True)
+
                     if xsd_path is None:
                         if version:
                             errors.append(

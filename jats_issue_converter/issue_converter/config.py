@@ -138,11 +138,19 @@ def load_config(path: str | Path) -> AppConfig:
 
     if validation:
         mode = str(validation.get("mode", "xsd")).lower().strip()
+        xsd_root = Path(validation["xsd_root"]) if "xsd_root" in validation else None
+        xsd_filename = str(validation.get("xsd_filename", "SCJATS-journalpublishing.xsd"))
         xsd_path = Path(validation["xsd_path"]) if "xsd_path" in validation else None
-        
         dtd_root = Path(validation["dtd_root"]) if "dtd_root" in validation else None
-        val_cfg = ValidationConfig(mode=mode, xsd_path=xsd_path, dtd_root=dtd_root)
         fail_on_error = validation.get("fail_on_error", False)
+        val_cfg = ValidationConfig(
+            mode=mode,
+            xsd_root=xsd_root,
+            xsd_filename=xsd_filename,
+            xsd_path=xsd_path,
+            dtd_root=dtd_root,
+            fail_on_error=fail_on_error,
+        )
     elif dtd:
         val_cfg = ValidationConfig(mode="dtd", dtd_root=Path(_require(dtd, "dtd_root")))
     else:
