@@ -27,26 +27,30 @@ def get_authors(doc):
     return authors
 
 
+# def get_title(doc):
+#     doctitle = ''
+#     title_tag = doc.xpath('//article-meta/title-group/article-title')
+#     if len(title_tag):
+#         doctitle = title_tag[0].text.strip()
+#     return doctitle
+
 def get_title(doc):
-    doctitle = ''
     title_tag = doc.xpath('//article-meta/title-group/article-title')
-    if len(title_tag):
-        doctitle = title_tag[0].text.strip()
-    return doctitle
+    if title_tag:
+        return ''.join(title_tag[0].itertext()).strip()
+    return ''
     
 def get_publisher(doc):
-    publisher = ''
     publisher_name_tag = doc.xpath('//front/journal-meta/publisher/publisher-name')
-    if len(publisher_name_tag):
-        publisher = publisher_name_tag[0].text.strip()
-    return publisher
+    if publisher_name_tag:
+        return ''.join(publisher_name_tag[0].itertext()).strip()
+    return ''
 
 def get_year(doc):
-    year = ''
     year_tag = doc.xpath("//pub-date[@pub-type='pub-date']/year")
-    if len(year_tag):
-        year = year_tag[0].text.strip()
-    return year
+    if year_tag:
+        return year_tag[0].text.strip()
+    return ''
 
 
 def get_subject(doc):
