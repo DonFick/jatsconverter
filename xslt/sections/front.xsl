@@ -564,10 +564,11 @@
 <xsl:template name="cjs-render-person-name">
   <xsl:choose>
     <xsl:when test="name">
-      <!-- Given + space + Surname (matches target) -->
+      <!-- Given + space + Surname (matches target)
       <xsl:value-of select="normalize-space(name/given-names)"/>
       <xsl:text> </xsl:text>
-      <xsl:value-of select="normalize-space(name/surname)"/>
+      <xsl:value-of select="normalize-space(name/surname)"/> -->
+      <xsl:apply-templates select="name"/>
     </xsl:when>
     <xsl:otherwise>
       <!-- Fallback if <name> is absent -->
