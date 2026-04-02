@@ -9,20 +9,25 @@ import pikepdf
 def get_authors(doc):
     authors = []
     for author_tag in doc.xpath(".//contrib[@contrib-type='author']"):
+        prefix = ''
         given_name = ''
         surname = ''
+        suffix = ''
+        name = ''
+        prefix_tag =  author_tag.xpath('name/prefix')
         given_name_tag = author_tag.xpath('name/given-names')
+        surname_tag = author_tag.xpath('name/surname')
+        suffix_tag =  author_tag.xpath('name/suffix')
+        if len(prefix_tag):
+            prefix = prefix_tag[0].text.strip()
         if len(given_name_tag):
             given_name = given_name_tag[0].text.strip()
-        surname_tag = author_tag.xpath('name/surname')
         if len(surname_tag):
             surname = surname_tag[0].text.strip()
-        print('given name: '+given_name, flush=True)
-        print('surname: '+surname, flush=True)
-        if given_name and surname:
-            authors.append(f'{given_name} {surname}')
-        elif given_name or surname:
-            authors.append(f'{given_name}{surname}')
+        if len(suffix_tag):
+            suffix = suffix_tag[0].text.strip()
+        name = ' '.join(filter(None,[prefix, given_name, surname, suffix]))
+        authors.append(name)
     print(authors, flush=True)
     return authors
 
