@@ -1793,7 +1793,20 @@
     </xsl:call-template>
   </xsl:template>
 
-
+<xsl:template match="fn-group/fn | table-wrap-foot/fn | table-wrap-foot/fn-group/fn" mode="label-text">
+    <!-- this template preserves the fn label when present rather than autonumbering -->
+  <xsl:param name="warning" select="boolean(key('xref-by-rid', @id))"/>
+  <xsl:call-template name="make-label-text">
+    <xsl:with-param name="auto" select="not(label | @symbol)"/>
+    <xsl:with-param name="warning" select="$warning"/>
+    <xsl:with-param name="auto-text">
+      <xsl:text>[</xsl:text>
+      <xsl:number level="any" count="fn[not(ancestor::front)]" from="article | sub-article | response"/>
+      <xsl:text>]</xsl:text>
+      <xsl:apply-templates select="@fn-type"/>
+    </xsl:with-param>
+  </xsl:call-template>
+</xsl:template>
   
 <xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" match="fn" mode="label-text">
     <xsl:param name="warning" select="boolean(key('xref-by-rid', @id))"/>
