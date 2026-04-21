@@ -21,7 +21,9 @@ from .modpdf import append2pdf
 DEFAULT_NS = [
     "http://specifications.silverchair.com/xsd/1/22/SCJATS-journalpublishing.xsd",
     "http://specifications.silverchair.com/xsd/1/27/SCJATS-journalpublishing.xsd",
+    "http://specifications.silverchair.com/xsd/1/46/SCJATS-journalpublishing.xsd",
     "http://specifications.silverchair.com/xsd/1/47/SCJATS-journalpublishing.xsd",
+    "http://specifications.silverchair.com/xsd/1/48/SCJATS-journalpublishing.xsd",
     ]
 
 # Example namespaces you may want to strip from attributes
@@ -90,6 +92,7 @@ def strip_default_namespace_everywhere(
         if not isinstance(el.tag, str):  # skip comments/PIs/etc.
             continue
         q = etree.QName(el)
+
         if q.namespace in DEFAULT_NS:
             el.tag = q.localname  # element now has no namespace
 
@@ -207,7 +210,7 @@ def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -
         html_path = out_html_dir / html_name
         html_path.write_bytes(etree.tostring(result, pretty_print=True, method="html", encoding="utf-8"))
         generated.append(html_path)
-        print(html_path)
+        print(html_path, flush=True)
         
         ## Build out corresponding figure pages and table alternative pages
         object_specs = []
@@ -238,12 +241,19 @@ def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -
 
         ## Append Metadata to corresponding PDF file. We assume one
         out_pdf_dir = output_root / "pdfs"  # articles at root unless your XSLT chooses otherwise
-        pdf = doc.xpath("//article-meta//self-uri/@href")
+        pdf = doc.xpath("//self-uri/@href")
+        # print(doc.xpath("//article-meta/self-uri"))
+        # print(etree.tostring(
+        #         doc,                 # Element or ElementTree
+        #         pretty_print=True,
+        #         xml_declaration=True,
+        #         encoding="UTF-8"
+        # ))
         print(pdf, flush=True)
         if len(pdf):
             pdf_filename = pdf[0]
-            print(pdf_filename)
             pdf_file = out_pdf_dir / pdf_filename
+            print(f"The pdf file is {pdf_file}",flush=True)
             append2pdf(pdf_file, doc)
 
 

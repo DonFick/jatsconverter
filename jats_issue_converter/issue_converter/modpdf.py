@@ -41,19 +41,21 @@ def get_authors(doc):
 
 def get_title(doc):
     title_tag = doc.xpath('//article-meta/title-group/article-title')
-    if title_tag:
+    if len(title_tag):
         return ''.join(title_tag[0].itertext()).strip()
     return ''
     
 def get_publisher(doc):
     publisher_name_tag = doc.xpath('//front/journal-meta/publisher/publisher-name')
-    if publisher_name_tag:
+    if len(publisher_name_tag):
         return ''.join(publisher_name_tag[0].itertext()).strip()
     return ''
 
 def get_year(doc):
     year_tag = doc.xpath("//pub-date[@pub-type='pub-date']/year")
-    if year_tag:
+    if not len(year_tag):
+        year_tag = doc.xpath("//pub-date[@date-type='pub']/year")
+    if len(year_tag):
         return year_tag[0].text.strip()
     return ''
 
@@ -66,39 +68,34 @@ def get_subject(doc):
     else:
         subject_element = ''
 
-    journal_title = doc.xpath('//journal-title')
-    if len(journal_title):
-        journal_title = journal_title[0].text.strip()
-    else:
-        journal_title = ''
-    
-    volume = doc.xpath('.//article-meta/volume')
-    if len(volume):
-        volume = volume[0].text.strip()
-    else:
-        volume = ''
+    journal_title = ''
+    journal_title_tag = doc.xpath('//journal-title')
+    if len(journal_title_tag):
+        journal_title = journal_title_tag[0].text.strip()
 
-    issue = doc.xpath('.//article-meta/issue')
-    if len(issue):
-        issue = issue[0].text.strip()
-    else:
-        issue = ''
+    volume = ''
+    volume_tag = doc.xpath('.//article-meta/volume')
+    if len(volume_tag):
+        volume = volume_tag[0].text.strip()
 
+    issue = ''
+    issue_tag = doc.xpath('.//article-meta/issue')
+    if len(issue_tag):
+        issue = issue_tag[0].text.strip()
+
+    fpage=''
+    lpage=''
     pages = ''
-    fpage = doc.xpath('.//article-meta/fpage')
-    if len(fpage):
-        fpage = fpage[0].text.strip()
-        print("fpage: ", fpage)
-    else:
-        fpage = ''
+    fpage_tag = doc.xpath('.//article-meta/fpage')
+    if len(fpage_tag):
+        fpage = fpage_tag[0].text.strip()
+    print("fpage: ", fpage)
 
-    lpage = doc.xpath('.//article-meta/lpage')
-    if len(lpage):
-        lpage = lpage[0].text.strip()
-        print("lpage: ", lpage)
-    else:
-        lpage = ''
-        
+    lpage_tag = doc.xpath('.//article-meta/lpage')
+    if len(lpage_tag):
+        lpage = lpage_tag[0].text.strip()
+    print("lpage: ", lpage)
+
     if fpage:
         pages = " " + fpage
         if lpage and (fpage != lpage):

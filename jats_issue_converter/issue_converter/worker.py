@@ -60,7 +60,10 @@ def _choose_effective_root(unpacked_root: Path) -> Path:
     """If unpacked_root contains a single wrapper directory, return it; otherwise unpacked_root."""
     entries = [p for p in unpacked_root.iterdir() if not p.name.startswith("__MACOSX")]
     dirs = [p for p in entries if p.is_dir()]
-    files = [p for p in entries if p.is_file()]
+    files = [p for p in entries if p.is_file() and not p.name.startswith(".")]
+    print(entries, flush=True)
+    print(dirs, flush=True)
+    print(files, flush=True)
     if len(dirs) == 1 and len(files) == 0:
         return dirs[0]
     return unpacked_root
@@ -96,17 +99,17 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
             zf.extractall(path=str(staging_job_root), members=members)
 
         # wrapper ignore
-        print( _choose_effective_root(staging_job_root))
+        print( _choose_effective_root(staging_job_root), flush=True)
         effective_root = _choose_effective_root(staging_job_root)
 
         # --- discover xml
         ctx.stage = "discover_xml"
         xml_dir = effective_root / "xml"
         if not xml_dir.exists():
-            raise ValueError("Missing required xml/ directory (XML is required to publish)")
+            raise ValueError(f"Missing required xml/ directory (XML is required to publish) within {effective_root}")
         xml_files = sorted([p for p in xml_dir.glob("*.xml") if p.is_file()])
         if not xml_files:
-            raise ValueError("No XML files found in xml/ directory")
+            raise ValueError("No XML files found in xml/ directory of {effective_root}")
 
         # --- dtd validate
         ctx.stage = "validate"
