@@ -476,9 +476,9 @@
           <xsl:call-template name="cjs-render-person-name"/>
 
           <!-- Affiliation labels (no comma before or between labels) -->
+          <span class="autref">
           <xsl:variable name="affx" select="xref[@ref-type='aff']"/>
           <xsl:if test="count($affx) &gt; 0">
-            <span class="autref">
               <xsl:for-each select="$affx">
                 <xsl:if test="position() &gt; 1">
                   <!-- optional thin separator; no comma -->
@@ -523,8 +523,28 @@
                   </xsl:choose>
                 </span>
               </xsl:if>
-            </span>
-          </xsl:if>
+            </xsl:if>
+
+            <!-- Author footnote markers, including <sup><xref ref-type="fn"/></sup> -->
+            <xsl:variable name="fnx" select="xref[@ref-type='fn'] | sup[xref[@ref-type='fn']]"/>
+
+            <xsl:if test="$affx and $fnx">
+              <xsl:text>, </xsl:text>
+            </xsl:if>
+
+            <xsl:for-each select="$fnx">
+              <xsl:choose>
+                <xsl:when test="self::sup">
+                  <xsl:apply-templates select="."/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <sup>
+                    <xsl:apply-templates select="."/>
+                  </sup>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:for-each>
+          </span>
         </span>
 
         <!-- Author separators (AFTER labels). Commas ONLY here. -->
