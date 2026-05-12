@@ -4,7 +4,13 @@ import sys
 import os
 from pathlib import Path
 import pikepdf
+# from pypdf import PdfReader, PdfWriter
 
+def set_fastweb(pdf_file_name):
+    pdf = pikepdf.open(pdf_file_name, allow_overwriting_input = True)
+    pdf.save(linearize=True)
+    pdf.close()
+    return
 
 def get_authors(doc):
     authors = []
@@ -55,6 +61,14 @@ def get_year(doc):
     year_tag = doc.xpath("//pub-date[@pub-type='pub-date']/year")
     if not len(year_tag):
         year_tag = doc.xpath("//pub-date[@date-type='pub']/year")
+    if not len(year_tag):
+        year_tag = doc.xpath("//pub-date[@date-type='ppub']/year")
+    if not len(year_tag):
+        year_tag = doc.xpath("//pub-date[@pub-type='ppub']/year")
+    if not len(year_tag):
+        year_tag = doc.xpath("//pub-date[@date-type='epub']/year")
+    if not len(year_tag):
+        year_tag = doc.xpath("//pub-date[@pub-type='epub']/year")
     if len(year_tag):
         return year_tag[0].text.strip()
     return ''
@@ -107,8 +121,13 @@ def get_subject(doc):
 
     if subject_element:
         journal_title = f"{subject_element}: {journal_title}"
+    print("volume info")
+    print("x"+volume+"x",flush=True)
+    if volume != "0":
+        subject = f"{journal_title}, {year} ({volume}), {pages}"
+    else:
+        subject = f"{journal_title}, {year}, {pages}"
 
-    subject = f"{journal_title}, {year} ({volume}), {pages}"
     subject = ' '.join(subject.split())
     return subject
 
@@ -208,4 +227,22 @@ def process_article(pdf_file, doc):
 def append2pdf(pdf_file, doc):
         print(pdf_file, flush=True)
         process_article(pdf_file, doc)
-
+        set_fastweb(pdf_file)
+        # # rewrite clean PDF
+        # src = pdf_file
+        # dst = pdf_file.replace('.pdf', '.rewrite.pdf')
+        #
+        # reader = PdfReader(src, strict=False)
+        # writer = PdfWriter()
+        #
+        # for page in reader.pages:
+        #     writer.add_page(page)
+        #
+        # writer.add_metadata({
+        #     k: str(v) for k, v in reader.metadata.items()
+        #     if v is not None
+        # })
+        #
+        # with open(dst, "wb") as f:
+        #     writer.write(f)
+        #
