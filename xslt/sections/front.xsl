@@ -538,9 +538,7 @@
                   <xsl:apply-templates select="."/>
                 </xsl:when>
                 <xsl:otherwise>
-                  <sup>
                     <xsl:apply-templates select="."/>
-                  </sup>
                 </xsl:otherwise>
               </xsl:choose>
             </xsl:for-each>
