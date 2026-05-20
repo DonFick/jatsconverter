@@ -270,7 +270,7 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
             # If SES fails, we still keep the local log
             pass
 
-        # Cleanup staging (kept for debugging? remove or keep; we keep and prune via retention)
-        # let's delete. We can always comment this out if we need it for debugging
-        safe_rmtree(staging_job_root)
-        return
+    # Cleanup staging (kept for debugging? remove or keep; we keep and prune via retention)
+    # let's delete. We can always comment this out if we need it for debugging
+    safe_rmtree(staging_job_root)
+    return
