@@ -79,7 +79,7 @@
       <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
       <link rel="stylesheet" type="text/css" href="/data/aapg-styles/global.css"/>
       <link rel="stylesheet" type="text/css" href="/data/aapg-styles/jats-preview.css"/>
-      <script type="text/javascript" src="http://archives.datapages.com/data/aapg-scripts/mathjax.js"> <!-- --></script>
+      <script type="text/javascript" src="https://archives.datapages.com/data/aapg-scripts/mathjax.js"></script>
       <xsl:variable name="journal">
         <xsl:value-of select="/article/front/journal-meta/journal-title[1]"/>
       </xsl:variable>

@@ -12,9 +12,10 @@ from __future__ import annotations
 
 import shutil, os
 from pathlib import Path
-from typing import Dict, Optional, List
+from typing import Dict, Optional, List, Any
 from PIL import Image
 from lxml import etree
+from html import escape
 from .modpdf import append2pdf
 
 
@@ -44,6 +45,69 @@ BUILD_JPEGS_CONF = [  # source, destination, size
                     ["eqs","eqs",0],
                   ]
 THUMB_WIDTH = 200
+
+
+def get_article_display_name(doc) -> str:
+    title_nodes = doc.xpath(
+        "string((//article-meta/title-group/article-title | //front/article-meta/title-group/article-title)[1])"
+    )
+    title = " ".join(title_nodes.split())
+    return title or "Untitled"
+
+
+def get_article_authors(doc) -> List[str]:
+    authors = []
+
+    contribs = doc.xpath(
+        "//contrib-group/contrib[@contrib-type='author']"
+    )
+
+    for contrib in contribs:
+        surname = contrib.xpath("string(name/surname)").strip()
+        given = contrib.xpath("string(name/given-names)").strip()
+
+        if surname and given:
+            authors.append(f"{given} {surname}")
+        elif surname:
+            authors.append(surname)
+        elif given:
+            authors.append(given)
+
+    return authors
+
+
+def get_article_page_range(doc) -> str:
+    fpage = doc.xpath("string((//article-meta/fpage)[1])").strip()
+    lpage = doc.xpath("string((//article-meta/lpage)[1])").strip()
+    elocation = doc.xpath("string((//article-meta/elocation-id)[1])").strip()
+
+    # Traditional print pagination
+    if fpage and lpage:
+        return f"{fpage}-{lpage}"
+
+    if fpage:
+        return fpage
+
+    # Electronic article identifier fallback
+    if elocation:
+        return elocation
+
+    return ""
+
+
+def get_article_first_page(doc) -> int:
+    number = 0
+    fpage = doc.xpath("string((//article-meta/fpage)[1])").strip()
+
+    # Traditional print pagination
+    if fpage:
+        try:
+            number = int(fpage)
+        except ValueError:
+            number = 0  # Fallback value
+
+    return number
+
 
 def generate_jpegs(source_dir, destination_dir, max_width = 0, ignore_jpeg = False):
     # Loop through all files in directory
@@ -182,7 +246,7 @@ def build_jpegs(ctx, src_root: Path, dst_root: Path) -> None:
         generate_jpegs(s, d, max_width=size)
 
 
-def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -> List[Path]:
+def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -> List[Dict[str,Any]]:
     """Apply XSLT to each XML file and write HTML outputs.
 
     Returns list of generated article HTML paths.
@@ -196,7 +260,7 @@ def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -
     out_figs_dir = output_root / "figs"  # articles at root unless your XSLT chooses otherwise
     out_figs_dir.mkdir(parents=True, exist_ok=True)
 
-    generated: List[Path] = []
+    generated: List[Dict[str, Any]] = []
     for xml_file in sorted(xml_dir.glob("*.xml")):
         doc = etree.parse(str(xml_file))
         # remove the default namespace if present
@@ -209,7 +273,13 @@ def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -
         html_name = xml_file.stem + ".html"
         html_path = out_html_dir / html_name
         html_path.write_bytes(etree.tostring(result, pretty_print=True, method="html", encoding="utf-8"))
-        generated.append(html_path)
+        generated.append({
+            "path": html_path,
+            "display_name": get_article_display_name(doc),
+            "authors": ', '.join(get_article_authors(doc)),
+            "pages": get_article_page_range(doc),
+            "fpage": get_article_first_page(doc)
+        })
         print(html_path, flush=True)
         
         ## Build out corresponding figure pages and table alternative pages
@@ -256,11 +326,11 @@ def run_xslt_on_issue(xml_dir: Path, output_root: Path, stylesheet_path: Path) -
             print(f"The pdf file is {pdf_file}",flush=True)
             append2pdf(pdf_file, doc)
 
-
+    generated = sorted(generated, key=lambda x: x["fpage"])
     return generated
 
 
-def ensure_toc(output_root: Path, generated_html: List[Path]) -> Path:
+def ensure_toc(output_root: Path, generated_html: List[Dict[str, Any]]) -> Path:
     """Ensure a toc.html exists.
 
     If XSLT did not create one, generate a minimal TOC linking to article HTML files.
@@ -269,8 +339,11 @@ def ensure_toc(output_root: Path, generated_html: List[Path]) -> Path:
     if toc.exists():
         return toc
 
-    # Minimal fallback TOC: simple list
-    items = "\n".join([f'<li><a href="html/{p.name}">{p.stem}</a></li>' for p in generated_html])
+    items = "\n".join([
+        f'<li><a href="html/{item["path"].name}">{escape(item["display_name"])}</a><br><small>{escape(item["authors"])}<br/>{item["pages"]}</small></li>'
+        for item in generated_html
+    ])
+
     toc.write_text(
         "<!doctype html><html><head><meta charset='utf-8'><title>Table of Contents</title></head>"
         "<body><h1>Table of Contents</h1><ul>" + items + "</ul></body></html>",

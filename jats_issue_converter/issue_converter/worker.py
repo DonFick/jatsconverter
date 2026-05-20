@@ -87,7 +87,8 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
     ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     ctx.log_path = cfg.paths.log_dir / f"{ts}__{ctx.zip_name}.log"
 
-    staging_job_root = cfg.paths.staging_dir / f"{ts}__{ctx.zip_name}"
+    # staging_job_root = cfg.paths.staging_dir / f"{ts}__{ctx.zip_name}"
+    staging_job_root = cfg.paths.staging_dir / f"{ctx.zip_name}"
     safe_rmtree(staging_job_root)
     ensure_dirs(staging_job_root)
 
@@ -180,6 +181,9 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
         publish_issue_dir.parent.mkdir(parents=True, exist_ok=True)
         atomic_replace_dir(build_dir, publish_issue_dir)
 
+        # -- drop the build directory
+        safe_rmtree(build_dir)
+
         # Write manifest in published dir
         ident = IssueIdentity(
             publisher_name=publisher_name,
@@ -204,7 +208,9 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
         dest = cfg.paths.archive_dir / ctx.zip_name
         # If name collision in archive, append timestamp
         if dest.exists():
-            dest = cfg.paths.archive_dir / f"{ts}__{ctx.zip_name}"
+            # dest = cfg.paths.archive_dir / f"{ts}__{ctx.zip_name}"
+            # rather than rename with a time stamp, let's clobber the destination
+            pass
         shutil.move(str(ctx.zip_path), str(dest))
 
         # Log success
@@ -265,5 +271,6 @@ def process_zip(cfg: AppConfig, zip_in_processing: Path) -> None:
             pass
 
         # Cleanup staging (kept for debugging? remove or keep; we keep and prune via retention)
-        # safe_rmtree(staging_job_root)
+        # let's delete. We can always comment this out if we need it for debugging
+        safe_rmtree(staging_job_root)
         return

@@ -69,7 +69,7 @@ class ValidationConfig:
 class ProcessingConfig:
     stability_seconds: int = 90
     rescan_seconds: int = 15
-    retention_days: int = 365
+    retention_days: int = 30
 
 
 @dataclass(frozen=True)
@@ -159,7 +159,7 @@ def load_config(path: str | Path) -> AppConfig:
     proc_cfg = ProcessingConfig(
         stability_seconds=int(processing.get("stability_seconds", 90)),
         rescan_seconds=int(processing.get("rescan_seconds", 15)),
-        retention_days=int(processing.get("retention_days", 365)),
+        retention_days=int(processing.get("retention_days", 30)),
     )
 
     idx_cfg = IndexConfig(index_filename=str(index.get("index_filename", "index.html")))

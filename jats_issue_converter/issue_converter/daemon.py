@@ -47,16 +47,19 @@ def _claim_zip(cfg: AppConfig, zip_path: Path) -> Path:
     ensure_dirs(cfg.paths.processing_dir)
     dest = cfg.paths.processing_dir / zip_path.name
     if dest.exists():
-        # name collision; append timestamp
-        ts = int(time.time())
-        dest = cfg.paths.processing_dir / f"{ts}__{zip_path.name}"
+        ## name collision; append timestamp
+        #ts = int(time.time())
+        #dest = cfg.paths.processing_dir / f"{ts}__{zip_path.name}"
+        # rather than rename with a time stamp, let's clobber the destination
+        pass
     zip_path.rename(dest)
     return dest
 
 
 def _run_retention(cfg: AppConfig) -> None:
     days = cfg.processing.retention_days
-    prune_older_than(cfg.paths.archive_dir, days)
+    # never prune the archive directory. Rely on staff manually removing these
+    # prune_older_than(cfg.paths.archive_dir, days)
     prune_older_than(cfg.paths.failed_dir, days)
     prune_older_than(cfg.paths.log_dir, days)
     prune_older_than(cfg.paths.staging_dir, days)
