@@ -588,6 +588,24 @@
       <xsl:value-of select="normalize-space(name/surname)"/> -->
       <xsl:apply-templates select="name"/>
     </xsl:when>
+
+    <!-- Organizational / collaborative author -->
+    <xsl:when test="collab">
+      <xsl:apply-templates select="collab" mode="metadata-inline"/>
+    </xsl:when>
+
+    <!-- Collaborative author supplied as alternatives -->
+    <xsl:when test="collab-alternatives/*">
+      <xsl:apply-templates
+          select="collab-alternatives/*[1]"
+          mode="metadata-inline"/>
+    </xsl:when>
+
+    <!-- Anonymous contributor -->
+    <xsl:when test="anonymous">
+      <xsl:text>Anonymous</xsl:text>
+    </xsl:when>
+
     <xsl:otherwise>
       <!-- Fallback if <name> is absent -->
       <xsl:value-of select="normalize-space(string(.))"/>
