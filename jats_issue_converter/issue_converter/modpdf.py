@@ -15,25 +15,31 @@ def set_fastweb(pdf_file_name):
 def get_authors(doc):
     authors = []
     for author_tag in doc.xpath(".//contrib[@contrib-type='author']"):
-        prefix = ''
-        given_name = ''
-        surname = ''
-        suffix = ''
         name = ''
-        prefix_tag =  author_tag.xpath('name/prefix')
-        given_name_tag = author_tag.xpath('name/given-names')
-        surname_tag = author_tag.xpath('name/surname')
-        suffix_tag =  author_tag.xpath('name/suffix')
-        if len(prefix_tag):
-            prefix = prefix_tag[0].text.strip()
-        if len(given_name_tag):
-            given_name = given_name_tag[0].text.strip()
-        if len(surname_tag):
-            surname = surname_tag[0].text.strip()
-        if len(suffix_tag):
-            suffix = suffix_tag[0].text.strip()
-        name = ' '.join(filter(None,[prefix, given_name, surname, suffix]))
-        authors.append(name)
+        collab_tag = author_tag.xpath('collab')
+        if len(collab_tag):
+            name = ''.join(collab_tag[0].itertext()).strip()
+        else:
+            prefix = ''
+            given_name = ''
+            surname = ''
+            suffix = ''
+            prefix_tag =  author_tag.xpath('name/prefix')
+            given_name_tag = author_tag.xpath('name/given-names')
+            surname_tag = author_tag.xpath('name/surname')
+            suffix_tag =  author_tag.xpath('name/suffix')
+            if len(prefix_tag):
+                prefix = prefix_tag[0].text.strip()
+            if len(given_name_tag):
+                given_name = given_name_tag[0].text.strip()
+            if len(surname_tag):
+                surname = surname_tag[0].text.strip()
+            if len(suffix_tag):
+                suffix = suffix_tag[0].text.strip()
+            name = ' '.join(filter(None,[prefix, given_name, surname, suffix]))
+        
+        if name:
+            authors.append(name)
     print(authors, flush=True)
     return authors
 
