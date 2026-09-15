@@ -103,25 +103,31 @@ def get_subject(doc):
     if len(issue_tag):
         issue = issue_tag[0].text.strip()
 
-    fpage=''
-    lpage=''
+    fpage = ''
+    lpage = ''
+    pagerange = ''
     pages = ''
     fpage_tag = doc.xpath('.//article-meta/fpage')
-    if len(fpage_tag):
-        fpage = fpage_tag[0].text.strip()
-    print("fpage: ", fpage)
-
     lpage_tag = doc.xpath('.//article-meta/lpage')
-    if len(lpage_tag):
-        lpage = lpage_tag[0].text.strip()
-    print("lpage: ", lpage)
+    pagerange_tag = doc.xpath('.//article-meta/page-range')
+    if len(pagerange_tag):
+        pagerange = pagerange_tag[0].text.strip()
+        pages = f"Pages {pagerange}"
+    else:
+        if len(fpage_tag):
+            fpage = fpage_tag[0].text.strip()
+        print("fpage: ", fpage)
 
-    if fpage:
-        pages = " " + fpage
-        if lpage and (fpage != lpage):
-            pages = f"Pages {fpage} - {lpage}"
-        else:
-            pages = f"Page {fpage}"
+        if len(lpage_tag):
+            lpage = lpage_tag[0].text.strip()
+        print("lpage: ", lpage)
+
+        if fpage:
+            pages = " " + fpage
+            if lpage and (fpage != lpage):
+                pages = f"Pages {fpage} - {lpage}"
+            else:
+                pages = f"Page {fpage}"
         
     year = get_year(doc)
 

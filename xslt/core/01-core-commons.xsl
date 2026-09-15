@@ -838,9 +838,11 @@
 
   
 <xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" name="cjspage-info">
-    <!-- handles (fpage, lpage?, page-range?) -->
+    <!-- handles (fpage, lpage?, page-range?) -
+         coded 2026-09-15 Don Fick -->
     <xsl:if test="fpage | lpage | page-range">
       <xsl:call-template name="metadata-labeled-entry">
+
         <xsl:with-param name="label">
           <xsl:choose>
               <xsl:when test="normalize-space(string(lpage[not(. = ../fpage)])) or normalize-space(string(page-range))">
@@ -853,22 +855,35 @@
               </xsl:otherwise>  
             </xsl:choose>
         </xsl:with-param>
+
         <xsl:with-param name="contents">
-          <xsl:element name="CJSFIRSTPAGE">
-            <xsl:value-of select="fpage"/>
-          </xsl:element>
-          <xsl:if test="normalize-space(string(lpage[not(. = ../fpage)]))">
-            <xsl:text>-</xsl:text>
-            <xsl:element name="CJSASTPAGE">
-              <xsl:value-of select="lpage"/>
-            </xsl:element>
-          </xsl:if>
-          <xsl:for-each select="page-range">
-            <xsl:text> (pp. </xsl:text>
-            <xsl:value-of select="."/>
-            <xsl:text>)</xsl:text>
-          </xsl:for-each>
+          <xsl:choose>
+
+            <xsl:when test="not(normalize-space(string(page-range)))">
+
+                  <xsl:element name="CJSFIRSTPAGE">
+                    <xsl:value-of select="fpage"/>
+                  </xsl:element>
+
+                  <xsl:if test="normalize-space(string(lpage[not(. = ../fpage)]))">
+                    <xsl:text>-</xsl:text>
+                    <xsl:element name="CJSLASTPAGE">
+                      <xsl:value-of select="lpage"/>
+                    </xsl:element>
+                  </xsl:if>
+            </xsl:when>
+
+            <xsl:when test="normalize-space(string(page-range))">
+              <xsl:for-each select="page-range">
+                <xsl:text> </xsl:text>
+                <xsl:value-of select="."/>
+                <xsl:text></xsl:text>
+              </xsl:for-each>
+            </xsl:when>
+
+          </xsl:choose>
         </xsl:with-param>
+
       </xsl:call-template>
     </xsl:if>
   </xsl:template>
